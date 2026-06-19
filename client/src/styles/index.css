@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource-variable/geist";
+
+@import "./theme.css";
+@import "./base.css";
+@import "./typography.css";
+@import "./scrollbar.css";
+@import "./components.css";
+@import "./animations.css";
+@import "./utilities.css";

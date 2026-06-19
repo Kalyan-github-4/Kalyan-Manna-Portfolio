@@ -1,0 +1,25 @@
+@layer utilities {
+  .text-accent { color: var(--accent); }
+  .text-muted { color: var(--foreground-muted); }
+  .text-subtle { color: var(--foreground-subtle); }
+
+  .bg-card-surface { background-color: var(--card); }
+  .bg-secondary { background-color: var(--background-secondary); }
+  .bg-tertiary { background-color: var(--background-tertiary); }
+
+  .glow-accent { box-shadow: 0 0 0 1px var(--card-border), 0 0 24px var(--accent-glow); }
+
+  .gradient-text {
+    background: linear-gradient(135deg, oklch(0.82 0.12 293), oklch(0.68 0.19 293) 50%, oklch(0.52 0.22 293));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-balance { text-wrap: balance; }
+
+  .fade-up-initial {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}

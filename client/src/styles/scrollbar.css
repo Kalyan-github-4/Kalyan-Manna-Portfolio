@@ -1,0 +1,14 @@
+@layer base {
+  ::selection {
+    background-color: oklch(0.68 0.19 293 / 0.25);
+    color: oklch(0.93 0.01 293);
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.68 0.19 293 / 0.25);
+    border-radius: var(--radius-full);
+  }
+  ::-webkit-scrollbar-thumb:hover { background: oklch(0.68 0.19 293 / 0.45); }
+}

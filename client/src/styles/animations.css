@@ -1,0 +1,38 @@
+@layer components {
+  .available-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    background-color: var(--available);
+    box-shadow: 0 0 0 0 oklch(0.73 0.20 142 / 0.6);
+    animation: pulse-dot 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    flex-shrink: 0;
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 3rem;
+    animation: marquee-scroll 28s linear infinite;
+    width: max-content;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .available-dot { animation: none; }
+    .marquee-track { animation: none; }
+    .hero-name { transition: none; }
+    * { transition-duration: 0.01ms !important; }
+  }
+
+  @keyframes pulse-dot {
+    0% { box-shadow: 0 0 0 0 oklch(0.73 0.20 142 / 0.55); }
+    60% { box-shadow: 0 0 0 7px oklch(0.73 0.20 142 / 0); }
+    100% { box-shadow: 0 0 0 0 oklch(0.73 0.20 142 / 0); }
+  }
+
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+}
