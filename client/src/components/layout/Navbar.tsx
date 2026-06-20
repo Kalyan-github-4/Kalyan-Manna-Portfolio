@@ -28,7 +28,7 @@ export function NavBar({ items, className }: NavBarProps) {
         {/* Logo */}
         <a href="/" className="flex items-center justify-self-start">
           <img
-            src="/logo.png"
+            src="/logo-white.png"
             alt="Kalyan Manna Logo"
             width={55}
             height={55}

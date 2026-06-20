@@ -1,8 +1,7 @@
 import { useEffect } from "react"
-import GlowHorizon from "@/components/hero/GlowHorizon"
 import { HeroButtons } from "@/home/hero/HeroButtons"
-import { TechMarquee } from "@/home/hero/TechMarquee"
 import { NavBar } from "../layout/Navbar"
+import GlowHorizon from "./GlowHorizon"
 
 export default function Hero() {
   useEffect(() => {
@@ -21,12 +20,12 @@ export default function Hero() {
           { name: "Contact", href: "#contact" },
         ]}
       />
+      <GlowHorizon />
       {/* <CustomCursor /> */}
       <section
         id="home"
         className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center"
       >
-        <GlowHorizon />
         <div className="relative z-10 max-w-4xl">
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 backdrop-blur">
             <span className="relative flex h-2 w-2">
@@ -49,26 +48,55 @@ export default function Hero() {
                 alt="Kalyan Manna"
                 className="h-[1.8em] w-[3.2em] rounded-full border border-white/20 object-cover transition-transform duration-300 group-hover:rotate-6"
               />
-
-              {/* Waving hand */}
-              <span className="pointer-events-none absolute -top-6 -right-6 text-2xl opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:animate-wave">
+              <span className="pointer-events-none absolute -top-6 -right-6 z-20 text-2xl opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-hover:animate-wave-shake">
                 👋
-              </span>
-            </span>{" "}
-            a Fullstack Developer
+              </span> {" "}
+            </span>
+            {" "}a Fullstack Developer
           </h1>
 
           <HeroButtons />
         </div>
-        <TechMarquee />
+        {/* <TechMarquee /> */}
       </section>
-    </>
-  )
-}
 
-<style>{`
+      <style>{`
         .text-shadow-subtle {
           text-shadow: 0 2px 12px rgba(255, 255, 255, 0.12);
         }
-      `}
-</style>
+
+        @keyframes wave-shake {
+          0% {
+            transform: rotate(0deg);
+          }
+          15% {
+            transform: rotate(18deg);
+          }
+          30% {
+            transform: rotate(-12deg);
+          }
+          45% {
+            transform: rotate(16deg);
+          }
+          60% {
+            transform: rotate(-10deg);
+          }
+          75% {
+            transform: rotate(8deg);
+          }
+          90% {
+            transform: rotate(-4deg);
+          }
+          100% {
+            transform: rotate(0deg);
+          }
+        }
+
+        .animate-wave-shake {
+          animation: wave-shake 0.9s ease-in-out infinite;
+          transform-origin: 70% 70%;
+        }
+      `}</style>
+    </>
+  )
+}

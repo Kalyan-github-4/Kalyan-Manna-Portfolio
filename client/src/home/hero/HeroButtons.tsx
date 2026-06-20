@@ -24,10 +24,10 @@ export function HeroButtons() {
         className="group relative overflow-hidden inline-flex items-center justify-between rounded-full border border-white/20 bg-white/10 backdrop-blur-xl py-1 pl-5 pr-1 text-sm font-semibold text-white transition-all duration-500"
       >
         {/* Animated Fill */}
-        <span className="absolute right-1 top-1/2 h-7 w-7 -translate-y-1/2 rounded-full bg-white transition-all duration-700 ease-[cubic-bezier(.19,1,.22,1)] group-hover:right-0 group-hover:top-0 group-hover:h-full group-hover:w-full group-hover:translate-y-0"/>
+        <span className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-white transition-all duration-700 ease-[cubic-bezier(.19,1,.22,1)] group-hover:right-0 group-hover:top-0 group-hover:h-full group-hover:w-full group-hover:translate-y-0"/>
         
         {/* Text */}
-        <span className="relative z-10 transition-colors duration-500 group-hover:text-slate-900 text-xs">
+        <span className="relative z-10 transition-colors duration-500 group-hover:text-slate-900 text-sm">
           Let's Connect
         </span>
 
@@ -39,7 +39,7 @@ export function HeroButtons() {
       
       <button
         onClick={handleCopy}
-        className="group inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold text-zinc-300 transition-all duration-300 hover:text-zinc-200 active:scale-95 cursor-pointer"
+        className="group inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold text-zinc-400 transition-all duration-300 hover:text-zinc-300 active:scale-95 cursor-pointer"
       >
         <span className="relative flex h-5 w-5 items-center justify-center ">
           <Copy
