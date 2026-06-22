@@ -94,32 +94,43 @@
 .dark {
   color-scheme: dark;
 
-  --background: oklch(0.09 0 0);
-  --background-secondary: oklch(0.12 0 0);
-  --background-tertiary: oklch(0.15 0.01 293);
-  --foreground: oklch(0.93 0.01 293);
-  --foreground-muted: oklch(0.65 0.01 293);
-  --foreground-subtle: oklch(0.42 0.01 293);
-  --accent: oklch(0.68 0.19 293);
-  --accent-foreground: oklch(0.09 0 0);
-  --accent-glow: oklch(0.68 0.19 293 / 0.18);
-  --accent-dim: oklch(0.68 0.19 293 / 0.10);
-  --cyan: oklch(0.74 0.14 218);
-  --cyan-dim: oklch(0.74 0.14 218 / 0.10);
-  --available: oklch(0.73 0.20 142);
-  --card: oklch(0.14 0.005 293);
-  --card-foreground: oklch(0.93 0.01 293);
-  --card-border: oklch(0.68 0.19 293 / 0.12);
-  --border: oklch(1 0 0 / 0.08);
-  --input: oklch(1 0 0 / 0.10);
-  --ring: oklch(0.68 0.19 293 / 0.50);
-  --primary: oklch(0.68 0.19 293);
-  --primary-foreground: oklch(0.09 0 0);
-  --secondary: oklch(0.18 0.01 293);
-  --secondary-foreground: oklch(0.93 0.01 293);
-  --muted: oklch(0.18 0.01 293);
-  --muted-foreground: oklch(0.55 0.01 293);
-  --destructive: oklch(0.70 0.19 22);
-  --popover: oklch(0.14 0.005 293);
-  --popover-foreground: oklch(0.93 0.01 293);
+  /* Backgrounds */
+  --background: #000000;
+  --background-secondary: #080510;
+  --background-tertiary: #120b20;
+
+  /* Surfaces */
+  --card: #0d0916;
+  --popover: #0d0916;
+  --secondary: #120b20;
+
+  /* Text */
+  --foreground: #faf8ff;
+  --foreground-muted: rgba(250,248,255,.72);
+  --foreground-subtle: rgba(250,248,255,.45);
+
+  /* Brand */
+  --primary: #b4a0ff;
+  --primary-foreground: #080510;
+
+  --accent: #7d5be6;
+  --accent-foreground: #ffffff;
+
+  /* Glow */
+  --accent-glow: rgba(180,160,255,.18);
+  --accent-dim: rgba(120,90,200,.12);
+
+  /* Borders */
+  --border: rgba(180,160,255,.10);
+  --card-border: rgba(180,160,255,.14);
+  --input: rgba(255,255,255,.08);
+
+  --ring: rgba(180,160,255,.45);
+
+  --muted: #161022;
+  --muted-foreground: rgba(250,248,255,.55);
+
+  --destructive: #ff5a67;
+
+  --available: #45e98d;
 }

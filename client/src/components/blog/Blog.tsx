@@ -1,4 +1,4 @@
-import { BlogCard } from "@/home/blog/BlogCard"
+import { BlogCard } from "@/components/blog/BlogCard"
 
 const posts = [
   {

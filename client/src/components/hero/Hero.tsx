@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { HeroButtons } from "@/components/hero/HeroButtons"
 import { NavBar } from "../layout/Navbar"
 import GlowHorizon from "./GlowHorizon"
-import { AboutOrbit } from "../ui/AbouOrbit"
+import { AboutOrbit } from "../ui/AboutOrbit"
 import {
   GithubLogo,
   LinkedinLogo,
