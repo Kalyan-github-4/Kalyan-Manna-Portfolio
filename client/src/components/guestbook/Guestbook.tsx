@@ -1,5 +1,5 @@
-import { GuestbookCard } from "@/home/guestbook/GuestbookCard"
-import { GuestbookForm } from "@/home/guestbook/GuestbookForm"
+import { GuestbookCard } from "@/components/guestbook/GuestbookCard"
+import { GuestbookForm } from "@/components/guestbook/GuestbookForm"
 
 const guestbookEntries = [
   {

@@ -1,7 +1,8 @@
 import { useEffect } from "react"
-import { HeroButtons } from "@/home/hero/HeroButtons"
+import { HeroButtons } from "@/components/hero/HeroButtons"
 import { NavBar } from "../layout/Navbar"
 import GlowHorizon from "./GlowHorizon"
+import About from "../about/About"
 
 export default function Hero() {
   useEffect(() => {
@@ -59,7 +60,9 @@ export default function Hero() {
         </div>
         {/* <TechMarquee /> */}
       </section>
+      {/* <About/> */}
 
+      <About />
       <style>{`
         .text-shadow-subtle {
           text-shadow: 0 2px 12px rgba(255, 255, 255, 0.12);

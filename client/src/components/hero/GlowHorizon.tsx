@@ -8,7 +8,7 @@ export default function GlowHorizon({ className = '' }: GlowHorizonProps) {
   return (
     <div
       aria-hidden="true"
-      className={cn("pointer-events-none absolute inset-0 overflow-hidden bg-black", className)}
+      className={cn("pointer-events-none fixed -z-10 inset-0 overflow-hidden bg-black", className)}
     >
       <div className="glow-horizon-haze absolute left-1/2 h-[170vh] w-[340vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(42,26,77,0.62)_0%,rgba(28,18,52,0.36)_20%,rgba(0,0,0,0)_72%)] opacity-90 blur-[110px]" />
 

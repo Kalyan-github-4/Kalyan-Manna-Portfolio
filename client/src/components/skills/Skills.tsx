@@ -1,4 +1,4 @@
-import { SkillBadge } from "@/home/skills/SkillBadge"
+import { SkillBadge } from "@/components/skills/SkillBadge"
 
 const skills = [
   { label: "React.js", size: "sm" as const, logo: "⚛️" },
