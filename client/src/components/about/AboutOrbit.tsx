@@ -1,19 +1,34 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { AboutImage } from "../about/AboutImage"
+import { useEffect, useRef, useState } from "react"
+import { AboutImage } from "./AboutImage"
 
 export function AboutOrbit() {
-    const [scrollY, setScrollY] = useState(0)
+    const sectionRef = useRef<HTMLDivElement>(null)
+    const [progress, setProgress] = useState(0)
 
     useEffect(() => {
-        const handleScroll = () => setScrollY(window.scrollY)
+        const handleScroll = () => {
+            if (!sectionRef.current) return
+
+            const rect = sectionRef.current.getBoundingClientRect()
+            const viewportHeight = window.innerHeight
+
+            // Start when the section reaches the center of the viewport
+            const start = viewportHeight * 0.6
+            const end = -300
+
+            const value = (start - rect.top) / (start - end)
+
+            setProgress(Math.max(0, Math.min(1, value)))
+        }
+
+        handleScroll()
         window.addEventListener("scroll", handleScroll)
         return () => window.removeEventListener("scroll", handleScroll)
     }, [])
 
-    const animationProgress = Math.min(scrollY / 500, 1)
-    const expandRadius = animationProgress * 230
+const expandRadius = progress * 230
 
     // Define images without hardcoded angles
     const images = [
@@ -55,18 +70,17 @@ export function AboutOrbit() {
     ]
 
     return (
-        <div className="min-h-[200vh]">
+        <div className="min-h-[200vh]" ref={sectionRef}>
             <div className="h-screen flex items-center justify-center p-8 sticky top-0">
                 <div className="relative">
                     <div
                         className={`w-[450px] h-[450px] rounded-full flex items-center justify-center transition-all duration-500 ${
-                            scrollY > 300 ? "border-2 border-gray-200 dark:border-gray-700" : ""
-                        }`}
+    progress > 0.3 ? "border-2 border-gray-200 dark:border-gray-700" : ""
+}`}
                     >
                         <div
-                            className={`w-[360px] h-[360px] rounded-full flex items-center justify-center relative transition-all duration-500 ${
-                                scrollY > 100 ? "border-2 border-blue-100 dark:border-blue-800" : ""
-                            }`}
+                            className={`w-[360px] h-[360px] rounded-full flex items-center justify-center relative transition-all duration-500 ${progress > 0.1 ? "border-2 border-blue-100 dark:border-blue-800" : ""
+                                }`}
                         >
                             <div className="w-[280px] h-[280px] rounded-full bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 dark:from-purple-600 dark:via-pink-600 dark:to-red-600 p-0.5 flex items-center justify-center relative">
                                 <div className="w-full h-full rounded-full bg-white dark:bg-black flex items-center justify-center relative">
@@ -74,7 +88,7 @@ export function AboutOrbit() {
                                     {images.map((image, index) => {
                                         // Calculate angle evenly spaced around the circle
                                         const angle = (2 * Math.PI * index) / images.length
-                                        
+
                                         return (
                                             <div
                                                 key={image.id}
@@ -98,8 +112,8 @@ export function AboutOrbit() {
 
                                     <div
                                         className={`flex flex-col items-center justify-center relative z-20 transition-opacity duration-500 ${
-                                            scrollY > 250 ? "opacity-100" : "opacity-0"
-                                        }`}
+    progress > 0.6 ? "opacity-100" : "opacity-0"
+}`}
                                     >
                                         <AboutImage />
                                     </div>
