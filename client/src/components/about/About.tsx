@@ -60,7 +60,7 @@ export default function About() {
           custom={0.15}
           className="text-6xl leading-none font-display font-medium"
         >
-          <span className="text-white">More than code.</span>
+          <span className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text text-6xl text-transparent text-shadow-subtle">More than code.</span>
           <br />
 
           <GradientText

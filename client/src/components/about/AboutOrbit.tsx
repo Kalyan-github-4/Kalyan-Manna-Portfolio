@@ -2,6 +2,12 @@
 
 import { useEffect, useRef, useState } from "react"
 import { AboutImage } from "./AboutImage"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 export function AboutOrbit() {
     const sectionRef = useRef<HTMLDivElement>(null)
@@ -28,44 +34,51 @@ export function AboutOrbit() {
         return () => window.removeEventListener("scroll", handleScroll)
     }, [])
 
-const expandRadius = progress * 230
+    const expandRadius = progress * 230
 
     // Define images without hardcoded angles
     const images = [
         {
             id: 1,
-            src: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
-            alt: "Gym"
+            title: "I Code",
+            alt: "Coding",
+            src: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=900&auto=format&fit=crop&q=80",
         },
         {
             id: 2,
-            src: "https://images.unsplash.com/photo-1488085061387-422e29b40080?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
-            alt: "Travel"
+            title: "I Lift",
+            alt: "Gym",
+            src: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=900&auto=format&fit=crop&q=80",
         },
         {
             id: 3,
-            src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
-            alt: "Coding"
+            title: "I Explore",
+            alt: "Travel",
+            src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900&auto=format&fit=crop&q=80",
         },
         {
             id: 4,
-            src: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
-            alt: "Painting"
+            title: "I Draw",
+            alt: "Drawing",
+            src: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=900&auto=format&fit=crop&q=80",
         },
         {
             id: 5,
-            src: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
-            alt: "Gaming"
+            title: "I Play",
+            alt: "Gaming",
+            src: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=900&auto=format&fit=crop&q=80",
         },
         {
             id: 6,
-            src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
-            alt: "Leadership"
+            title: "I Run",
+            alt: "Running",
+            src: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=900&auto=format&fit=crop&q=80",
         },
         {
             id: 7,
-            src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
-            alt: "Football"
+            title: "I Create",
+            alt: "Creative Workspace",
+            src: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&auto=format&fit=crop&q=80",
         },
     ]
 
@@ -74,9 +87,8 @@ const expandRadius = progress * 230
             <div className="h-screen flex items-center justify-center p-8 sticky top-0">
                 <div className="relative">
                     <div
-                        className={`w-[450px] h-[450px] rounded-full flex items-center justify-center transition-all duration-500 ${
-    progress > 0.3 ? "border-2 border-gray-200 dark:border-gray-700" : ""
-}`}
+                        className={`w-[450px] h-[450px] rounded-full flex items-center justify-center transition-all duration-500 ${progress > 0.3 ? "border-2 border-gray-200 dark:border-gray-700" : ""
+                            }`}
                     >
                         <div
                             className={`w-[360px] h-[360px] rounded-full flex items-center justify-center relative transition-all duration-500 ${progress > 0.1 ? "border-2 border-blue-100 dark:border-blue-800" : ""
@@ -90,30 +102,40 @@ const expandRadius = progress * 230
                                         const angle = (2 * Math.PI * index) / images.length
 
                                         return (
-                                            <div
-                                                key={image.id}
-                                                className="absolute w-16 h-16 rounded-2xl overflow-hidden border-4 border-white dark:border-gray-800 shadow-lg transition-transform duration-300 ease-out z-0"
-                                                style={{
-                                                    transform: `translate(
-                                                        ${expandRadius * Math.cos(angle)}px, 
-                                                        ${expandRadius * Math.sin(angle)}px
-                                                    )`,
-                                                }}
-                                            >
-                                                <img
-                                                    src={image.src}
-                                                    alt={image.alt}
-                                                    className="w-full h-full object-cover"
-                                                    crossOrigin="anonymous"
-                                                />
-                                            </div>
+                                            <TooltipProvider key={image.id}>
+                                                <Tooltip delayDuration={100}>
+                                                    <TooltipTrigger asChild>
+                                                        <div
+                                                            className="absolute w-16 h-16 rounded-2xl overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-1 hover:shadow-violet-300/10 cursor-pointer"
+                                                            style={{
+                                                                transform: `translate(
+            ${expandRadius * Math.cos(angle)}px,
+            ${expandRadius * Math.sin(angle)}px
+          )`,
+                                                            }}
+                                                        >
+                                                            <img
+                                                                src={image.src}
+                                                                alt={image.alt}
+                                                                className="w-full h-full object-cover"
+                                                            />
+                                                        </div>
+                                                    </TooltipTrigger>
+
+                                                    <TooltipContent
+                                                        side="top"
+                                                        className="text-zinc-700  text-xs font-semibold"
+                                                    >
+                                                        {image.title}
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            </TooltipProvider>
                                         )
                                     })}
 
                                     <div
-                                        className={`flex flex-col items-center justify-center relative z-20 transition-opacity duration-500 ${
-    progress > 0.6 ? "opacity-100" : "opacity-0"
-}`}
+                                        className={`flex flex-col items-center justify-center relative z-20 transition-opacity duration-500 ${progress > 0.6 ? "opacity-100" : "opacity-0"
+                                            }`}
                                     >
                                         <AboutImage />
                                     </div>
