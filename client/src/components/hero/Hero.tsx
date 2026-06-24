@@ -3,6 +3,7 @@ import { HeroButtons } from "@/components/hero/HeroButtons"
 import { NavBar } from "../layout/Navbar"
 import GlowHorizon from "./GlowHorizon"
 import About from "../about/About"
+// import CustomCursor from "../ui/CustomCursor"
 
 export default function Hero() {
   useEffect(() => {
@@ -57,10 +58,9 @@ export default function Hero() {
           </h1>
 
           <HeroButtons />
+
         </div>
-        {/* <TechMarquee /> */}
       </section>
-      {/* <About/> */}
 
       <About />
       <style>{`
