@@ -3,10 +3,13 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-
+import { CaretDown } from "@phosphor-icons/react";
+import { AnimatePresence } from "framer-motion";
+import { MoreMenu } from "./MoreMenu";
 interface NavItem {
   name: string;
   href: string;
+  hasDropdown?: boolean;
 }
 
 interface NavBarProps {
@@ -16,6 +19,7 @@ interface NavBarProps {
 
 export function NavBar({ items, className }: NavBarProps) {
   const [active, setActive] = useState(items[0]?.href);
+  const [moreOpen, setMoreOpen] = useState(false);
 
   return (
     <header
@@ -24,7 +28,7 @@ export function NavBar({ items, className }: NavBarProps) {
         className
       )}
     >
-      <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4">
+      <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto_1fr] items-start gap-4">
         {/* Logo */}
         <a href="/" className="flex items-center justify-self-start">
           <img
@@ -37,18 +41,26 @@ export function NavBar({ items, className }: NavBarProps) {
         </a>
 
         {/* Navbar */}
-        <nav className="justify-self-center">
-          <div
-            className="
-              flex items-center gap-2
-              rounded-full
-              border border-white/10
-              bg-zinc-900/70
-              p-1.5
-              backdrop-blur-2xl
-              shadow-[0_0_30px_rgba(255,255,255,0.08)]
-            "
-          >
+        <motion.div
+          layout
+          animate={{
+            width: moreOpen ? 800 : 465,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 30,
+          }}
+          onMouseLeave={() => setMoreOpen(false)}
+          className="
+            overflow-hidden
+            rounded-[30px]
+            border border-white/10
+            bg-zinc-900/70
+            backdrop-blur-2xl
+            shadow-[0_0_30px_rgba(255,255,255,0.08)]
+          ">
+          <div className="flex items-center justify-center p-1.5">
             {items.map((item) => {
               const isActive = active === item.href;
 
@@ -57,13 +69,17 @@ export function NavBar({ items, className }: NavBarProps) {
                   key={item.href}
                   href={item.href}
                   onClick={() => setActive(item.href)}
+                  onMouseEnter={() => {
+                    if (item.hasDropdown) {
+                      setMoreOpen(true);
+                    }
+                  }}
                   className={cn(
-                    "relative flex items-center justify-center rounded-full",
+                    "relative flex items-center justify-center rounded-[30px]",
                     "px-6 py-2.5",
                     "text-sm font-medium",
                     "transition-all duration-300",
                     "md:gap-2",
-                    // Hover effect on the anchor
                     "hover:text-zinc-100"
                   )}
                 >
@@ -89,12 +105,26 @@ export function NavBar({ items, className }: NavBarProps) {
                   <span
                     className={cn(
                       "relative z-10 hidden md:block",
+                      "hover:text-zinc-100",
+                      "transition-colors duration-300",
                       // Active state takes priority
-                      isActive ? "text-white" : "text-zinc-400 group-hover:text-zinc-100"
+                      isActive ? "text-white" : "text-zinc-400 "
                     )}
                   >
                     {item.name}
                   </span>
+                  {item.hasDropdown && (
+                    <motion.div
+                      animate={{
+                        rotate: moreOpen ? 180 : 0,
+                      }}
+                    >
+                      <CaretDown
+                        size={14}
+                        className="relative z-10 text-zinc-400"
+                      />
+                    </motion.div>
+                  )}
                   {isActive && (
                     <motion.div
                       layoutId="glow"
@@ -105,7 +135,22 @@ export function NavBar({ items, className }: NavBarProps) {
               );
             })}
           </div>
-        </nav>
+
+          {/* Expandable Area */}
+          <AnimatePresence>
+            {moreOpen && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.25 }}
+                className="overflow-hidden border-t border-white/10"
+              >
+                <MoreMenu />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
 
         {/* Right Button */}
         <a
