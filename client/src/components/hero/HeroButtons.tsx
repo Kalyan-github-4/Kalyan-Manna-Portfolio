@@ -38,7 +38,7 @@ export function HeroButtons() {
 
       <button
         onClick={handleCopy}
-        className="group inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold text-zinc-400 transition-all duration-300 hover:text-zinc-300 active:scale-95 cursor-pointer"
+        className="group inline-flex items-center gap-2 px-8 py-4 text-sm font-medium text-zinc-400 transition-all duration-300 hover:text-zinc-300 active:scale-95 cursor-pointer"
       >
         <span className="relative flex h-5 w-5 items-center justify-center ">
           <Copy
