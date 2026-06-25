@@ -12,6 +12,7 @@ import {
 export function AboutOrbit() {
     const sectionRef = useRef<HTMLDivElement>(null)
     const [progress, setProgress] = useState(0)
+    const [orbitRadius, setOrbitRadius] = useState(230)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -34,7 +35,26 @@ export function AboutOrbit() {
         return () => window.removeEventListener("scroll", handleScroll)
     }, [])
 
-    const expandRadius = progress * 230
+    useEffect(() => {
+        const updateRadius = () => {
+            if (window.innerWidth < 640) {
+                setOrbitRadius(150)
+            } else if (window.innerWidth < 768) {
+                setOrbitRadius(180)
+            } else if (window.innerWidth < 1024) {
+                setOrbitRadius(200)
+            } else {
+                setOrbitRadius(230)
+            }
+        }
+
+        updateRadius()
+        window.addEventListener("resize", updateRadius)
+
+        return () => window.removeEventListener("resize", updateRadius)
+    }, [])
+
+    const expandRadius = progress * orbitRadius
 
     // Define images without hardcoded angles
     const images = [
@@ -83,18 +103,19 @@ export function AboutOrbit() {
     ]
 
     return (
-        <div className="min-h-[200vh]" ref={sectionRef}>
-            <div className="h-screen flex items-center justify-center p-8 sticky top-0">
+        <div className="min-h-[160vh] sm:min-h-[180vh] lg:min-h-[200vh]" ref={sectionRef}>
+            <div className="sticky top-0 flex h-screen items-center justify-center p-4 sm:p-6 md:p-8"
+            >
                 <div className="relative">
                     <div
-                        className={`w-[450px] h-[450px] rounded-full flex items-center justify-center transition-all duration-500 ${progress > 0.3 ? "border-2 border-gray-200 dark:border-gray-700" : ""
+                        className={`w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] md:w-[420px] md:h-[420px] lg:w-[450px] lg:h-[450px] rounded-full flex items-center justify-center transition-all duration-500 ${progress > 0.3 ? "border-2 border-gray-200 dark:border-gray-700" : ""
                             }`}
                     >
                         <div
-                            className={`w-[360px] h-[360px] rounded-full flex items-center justify-center relative transition-all duration-500 ${progress > 0.1 ? "border-2 border-blue-100 dark:border-blue-800" : ""
+                            className={`w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] md:w-[340px] md:h-[340px] lg:w-[360px] lg:h-[360px] rounded-full flex items-center justify-center relative transition-all duration-500 ${progress > 0.1 ? "border-2 border-blue-100 dark:border-blue-800" : ""
                                 }`}
                         >
-                            <div className="w-[280px] h-[280px] rounded-full bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 dark:from-purple-600 dark:via-pink-600 dark:to-red-600 p-0.5 flex items-center justify-center relative">
+                            <div className="w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px] lg:w-[280px] lg:h-[280px] rounded-full bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 dark:from-purple-600 dark:via-pink-600 dark:to-red-600 p-0.5 flex items-center justify-center relative">
                                 <div className="w-full h-full rounded-full bg-white dark:bg-black flex items-center justify-center relative">
                                     {/* Map through images with automatic angle calculation */}
                                     {images.map((image, index) => {
@@ -106,12 +127,12 @@ export function AboutOrbit() {
                                                 <Tooltip delayDuration={100}>
                                                     <TooltipTrigger asChild>
                                                         <div
-                                                            className="absolute w-16 h-16 rounded-2xl overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl transition-all duration-300 ease-out hover:scale-105 hover:-translate-y-1 hover:shadow-violet-300/10 cursor-pointer"
+                                                            className="absolute w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-2xl overflow-hidden border-4 border-white dark:border-gray-800 shadow-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:shadow-violet-300/10 cursor-pointer"
                                                             style={{
-                                                                transform: `translate(
-            ${expandRadius * Math.cos(angle)}px,
-            ${expandRadius * Math.sin(angle)}px
-          )`,
+                                                                    transform: `translate(
+                                                                    ${expandRadius * Math.cos(angle)}px,
+                                                                    ${expandRadius * Math.sin(angle)}px
+                                                                )`,
                                                             }}
                                                         >
                                                             <img

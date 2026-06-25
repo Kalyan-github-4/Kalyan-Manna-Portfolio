@@ -35,11 +35,13 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative flex min-h-screen items-center justify-between gap-24 px-10 lg:px-20"
+      className=" relative flex min-h-screen flex-col-reverse items-center justify-center gap-16 px-6 py-24 sm:px-8 md:px-10 lg:flex-row lg:justify-between lg:gap-24 lg:px-20 "
     >
       {/* Left */}
 
-      <div className="relative z-10 max-w-xl">
+      <div
+        className="relative z-10 w-full max-w-2xl text-center lg:max-w-xl lg:text-left"
+      >
 
         <motion.p
           variants={fadeUp}
@@ -47,7 +49,7 @@ export default function About() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           custom={0}
-          className="mb-6 text-xs font-medium uppercase tracking-[0.35em] text-zinc-500"
+          className="mb-5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.3em] sm:tracking-[0.35em] text-zinc-500"
         >
           More About Me
         </motion.p>
@@ -58,9 +60,9 @@ export default function About() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           custom={0.15}
-          className="text-6xl leading-none font-display font-medium"
+          className="font-display font-medium leading-tight text-4xl sm:text-5xl md:text-6xl lg:text-6xl"
         >
-          <span className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text text-6xl text-transparent text-shadow-subtle">More than code.</span>
+          <span className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text text-4xl sm:text-5xl md:text-6xl text-transparent text-shadow-subtle">More than code.</span>
           <br />
 
           <GradientText
@@ -69,7 +71,7 @@ export default function About() {
               "#1E40AF", // blue-800
               "#9333EA", // purple-600
               "#DB2777", // pink-600
-              
+
             ]}
             animationSpeed={6}
           >
@@ -83,7 +85,7 @@ export default function About() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           custom={0.3}
-          className="mt-10 text-lg leading-9 text-zinc-400"
+          className="mt-8 text-base sm:text-lg leading-8 sm:leading-9 text-zinc-400"
         >
           I'm <span className="font-semibold text-white">Kalyan Manna</span>,
           a full-stack developer who enjoys transforming ideas into polished,
@@ -97,7 +99,7 @@ export default function About() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           custom={0.45}
-          className="mt-8 text-lg leading-9 text-zinc-400"
+          className="mt-6 sm:mt-8 text-base sm:text-lg leading-8 sm:leading-9 text-zinc-400"
         >
           Beyond programming you'll usually find me in the gym, sketching,
           travelling, or experimenting with new technologies. Every project is
@@ -112,7 +114,7 @@ export default function About() {
           custom={0.6}
         >
           <TooltipProvider>
-            <div className="mt-14 flex items-center gap-10">
+            <div className=" mt-10 sm:mt-12 flex justify-center lg:justify-start items-center gap-6 sm:gap-8">
               {[
                 {
                   icon: GithubLogo,
@@ -138,7 +140,7 @@ export default function About() {
                       rel="noopener noreferrer"
                       className="text-zinc-500 transition-all duration-300 hover:scale-110 hover:text-violet-300"
                     >
-                      <Icon size={28} weight="duotone" />
+                      <Icon size={24} className="sm:w-7 sm:h-7" weight="duotone"/>
                     </a>
                   </TooltipTrigger>
 
@@ -160,7 +162,7 @@ export default function About() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         custom={0.3}
-        className="relative z-10 shrink-0"
+        className=" relative z-10 flex justify-center w-full lg:w-auto shrink-0"
       >
         <AboutOrbit />
       </motion.div>
