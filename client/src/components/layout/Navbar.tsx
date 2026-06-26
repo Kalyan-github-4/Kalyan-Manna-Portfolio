@@ -62,15 +62,22 @@ export function NavBar({ items, className }: NavBarProps) {
           ">
           <div className="flex items-center justify-center p-1.5">
             {items.map((item) => {
-              const isActive = active === item.href;
+              const isActive = !item.hasDropdown && active === item.href;
 
               return (
                 <a
                   key={item.href}
                   href={item.href}
-                  onClick={() => setActive(item.href)}
-                  onMouseEnter={() => {
+                  onClick={() => {
                     if (item.hasDropdown) {
+                      setMoreOpen((prev) => !prev);
+                      return;
+                    }
+
+                    setActive(item.href);
+                  }}
+                  onMouseEnter={() => {
+                    if (item.hasDropdown && !moreOpen) {
                       setMoreOpen(true);
                     }
                   }}
