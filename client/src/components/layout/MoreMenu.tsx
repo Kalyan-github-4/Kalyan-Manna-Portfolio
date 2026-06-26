@@ -2,6 +2,7 @@
 
 import { LinkSimple, BookOpenText, IdentificationCard } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const bigCards = [
   {
@@ -9,12 +10,14 @@ const bigCards = [
     subtitle: "Let me know you were here",
     image:
       "https://images.unsplash.com/photo-1517842645767-c639042777db?w=800",
+    href: "/guestbook",
   },
   {
     title: "Bucket List",
     subtitle: "Dreams with a deadline",
     image:
       "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800",
+    href: "/bucket-list",
   },
 ];
 
@@ -23,29 +26,33 @@ const smallCards = [
     title: "Links",
     subtitle: "All my links are here",
     icon: LinkSimple,
+    href: "/links",
   },
   {
     title: "Uses",
     subtitle: "A peek into my digital setup",
     icon: BookOpenText,
+    href: "/uses",
   },
   {
     title: "Attribution",
     subtitle: "Journey to create this site",
     icon: IdentificationCard,
+    href: "/attribution",
   },
 ];
-
 export function MoreMenu() {
+  const MotionLink = motion(Link);
+
   return (
     <div className="grid grid-cols-[1fr_1fr_1fr] gap-3 p-3">
       {/* Left Cards */}
       {bigCards.map((card) => (
-        <motion.a
+        <MotionLink
+          key={card.title}
+          to={card.href}
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.2 }}
-          href="#"
-          key={card.title}
           className="group relative h-55 overflow-hidden rounded-3xl"
         >
           <img
@@ -65,7 +72,7 @@ export function MoreMenu() {
               {card.subtitle}
             </p>
           </div>
-        </motion.a>
+        </MotionLink>
       ))}
 
       {/* Right Column */}
@@ -74,9 +81,9 @@ export function MoreMenu() {
           const Icon = card.icon;
 
           return (
-            <motion.a
+            <MotionLink
               key={card.title}
-              href="#"
+              to={card.href}
               className="
                 group flex flex-1 items-center gap-4
                 rounded-2xl
@@ -103,7 +110,7 @@ export function MoreMenu() {
                   {card.subtitle}
                 </p>
               </div>
-            </motion.a>
+            </MotionLink>
           );
         })}
       </div>
