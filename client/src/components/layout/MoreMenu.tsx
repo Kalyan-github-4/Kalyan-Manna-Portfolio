@@ -10,14 +10,14 @@ const bigCards = [
     subtitle: "Let me know you were here",
     image:
       "https://images.unsplash.com/photo-1517842645767-c639042777db?w=800",
-    href: "/guestbook",
+    href: "/more/guestbook",
   },
   {
     title: "Bucket List",
     subtitle: "Dreams with a deadline",
     image:
       "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800",
-    href: "/bucket-list",
+    href: "/more/bucket-list",
   },
 ];
 
@@ -26,19 +26,19 @@ const smallCards = [
     title: "Links",
     subtitle: "All my links are here",
     icon: LinkSimple,
-    href: "/links",
+    href: "/more/links",
   },
   {
     title: "Uses",
     subtitle: "A peek into my digital setup",
     icon: BookOpenText,
-    href: "/uses",
+    href: "/more/uses",
   },
   {
     title: "Attribution",
     subtitle: "Journey to create this site",
     icon: IdentificationCard,
-    href: "/attribution",
+    href: "/more/attribution",
   },
 ];
 export function MoreMenu() {

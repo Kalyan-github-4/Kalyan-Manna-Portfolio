@@ -12,6 +12,7 @@ interface NavItem {
   name: string;
   href: string;
   hasDropdown?: boolean;
+  items?: NavItem[];
 }
 
 interface NavBarProps {
@@ -164,8 +165,7 @@ export function NavBar({ items, className }: NavBarProps) {
         </motion.div>
 
         {/* Right Button */}
-        <Link
-          to="#contact"
+        <button
           className="
             justify-self-end
             rounded-full
@@ -177,10 +177,11 @@ export function NavBar({ items, className }: NavBarProps) {
             backdrop-blur-2xl
             transition
             hover:bg-zinc-800
+            cursor-pointer
           "
         >
           Let's Talk
-        </Link>
+        </button>
       </div>
       <div className="flex justify-center md:hidden">
         <Drawer>
