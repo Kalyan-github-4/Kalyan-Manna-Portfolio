@@ -1,6 +1,5 @@
 import { useEffect } from "react"
 import { HeroButtons } from "@/components/hero/HeroButtons"
-import { NavBar } from "../layout/Navbar"
 import GlowHorizon from "./GlowHorizon"
 import About from "../about/About"
 import { CaretRight } from "@phosphor-icons/react"
@@ -13,19 +12,7 @@ export default function Hero() {
 
   return (
     <>
-      <NavBar
-        items={[
-          { name: "Home", href: "#home" },
-          { name: "About", href: "#about" },
-          { name: "Work", href: "#work" },
-          { name: "Blog", href: "#blog" },
-          {
-            name: "More",
-            href: "#",
-            hasDropdown: true,
-          },
-        ]}
-      />
+
       <GlowHorizon />
       <section
         id="home"

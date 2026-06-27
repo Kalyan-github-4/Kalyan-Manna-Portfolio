@@ -1,5 +1,4 @@
 import GradientText from "../GradientText";
-import { NavBar } from "../layout/Navbar";
 import CreateGuestCard from "./components/CreateGuestCard";
 import GuestCard from "./components/GuestCard";
 import { sampleEntries } from "./data/sampleEntries";
@@ -7,19 +6,6 @@ import { sampleEntries } from "./data/sampleEntries";
 function GuestBook() {
   return (
     <div>
-      <NavBar
-        items={[
-          { name: "Home", href: "#home" },
-          { name: "About", href: "#about" },
-          { name: "Work", href: "#work" },
-          { name: "Blog", href: "#blog" },
-          {
-            name: "More",
-            href: "#",
-            hasDropdown: true,
-          },
-        ]}
-      />
       <section className="pt-28 min-h-screen flex flex-col justify-center">
         {/* Header Section */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
