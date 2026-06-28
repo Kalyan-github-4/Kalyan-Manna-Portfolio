@@ -2,17 +2,30 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CaretDown } from "@phosphor-icons/react";
 import { AnimatePresence } from "framer-motion";
 import { MoreMenu } from "./MoreMenu";
-import { Link } from "react-router-dom";
-import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
+import { Link, useLocation } from "react-router-dom";
+import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from "../ui/drawer";
+import type { Icon } from "@phosphor-icons/react";
+import {
+  House,
+  User,
+  FolderOpen,
+  FileText,
+  BookOpen,
+  ListChecks,
+  Laptop,
+  Trophy,
+  LinkSimple,
+} from "@phosphor-icons/react";
 interface NavItem {
   name: string;
   href: string;
   hasDropdown?: boolean;
   items?: NavItem[];
+  icon?: Icon;
 }
 
 interface NavBarProps {
@@ -20,9 +33,61 @@ interface NavBarProps {
   className?: string;
 }
 
+// Fallback icon map keyed by href, used if an item doesn't carry its own `icon`.
+// Lets you redesign without having to touch every call-site that builds `items`.
+const FALLBACK_ICONS: Record<string, Icon> = {
+  "/": House,
+  "/about": User,
+  "/work": FolderOpen,
+  "/blog": FileText,
+  "/more/guestbook": BookOpen,
+  "/more/bucket-list": ListChecks,
+  "/more/links": LinkSimple,
+  "/more/uses": Laptop,
+  "/more/attribution": Trophy,
+};
+function resolveIcon(item: NavItem): Icon {
+  return item.icon ?? FALLBACK_ICONS[item.href] ?? FileText;
+}
 export function NavBar({ items, className }: NavBarProps) {
-  const [active, setActive] = useState(items[0]?.href);
+  const { pathname } = useLocation();
   const [moreOpen, setMoreOpen] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
+
+  const greeting = useMemo(() => {
+    const hour = new Date().getHours();
+
+    if (hour < 12) {
+      return {
+        text: "Good Morning",
+        icon: "🌅",
+      };
+    }
+
+    if (hour < 17) {
+      return {
+        text: "Good Afternoon",
+        icon: "☀️",
+      };
+    }
+
+    return {
+      text: "Good Evening",
+      icon: "🌙",
+    };
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIntroDone(true);
+    }, 1800);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const mobileItems = items.flatMap((item) =>
+    item.hasDropdown ? (item.items ?? []) : item
+  );
 
   return (
     <header
@@ -33,6 +98,7 @@ export function NavBar({ items, className }: NavBarProps) {
     >
       {/* Desktop */}
       <div className="hidden md:grid mx-auto max-w-7xl grid-cols-[1fr_auto_1fr] items-start gap-4">
+
         {/* Logo */}
         <Link to="/" className="flex items-center justify-self-start">
           <img
@@ -48,12 +114,12 @@ export function NavBar({ items, className }: NavBarProps) {
         <motion.div
           layout
           animate={{
-            width: moreOpen ? 800 : 465,
+            width: !introDone ? 250 : moreOpen ? 800 : 465,
           }}
           transition={{
             type: "spring",
-            stiffness: 300,
-            damping: 30,
+            stiffness: 220,
+            damping: 26,
           }}
           onMouseLeave={() => setMoreOpen(false)}
           className="
@@ -64,46 +130,72 @@ export function NavBar({ items, className }: NavBarProps) {
             backdrop-blur-2xl
             shadow-[0_0_30px_rgba(255,255,255,0.08)]
           ">
-          <div className="flex items-center justify-center p-1.5">
-            {items
-              .map((item) => {
-                const isActive = !item.hasDropdown && active === item.href;
+          <div className="relative flex h-[52px] items-center justify-center overflow-hidden">
+            <AnimatePresence mode="wait">
+              {!introDone ? (
+                <motion.div
+                  key="greeting"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{
+                    duration: 0.35,
+                  }}
+                  className="flex items-center gap-3 text-white font-medium">
+                  {greeting.icon}
+                  <span>{greeting.text}</span>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="navbar"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{
+                    staggerChildren: 0.07,
+                    delayChildren: 0.05,
+                  }}
+                  className="flex items-center justify-center p-1.5"
+                >
+                  {items
+                    .map((item) => {
+                      const isActive = item.hasDropdown
+                        ? pathname.startsWith("/more")
+                        : item.href === "/"
+                          ? pathname === "/"
+                          : pathname.startsWith(item.href);
 
-                return (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    onClick={() => {
-                      if (item.hasDropdown) {
-                        setMoreOpen((prev) => !prev);
-                        return;
-                      }
-
-                      setActive(item.href);
-                    }}
-                    onMouseEnter={() => {
-                      if (item.hasDropdown && !moreOpen) {
-                        setMoreOpen(true);
-                      }
-                    }}
-                    className={cn(
-                      "relative flex items-center justify-center rounded-[30px]",
-                      "px-6 py-2.5",
-                      "text-sm font-medium",
-                      "transition-all duration-300",
-                      "md:gap-2",
-                      "hover:text-zinc-100"
-                    )}
-                  >
-                    {isActive && (
-                      <motion.div
-                        layoutId="active-pill"
-                        transition={{
-                          type: "spring",
-                          stiffness: 350,
-                          damping: 30,
-                        }}
-                        className="
+                      return (
+                        <Link
+                          key={item.href}
+                          to={item.href}
+                          onClick={() => {
+                            if (item.hasDropdown) {
+                              setMoreOpen((prev) => !prev);
+                            }
+                          }}
+                          onMouseEnter={() => {
+                            if (item.hasDropdown && !moreOpen) {
+                              setMoreOpen(true);
+                            }
+                          }}
+                          className={cn(
+                            "relative flex items-center justify-center rounded-[30px]",
+                            "px-6 py-2.5",
+                            "text-sm font-medium",
+                            "transition-all duration-300",
+                            "md:gap-2",
+                            "hover:text-zinc-100"
+                          )}
+                        >
+                          {isActive && (
+                            <motion.div
+                              layoutId="active-pill"
+                              transition={{
+                                type: "spring",
+                                stiffness: 350,
+                                damping: 30,
+                              }}
+                              className="
                         absolute inset-0 rounded-full
                         border border-white/10
                         bg-linear-to-b
@@ -111,41 +203,44 @@ export function NavBar({ items, className }: NavBarProps) {
                         to-zinc-700/40
                         shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_0_12px_rgba(255,255,255,0.08)]
                       "
-                      />
-                    )}
+                            />
+                          )}
 
-                    <span
-                      className={cn(
-                        "relative z-10 hidden md:block",
-                        "hover:text-zinc-100",
-                        "transition-colors duration-300",
-                        // Active state takes priority
-                        isActive ? "text-white" : "text-zinc-400 "
-                      )}
-                    >
-                      {item.name}
-                    </span>
-                    {item.hasDropdown && (
-                      <motion.div
-                        animate={{
-                          rotate: moreOpen ? 180 : 0,
-                        }}
-                      >
-                        <CaretDown
-                          size={14}
-                          className="relative z-10 text-zinc-400"
-                        />
-                      </motion.div>
-                    )}
-                    {isActive && (
-                      <motion.div
-                        layoutId="glow"
-                        className="absolute -top-1 left-1/2 h-1.5 w-8 -translate-x-1/2 rounded-full bg-zinc-200 opacity-70"
-                      />
-                    )}
-                  </Link>
-                );
-              })}
+                          <span
+                            className={cn(
+                              "relative z-10 hidden md:block",
+                              "hover:text-zinc-100",
+                              "transition-colors duration-300",
+                              // Active state takes priority
+                              isActive ? "text-white" : "text-zinc-400 "
+                            )}
+                          >
+                            {item.name}
+                          </span>
+                          {item.hasDropdown && (
+                            <motion.div
+                              animate={{
+                                rotate: moreOpen ? 180 : 0,
+                              }}
+                            >
+                              <CaretDown
+                                size={14}
+                                className="relative z-10 text-zinc-400"
+                              />
+                            </motion.div>
+                          )}
+                          {isActive && (
+                            <motion.div
+                              layoutId="glow"
+                              className="absolute -top-1 left-1/2 h-1.5 w-8 -translate-x-1/2 rounded-full bg-zinc-200 opacity-70"
+                            />
+                          )}
+                        </Link>
+                      );
+                    })}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Expandable Area */}
@@ -165,97 +260,102 @@ export function NavBar({ items, className }: NavBarProps) {
         </motion.div>
 
         {/* Right Button */}
-        <button
-          className="
-            justify-self-end
-            rounded-full
-            border border-white/10
-            bg-zinc-900/70
-            px-6 py-3
-            text-sm font-medium
-            text-white
-            backdrop-blur-2xl
-            transition
-            hover:bg-zinc-800
-            cursor-pointer
-          "
-        >
-          Let's Talk
-        </button>
+        <div className="h-[52px] flex items-center justify-end">
+          <button
+            className="self-center justify-self-end items-center bg-zinc-900/70 px-4 py-2 text-xs font-medium text-white backdrop-blur-2xl transition hover:bg-zinc-800 inset-0 rounded-full border border-white/10 bg-linear-to-b from-zinc-600/70 to-zinc-700/40
+            shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_0_12px_rgba(255,255,255,0.08)] cursor-pointer"
+          >
+            Book a Call
+          </button>
+        </div>
       </div>
-      <div className="flex justify-center md:hidden">
+      <div className="flex justify-center md:hidden cursor-pointer">
         <Drawer>
           <DrawerTrigger asChild>
-            <button
+            <motion.button
+              whileTap={{ scale: 0.96 }}
               className="
-                flex
-                w-3/5
-                max-w-sm
-                items-center
-                justify-around
-                gap-3
-                rounded-full
-                border
-                border-white/10
-                bg-zinc-900/70
-                
-                backdrop-blur-2xl
-              "
+          flex items-center gap-20
+          rounded-full border border-white/10
+          bg-zinc-900/70 backdrop-blur-2xl
+          px-3 py-1.5
+          shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_0_20px_rgba(255,255,255,0.06)]
+        "
             >
               <img
                 src="/logo-white.png"
                 alt="Logo"
-                className="h-10 w-10"
+                className="h-8 w-8 object-contain"
               />
-
-              <span className="font-medium text-white uppercase">
+              <span className="pr-1 text-sm font-semibold uppercase tracking-wide text-white">
                 Kalyan
               </span>
-            </button>
+            </motion.button>
           </DrawerTrigger>
 
           <DrawerContent
-            className="
-            max-h-[80vh]
-            max-w-sm
-            overflow-y-auto
-            rounded-3xl
-            border-white/10
-            bg-zinc-900/90
-            backdrop-blur-3xl
-          "
+            className="mx-auto w-[88vw] max-w-sm rounded-3xl border border-white/10 bg-zinc-900/90 backdrop-blur-3xl pb-4 "
           >
-            <div className="space-y-4">
-
-              <h2 className="text-center text-xl font-semibold text-white">
-                Navigation
+            <div className="space-y-5 px-5 pt-2">
+              <h2 className="text-center text-base font-medium text-zinc-400">
+                Navigate
               </h2>
 
               <div className="grid grid-cols-2 gap-3">
+                {mobileItems.map((item) => {
+                  const isActive =
+                    item.href === "/"
+                      ? pathname === "/"
+                      : pathname.startsWith(item.href);
+                  const ItemIcon = resolveIcon(item);
 
-                {items
-                .filter((item) => !item.hasDropdown)
-                .map((item) => (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    className="
-                      rounded-xl
-                      border border-white/10
-                      bg-white/5
-                      p-4
-                      text-center
-                      text-zinc-300
-                      transition
-                      hover:bg-white/10
-                    "
-                  >
-                    {item.name}
-                  </Link>
-                ))}
+                  return (
+                    <DrawerClose asChild key={item.href}>
+                      <Link
+                        to={item.href}
+                        className={cn(
+                          "flex items-center gap-3 rounded-2xl p-2 transition-colors",
+                          isActive
+                            ? "bg-white/10 text-white"
+                            : "text-zinc-300 hover:bg-white/10 hover:text-white"
+                        )}
+                      >
+                        <span
+                          className={cn(
+                            "flex h-9 w-9 shrink-0 items-center justify-center rounded-xl",
+                            isActive ? "bg-white/15" : "bg-white/5"
+                          )}
+                        >
+                          <ItemIcon size={16} weight="regular" />
+                        </span>
 
+                        <div className="flex flex-1 items-center justify-between">
+                          <span className="text-xs font-medium">{item.name}</span>
+
+                          {isActive && (
+                            <motion.span
+                              layoutId="mobile-active-dot"
+                              animate={{
+                                boxShadow: [
+                                  "0 0 6px rgba(255,255,255,0.5)",
+                                  "0 0 12px rgba(255,255,255,0.9)",
+                                  "0 0 6px rgba(255,255,255,0.5)",
+                                ],
+                              }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                              }}
+                              className="mr-2 h-2 w-2 rounded-full bg-white"
+                            />
+                          )}
+                        </div>
+                      </Link>
+                    </DrawerClose>
+                  );
+                })}
               </div>
-
             </div>
           </DrawerContent>
         </Drawer>
