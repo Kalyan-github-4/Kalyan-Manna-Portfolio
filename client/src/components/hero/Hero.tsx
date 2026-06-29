@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { HeroButtons } from "@/components/hero/HeroButtons"
 import GlowHorizon from "./GlowHorizon"
-import About from "../about/About"
 import { CaretRight } from "@phosphor-icons/react"
 
 export default function Hero() {
@@ -66,8 +65,6 @@ export default function Hero() {
 
         </div>
       </section>
-
-      <About />
       <style>{`
         .text-shadow-subtle {
           text-shadow: 0 2px 12px rgba(255, 255, 255, 0.12);
