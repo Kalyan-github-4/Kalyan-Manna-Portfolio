@@ -1,10 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useEffect, useMemo, useState } from "react";
 import { CaretDown } from "@phosphor-icons/react";
-import { AnimatePresence } from "framer-motion";
 import { MoreMenu } from "./MoreMenu";
 import { Link, useLocation } from "react-router-dom";
 import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from "../ui/drawer";
@@ -20,6 +19,7 @@ import {
   Trophy,
   LinkSimple,
 } from "@phosphor-icons/react";
+
 interface NavItem {
   name: string;
   href: string;
@@ -34,7 +34,6 @@ interface NavBarProps {
 }
 
 // Fallback icon map keyed by href, used if an item doesn't carry its own `icon`.
-// Lets you redesign without having to touch every call-site that builds `items`.
 const FALLBACK_ICONS: Record<string, Icon> = {
   "/": House,
   "/about": User,
@@ -46,13 +45,27 @@ const FALLBACK_ICONS: Record<string, Icon> = {
   "/more/uses": Laptop,
   "/more/attribution": Trophy,
 };
+
 function resolveIcon(item: NavItem): Icon {
   return item.icon ?? FALLBACK_ICONS[item.href] ?? FileText;
 }
+
 export function NavBar({ items, className }: NavBarProps) {
   const { pathname } = useLocation();
   const [moreOpen, setMoreOpen] = useState(false);
   const [introDone, setIntroDone] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Scroll detection
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50); // Hide after scrolling 50px
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const greeting = useMemo(() => {
     const hour = new Date().getHours();
@@ -92,23 +105,39 @@ export function NavBar({ items, className }: NavBarProps) {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-6 z-50 px-4 md:px-10",
+        "fixed inset-x-0 top-6 z-50 px-4 md:px-6 lg:px-8",
         className
       )}
     >
       {/* Desktop */}
-      <div className="hidden md:grid mx-auto max-w-7xl grid-cols-[1fr_auto_1fr] items-start gap-4">
+      <div className="hidden md:grid w-full grid-cols-[1fr_auto_1fr] items-start gap-4">
 
-        {/* Logo */}
-        <Link to="/" className="flex items-center justify-self-start">
-          <img
-            src="/logo-white.png"
-            alt="Kalyan Manna Logo"
-            width={55}
-            height={55}
-            className="object-contain"
-          />
-        </Link>
+        {/* Logo - with scroll visibility */}
+        <motion.div
+          className="flex items-center justify-self-start"
+          animate={{
+            opacity: isScrolled ? 0 : 1,
+            scale: isScrolled ? 0.8 : 1,
+            x: isScrolled ? -20 : 0,
+          }}
+          transition={{
+            duration: 0.4,
+            ease: "easeInOut",
+          }}
+          style={{
+            pointerEvents: isScrolled ? "none" : "auto",
+          }}
+        >
+          <Link to="/">
+            <img
+              src="/logo-white.png"
+              alt="Kalyan Manna Logo"
+              width={55}
+              height={55}
+              className="object-contain"
+            />
+          </Link>
+        </motion.div>
 
         {/* Navbar */}
         <motion.div
@@ -211,7 +240,6 @@ export function NavBar({ items, className }: NavBarProps) {
                               "relative z-10 hidden md:block",
                               "hover:text-zinc-100",
                               "transition-colors duration-300",
-                              // Active state takes priority
                               isActive ? "text-white" : "text-zinc-400 "
                             )}
                           >
@@ -259,16 +287,32 @@ export function NavBar({ items, className }: NavBarProps) {
           </AnimatePresence>
         </motion.div>
 
-        {/* Right Button */}
-        <div className="h-[52px] flex items-center justify-end">
+        {/* Right Button - with scroll visibility */}
+        <motion.div
+          className="h-[52px] flex items-center justify-end"
+          animate={{
+            opacity: isScrolled ? 0 : 1,
+            scale: isScrolled ? 0.8 : 1,
+            x: isScrolled ? 20 : 0,
+          }}
+          transition={{
+            duration: 0.4,
+            ease: "easeInOut",
+          }}
+          style={{
+            pointerEvents: isScrolled ? "none" : "auto",
+          }}
+        >
           <button
             className="self-center justify-self-end items-center bg-zinc-900/70 px-4 py-2 text-xs font-medium text-white backdrop-blur-2xl transition hover:bg-zinc-800 inset-0 rounded-full border border-white/10 bg-linear-to-b from-zinc-600/70 to-zinc-700/40
             shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_0_12px_rgba(255,255,255,0.08)] cursor-pointer"
           >
             Book a Call
           </button>
-        </div>
+        </motion.div>
       </div>
+
+      {/* Mobile */}
       <div className="flex justify-center md:hidden cursor-pointer">
         <Drawer>
           <DrawerTrigger asChild>
