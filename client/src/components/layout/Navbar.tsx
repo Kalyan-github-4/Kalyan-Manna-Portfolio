@@ -55,17 +55,35 @@ export function NavBar({ items, className }: NavBarProps) {
   const [moreOpen, setMoreOpen] = useState(false);
   const [introDone, setIntroDone] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
 
-  // Scroll detection
+  // Scroll detection with show/hide logic
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 50); // Hide after scrolling 50px
+      const currentScrollPos = window.scrollY;
+      
+      // Determine if scrolling down or up
+      const isScrollingDown = currentScrollPos > prevScrollPos;
+      
+      // Hide navbar when scrolling down and past threshold
+      // Show navbar when scrolling up (even slightly)
+      if (isScrollingDown && currentScrollPos > 50) {
+        setIsVisible(false);
+        setIsScrolled(true);
+      } else if (!isScrollingDown) {
+        setIsVisible(true);
+        setIsScrolled(currentScrollPos > 50);
+      } else {
+        setIsScrolled(currentScrollPos > 50);
+      }
+      
+      setPrevScrollPos(currentScrollPos);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [prevScrollPos]);
 
   const greeting = useMemo(() => {
     const hour = new Date().getHours();
@@ -103,11 +121,20 @@ export function NavBar({ items, className }: NavBarProps) {
   );
 
   return (
-    <header
+    <motion.header
       className={cn(
         "fixed inset-x-0 top-6 z-50 px-4 md:px-6 lg:px-8",
         className
       )}
+      initial={{ y: 0, opacity: 1 }}
+      animate={{
+        y: isVisible ? 0 : -120,
+        opacity: isVisible ? 1 : 0,
+      }}
+      transition={{
+        duration: 0.3,
+        ease: "easeInOut",
+      }}
     >
       {/* Desktop */}
       <div className="hidden md:grid w-full grid-cols-[1fr_auto_1fr] items-start gap-4">
@@ -404,6 +431,6 @@ export function NavBar({ items, className }: NavBarProps) {
           </DrawerContent>
         </Drawer>
       </div>
-    </header>
+    </motion.header>
   );
 }

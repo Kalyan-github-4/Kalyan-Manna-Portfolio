@@ -162,7 +162,7 @@ export default function HeroAboutTransition() {
               {" "}a Fullstack Developer
             </h1>
 
-            <div className="mt-8 sm:mt-10">
+            <div className="mt-8 sm:mt-10 z-99">
               <HeroButtons />
             </div>
           </div>
@@ -189,14 +189,13 @@ export default function HeroAboutTransition() {
         </motion.div>
 
         {/* ================= ABOUT CONTENT ================= */}
-        {/* ================= ABOUT CONTENT ================= */}
         <motion.div
           style={{
             opacity: aboutOpacity,
             x: aboutX,
             filter: useTransform(aboutBlur, (v) => `blur(${v}px)`),
           }}
-          className="pointer-events-auto absolute left-0 top-0 z-30 flex min-h-screen w-full items-center px-5 sm:px-8 lg:px-16"
+          className="pointer-events-none absolute left-0 top-0 z-30 flex min-h-screen w-full items-center px-5 sm:px-8 lg:px-16"
         >
           <div className="pointer-events-auto relative z-10 w-full max-w-2xl text-center lg:max-w-xl lg:text-left">
             <motion.p

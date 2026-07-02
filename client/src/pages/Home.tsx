@@ -1,11 +1,15 @@
-import Hero from "@/components/hero/Hero"
-import Footer from "@/components/layout/Footer"
+import Hero from "@/components/hero/Hero";
+import Project from "../components/work/Project.tsx";
+import Footer from "../components/layout/Footer";
 
-export default function Home() {
+function Home() {
   return (
     <>
       <Hero />
+      <Project />
       <Footer />
     </>
-  )
+  );
 }
+
+export default Home;

@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@fontsource-variable/geist": "^5.2.9",
+    "@gsap/react": "^2.1.2",
     "@phosphor-icons/react": "^2.1.10",
     "@tabler/icons-react": "^3.44.0",
     "@tailwindcss/vite": "^4",
@@ -22,6 +23,7 @@
     "framer-motion": "^12.40.0",
     "gsap": "^3.15.0",
     "motion": "^12.41.0",
+    "ogl": "^1.0.11",
     "radix-ui": "^1.6.0",
     "react": "^19.2.6",
     "react-bootstrap-icons": "^1.11.6",
