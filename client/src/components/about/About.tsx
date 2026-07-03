@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { AboutOrbit } from "./AboutOrbit";
+// import { AboutOrbit } from "./AboutOrbit";
 import {
   GithubLogo,
   LinkedinLogo,
@@ -15,6 +15,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import GradientText from "../GradientText";
+import { AboutCarousel } from "./AboutCarousel";
 
 // Transition now lives INSIDE the variant, driven by `custom` (stagger index)
 const fadeUp = {
@@ -32,7 +33,33 @@ const fadeUp = {
     },
   }),
 };
-
+const images = [
+  {
+    src: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=900&auto=format&fit=crop&q=60",
+    alt: "Code on dark screen with vibrant syntax highlighting",
+    title: "I Code",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=900&auto=format&fit=crop",
+    alt: "MacBook with code and coffee",
+    title: "I Build",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&auto=format&fit=crop&q=60",
+    alt: "Diverse team collaborating around table",
+    title: "I Collaborate",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=900&auto=format&fit=crop",
+    alt: "Developer thinking at desk",
+    title: "I Solve",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?q=80&w=900&auto=format&fit=crop",
+    alt: "Developer workspace with code",
+    title: "I Create",
+  },
+];
 export default function About() {
   const contentRef = useRef(null);
 
@@ -105,12 +132,18 @@ export default function About() {
             variants={fadeUp}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
+            className="mt-4 sm:mt-6 text-base sm:text-lg leading-8 sm:leading-9 text-zinc-400"
+          >
+            When I'm not immersed in work, I'm exploring new ideas and staying curious. Life's about balance, and I love embracing every part of it.
+          </motion.p>
+          <motion.p
+            custom={3}
+            variants={fadeUp}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
             className="mt-6 sm:mt-8 text-base sm:text-lg leading-8 sm:leading-9 text-zinc-400"
           >
-            My core stack revolves around React, Next.js, Node.js, Express, PostgreSQL,
-            TypeScript, and Expo, allowing me to build complete end-to-end applications.
-            I'm constantly exploring better patterns, modern tooling, and best practices
-            to write software that's reliable, performant, and built to scale.
+            I believe in waking up each day eager to make a difference!
           </motion.p>
 
           <motion.div
@@ -120,7 +153,7 @@ export default function About() {
             animate={isInView ? "visible" : "hidden"}
           >
             <TooltipProvider>
-              <div className=" mt-10 sm:mt-12 flex justify-center lg:justify-start items-center gap-6 sm:gap-8">
+              <div className="mt-5 sm:mt-7 flex justify-center lg:justify-start items-center gap-6 sm:gap-8">
                 {[
                   {
                     icon: GithubLogo,
@@ -167,9 +200,9 @@ export default function About() {
           variants={fadeUp}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className=" relative z-10 flex justify-center w-full lg:w-auto shrink-0"
+          className="relative flex w-full max-w-[560px] flex-col items-center justify-center overflow-hidden"
         >
-          <AboutOrbit />
+          <AboutCarousel images={images} />
         </motion.div>
 
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.08)_60%,rgba(0,0,0,0.85)_100%)]" />
