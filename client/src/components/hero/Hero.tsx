@@ -1,19 +1,152 @@
 import { useRef } from "react"
-import {
-  motion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion"
+import { motion, useScroll, useSpring, useTransform } from "framer-motion"
 import GlowHorizon from "@/components/hero/GlowHorizon"
-import { HeroButtons } from "@/components/hero/HeroButtons"
-import { CaretRight } from "@phosphor-icons/react"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { AboutContent } from "@/components/hero/AboutContent"
+import { HeroContent } from "@/components/hero/HeroContent"
+import { ProfileImage } from "@/components/hero/ProfileImage"
 import GradientText from "../GradientText"
-import { GithubLogo, LinkedinLogo, XLogo } from "@phosphor-icons/react"
 
-export default function HeroAboutTransition() {
-  const sectionRef = useRef<HTMLElement | null>(null)
+import type { AboutSlide } from "@/components/hero/types"
+
+const aboutSlides: AboutSlide[] = [
+  {
+    title: (
+      <>
+        Hi, I&apos;m{" "}
+        <GradientText
+          className="inline-block"
+          colors={["#1E40AF", "#9333EA", "#DB2777"]}
+          animationSpeed={6}
+        >
+          Kalyan Manna.
+        </GradientText>
+      </>
+    ),
+    subtitle: (
+      <>
+        A developer who loves building{" "}
+        <span className="text-zinc-200">meaningful digital experiences.</span>
+      </>
+    ),
+    image: "/kalyan-manna.jpg",
+    alt: "Portrait of Kalyan Manna",
+    start: 0.35,
+    end: 0.45,
+  },
+  {
+    title: (
+      <>
+        A{" "}
+        <GradientText
+          className="inline-block"
+          colors={["#60A5FA", "#8B5CF6", "#EC4899"]}
+          animationSpeed={6}
+        >
+          full-stack developer.
+        </GradientText>
+      </>
+    ),
+    subtitle: (
+      <>
+        Experienced with{" "}
+        <span className="text-zinc-200">React, Node.js, TypeScript,</span>{" "}
+        and databases.
+      </>
+    ),
+    image:
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop",
+    alt: "Developer working at a desk",
+    start: 0.45,
+    end: 0.55,
+  },
+  {
+    title: (
+      <>
+        Helping businesses{" "}
+        <GradientText
+          className="inline-block"
+          colors={["#22D3EE", "#818CF8", "#C084FC"]}
+          animationSpeed={6}
+        >
+          grow digitally.
+        </GradientText>
+      </>
+    ),
+    subtitle: (
+      <>
+        Freelance full-stack developer building{" "}
+        <span className="text-zinc-200">websites, apps, and systems</span>{" "}
+        for modern businesses.
+      </>
+    ),
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
+    alt: "Modern city skyline representing digital growth",
+    start: 0.55,
+    end: 0.65,
+  },
+  {
+    title: (
+      <>
+        Beyond coding,{" "}
+        <GradientText
+          className="inline-block"
+          colors={["#34D399", "#22D3EE", "#60A5FA"]}
+          animationSpeed={6}
+        >
+          I train.
+        </GradientText>
+      </>
+    ),
+    subtitle: (
+      <>
+        Gym, workout, discipline, and{" "}
+        <span className="text-zinc-200">showing up every day.</span>
+      </>
+    ),
+    image:
+      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop",
+    alt: "Person training in a gym",
+    start: 0.65,
+    end: 0.78,
+  },
+  {
+    title: (
+      <>
+        <GradientText
+          className="inline-block"
+          colors={["#F97316", "#EF4444", "#8B5CF6"]}
+          animationSpeed={6}
+        >
+          Anime
+        </GradientText>{" "}
+        &{" "}
+        <GradientText
+          className="inline-block"
+          colors={["#22C55E", "#84CC16", "#EAB308"]}
+          animationSpeed={6}
+        >
+          football
+        </GradientText>{" "}
+        too.
+      </>
+    ),
+    subtitle: (
+      <>
+        Because life should have{" "}
+        <span className="text-zinc-200">stories, energy, and play.</span>
+      </>
+    ),
+    image:
+      "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop",
+    alt: "Football match under stadium lights",
+    start: 0.78,
+    end: 0.92,
+  },
+]
+
+export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null)
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -25,80 +158,63 @@ export default function HeroAboutTransition() {
     damping: 22,
     mass: 0.4,
   })
-  const fadeUp = {
-    hidden: {
-      opacity: 0,
-      y: 28,
-      filter: "blur(10px)",
-    },
-    visible: (delay = 0) => ({
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      transition: {
-        duration: 0.7,
-        delay: delay * 0.08,
-        ease: [0.25, 1, 0.5, 1] as const,
-      },
-    }),
-  }
+
   /**
    * Hero content: fade, blur, and move slightly up
    */
-  const heroOpacity = useTransform(smoothProgress, [0, 0.35], [1, 0])
-  const heroY = useTransform(smoothProgress, [0, 0.35], [0, -80])
-  const heroBlur = useTransform(smoothProgress, [0, 0.35], [0, 18])
+  const heroOpacity = useTransform(smoothProgress, [0, 0.25], [1, 0])
+  const heroY = useTransform(smoothProgress, [0, 0.25], [0, -80])
+  const heroBlur = useTransform(smoothProgress, [0, 0.25], [0, 18])
 
-  /**
-   * Profile image: starts inside hero text visually,
-   * then moves right and becomes large.
-   */
   const imageX = useTransform(
     smoothProgress,
-    [0, 0.45, 1],
-    ["0vw", "22vw", "28vw"]
+    [0, 0.18, 0.36, 1],
+    ["0vw", "18vw", "28vw", "28vw"]
   )
 
   const imageY = useTransform(
     smoothProgress,
-    [0, 0.25, 0.55, 1],
+    [0, 0.12, 0.36, 1],
     ["0vh", "0vh", "-2vh", "-2vh"]
   )
 
   const imageWidth = useTransform(
     smoothProgress,
-    [0, 0.25, 0.55, 1],
-    ["3.2em", "3.4em", "380px", "460px"]
+    [0, 0.12, 0.36, 1],
+    ["3.2em", "3.6em", "460px", "460px"]
   )
 
   const imageHeight = useTransform(
     smoothProgress,
-    [0, 0.25, 0.55, 1],
-    ["1.8em", "2em", "380px", "460px"]
+    [0, 0.12, 0.36, 1],
+    ["1.8em", "2.1em", "460px", "460px"]
   )
 
   const imageRadius = useTransform(
     smoothProgress,
-    [0, 0.25, 0.55, 1],
+    [0, 0.12, 0.36, 1],
     ["999px", "999px", "50%", "50%"]
   )
+
   const imageTop = useTransform(
     smoothProgress,
-    [0, 0.25, 0.55, 1],
-    ["62%", "62%", "50%", "57%"]
+    [0, 0.12, 0.36, 1],
+    ["62%", "61%", "57%", "57%"]
   )
+
   const imageOpacity = useTransform(
     smoothProgress,
     [0, 0.1, 1],
     [1, 1, 1]
   )
 
-  /**
-   * About content appears from left after hero starts disappearing.
-   */
-  const aboutOpacity = useTransform(smoothProgress, [0.28, 0.55], [0, 1])
-  const aboutX = useTransform(smoothProgress, [0.28, 0.55], [-80, 0])
-  const aboutBlur = useTransform(smoothProgress, [0.28, 0.55], [14, 0])
+  const aboutTextOpacity = useTransform(
+    smoothProgress,
+    [0.35, 0.4, 0.96, 1], // Changed from 0.6 to 0.35 to start earlier
+    [0, 1, 1, 0]
+  )
+
+  const aboutTextY = useTransform(smoothProgress, [0.3, 0.4], [40, 0])
 
   /**
    * Optional dark overlay to help hero vanish cleanly.
@@ -108,7 +224,7 @@ export default function HeroAboutTransition() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[220vh] overflow-clip bg-black"
+      className="relative h-[500vh] overflow-clip bg-black"
     >
       <div className="sticky top-0 min-h-screen overflow-hidden">
         <GlowHorizon />
@@ -118,191 +234,29 @@ export default function HeroAboutTransition() {
           className="pointer-events-none absolute inset-0 z-[2] bg-black"
         />
 
-        {/* ================= HERO CONTENT ================= */}
-        <motion.section
-          id="home"
-          style={{
-            opacity: heroOpacity,
-            y: heroY,
-            filter: useTransform(heroBlur, (v) => `blur(${v}px)`),
-          }}
-          className="relative z-10 flex min-h-screen flex-col items-center justify-center px-5 text-center sm:px-6 md:px-8 lg:px-10"
-        >
-          <div className="w-full max-w-5xl">
-            <a
-              href="#projects"
-              className="group mb-6 inline-flex items-center gap-3 rounded-2xl px-1 py-1 transition-all duration-300 hover:border hover:border-white/20 sm:mb-8"
-            >
-              <span className="flex h-5 min-w-[40px] items-center justify-center rounded-full bg-sky-600 px-2 text-[10px] font-medium text-white sm:min-w-[42px] sm:text-[11px]">
-                New
-              </span>
+        <HeroContent opacity={heroOpacity} y={heroY} blur={heroBlur} />
 
-              <span className="relative inline-block overflow-hidden text-xs font-medium sm:text-sm">
-                <span className="animate-text-shimmer bg-[linear-gradient(110deg,#a1a1aa_35%,#ffffff_50%,#a1a1aa_65%)] bg-size-[200%_100%] bg-clip-text text-transparent">
-                  Explore my latest projects
-                </span>
-              </span>
+        <ProfileImage
+          image="/kalyan-manna.jpg"
+          alt="Kalyan Manna portrait"
+          slides={aboutSlides}
+          progress={smoothProgress}
+          top={imageTop}
+          x={imageX}
+          y={imageY}
+          width={imageWidth}
+          height={imageHeight}
+          borderRadius={imageRadius}
+          opacity={imageOpacity}
+          baseImageOpacity={useTransform(smoothProgress, [0, 0.35, 0.42], [1, 1, 0])}
+        />
 
-              <CaretRight
-                size={14}
-                className="-ml-1 mr-2 text-zinc-500 transition-all duration-300 group-hover:translate-x-1 group-hover:text-white"
-              />
-            </a>
-
-            <p className="text-shadow-subtle mx-auto mb-8 max-w-4xl bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text font-display text-3xl leading-[1.3] text-transparent sm:text-4xl md:text-5xl lg:text-6xl">
-              Build at the speed of thought.
-              <span className="mt-2 block italic sm:mt-3">
-                Deploy with absolute confidence.
-              </span>
-            </p>
-
-            <h1 className="mb-6 text-base leading-relaxed bg-linear-to-b from-white via-zinc-200 to-zinc-400 bg-clip-text font-sans text-transparent sm:text-lg md:text-xl">
-              Hello, I&apos;m Kalyan Manna
-              <span className="inline-flex h-[1.6em] w-[2.8em] align-middle sm:h-[1.8em] sm:w-[3.2em]" />
-              {" "}a Fullstack Developer
-            </h1>
-
-            <div className="mt-8 sm:mt-10 z-99">
-              <HeroButtons />
-            </div>
-          </div>
-        </motion.section>
-
-        {/* ================= MOVING PROFILE IMAGE ================= */}
-        <motion.div
-          style={{
-            top: imageTop,
-            x: imageX,
-            y: imageY,
-            width: imageWidth,
-            height: imageHeight,
-            borderRadius: imageRadius,
-            opacity: imageOpacity,
-          }}
-          className="pointer-events-none absolute left-[51%] z-20 -translate-x-1/2 -translate-y-1/2 overflow-hidden border border-white/20 shadow-2xl shadow-black/50"
-        >
-          <img
-            src="/kalyan-manna.jpg"
-            alt="Kalyan Manna"
-            className="h-full w-full object-cover"
-          />
-        </motion.div>
-
-        {/* ================= ABOUT CONTENT ================= */}
-        <motion.div
-          style={{
-            opacity: aboutOpacity,
-            x: aboutX,
-            filter: useTransform(aboutBlur, (v) => `blur(${v}px)`),
-          }}
-          className="pointer-events-none absolute left-0 top-0 z-30 flex min-h-screen w-full items-center px-5 sm:px-8 lg:px-16"
-        >
-          <div className="pointer-events-auto relative z-10 w-full max-w-2xl text-center lg:max-w-xl lg:text-left">
-            <motion.p
-              custom={0}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="mb-5 text-[11px] font-medium uppercase tracking-[0.3em] text-zinc-500 sm:text-xs sm:tracking-[0.35em]"
-            >
-              Know About Me
-            </motion.p>
-
-            <motion.h2
-              custom={1}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="font-display text-4xl font-medium leading-tight sm:text-5xl md:text-6xl lg:text-6xl"
-            >
-              <span className="text-shadow-subtle mx-auto mb-8 max-w-4xl bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text font-display text-3xl leading-[1.3] text-transparent sm:text-4xl md:text-5xl lg:text-6xl">
-                Full-stack developer & <br/>a little bit of {" "}
-              </span>
-              <GradientText
-                className="inline-block"
-                colors={["#1E40AF", "#9333EA", "#DB2777"]}
-                animationSpeed={6}
-              >
-                everything.
-              </GradientText>
-            </motion.h2>
-
-            <motion.p
-              custom={2}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="mt-6 text-base leading-7 text-zinc-400 sm:text-lg sm:leading-8"
-            >
-             I'm Kalyan Manna, a proactive full-stack developer passionate about creating dynamic web experiences. From frontend to backend, I thrive on solving complex problems with clean, efficient code. My expertise spans React, Next.js, and Node.js, and I'm always eager to learn more.
-            </motion.p>
-
-            <motion.p
-              custom={3}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="mt-4 text-base leading-7 text-zinc-400 sm:text-lg sm:leading-8"
-            >
-              When I'm not immersed in work, I'm exploring new ideas and staying curious. Life's about balance, and I love embracing every part of it.
-            </motion.p>
-            <motion.p
-              custom={3}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="mt-4 text-base leading-7 text-zinc-400 sm:text-lg sm:leading-8"
-            >
-              I believe in waking up each day eager to make a difference!
-            </motion.p>
-
-
-            <motion.div
-              custom={4}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-            >
-              <TooltipProvider>
-                <div className="mt-8 flex items-center justify-center gap-6 sm:mt-10 sm:gap-8 lg:justify-start">
-                  {[
-                    {
-                      icon: GithubLogo,
-                      label: "GitHub",
-                      href: "https://github.com/Kalyan-github-4",
-                    },
-                    {
-                      icon: LinkedinLogo,
-                      label: "LinkedIn",
-                      href: "#",
-                    },
-                    {
-                      icon: XLogo,
-                      label: "Twitter (X)",
-                      href: "#",
-                    },
-                  ].map(({ icon: Icon, href, label }) => (
-                    <Tooltip key={label}>
-                      <TooltipTrigger asChild>
-                        <a
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-zinc-500 transition-all duration-300 hover:scale-110 hover:text-violet-300"
-                        >
-                          <Icon size={24} className="sm:h-7 sm:w-7" weight="duotone" />
-                        </a>
-                      </TooltipTrigger>
-                      <TooltipContent side="top" sideOffset={10}>
-                        <p className="text-xs font-semibold text-zinc-700">{label}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  ))}
-                </div>
-              </TooltipProvider>
-            </motion.div>
-          </div>
-        </motion.div>
+        <AboutContent
+          slides={aboutSlides}
+          progress={smoothProgress}
+          opacity={aboutTextOpacity}
+          y={aboutTextY}
+        />
       </div>
 
       <style>{`
