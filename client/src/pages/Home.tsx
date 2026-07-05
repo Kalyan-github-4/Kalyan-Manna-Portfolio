@@ -1,6 +1,6 @@
 import Hero from "@/components/hero/Hero";
 import Project from "../components/work/Project.tsx";
-import Footer from "../components/layout/Footer";
+import Footer from "../components/footer/Footer.tsx";
 import GuestShowUp from "@/components/guestbook/GuestShowUp.tsx";
 
 function Home() {
