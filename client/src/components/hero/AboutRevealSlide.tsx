@@ -43,7 +43,7 @@ export function AboutRevealSlide({
 				{slide.title}
 			</h2>
 
-			<p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-400 sm:text-xl md:text-2xl">
+			<p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-400 sm:text-xl md:text-xl tracking-wide">
 				{slide.subtitle}
 			</p>
 		</motion.div>
