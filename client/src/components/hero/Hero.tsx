@@ -15,7 +15,7 @@ const aboutSlides: AboutSlide[] = [
         Hi, I&apos;m{" "}
         <GradientText
           className="inline-block"
-          colors={["#1E40AF", "#9333EA", "#DB2777"]}
+          colors={["#FF6B6B", "#FFA94D", "#FFD93D"]}
           animationSpeed={6}
         >
           Kalyan Manna.
@@ -24,8 +24,9 @@ const aboutSlides: AboutSlide[] = [
     ),
     subtitle: (
       <>
-        A developer who loves building{" "}
-        <span className="text-zinc-200">meaningful digital experiences.</span>
+        I write code that{" "}
+        <span className="text-zinc-200">people actually want to use.</span>{" "}
+        Full-stack developer with a bias for action.
       </>
     ),
     image: "/kalyan-manna.jpg",
@@ -36,26 +37,26 @@ const aboutSlides: AboutSlide[] = [
   {
     title: (
       <>
-        A{" "}
+        Building with the stack that{" "}
         <GradientText
           className="inline-block"
-          colors={["#60A5FA", "#8B5CF6", "#EC4899"]}
+          colors={["#00D2FF", "#3A7BD5", "#6C5CE7"]}
           animationSpeed={6}
         >
-          full-stack developer.
+          makes ideas real.
         </GradientText>
       </>
     ),
     subtitle: (
       <>
-        Experienced with{" "}
-        <span className="text-zinc-200">React, Node.js, TypeScript,</span>{" "}
-        and databases.
+        React • Node • TypeScript • PostgreSQL —{" "}
+        <span className="text-zinc-200">the tools I reach for every time.</span>{" "}
+        Because great products deserve great foundations.
       </>
     ),
     image:
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop",
-    alt: "Developer working at a desk",
+    alt: "Developer skills and coding workspace",
     start: 0.45,
     end: 0.55,
   },
@@ -65,7 +66,7 @@ const aboutSlides: AboutSlide[] = [
         Helping businesses{" "}
         <GradientText
           className="inline-block"
-          colors={["#22D3EE", "#818CF8", "#C084FC"]}
+          colors={["#F093FB", "#F5576C", "#4FACFE"]}
           animationSpeed={6}
         >
           grow digitally.
@@ -74,9 +75,9 @@ const aboutSlides: AboutSlide[] = [
     ),
     subtitle: (
       <>
-        Freelance full-stack developer building{" "}
-        <span className="text-zinc-200">websites, apps, and systems</span>{" "}
-        for modern businesses.
+        I ship MVPs, scale apps, and{" "}
+        <span className="text-zinc-200">turn messy code into maintainable systems.</span>{" "}
+        Your product, but faster and better.
       </>
     ),
     image:
@@ -91,7 +92,7 @@ const aboutSlides: AboutSlide[] = [
         Beyond coding,{" "}
         <GradientText
           className="inline-block"
-          colors={["#34D399", "#22D3EE", "#60A5FA"]}
+          colors={["#11998E", "#38EF7D", "#FFD700"]}
           animationSpeed={6}
         >
           I train.
@@ -100,8 +101,9 @@ const aboutSlides: AboutSlide[] = [
     ),
     subtitle: (
       <>
-        Gym, workout, discipline, and{" "}
-        <span className="text-zinc-200">showing up every day.</span>
+        Early mornings, heavy weights, and{" "}
+        <span className="text-zinc-200">the discipline to keep going.</span>{" "}
+        Same principle applies to code — show up and do the work.
       </>
     ),
     image:
@@ -115,7 +117,7 @@ const aboutSlides: AboutSlide[] = [
       <>
         <GradientText
           className="inline-block"
-          colors={["#F97316", "#EF4444", "#8B5CF6"]}
+          colors={["#FF512F", "#DD2475", "#FF6B6B"]}
           animationSpeed={6}
         >
           Anime
@@ -123,7 +125,7 @@ const aboutSlides: AboutSlide[] = [
         &{" "}
         <GradientText
           className="inline-block"
-          colors={["#22C55E", "#84CC16", "#EAB308"]}
+          colors={["#F7971E", "#FFD200", "#FF6B35"]}
           animationSpeed={6}
         >
           football
@@ -133,8 +135,9 @@ const aboutSlides: AboutSlide[] = [
     ),
     subtitle: (
       <>
-        Because life should have{" "}
-        <span className="text-zinc-200">stories, energy, and play.</span>
+        Epic storylines on screen,{" "}
+        <span className="text-zinc-200">beautiful chaos on the pitch.</span>{" "}
+        Because code isn't the only thing that needs heart.
       </>
     ),
     image:
