@@ -1,7 +1,9 @@
-const Work = () => {
+import CaseStudyWorkSection from "@/components/work/CaseStudyWorkSection"
+
+export default function Work() {
   return (
-    <div>Work</div>
+    <main className="min-h-screen bg-black">
+      <CaseStudyWorkSection />
+    </main>
   )
 }
-
-export default Work

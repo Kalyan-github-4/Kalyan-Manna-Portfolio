@@ -98,15 +98,15 @@ export default function Project() {
               }}
               className="overflow-visible font-display text-5xl font-medium leading-[1.08] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
             >
-              I don&apos;t just build pages.
+              I don&apos;t just build pages
               <br />
               I build{" "}
               <GradientText
-                className="inline-block overflow-visible pb-4"
+                className="inline-block overflow-visible pb-4 italic"
                 colors={["#1E40AF", "#9333EA", "#DB2777"]}
                 animationSpeed={6}
               >
-                products.
+                products
               </GradientText>
             </motion.h2>
 

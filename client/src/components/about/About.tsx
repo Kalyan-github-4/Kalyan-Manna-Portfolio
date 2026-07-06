@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/tooltip";
 import GradientText from "../GradientText";
 import { AboutCarousel } from "./AboutCarousel";
+import BackgroundRipple from "../BackgroundRipple";
 
 // Transition now lives INSIDE the variant, driven by `custom` (stagger index)
 const fadeUp = {
@@ -71,10 +72,12 @@ export default function About() {
     <>
       <section
         ref={contentRef}
-        className=" relative flex min-h-screen flex-col-reverse items-center justify-center gap-16 px-6 py-24 sm:px-8 md:px-10 lg:flex-row lg:justify-between lg:gap-24 lg:px-20 "
+        className="relative flex min-h-screen flex-col-reverse items-center justify-center gap-16 px-6 py-24 sm:px-8 md:px-10 lg:flex-row lg:justify-between lg:gap-24 lg:px-20"
       >
+        <BackgroundRipple
+          rows={7}
+          cols={30} />
         {/* Left */}
-
         <div
           className="relative z-10 w-full max-w-2xl text-center lg:max-w-xl lg:text-left"
         >
