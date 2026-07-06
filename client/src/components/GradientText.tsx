@@ -121,7 +121,7 @@ export default function GradientText({
       )}
 
       <motion.span
-        className="relative z-10 inline-block bg-clip-text text-transparent"
+        className="relative z-10 inline-block bg-clip-text text-transparent italic p-2"
         style={{
           ...gradientStyle,
           backgroundPosition,

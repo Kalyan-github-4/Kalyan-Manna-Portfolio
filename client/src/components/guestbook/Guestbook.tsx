@@ -16,7 +16,7 @@ function GuestBook() {
             <h1 className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text text-4xl sm:text-5xl md:text-6xl text-transparent text-shadow-subtle">
               Words that echo{" "}
               <GradientText
-                className="inline-block"
+                className="inline-block italic"
                 colors={[
                   "#1E40AF", // blue-800
                   "#9333EA", // purple-600
