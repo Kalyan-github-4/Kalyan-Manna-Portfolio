@@ -8,12 +8,12 @@ import BackgroundRipple from "../BackgroundRipple"
 export default function CaseStudyWorkSection() {
     return (
         <section className="relative overflow-hidden bg-black px-4 py-28 text-white sm:px-6 lg:px-8">
-            
+
             {/* Background Glow */}
             <BackgroundRipple
                 rows={7}
                 cols={30} />
-         
+
 
             <div className="relative z-10 mx-auto w-full">
                 {/* Header */}
@@ -41,7 +41,7 @@ export default function CaseStudyWorkSection() {
                                 delay: 0.08,
                                 ease: [0.22, 1, 0.36, 1],
                             }}
-                            className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent text-shadow-subtle font-serif"
+                            className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent text-shadow-subtle font-display"
                         >
                             Selected{" "}
                             <GradientText
@@ -52,6 +52,21 @@ export default function CaseStudyWorkSection() {
                                 Work
                             </GradientText>
                         </motion.h1>
+
+                        <motion.p
+                            initial={{ opacity: 0, y: 18 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: false, amount: 0.6 }}
+                            transition={{
+                                duration: 0.75,
+                                delay: 0.16,
+                                ease: [0.22, 1, 0.36, 1],
+                            }}
+                            className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base md:text-lg md:leading-8"
+                        >
+                            A curated collection of products, interfaces, and digital experiences I’ve
+                            designed and built with performance, usability, and clean engineering in mind.
+                        </motion.p>
                     </div>
                 </div>
 

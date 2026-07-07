@@ -105,7 +105,7 @@ export default function WorkProjectCard({
                                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.35),transparent_32%),linear-gradient(to_bottom,rgba(0,0,0,0.04),rgba(0,0,0,0.45))]" />
 
                                 <div className="relative z-10 flex items-start justify-between gap-6">
-                                    <p className="max-w-xl text-lg font-medium leading-relaxed text-white md:text-xl">
+                                    <p className="max-w-xl text-base font-medium leading-relaxed text-zinc-200 md:text-lg">
                                         {project.description}
                                     </p>
 

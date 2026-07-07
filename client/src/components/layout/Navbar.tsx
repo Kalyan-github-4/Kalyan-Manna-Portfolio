@@ -62,10 +62,10 @@ export function NavBar({ items, className }: NavBarProps) {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      
+
       // Determine if scrolling down or up
       const isScrollingDown = currentScrollPos > prevScrollPos;
-      
+
       // Hide navbar when scrolling down and past threshold
       // Show navbar when scrolling up (even slightly)
       if (isScrollingDown && currentScrollPos > 50) {
@@ -77,7 +77,7 @@ export function NavBar({ items, className }: NavBarProps) {
       } else {
         setIsScrolled(currentScrollPos > 50);
       }
-      
+
       setPrevScrollPos(currentScrollPos);
     };
 
@@ -182,8 +182,9 @@ export function NavBar({ items, className }: NavBarProps) {
             overflow-hidden
             rounded-[30px]
             border border-white/10
-            bg-zinc-900/70
-            backdrop-blur-2xl
+            bg-zinc-950/45
+            backdrop-blur-3xl
+            backdrop-saturate-150
             shadow-[0_0_30px_rgba(255,255,255,0.08)]
           ">
           <div className="relative flex h-[52px] items-center justify-center overflow-hidden">
@@ -331,8 +332,18 @@ export function NavBar({ items, className }: NavBarProps) {
           }}
         >
           <button
-            className="self-center justify-self-end items-center bg-zinc-900/70 px-4 py-2 text-xs font-medium text-white backdrop-blur-2xl transition hover:bg-zinc-800 inset-0 rounded-full border border-white/10 bg-linear-to-b from-zinc-600/70 to-zinc-700/40
-            shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_0_12px_rgba(255,255,255,0.08)] cursor-pointer"
+            className="
+              self-center justify-self-end items-center
+              rounded-full border border-white/10
+              bg-zinc-950/45
+              px-4 py-2
+              text-xs font-medium text-white
+              backdrop-blur-3xl backdrop-saturate-150
+              transition hover:bg-zinc-800/70
+              bg-linear-to-b from-zinc-600/50 to-zinc-700/30
+              shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_0_12px_rgba(255,255,255,0.08)]
+              cursor-pointer
+            "
           >
             Book a Call
           </button>
@@ -348,7 +359,7 @@ export function NavBar({ items, className }: NavBarProps) {
               className="
           flex items-center gap-20
           rounded-full border border-white/10
-          bg-zinc-900/70 backdrop-blur-2xl
+          bg-zinc-950/45 backdrop-blur-3xl backdrop-saturate-150
           px-3 py-1.5
           shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_0_20px_rgba(255,255,255,0.06)]
         "
