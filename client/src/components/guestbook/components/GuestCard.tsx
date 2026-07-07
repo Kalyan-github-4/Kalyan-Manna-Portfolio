@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import DoodleSvg from "./DoodleSvg";
 import type { Doodle } from "./DoodleSvg";
 import tornEdgePath from "./tornEdgePath";
-import { ShareNetworkIcon } from "@phosphor-icons/react";
+import { ShareNetworkIcon, TrashIcon } from "@phosphor-icons/react";
 
 // ── Types ────────────────────────────────────────────────────────────────
 
@@ -28,6 +28,8 @@ export interface GuestEntry {
   author: string;
   avatar: Avatar;
   date: string;
+  createdAtIso?: string;
+  ownerClerkUserId?: string | null;
   rotation?: string; // optional rotation class for the card
   emphasis?: "quiet" | "loud"; // loud = bigger/bolder text, for short punchy messages
 }
@@ -36,6 +38,8 @@ interface GuestCardProps {
   entry: GuestEntry;
   onShare?: (id: string) => void;
   onOpen?: (id: string) => void;
+  onDelete?: (id: string) => void;
+  canDelete?: boolean;
 }
 
 // ── Gradient + texture tokens ────────────────────────────────────────────
@@ -90,7 +94,13 @@ function AvatarBadge({ avatar, name }: { avatar: Avatar; name: string }) {
 
 // ── Main component ────────────────────────────────────────────────────────
 
-export default function GuestCard({ entry, onShare, onOpen }: GuestCardProps) {
+export default function GuestCard({
+  entry,
+  onShare,
+  onOpen,
+  onDelete,
+  canDelete = false,
+}: GuestCardProps) {
   const seed = useMemo(() => {
     // stable numeric seed derived from id, so the tear shape doesn't
     // reshuffle on every re-render
@@ -114,6 +124,7 @@ export default function GuestCard({ entry, onShare, onOpen }: GuestCardProps) {
 
   return (
     <div
+      id={`guest-card-${entry.id}`}
       className={`group relative overflow-hidden rounded-[20px] cursor-pointer
                  transition-transform duration-300 ease-out
                  hover:-translate-y-1 ${entry.rotation || ""}`}
@@ -193,20 +204,39 @@ export default function GuestCard({ entry, onShare, onOpen }: GuestCardProps) {
             </div>
           </div>
 
-          <button
-            type="button"
-            aria-label={`Share ${entry.author}'s memory`}
-            onClick={(e) => {
-              e.stopPropagation();
-              onShare?.(entry.id);
-            }}
-            className="rounded-full p-2 text-white/40 opacity-0 transition
+          <div className="flex items-center gap-1">
+            {canDelete && (
+              <button
+                type="button"
+                aria-label={`Delete ${entry.author}'s memory`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete?.(entry.id);
+                }}
+                className="rounded-full p-2 text-white/40 opacity-0 transition
                        hover:bg-white/10 hover:text-white/80 group-hover:opacity-100
                        focus-visible:opacity-100 focus-visible:outline-none
                        focus-visible:ring-1 focus-visible:ring-white/40"
-          >
-            <ShareNetworkIcon size={16} weight="bold" />
-          </button>
+              >
+                <TrashIcon size={16} weight="bold" />
+              </button>
+            )}
+
+            <button
+              type="button"
+              aria-label={`Share ${entry.author}'s memory`}
+              onClick={(e) => {
+                e.stopPropagation();
+                onShare?.(entry.id);
+              }}
+              className="rounded-full p-2 text-white/40 opacity-0 transition
+                       hover:bg-white/10 hover:text-white/80 group-hover:opacity-100
+                       focus-visible:opacity-100 focus-visible:outline-none
+                       focus-visible:ring-1 focus-visible:ring-white/40"
+            >
+              <ShareNetworkIcon size={16} weight="bold" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
