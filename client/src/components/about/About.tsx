@@ -97,23 +97,19 @@ export default function About() {
             variants={fadeUp}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="font-display font-medium leading-tight text-4xl sm:text-5xl md:text-6xl lg:text-6xl"
+            className="font-display font-medium text-4xl leading-[0.95] sm:text-5xl md:text-6xl lg:text-6xl"
           >
-            <span className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text text-4xl sm:text-5xl md:text-6xl text-transparent text-shadow-subtle">
-              Turning ideas into
+            <span className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text text-transparent text-shadow-subtle">
+              I'm Kalyan, a <br />
+              creative{" "}
             </span>
-            <br />
 
             <GradientText
-              className="inline-block"
-              colors={[
-                "#1E40AF",
-                "#9333EA",
-                "#DB2777",
-              ]}
+              className="inline leading-[0.95]"
+              colors={["#1E40AF", "#9333EA", "#DB2777"]}
               animationSpeed={6}
             >
-              Scalable digital products.
+              engineer
             </GradientText>
           </motion.h2>
 
@@ -122,7 +118,7 @@ export default function About() {
             variants={fadeUp}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="mt-8 text-base sm:text-lg leading-8 sm:leading-9 text-zinc-400"
+            className="mt-4 sm:mt-6 text-base sm:text-lg leading-8 sm:leading-9 text-zinc-400"
           >
             I'm <span className="font-semibold text-white">Kalyan Manna</span>, a
             full-stack developer passionate about building modern web and mobile
@@ -144,7 +140,7 @@ export default function About() {
             variants={fadeUp}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="mt-6 sm:mt-8 text-base sm:text-lg leading-8 sm:leading-9 text-zinc-400"
+            className="mt-4 sm:mt-6 text-base sm:text-lg leading-8 sm:leading-9 text-zinc-400"
           >
             I believe in waking up each day eager to make a difference!
           </motion.p>
