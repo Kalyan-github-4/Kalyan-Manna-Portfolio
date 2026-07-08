@@ -5,7 +5,7 @@ import GradientText from "../GradientText";
 import CreateGuestCard from "./components/CreateGuestCard";
 import GuestCard, { type GuestEntry } from "./components/GuestCard";
 import type { Doodle } from "./components/DoodleSvg";
-import { sampleEntries } from "./data/sampleEntries";
+// import { sampleEntries } from "./data/sampleEntries";
 import {
   createGuestbookEntry,
   deleteMyGuestbookEntry,
@@ -66,6 +66,9 @@ function mapEntryToCard(entry: GuestbookEntryResponse): GuestEntry {
     gradient: toGradient(entry.gradient),
     doodles: normalizeDoodles(entry.doodles),
     author,
+    role: entry.role || "Visitor",
+    rating: entry.rating ?? 5,
+    // rating: entry.rating ?? 5,
     avatar: entry.user?.imageUrl
       ? { kind: "photo", value: entry.user.imageUrl }
       : { kind: "initials", value: getInitials(author) || "G" },
@@ -76,7 +79,7 @@ function mapEntryToCard(entry: GuestbookEntryResponse): GuestEntry {
     }),
     createdAtIso: entry.createdAt,
     ownerClerkUserId: entry.user?.clerkUserId ?? null,
-  };
+  }
 }
 
 function isWithinDeleteWindow(createdAtIso?: string) {
@@ -132,7 +135,8 @@ function GuestBook() {
 
   const displayEntries = useMemo(() => {
     if (entries.length > 0) return entries;
-    return sampleEntries;
+    // return sampleEntries;
+    return [];
   }, [entries]);
 
   const firstRowEntries = displayEntries.slice(0, 2);
@@ -201,46 +205,49 @@ function GuestBook() {
   }, [entries, getToken, viewerId]);
 
   const handleSubmit = useCallback(
-  async (message: string, gradient: GradientName, doodles: Doodle[]) => {
-    try {
-      setSubmitState(null)
+    async (
+      message: string,
+      gradient: GradientName,
+      doodles: Doodle[],
+      role: string,
+      rating: number
+    ) => {
+      try {
+        setSubmitState(null)
 
-      const token = await getToken()
+        const token = await getToken()
 
-      console.log("Clerk token exists:", Boolean(token))
+        if (!token) {
+          setSubmitState("Please sign in again before posting.")
+          throw new Error("No Clerk token found")
+        }
 
-      if (!token) {
-        setSubmitState("Please sign in again before posting.")
-        throw new Error("No Clerk token found")
+        const response = await createGuestbookEntry(
+          {
+            message,
+            gradient,
+            doodles,
+            role: role || "Visitor",
+            rating,
+          },
+          token
+        )
+
+        setEntries((prev) => [mapEntryToCard(response.entry), ...prev])
+
+        setSubmitState("Message added to the wall.")
+      } catch (err) {
+        console.error("Guestbook submit failed:", err)
+
+        setSubmitState(
+          err instanceof Error ? err.message : "Failed to submit message"
+        )
+
+        throw err
       }
-
-      const response = await createGuestbookEntry(
-        {
-          message,
-          gradient,
-          doodles,
-          role: "visitor",
-        },
-        token
-      )
-
-      console.log("Guestbook saved:", response)
-
-      setEntries((prev) => [mapEntryToCard(response.entry), ...prev])
-
-      setSubmitState("Message added to the wall.")
-    } catch (err) {
-      console.error("Guestbook submit failed:", err)
-
-      setSubmitState(
-        err instanceof Error ? err.message : "Failed to submit message"
-      )
-
-      throw err
-    }
-  },
-  [getToken]
-)
+    },
+    [getToken]
+  )
 
   return (
     <div>

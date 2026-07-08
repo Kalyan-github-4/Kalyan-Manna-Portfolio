@@ -1,0 +1,24 @@
+{
+  "name": "kalyan-manna-portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix client\" \"npm run dev --prefix server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kalyan-github-4/Kalyan-Manna-Portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Kalyan-github-4/Kalyan-Manna-Portfolio/issues"
+  },
+  "homepage": "https://github.com/Kalyan-github-4/Kalyan-Manna-Portfolio#readme",
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}

@@ -42,7 +42,13 @@ function tornEdgePath(seed: number, w = 400, h = 280, tearDepth = 14) {
 interface CreateGuestCardProps {
   maxLength?: number
   gradient?: GradientName
-  onSubmit?: (message: string, gradient: GradientName, doodles: Doodle[]) => Promise<void> | void
+  onSubmit?: (
+    message: string,
+    gradient: GradientName,
+    doodles: Doodle[],
+    role: string,
+    rating: number
+  ) => Promise<void> | void
 }
 
 const GRADIENT_ORDER: GradientName[] = [
@@ -143,6 +149,8 @@ function SignedInCreateCard({
   const [activeGradient, setActiveGradient] = useState<GradientName>(gradient)
   const [doodles, setDoodles] = useState<Doodle[]>([])
   const [selectedDoodle, setSelectedDoodle] = useState<DoodleName | null>(null)
+  const [role, setRole] = useState("")
+  const [rating, setRating] = useState(5)
 
   const messageRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -207,9 +215,11 @@ function SignedInCreateCard({
     try {
       console.log("CreateGuestCard submit started")
 
-      await onSubmit(message.trim(), activeGradient, doodles)
+      await onSubmit(message.trim(), activeGradient, doodles, role.trim(), rating)
 
       setMessage("")
+      setRole("")
+      setRating(5)
       setDoodles([])
       setSelectedDoodle(null)
     } catch (error) {

@@ -7,6 +7,7 @@ import { env } from "./config/env.js"
 import guestbookRoutes from "./routes/guestbook.routes.js"
 import adminGuestbookRoutes from "./routes/adminGuestbook.routes.js"
 import contactRoutes from "./routes/contact.js"
+import feedbackRoutes from "./routes/feedback.routes.js"
 
 // import your db connection
 import { db } from "./db/index.js"
@@ -47,6 +48,7 @@ app.get("/health", (_req, res) => {
 app.use("/api/guestbook", guestbookRoutes)
 app.use("/api/admin/guestbook", adminGuestbookRoutes)
 app.use("/api/contact", contactRoutes)
+app.use("/api/feedback", feedbackRoutes)
 
 app.use(
   (
