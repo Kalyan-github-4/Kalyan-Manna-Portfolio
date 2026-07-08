@@ -6,8 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
-import { ArrowRight } from "@phosphor-icons/react";
+import FeedbackDialog from "./FeedbackDialog"
+import Speaker from "./GuestShowUp";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -16,8 +16,8 @@ if (typeof window !== "undefined") {
 export interface Speaker {
   name: string;
   role: string;
+  rating: number;
   feedback: string;
-  /** Image URL. Square / portrait crops look best. */
   src: string;
 }
 
@@ -84,44 +84,6 @@ function useResponsiveColumns(desired: number): number {
   return cols;
 }
 
-const DEMO_SPEAKERS: Speaker[] = [
-  {
-    name: "Alex Johnson",
-    role: "CEO & Founder",
-    feedback:
-      "The website gave our brand a premium online presence and helped us explain our services clearly.",
-  },
-  {
-    name: "Sarah Chen",
-    role: "CTO",
-    feedback:
-      "The dashboard made our daily operations much easier to manage and track.",
-  },
-  {
-    name: "Marcus Rivera",
-    role: "Lead Designer",
-    feedback:
-      "Clean design, smooth animations, and a very polished user experience.",
-  },
-  {
-    name: "Emily Watson",
-    role: "Product Manager",
-    feedback:
-      "The final product was responsive, fast, and exactly aligned with our requirements.",
-  },
-  {
-    name: "David Kim",
-    role: "Senior Developer",
-    feedback:
-      "The code quality and component structure were very clean and easy to maintain.",
-  },
-].map((s, i) => ({
-  ...s,
-  src: `https://pub-940ccf6255b54fa799a9b01050e6c227.r2.dev/avatar-images/avatar-${String(
-    (i % 5) + 1,
-  ).padStart(2, "0")}.jpg`,
-}));
-
 function FeedbackCard({ speaker }: { speaker: Speaker }) {
   return (
     <article className="group relative h-full w-full overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 p-5 text-white shadow-2xl shadow-black/30">
@@ -139,7 +101,7 @@ function FeedbackCard({ speaker }: { speaker: Speaker }) {
                 loading="lazy"
                 decoding="async"
                 draggable={false}
-                className="h-12 w-12 rounded-full object-cover grayscale ring-2 ring-white/15"
+                className="h-12 w-12 rounded-full object-cover ring-2 ring-white/15"
               />
 
               <div className="min-w-0">
@@ -153,7 +115,9 @@ function FeedbackCard({ speaker }: { speaker: Speaker }) {
             </div>
 
             <div className="shrink-0 text-xs tracking-tight text-white/50">
-              ★★★★★
+              {Array.from({ length: speaker.rating ?? 5 }).map((_, index) => (
+                <span key={index}>★</span>
+              ))}
             </div>
           </div>
 
@@ -193,7 +157,7 @@ export function ScrollPortraitWall({
   title = "Voice Matters",
   description = "Real feedback from people and businesses I’ve helped with websites, apps, dashboards, and digital systems.",
   // hint = "scroll down to read feedback",
-  speakers = DEMO_SPEAKERS,
+  speakers = [] as Speaker[],
   columns = 4,
   showCaptions = false,
   className,
@@ -259,15 +223,6 @@ export function ScrollPortraitWall({
       aria-label={typeof title === "string" ? title : undefined}
       className={cn("relative w-full text-foreground", className)}
     >
-      {/* <div
-        ref={hintRef}
-        className="pointer-events-none absolute left-1/2 top-[60vh] grid -translate-x-1/2 content-start justify-items-center gap-6 text-center"
-      >
-        <span className="relative max-w-[14ch] text-xs uppercase leading-tight text-muted-foreground after:absolute after:left-1/2 after:top-full after:h-16 after:w-px after:bg-gradient-to-b after:from-transparent after:to-muted-foreground/40 after:content-['']">
-          {hint}
-        </span>
-      </div> */}
-
       <div className="pointer-events-none sticky top-0 z-10 flex h-screen items-center justify-center px-5 py-24 sm:px-8 lg:px-16">
         <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
           <motion.p
@@ -364,23 +319,7 @@ export function ScrollPortraitWall({
         }}
         className="relative z-50 flex justify-center pb-40"
       >
-        <Link
-          to="/more/guestbook"
-          className="group relative inline-flex cursor-pointer items-center justify-between overflow-hidden rounded-full border border-white/20 bg-white/10 py-1 pl-5 pr-1 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-500"
-        >
-          {/* Animated Fill */}
-          <span className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-white transition-all duration-700 ease-[cubic-bezier(.19,1,.22,1)] group-hover:right-0 group-hover:top-0 group-hover:h-full group-hover:w-full group-hover:translate-y-0" />
-
-          {/* Text */}
-          <span className="relative z-10 text-sm transition-colors duration-500 group-hover:text-slate-900">
-            Write your thoughts
-          </span>
-
-          {/* Arrow */}
-          <span className="relative z-10 ml-2 flex h-10 w-10 items-center justify-center rounded-full bg-white text-slate-900 transition-transform duration-500 group-hover:translate-x-1">
-            <ArrowRight size={14} />
-          </span>
-        </Link>
+        <FeedbackDialog />
       </motion.div>
     </section>
   );
