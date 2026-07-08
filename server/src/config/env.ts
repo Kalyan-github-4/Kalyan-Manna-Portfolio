@@ -7,7 +7,7 @@ const envSchema = z.object({
 	PORT: z.coerce.number().int().positive().default(5000),
 	DATABASE_URL: z.string().min(1, "DATABASE_URL is required"),
 	CLERK_SECRET_KEY: z.string().min(1, "CLERK_SECRET_KEY is required"),
-	CLIENT_URL: z.string().default("http://localhost:5173"),
+	CLIENT_URL: z.string().default("https://kalyan-manna-portfolio.vercel.app"),
 	CLIENT_URLS: z.string().optional(),
 	ADMIN_EMAIL: z.string().email().default("kalyanmanna439@gmail.com"),
 })
