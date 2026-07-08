@@ -74,7 +74,6 @@ router.get("/", async (_req, res) => {
     .select({
       id: guestbookEntries.id,
       message: guestbookEntries.message,
-      role: guestbookEntries.role,
       gradient: guestbookEntries.gradient,
       doodles: guestbookEntries.doodles,
       createdAt: guestbookEntries.createdAt,
@@ -91,7 +90,6 @@ router.get("/", async (_req, res) => {
     entries: entries.map((entry: (typeof entries)[number]) => ({
       id: entry.id,
       message: entry.message,
-      role: entry.role,
       gradient: entry.gradient,
       doodles: entry.doodles,
       createdAt: entry.createdAt,
@@ -126,13 +124,13 @@ router.post("/", async (req, res) => {
 
     if (!message || typeof message !== "string" || message.trim().length < 2) {
       return res.status(400).json({
-        message: "Feedback message is required",
+        message: "Guestbook message is required"
       })
     }
 
     if (message.length > 300) {
       return res.status(400).json({
-        message: "Feedback message is too long",
+        message: "Guestbook message is too long",
       })
     }
 
@@ -143,7 +141,6 @@ router.post("/", async (req, res) => {
       .values({
         userId: user.id,
         message: message.trim(),
-        role: role || null,
         gradient: gradient || "purple",
         doodles: doodles || [],
         status: "approved",
@@ -159,11 +156,10 @@ router.post("/", async (req, res) => {
     }
 
     return res.status(201).json({
-      message: "Feedback submitted successfully.",
+      message: "Guestbook entry submitted successfully.",
       entry: {
         id: entry.id,
         message: entry.message,
-        role: entry.role,
         gradient: entry.gradient,
         doodles: entry.doodles,
         createdAt: entry.createdAt,

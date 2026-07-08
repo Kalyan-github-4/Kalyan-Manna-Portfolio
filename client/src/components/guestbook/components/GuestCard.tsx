@@ -21,6 +21,8 @@ interface Avatar {
 
 export interface GuestEntry {
   id: string;
+  role: string | null;
+  rating: number;
   message: string;
   gradient: GradientName;
   doodles?: Doodle[];
@@ -204,38 +206,40 @@ export default function GuestCard({
             </div>
           </div>
 
-          <div className="flex items-center gap-1">
-            {canDelete && (
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
+              {canDelete && (
+                <button
+                  type="button"
+                  aria-label={`Delete ${entry.author}'s memory`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDelete?.(entry.id);
+                  }}
+                  className="cursor-pointer rounded-full p-2 text-white/40 opacity-0 transition
+          hover:bg-rose-500/10 hover:text-rose-300 group-hover:opacity-100
+          focus-visible:opacity-100 focus-visible:outline-none
+          focus-visible:ring-1 focus-visible:ring-rose-300/35"
+                >
+                  <TrashIcon size={16} weight="bold" />
+                </button>
+              )}
+
               <button
                 type="button"
-                aria-label={`Delete ${entry.author}'s memory`}
+                aria-label={`Share ${entry.author}'s memory`}
                 onClick={(e) => {
                   e.stopPropagation();
-                  onDelete?.(entry.id);
+                  onShare?.(entry.id);
                 }}
-                className="rounded-full p-2 text-white/40 opacity-0 transition
-                       hover:bg-white/10 hover:text-white/80 group-hover:opacity-100
-                       focus-visible:opacity-100 focus-visible:outline-none
-                       focus-visible:ring-1 focus-visible:ring-white/40"
+                className="cursor-pointer rounded-full p-2 text-white/40 opacity-0 transition
+        hover:bg-white/10 hover:text-white/80 group-hover:opacity-100
+        focus-visible:opacity-100 focus-visible:outline-none
+        focus-visible:ring-1 focus-visible:ring-white/40"
               >
-                <TrashIcon size={16} weight="bold" />
+                <ShareNetworkIcon size={16} weight="bold" />
               </button>
-            )}
-
-            <button
-              type="button"
-              aria-label={`Share ${entry.author}'s memory`}
-              onClick={(e) => {
-                e.stopPropagation();
-                onShare?.(entry.id);
-              }}
-              className="rounded-full p-2 text-white/40 opacity-0 transition
-                       hover:bg-white/10 hover:text-white/80 group-hover:opacity-100
-                       focus-visible:opacity-100 focus-visible:outline-none
-                       focus-visible:ring-1 focus-visible:ring-white/40"
-            >
-              <ShareNetworkIcon size={16} weight="bold" />
-            </button>
+            </div>
           </div>
         </div>
       </div>

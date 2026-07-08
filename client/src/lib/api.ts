@@ -11,26 +11,63 @@ interface ApiRequestOptions {
 interface ApiErrorBody {
 	message?: string;
 }
-
-export interface GuestbookEntryResponse {
-	id: string;
-	message: string;
-	role: string | null;
-	gradient: string;
-	doodles: unknown[];
-	createdAt: string;
+export interface FeedbackEntryResponse {
+	id: string
+	role: string
+	feedback: string
+	rating: number
+	createdAt: string
 	user: {
-		name: string;
-		imageUrl: string | null;
-		clerkUserId?: string | null;
-	};
+		name: string
+		imageUrl: string | null
+		clerkUserId?: string | null
+	}
+}
+
+export interface CreateFeedbackPayload {
+	role: string
+	feedback: string
+	rating: number
+}
+
+export async function getFeedbackEntries() {
+	return apiRequest<{ entries: FeedbackEntryResponse[] }>("/api/feedback")
+}
+
+export async function createFeedbackEntry(
+	payload: CreateFeedbackPayload,
+	token: string
+) {
+	return apiRequest<{
+		message: string
+		entry: FeedbackEntryResponse
+	}>("/api/feedback", {
+		method: "POST",
+		body: payload,
+		token,
+	})
+}
+export interface GuestbookEntryResponse {
+	id: string
+	message: string
+	role: string | null
+	rating: number
+	gradient: string
+	doodles: unknown[]
+	createdAt: string
+	user: {
+		name: string
+		imageUrl: string | null
+		clerkUserId?: string | null
+	}
 }
 
 export interface CreateGuestbookEntryPayload {
-	message: string;
-	role?: string;
-	gradient: string;
-	doodles: unknown[];
+	message: string
+	role?: string
+	rating: number
+	gradient: string
+	doodles: unknown[]
 }
 
 export interface ContactPayload {
