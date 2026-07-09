@@ -68,7 +68,7 @@ function BackgroundText({
                     duration: 25 + index * 5,
                     repeat: Infinity,
                 }}
-                className="flex whitespace-nowrap text-[max(6rem,10vw)] font-black uppercase leading-none tracking-[-0.05em] text-white/5 mix-blend-screen"
+                className="flex whitespace-nowrap text-[5rem] font-black uppercase leading-none tracking-tighter text-white/[0.035] mix-blend-screen sm:text-[max(6rem,10vw)] sm:text-white/5"
             >
                 <span className="mr-[2em]">{marqueeText}</span>
                 <span>{marqueeText}</span>
@@ -96,12 +96,12 @@ function ProjectCard({
 
     const scale = useTransform(progress, (p) => {
         const dist = Math.abs(p - index);
-        return dist <= 1 ? 1 - dist * 0.05 : 0.9;
+        return dist <= 1 ? 1 - dist * 0.04 : 0.92;
     });
 
     const opacity = useTransform(progress, (p) => {
         const dist = Math.abs(p - index);
-        return dist <= 1 ? 1 : 0.3;
+        return dist <= 1 ? 1 : 0.25;
     });
 
     return (
@@ -121,9 +121,8 @@ function ProjectCard({
                 opacity,
                 visibility,
             }}
-            className="absolute inset-0 h-full w-full cursor-pointer overflow-hidden rounded-3xl border border-white/10 bg-[#0a0a0a] shadow-[0_0_100px_rgba(0,0,0,0.55)] backface-hidden sm:rounded-[2.5rem]"
+            className="absolute inset-0 h-full w-full cursor-pointer overflow-hidden rounded-4xl border border-white/10 bg-[#0a0a0a] shadow-[0_0_70px_rgba(0,0,0,0.55)] backface-hidden sm:rounded-[2.5rem] sm:shadow-[0_0_100px_rgba(0,0,0,0.55)]"
         >
-            {/* Image with zoom effect */}
             <motion.img
                 src={project.src}
                 alt={project.title}
@@ -131,22 +130,21 @@ function ProjectCard({
                 style={{
                     scale: useTransform(progress, (p) => {
                         const dist = Math.abs(p - index);
-                        return dist <= 0.5 ? 1 + (0.5 - dist) * 0.2 : 1;
+                        return dist <= 0.5 ? 1 + (0.5 - dist) * 0.12 : 1;
                     }),
                 }}
             />
 
-            {/* Gradient overlays */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black via-black/70 to-transparent" />
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/40 to-transparent" />
+            <div className="pointer-events-none absolute inset-0 bg-black/20 sm:bg-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[85%] bg-linear-to-t from-black via-black/80 to-transparent sm:h-3/4 sm:via-black/70" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-linear-to-b from-black/50 to-transparent sm:h-32" />
 
-            {/* Project content */}
-            <div className="absolute bottom-0 left-0 flex w-full flex-col gap-3 p-6 sm:p-10">
-                {/* Project number indicator */}
-                <div className="flex items-center gap-3 text-sm font-medium text-white/40">
-                    <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 backdrop-blur-sm">
-                        {(index + 1).toString().padStart(2, '0')}
+            <div className="absolute bottom-0 left-0 flex w-full flex-col gap-3 p-4 sm:gap-3 sm:p-10">
+                <div className="flex items-center gap-2 text-xs font-medium text-white/45 sm:gap-3 sm:text-sm">
+                    <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 backdrop-blur-sm sm:px-3">
+                        {(index + 1).toString().padStart(2, "0")}
                     </span>
+
                     {project.year && (
                         <>
                             <span className="h-1 w-1 rounded-full bg-white/20" />
@@ -155,35 +153,39 @@ function ProjectCard({
                     )}
                 </div>
 
-                {/* Title with animation */}
                 <motion.h2
-                    className="text-4xl tracking-tight bg-linear-to-b from-zinc-400 via-zinc-100 to-zinc-50 bg-clip-text text-transparent sm:text-5xl lg:text-6xl pb-2"
+                    className="bg-linear-to-b from-zinc-200 via-zinc-50 to-zinc-400 bg-clip-text pb-1 text-3xl font-medium leading-[1.05] tracking-tight text-transparent sm:text-5xl lg:text-6xl"
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: isActive ? 1 : 0.7, y: isActive ? 0 : 10 }}
+                    animate={{
+                        opacity: isActive ? 1 : 0.7,
+                        y: isActive ? 0 : 10,
+                    }}
                     transition={{ duration: 0.5 }}
                 >
                     {project.title}
                 </motion.h2>
 
-                {/* Description */}
                 {project.description && (
-                    <p className="max-w-lg text-sm text-white/60 sm:text-base">
+                    <p className="line-clamp-3 max-w-lg text-sm leading-6 text-white/65 sm:line-clamp-none sm:text-base sm:leading-7">
                         {project.description}
                     </p>
                 )}
 
-                {/* Tags with glass-morphism */}
-                <div className="flex flex-wrap gap-2.5">
-                    {project.tags.map((tag, tagIndex) => (
+                <div className="flex flex-wrap gap-2 sm:gap-2.5">
+                    {project.tags.slice(0, 4).map((tag, tagIndex) => (
                         <motion.span
                             key={tag}
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ delay: tagIndex * 0.05 }}
-                            className="group relative rounded-full border border-white/20 px-4 py-1.5 text-xs sm:text-sm font-semibold text-black bg-white transition-all duration-300 hover:scale-105 hover:border-white/40 hover:bg-white/20"
+                            className="group relative rounded-full border border-white/15 bg-white/90 px-3 py-1 text-[11px] font-semibold text-black transition-all duration-300 hover:scale-105 hover:border-white/40 hover:bg-white sm:px-4 sm:py-1.5 sm:text-sm"
                             style={{
-                                backgroundColor: project.color ? `${project.color}20` : undefined,
-                                borderColor: project.color ? `${project.color}40` : undefined,
+                                backgroundColor: project.color
+                                    ? `${project.color}26`
+                                    : undefined,
+                                borderColor: project.color
+                                    ? `${project.color}45`
+                                    : undefined,
                             }}
                         >
                             <span className="relative flex items-center gap-2">
@@ -193,8 +195,7 @@ function ProjectCard({
                     ))}
                 </div>
 
-                {/* Project actions */}
-                <div className="mt-3 flex items-center gap-3">
+                <div className="mt-2 flex items-center gap-3 sm:mt-3">
                     {project.githubUrl && (
                         <motion.a
                             href={project.githubUrl}
@@ -204,7 +205,7 @@ function ProjectCard({
                             onClick={(event) => event.stopPropagation()}
                             whileHover={{ y: -2, scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/70 backdrop-blur-md transition-colors hover:border-white/30 hover:bg-white hover:text-black"
+                            className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/75 backdrop-blur-md transition-colors hover:border-white/30 hover:bg-white hover:text-black"
                         >
                             <GithubLogo size={20} weight="duotone" />
                         </motion.a>
@@ -219,7 +220,7 @@ function ProjectCard({
                             onClick={(event) => event.stopPropagation()}
                             whileHover={{ y: -2, scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/70 backdrop-blur-md transition-colors hover:border-white/30 hover:bg-white hover:text-black"
+                            className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/75 backdrop-blur-md transition-colors hover:border-white/30 hover:bg-white hover:text-black"
                         >
                             <ArrowSquareOut size={20} weight="duotone" />
                         </motion.a>
@@ -227,9 +228,8 @@ function ProjectCard({
                 </div>
             </div>
 
-            {/* Progress indicator bar */}
             <motion.div
-                className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-zinc-50/20 via-zinc-50/40 to-zinc-50/20"
+                className="absolute bottom-0 left-0 h-1 bg-linear-to-r from-zinc-50/20 via-zinc-50/40 to-zinc-50/20"
                 style={{
                     width: useTransform(progress, (p) => {
                         const dist = Math.abs(p - index);
@@ -287,11 +287,11 @@ export default function PerspectiveScrollShowcase({
             ref={containerRef}
             className="relative w-full"
             style={{
-                height: `${cardCount * 120}vh`,
+                height: `${cardCount * 105}vh`,
             }}
         >
-            <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden perspective-distant">
-                {/* Background gradient orb */}
+            <div className="sticky top-0 flex h-screen w-full items-center justify-center overflow-hidden px-3 perspective-distant sm:px-0">
+                {/* Background linear orb */}
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                     <div className="h-[80vh] w-[80vh] rounded-full bg-linear-to-r from-blue-500/5 to-purple-500/5 blur-3xl" />
                 </div>
@@ -312,8 +312,8 @@ export default function PerspectiveScrollShowcase({
                         <button
                             key={index}
                             className={`h-3 w-3 rounded-full transition-all duration-300 ${activeIndex === index
-                                    ? 'w-12 bg-white'
-                                    : 'bg-white/30 hover:bg-white/50'
+                                ? 'w-12 bg-white'
+                                : 'bg-white/30 hover:bg-white/50'
                                 }`}
                             onClick={() => {
                                 const targetScroll = (index / (projects.length - 1)) * containerRef.current!.scrollHeight;
@@ -332,7 +332,7 @@ export default function PerspectiveScrollShowcase({
                         rotateX,
                         transformStyle: "preserve-3d",
                     }}
-                    className="relative z-10 aspect-[4/3] w-[92%] max-w-6xl sm:aspect-[16/9]"
+                    className="relative z-10 aspect-4/3 w-[92%] max-w-6xl sm:aspect-video"
                 >
                     <AnimatePresence mode="wait">
                         {projects.map((project, index) => (

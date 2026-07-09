@@ -30,12 +30,12 @@ function FooterColumn({ title, links, isInView, delay = 0 }: FooterColumnProps) 
         >
             <motion.p
                 variants={linkItem}
-                className="mb-6 font-mono text-xs font-semibold uppercase tracking-widest text-white/35"
+                className="mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white/35 sm:mb-5 sm:text-[11px] md:text-xs"
             >
                 {title}
             </motion.p>
 
-            <ul className="space-y-5">
+            <ul className="space-y-3.5 sm:space-y-4 md:space-y-5">
                 {links.map((link) => (
                     <motion.li key={link.href} variants={linkItem}>
                         <motion.a
@@ -45,7 +45,7 @@ function FooterColumn({ title, links, isInView, delay = 0 }: FooterColumnProps) 
                                 duration: 0.25,
                                 ease: "easeOut",
                             }}
-                            className="group relative inline-block text-base font-medium text-white/85 transition-colors hover:text-white"
+                            className="group relative inline-block text-[13px] font-semibold text-white/80 transition-colors hover:text-white sm:text-sm md:text-base md:font-medium"
                         >
                             {link.label}
 
