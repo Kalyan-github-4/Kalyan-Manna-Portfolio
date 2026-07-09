@@ -12,7 +12,7 @@ export function HeroButtons() {
         setCopied(false);
       }, 2000);
     } catch (err) {
-      console.error(err);
+      console.error("Failed to copy email:", err);
     }
   };
 
@@ -57,7 +57,7 @@ export function HeroButtons() {
           />
         </span>
         <span className="transition-all duration-300">
-          {copied ? "Copied to clipboard" : email}
+          {copied ? "Copied to clipboard" : "Copy email"}
         </span>
       </button>
     </div>

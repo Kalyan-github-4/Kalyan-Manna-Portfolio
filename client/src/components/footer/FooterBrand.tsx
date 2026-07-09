@@ -17,12 +17,12 @@ type FooterBrandProps = {
 
 function FooterBrand({ isInView }: FooterBrandProps) {
     return (
-        <div className="flex flex-col justify-between border-b border-dashed border-white/10 p-8 md:border-b-0 md:border-r md:p-10">
-            <div>
+        <div className="flex flex-col justify-between border-b border-dashed border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
+            <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
                 <motion.img
                     src="/logo-white.png"
                     alt="Kalyan Manna logo"
-                    className="h-12 w-auto object-contain"
+                    className="h-10 w-auto object-contain sm:h-12"
                     initial={{ opacity: 0, y: 18 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
                     transition={{
@@ -37,7 +37,7 @@ function FooterBrand({ isInView }: FooterBrandProps) {
                     custom={6}
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
-                    className="mt-8 max-w-xs text-[15px] leading-6 text-zinc-400"
+                    className="mt-6 max-w-sm text-sm leading-6 text-zinc-400 sm:mt-8 sm:text-[15px] lg:max-w-xs"
                 >
                     I&apos;m Kalyan — a full-stack developer, freelancer & problem
                     solver. Thanks for checking out my site!
@@ -48,9 +48,10 @@ function FooterBrand({ isInView }: FooterBrandProps) {
                     custom={7}
                     initial="hidden"
                     animate={isInView ? "visible" : "hidden"}
+                    className="w-full"
                 >
                     <TooltipProvider>
-                        <div className="mt-5 flex items-center justify-center gap-6 sm:mt-7 sm:gap-8 lg:justify-start">
+                        <div className="mt-6 flex items-center justify-center gap-6 sm:mt-7 sm:gap-8 lg:justify-start">
                             {socialLinks.map(({ icon: Icon, href, label }, index) => (
                                 <Tooltip key={label}>
                                     <TooltipTrigger asChild>
@@ -79,7 +80,7 @@ function FooterBrand({ isInView }: FooterBrandProps) {
                                             className="text-zinc-500 transition-colors duration-300 hover:text-violet-300"
                                         >
                                             <Icon
-                                                size={16}
+                                                size={18}
                                                 className="sm:h-5 sm:w-5"
                                                 weight="duotone"
                                             />

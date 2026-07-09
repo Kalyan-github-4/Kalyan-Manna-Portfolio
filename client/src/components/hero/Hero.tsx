@@ -1,5 +1,6 @@
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useSpring, useTransform } from "framer-motion"
+
 import GlowHorizon from "@/components/hero/GlowHorizon"
 import { AboutContent } from "@/components/hero/AboutContent"
 import { HeroContent } from "@/components/hero/HeroContent"
@@ -7,6 +8,27 @@ import { ProfileImage } from "@/components/hero/ProfileImage"
 import GradientText from "../GradientText"
 
 import type { AboutSlide } from "@/components/hero/types"
+
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false)
+
+  useEffect(() => {
+    const media = window.matchMedia(query)
+
+    const updateMatch = () => {
+      setMatches(media.matches)
+    }
+
+    updateMatch()
+    media.addEventListener("change", updateMatch)
+
+    return () => {
+      media.removeEventListener("change", updateMatch)
+    }
+  }, [query])
+
+  return matches
+}
 
 const aboutSlides: AboutSlide[] = [
   {
@@ -76,7 +98,9 @@ const aboutSlides: AboutSlide[] = [
     subtitle: (
       <>
         I ship MVPs, scale apps, and{" "}
-        <span className="text-zinc-200">turn messy code into maintainable systems.</span>{" "}
+        <span className="text-zinc-200">
+          turn messy code into maintainable systems.
+        </span>{" "}
         Your product, but faster and better.
       </>
     ),
@@ -137,7 +161,7 @@ const aboutSlides: AboutSlide[] = [
       <>
         Epic storylines on screen,{" "}
         <span className="text-zinc-200">beautiful chaos on the pitch.</span>{" "}
-        Because code isn't the only thing that needs heart.
+        Because code isn&apos;t the only thing that needs heart.
       </>
     ),
     image:
@@ -151,6 +175,9 @@ const aboutSlides: AboutSlide[] = [
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
 
+  const isMobile = useMediaQuery("(max-width: 767px)")
+  const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1023px)")
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
@@ -162,35 +189,40 @@ export default function Hero() {
     mass: 0.4,
   })
 
-  /**
-   * Hero content: fade, blur, and move slightly up
-   */
   const heroOpacity = useTransform(smoothProgress, [0, 0.25], [1, 0])
   const heroY = useTransform(smoothProgress, [0, 0.25], [0, -80])
   const heroBlur = useTransform(smoothProgress, [0, 0.25], [0, 18])
 
+  const finalImageX = isMobile ? "0vw" : isTablet ? "20vw" : "28vw"
+  const middleImageX = isMobile ? "0vw" : isTablet ? "12vw" : "18vw"
+
+  const finalImageTop = isMobile ? "31%" : isTablet ? "52%" : "57%"
+  const middleImageTop = isMobile ? "45%" : isTablet ? "58%" : "61%"
+
+  const finalImageSize = isMobile ? "180px" : isTablet ? "340px" : "460px"
+
   const imageX = useTransform(
     smoothProgress,
     [0, 0.18, 0.36, 1],
-    ["0vw", "18vw", "28vw", "28vw"]
+    ["0vw", middleImageX, finalImageX, finalImageX]
   )
 
   const imageY = useTransform(
     smoothProgress,
     [0, 0.12, 0.36, 1],
-    ["0vh", "0vh", "-2vh", "-2vh"]
+    ["0vh", "0vh", isMobile ? "-4vh" : "-2vh", isMobile ? "-4vh" : "-2vh"]
   )
 
   const imageWidth = useTransform(
     smoothProgress,
     [0, 0.12, 0.36, 1],
-    ["3.2em", "3.6em", "460px", "460px"]
+    ["2.9em", "3.4em", finalImageSize, finalImageSize]
   )
 
   const imageHeight = useTransform(
     smoothProgress,
     [0, 0.12, 0.36, 1],
-    ["1.8em", "2.1em", "460px", "460px"]
+    ["1.7em", "2em", finalImageSize, finalImageSize]
   )
 
   const imageRadius = useTransform(
@@ -202,39 +234,42 @@ export default function Hero() {
   const imageTop = useTransform(
     smoothProgress,
     [0, 0.12, 0.36, 1],
-    ["62%", "61%", "57%", "57%"]
+    ["58%", middleImageTop, finalImageTop, finalImageTop]
   )
 
   const imageOpacity = useTransform(
     smoothProgress,
-    [0, 0.1, 1],
-    [1, 1, 1]
+    [0, 0.32, 0.38, 1],
+    [0, 0, 1, 1]
+  )
+
+  const baseImageOpacity = useTransform(
+    smoothProgress,
+    [0, 0.32, 0.38, 0.42],
+    [0, 0, 1, 0]
   )
 
   const aboutTextOpacity = useTransform(
     smoothProgress,
-    [0.35, 0.4, 0.96, 1], // Changed from 0.6 to 0.35 to start earlier
+    [0.35, 0.4, 0.96, 1],
     [0, 1, 1, 0]
   )
 
   const aboutTextY = useTransform(smoothProgress, [0.3, 0.4], [40, 0])
 
-  /**
-   * Optional dark overlay to help hero vanish cleanly.
-   */
   const veilOpacity = useTransform(smoothProgress, [0.15, 0.45], [0, 0.45])
 
   return (
     <section
       ref={sectionRef}
-      className="relative h-[500vh] overflow-clip bg-black"
+      className="relative h-[470vh] overflow-clip bg-black md:h-[500vh]"
     >
       <div className="sticky top-0 min-h-screen overflow-hidden">
         <GlowHorizon />
 
         <motion.div
           style={{ opacity: veilOpacity }}
-          className="pointer-events-none absolute inset-0 z-[2] bg-black"
+          className="pointer-events-none absolute inset-0 z-2 bg-black"
         />
 
         <HeroContent opacity={heroOpacity} y={heroY} blur={heroBlur} />
@@ -251,7 +286,7 @@ export default function Hero() {
           height={imageHeight}
           borderRadius={imageRadius}
           opacity={imageOpacity}
-          baseImageOpacity={useTransform(smoothProgress, [0, 0.35, 0.42], [1, 1, 0])}
+          baseImageOpacity={baseImageOpacity}
         />
 
         <AboutContent

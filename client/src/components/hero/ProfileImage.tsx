@@ -27,7 +27,7 @@ export function ProfileImage({
 				borderRadius,
 				opacity,
 			}}
-			className="pointer-events-none absolute left-[51%] z-20 -translate-x-1/2 -translate-y-1/2 overflow-hidden border border-white/20 shadow-2xl shadow-black/50"
+			className="pointer-events-none absolute left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 overflow-hidden border border-white/20 shadow-2xl shadow-black/50 lg:left-[51%]"
 		>
 			<motion.img
 				src={image}

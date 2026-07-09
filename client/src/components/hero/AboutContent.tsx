@@ -21,13 +21,13 @@ export function AboutContent({
 					opacity,
 					y,
 				}}
-				className="absolute left-1/2 top-[14%] -translate-x-1/2 text-center text-[11px] font-medium uppercase tracking-[0.35em] text-zinc-500"
+				className="absolute left-1/2 top-[10%] -translate-x-1/2 text-center text-[10px] font-medium uppercase tracking-[0.28em] text-zinc-500 sm:top-[12%] sm:text-[11px] sm:tracking-[0.35em] lg:top-[14%]"
 			>
 				A BIT ABOUT ME
 			</motion.p>
 
-			<div className="flex min-h-screen w-full items-center">
-				<div className="relative h-[360px] w-full max-w-2xl sm:h-[420px] lg:max-w-3xl">
+			<div className="flex min-h-screen w-full items-end justify-center pb-16 sm:items-center sm:justify-start sm:pb-0">
+				<div className="relative h-77.5 w-full max-w-xl sm:h-105 sm:max-w-2xl lg:max-w-3xl">
 					{slides.map((slide, index) => (
 						<AboutRevealSlide
 							key={`about-${index}`}

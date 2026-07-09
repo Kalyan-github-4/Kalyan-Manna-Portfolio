@@ -58,87 +58,94 @@ function buildLayout(count: number, cols: number): number[][] {
 }
 
 function useResponsiveColumns(desired: number): number {
-  const [cols, setCols] = React.useState(desired);
+  const [cols, setCols] = React.useState(1)
 
   React.useEffect(() => {
-    const sm = window.matchMedia("(min-width: 640px)");
-    const lg = window.matchMedia("(min-width: 1024px)");
+    const sm = window.matchMedia("(min-width: 640px)")
+    const lg = window.matchMedia("(min-width: 1024px)")
 
     const update = () => {
-      if (lg.matches) setCols(desired);
-      else if (sm.matches) setCols(Math.min(desired, 3));
-      else setCols(Math.min(desired, 2));
-    };
+      if (lg.matches) {
+        setCols(desired)
+      } else if (sm.matches) {
+        setCols(Math.min(desired, 2))
+      } else {
+        setCols(1)
+      }
+    }
 
-    update();
+    update()
 
-    sm.addEventListener("change", update);
-    lg.addEventListener("change", update);
+    sm.addEventListener("change", update)
+    lg.addEventListener("change", update)
 
     return () => {
-      sm.removeEventListener("change", update);
-      lg.removeEventListener("change", update);
-    };
-  }, [desired]);
+      sm.removeEventListener("change", update)
+      lg.removeEventListener("change", update)
+    }
+  }, [desired])
 
-  return cols;
+  return cols
 }
 
 function FeedbackCard({ speaker }: { speaker: Speaker }) {
   return (
-    <article className="group relative h-full w-full overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-950 p-5 text-white shadow-2xl shadow-black/30">
-      {/* soft background glow */}
-      <div className="pointer-events-none absolute -right-20 -top-20 h-44 w-44 rounded-full bg-white/10 blur-3xl transition-opacity duration-500 group-hover:opacity-80" />
-      <div className="pointer-events-none absolute -bottom-24 -left-20 h-48 w-48 rounded-full bg-white/5 blur-3xl" />
+    <article className="group relative flex h-full w-full overflow-hidden rounded-3xl border border-white/10 bg-[#0b0b10]/95 p-4 text-white shadow-2xl shadow-black/30 backdrop-blur sm:p-5 lg:rounded-4xl">
+      <div className="pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-fuchsia-400/10 blur-3xl transition-opacity duration-500 group-hover:opacity-80" />
+      <div className="pointer-events-none absolute -bottom-20 -left-16 h-40 w-40 rounded-full bg-purple-400/10 blur-3xl" />
 
-      <div className="relative z-10 flex h-full flex-col justify-between">
+      <div className="relative z-10 flex min-h-52.5 w-full flex-col justify-between sm:min-h-60">
         <div>
-          <div className="mb-5 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
+          <div className="mb-4 flex items-start justify-between gap-3">
+            <div className="flex min-w-0 items-center gap-3">
               <img
                 src={speaker.src}
                 alt={speaker.name}
                 loading="lazy"
                 decoding="async"
                 draggable={false}
-                className="h-12 w-12 rounded-full object-cover ring-2 ring-white/15"
+                className="h-11 w-11 shrink-0 rounded-full object-cover ring-2 ring-white/15 sm:h-12 sm:w-12"
               />
 
               <div className="min-w-0">
-                <h3 className="text-sm font-medium text-white tracking-wide">
+                <h3 className="truncate text-sm font-medium tracking-wide text-white">
                   {speaker.name}
                 </h3>
-                <p className="truncate text-[11px] uppercase tracking-[0.16em] text-white/45">
+
+                <p className="mt-1 truncate text-[10px] uppercase tracking-[0.16em] text-white/40 sm:text-[11px]">
                   {speaker.role}
                 </p>
               </div>
             </div>
 
-            <div className="shrink-0 text-xs tracking-tight text-white/50">
-              {Array.from({ length: speaker.rating ?? 5 }).map((_, index) => (
-                <span key={index}>★</span>
-              ))}
+            <div className="shrink-0 whitespace-nowrap text-[11px] tracking-tight text-yellow-200/80 sm:text-xs">
+              {Array.from({ length: Math.min(speaker.rating ?? 5, 5) }).map(
+                (_, index) => (
+                  <span key={index}>★</span>
+                )
+              )}
             </div>
           </div>
 
-          <p className="text-[15px] leading-relaxed text-white/75 sm:text-base">
+          <p className="line-clamp-5 text-sm leading-6 text-white/72 sm:line-clamp-none sm:text-[15px] sm:leading-7 lg:text-base">
             “{speaker.feedback}”
           </p>
         </div>
 
-        <div className="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-          <span className="text-[10px] uppercase tracking-[0.22em] text-white/35">
+        <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4">
+          <span className="text-[9px] uppercase tracking-[0.2em] text-white/30 sm:text-[10px]">
             Client Feedback
           </span>
 
-          <span className="rounded-full border border-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-white/50">
+          <span className="rounded-full border border-white/10 bg-white/30 px-3 py-1 text-[9px] uppercase tracking-[0.16em] text-white/45 sm:text-[10px]">
             Verified
           </span>
         </div>
       </div>
     </article>
-  );
+  )
 }
+
 const fadeUp = {
   hidden: {
     opacity: 0,
@@ -273,19 +280,25 @@ export function ScrollPortraitWall({
         </div>
       </div>
 
-      <div className="relative z-30 mb-[40vh] mt-[80vh]">
+      <div className="relative z-30 mb-[32vh] mt-[72vh] space-y-5 px-4 sm:space-y-6 sm:px-6 lg:space-y-8 lg:px-10">
         {layout.map((row, ri) => (
-          <div key={ri} className="flex w-full">
+          <div
+            key={ri}
+            className="grid w-full gap-5 sm:gap-6 lg:gap-8"
+            style={{
+              gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+            }}
+          >
             {row.map((idx, ci) => {
               if (idx === -1) {
-                return <div key={ci} className="aspect-square flex-1" />;
+                return <div key={ci} className="hidden sm:block" />
               }
 
-              const speaker = speakers[idx];
-              const origin = ci < cols / 2 ? "right bottom" : "left bottom";
+              const speaker = speakers[idx]
+              const origin = ci < cols / 2 ? "right bottom" : "left bottom"
 
               return (
-                <div key={ci} className="aspect-square flex-1 p-3 sm:p-4">
+                <div key={ci} className="min-h-[230px] sm:min-h-[255px] lg:min-h-[280px]">
                   <div
                     className="spw-item relative z-40 h-full w-full"
                     style={{
@@ -303,7 +316,7 @@ export function ScrollPortraitWall({
                     )}
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         ))}
