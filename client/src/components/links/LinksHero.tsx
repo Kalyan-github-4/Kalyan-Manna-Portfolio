@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import GradientText from "../GradientText";
+import GradientText from "../shared/GradientText";
 
 const fadeUp = {
   hidden: {

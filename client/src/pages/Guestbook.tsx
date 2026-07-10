@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 
-import GradientText from "../GradientText";
-import CreateGuestCard from "./components/CreateGuestCard";
-import GuestCard, { type GuestEntry } from "./components/GuestCard";
-import type { Doodle } from "./components/DoodleSvg";
+import GradientText from "../components/shared/GradientText";
+import CreateGuestCard from "../components/guestbook/components/CreateGuestCard";
+import GuestCard, { type GuestEntry } from "../components/guestbook/components/GuestCard";
+import type { Doodle } from "../components/guestbook/components/DoodleSvg";
 // import { sampleEntries } from "./data/sampleEntries";
 import {
   createGuestbookEntry,

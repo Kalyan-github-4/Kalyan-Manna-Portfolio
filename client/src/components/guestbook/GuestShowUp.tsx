@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 
 import GuestShowUpWall, { type Speaker } from "./GuestShowUpWall"
-import GradientText from "../GradientText"
+import GradientText from "../shared/GradientText"
 import { getFeedbackEntries, type FeedbackEntryResponse } from "@/lib/api"
 
 function mapFeedbackToSpeaker(entry: FeedbackEntryResponse): Speaker {

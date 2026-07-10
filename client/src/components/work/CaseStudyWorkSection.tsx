@@ -2,8 +2,8 @@ import { motion } from "framer-motion"
 
 import WorkProjectCard from "./WorkProjectCard"
 import { workProjects } from "./workProjects"
-import GradientText from "../GradientText"
-import BackgroundRipple from "../BackgroundRipple"
+import GradientText from "../shared/GradientText"
+import BackgroundRipple from "../shared/BackgroundRipple"
 
 export default function CaseStudyWorkSection() {
     return (
@@ -17,7 +17,7 @@ export default function CaseStudyWorkSection() {
 
             <div className="relative z-10 mx-auto w-full">
                 {/* Header */}
-                <div className="relative mb-28 flex min-h-[280px] items-center justify-center text-center">
+                <div className="relative mb-28 flex min-h-70 items-center justify-center text-center">
                     <div>
                         <motion.p
                             initial={{ opacity: 0, y: 18 }}
