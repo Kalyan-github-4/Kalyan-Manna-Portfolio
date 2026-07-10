@@ -27,16 +27,16 @@ export default function WorkProjectCard({
                 ease: [0.22, 1, 0.36, 1],
             }}
             className={[
-                "relative min-h-[760px] pb-20",
+                "relative min-h-190 pb-20",
                 isRight
-                    ? "md:col-start-2 md:mt-[260px] md:pl-10"
+                    ? "md:col-start-2 md:mt-65 md:pl-10"
                     : "md:col-start-1 md:pr-10",
             ].join(" ")}
         >
             {/* Horizontal connector line */}
             <div
                 className={[
-                    "absolute top-[48px] hidden h-px bg-white/10 md:block",
+                    "absolute top-12 hidden h-px bg-white/10 md:block",
                     isRight ? "left-0 w-10" : "right-0 w-10",
                 ].join(" ")}
             />
@@ -44,7 +44,7 @@ export default function WorkProjectCard({
             {/* Timeline Dot */}
             <span
                 className={[
-                    "absolute top-[40px] hidden h-4 w-4 rounded-full border border-white/15 bg-black md:block",
+                    "absolute top-10 hidden h-4 w-4 rounded-full border border-white/15 bg-black md:block",
                     "after:absolute after:left-1/2 after:top-1/2 after:h-1.5 after:w-1.5 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-white/40",
                     isRight ? "-left-2" : "-right-2",
                 ].join(" ")}
@@ -64,7 +64,7 @@ export default function WorkProjectCard({
                     </span>
                 </div>
 
-                <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-xs font-semibold text-white/55">
+                <span className="rounded-full border border-white/10 bg-white/4 px-3 py-1 font-mono text-xs font-semibold text-white/55">
                     {project.date}
                 </span>
             </div>
@@ -90,8 +90,8 @@ export default function WorkProjectCard({
                 >
                     <div
                         className={[
-                            "relative min-h-[420px] overflow-hidden rounded-[22px] bg-gradient-to-br p-7",
-                            project.variant === "mobile" ? "min-h-[500px]" : "min-h-[420px]",
+                            "relative min-h-105 overflow-hidden rounded-[22px] bg-linear-to-br p-7",
+                            project.variant === "mobile" ? "min-h-125" : "min-h-105",
                             project.accent,
                         ].join(" ")}
                     >
@@ -114,7 +114,7 @@ export default function WorkProjectCard({
                                     </span>
                                 </div>
 
-                                <div className="absolute bottom-[-42px] left-1/2 z-10 w-[82%] -translate-x-1/2 overflow-hidden rounded-t-2xl border border-white/30 bg-black shadow-2xl shadow-black/50">
+                                <div className="absolute -bottom-10.5 left-1/2 z-10 w-[82%] -translate-x-1/2 overflow-hidden rounded-t-2xl border border-white/30 bg-black shadow-2xl shadow-black/50">
                                     <div className="flex h-8 items-center gap-2 border-b border-white/10 bg-black px-4">
                                         <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
                                         <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
@@ -124,7 +124,7 @@ export default function WorkProjectCard({
                                     <img
                                         src={project.image}
                                         alt={`${project.title} preview`}
-                                        className="h-[260px] w-full object-cover object-top opacity-95 transition-transform duration-700 group-hover:scale-[1.04]"
+                                        className="h-65 w-full object-cover object-top opacity-95 transition-transform duration-700 group-hover:scale-[1.04]"
                                     />
                                 </div>
                             </>
@@ -147,7 +147,7 @@ export default function WorkProjectCard({
                         href={project.githubUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white/70 transition-colors hover:border-white/25 hover:bg-white/[0.08] hover:text-white"
+                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2 text-sm font-medium text-white/70 transition-colors hover:border-white/25 hover:bg-white/8 hover:text-white"
                     >
                         <GithubLogo size={18} weight="bold" />
                         GitHub
@@ -159,7 +159,7 @@ export default function WorkProjectCard({
                         href={project.liveUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-medium text-white/70 transition-colors hover:border-white/25 hover:bg-white/[0.08] hover:text-white"
+                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2 text-sm font-medium text-white/70 transition-colors hover:border-white/25 hover:bg-white/8 hover:text-white"
                     >
                         <ArrowUpRight size={18} weight="bold" />
                         Live Preview

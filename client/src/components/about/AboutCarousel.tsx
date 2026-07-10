@@ -66,7 +66,7 @@ export const AboutCarousel = React.forwardRef<HTMLDivElement, AboutCarouselProps
       <div
         ref={ref}
         className={cn(
-          "relative flex w-full max-w-[560px] flex-col items-center justify-center overflow-hidden",
+          "relative flex w-full max-w-140 flex-col items-center justify-center overflow-hidden",
           className
         )}
       >
@@ -78,7 +78,7 @@ export const AboutCarousel = React.forwardRef<HTMLDivElement, AboutCarouselProps
         </div>
 
         <motion.div
-          className="relative flex h-[430px] w-full cursor-grab items-center justify-center overflow-hidden active:cursor-grabbing [perspective:1000px]"
+          className="relative flex h-107.5 w-full cursor-grab items-center justify-center overflow-hidden active:cursor-grabbing perspective-[1000px]"
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.18}
@@ -103,7 +103,7 @@ export const AboutCarousel = React.forwardRef<HTMLDivElement, AboutCarouselProps
                 key={image.src}
                 className={cn(
                   "absolute flex items-center justify-center",
-                  "h-[360px] w-[250px] sm:h-[400px] sm:w-[280px] md:h-[430px] md:w-[310px]"
+                  "h-90 w-62.5 sm:h-100 sm:w-70 md:h-107.5 md:w-77.5"
                 )}
                 animate={{
                   x: pos * 130,

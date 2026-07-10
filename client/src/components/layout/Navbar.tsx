@@ -19,6 +19,7 @@ import {
   Trophy,
   LinkSimple,
 } from "@phosphor-icons/react";
+import { ContactDialog } from "../shared/ContactDialog";
 
 interface NavItem {
   name: string;
@@ -51,6 +52,7 @@ function resolveIcon(item: NavItem): Icon {
 }
 
 export function NavBar({ items, className }: NavBarProps) {
+  const email = "kalyanmanna439@gmail.com";
   const { pathname } = useLocation();
   const [moreOpen, setMoreOpen] = useState(false);
   const [introDone, setIntroDone] = useState(false);
@@ -187,7 +189,7 @@ export function NavBar({ items, className }: NavBarProps) {
             backdrop-saturate-150
             shadow-[0_0_30px_rgba(255,255,255,0.08)]
           ">
-          <div className="relative flex h-[52px] items-center justify-center overflow-hidden">
+          <div className="relative flex h-13 items-center justify-center overflow-hidden">
             <AnimatePresence mode="wait">
               {!introDone ? (
                 <motion.div
@@ -317,7 +319,7 @@ export function NavBar({ items, className }: NavBarProps) {
 
         {/* Right Button - with scroll visibility */}
         <motion.div
-          className="h-[52px] flex items-center justify-end"
+          className="h-13 flex items-center justify-end"
           animate={{
             opacity: isScrolled ? 0 : 1,
             scale: isScrolled ? 0.8 : 1,
@@ -331,8 +333,18 @@ export function NavBar({ items, className }: NavBarProps) {
             pointerEvents: isScrolled ? "none" : "auto",
           }}
         >
-          <button
-            className="
+          <ContactDialog
+            email={email}
+            name="Kalyan"
+            imageSrc="/kalyan-manna.jpg"
+            imageAlt="Kalyan Manna"
+            calUrl="#"
+            linkedinUrl="https://www.linkedin.com/"
+            xUrl="https://x.com/"
+            githubUrl="https://github.com/Kalyan-github-4"
+          >
+            <button
+              className="
               self-center justify-self-end items-center
               rounded-full border border-white/10
               bg-zinc-950/45
@@ -344,9 +356,10 @@ export function NavBar({ items, className }: NavBarProps) {
               shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_0_12px_rgba(255,255,255,0.08)]
               cursor-pointer
             "
-          >
-            Book a Call
-          </button>
+            >
+              Book a Call
+            </button>
+          </ContactDialog>
         </motion.div>
       </div>
 

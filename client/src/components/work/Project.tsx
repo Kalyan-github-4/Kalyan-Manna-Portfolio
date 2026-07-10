@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import GradientText from "@/components/GradientText";
+import GradientText from "@/components/shared/GradientText";
 import PerspectiveScrollShowcase from "./PerspectiveScrollShowcase";
 import type { ProjectItem } from "./PerspectiveScrollShowcase";
 import { useRef } from "react";
@@ -129,7 +129,7 @@ export default function Project() {
         </div>
 
         {/* Cards come over heading */}
-        <div className="relative z-20 -mt-[100vh] pt-[100vh]">
+        <div className="relative z-20 mt-[-100vh] pt-[100vh]">
           <PerspectiveScrollShowcase projects={projects} />
         </div>
       </motion.div>

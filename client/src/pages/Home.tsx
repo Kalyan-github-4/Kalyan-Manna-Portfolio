@@ -1,4 +1,4 @@
-import Hero from "@/components/hero/Hero";
+import Hero from "@/pages/Hero.tsx";
 import Project from "../components/work/Project.tsx";
 // import Footer from "../components/footer/Footer.tsx";
 import GuestShowUp from "@/components/guestbook/GuestShowUp.tsx";

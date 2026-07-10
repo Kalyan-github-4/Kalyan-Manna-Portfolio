@@ -7,7 +7,7 @@ import {
   PencilSimpleIcon,
 } from "@phosphor-icons/react"
 
-const REDIRECT_URL = "/more/guestbook/sso-callback"
+const REDIRECT_URL = `${window.location.origin}/more/guestbook/sso-callback`
 const REDIRECT_COMPLETE_URL = "/more/guestbook"
 
 export default function SignIn() {
@@ -23,7 +23,7 @@ export default function SignIn() {
 
     try {
       await signIn.authenticateWithRedirect({
-        strategy: provider === "Linkedin" ? "oauth_linkedin" : "oauth_google",
+        strategy: provider === "Linkedin" ? "oauth_linkedin_oidc" : "oauth_google",
         redirectUrl: REDIRECT_URL,
         redirectUrlComplete: REDIRECT_COMPLETE_URL,
       })
@@ -37,7 +37,7 @@ export default function SignIn() {
     <main className="relative min-h-screen overflow-hidden bg-black px-6 py-28 text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(124,79,224,0.28),transparent_35%),radial-gradient(circle_at_20%_80%,rgba(33,146,218,0.16),transparent_30%)]" />
 
-      <section className="relative mx-auto flex min-h-[calc(100vh-14rem)] max-w-[430px] items-center justify-center">
+      <section className="relative mx-auto flex min-h-[calc(100vh-14rem)] max-w-107.5 items-center justify-center">
         <div className="w-full overflow-hidden rounded-[28px] border border-white/10 bg-[#121214] shadow-2xl">
           <div className="relative overflow-hidden bg-[linear-gradient(160deg,#7C4FE0_0%,#5123A3_52%,#281357_100%)] px-6 pb-12 pt-10 text-center">
             <div className="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-2xl bg-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]">
@@ -55,7 +55,7 @@ export default function SignIn() {
 
           <div className="relative -mt-5 h-8 bg-[#121214]">
             <svg
-              className="absolute -top-[1px] left-0 h-8 w-full text-[#121214]"
+              className="absolute -top-px left-0 h-8 w-full text-[#121214]"
               viewBox="0 0 430 32"
               preserveAspectRatio="none"
               aria-hidden="true"

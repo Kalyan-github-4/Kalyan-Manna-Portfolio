@@ -14,9 +14,9 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import GradientText from "../GradientText";
-import { AboutCarousel } from "./AboutCarousel";
-import BackgroundRipple from "../BackgroundRipple";
+import GradientText from "../components/shared/GradientText";
+import { AboutCarousel } from "../components/about/AboutCarousel";
+import BackgroundRipple from "../components/shared/BackgroundRipple";
 
 // Transition now lives INSIDE the variant, driven by `custom` (stagger index)
 const fadeUp = {
@@ -199,7 +199,7 @@ export default function About() {
           variants={fadeUp}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="relative flex w-full max-w-[560px] flex-col items-center justify-center overflow-hidden"
+          className="relative flex w-full max-w-140 flex-col items-center justify-center overflow-hidden"
         >
           <AboutCarousel images={images} />
         </motion.div>

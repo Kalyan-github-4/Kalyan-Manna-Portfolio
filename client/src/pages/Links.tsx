@@ -25,7 +25,7 @@ const Links = () => {
 
         <div className="mx-auto grid w-full gap-10 border-y border-dashed border-white/10 py-8 lg:grid-cols-[360px_1fr]">
           <div className="relative">
-            <div className="absolute -inset-y-8 right-[-20px] hidden border-r border-dashed border-white/10 lg:block" />
+            <div className="absolute -inset-y-8 -right-5 hidden border-r border-dashed border-white/10 lg:block" />
             <ProfileCard />
           </div>
 

@@ -7,7 +7,7 @@ import {
   PencilSimpleIcon,
 } from "@phosphor-icons/react"
 
-const REDIRECT_URL = "/more/guestbook/sso-callback"
+const REDIRECT_URL = `${window.location.origin}/more/guestbook/sso-callback`
 const REDIRECT_COMPLETE_URL = "/more/guestbook"
 
 export default function GuestbookLoginDialog() {
@@ -23,7 +23,7 @@ export default function GuestbookLoginDialog() {
 
     try {
       await signIn.authenticateWithRedirect({
-        strategy: provider === "Linkedin" ? "oauth_linkedin" : "oauth_google",
+        strategy: provider === "Linkedin" ? "oauth_linkedin_oidc" : "oauth_google",
         redirectUrl: REDIRECT_URL,
         redirectUrlComplete: REDIRECT_COMPLETE_URL,
       })
@@ -42,7 +42,7 @@ export default function GuestbookLoginDialog() {
         </button>
       </DialogTrigger>
 
-      <DialogContent className="overflow-hidden border border-white/10 bg-[#121214] p-0 text-white shadow-2xl sm:max-w-[430px] [&>button]:text-white [&>button]:opacity-80 [&>button:hover]:opacity-100">
+      <DialogContent className="overflow-hidden border border-white/10 bg-[#121214] p-0 text-white shadow-2xl sm:max-w-107.5 [&>button]:text-white [&>button]:opacity-80 [&>button:hover]:opacity-100">
         <div className="relative overflow-hidden rounded-[22px]">
           <div className="relative overflow-hidden bg-[linear-gradient(160deg,#7C4FE0_0%,#5123A3_52%,#281357_100%)] px-6 pb-12 pt-10 text-center">
             <div className="absolute right-14 top-6 h-8 w-8 opacity-30">

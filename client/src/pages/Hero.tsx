@@ -5,7 +5,7 @@ import GlowHorizon from "@/components/hero/GlowHorizon"
 import { AboutContent } from "@/components/hero/AboutContent"
 import { HeroContent } from "@/components/hero/HeroContent"
 import { ProfileImage } from "@/components/hero/ProfileImage"
-import GradientText from "../GradientText"
+import GradientText from "../components/shared/GradientText"
 
 import type { AboutSlide } from "@/components/hero/types"
 
