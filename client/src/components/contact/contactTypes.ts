@@ -1,0 +1,1 @@
+export type ContactTab = "book-call" | "message"

@@ -27,16 +27,16 @@ export function HeroButtons() {
 				name="Kalyan"
 				imageSrc="/kalyan-manna.jpg"
 				imageAlt="Kalyan Manna"
-				calUrl="#"
+				calUrl="https://cal.com/kalyanmanna"
 				linkedinUrl="https://www.linkedin.com/"
 				xUrl="https://x.com/"
 				githubUrl="https://github.com/Kalyan-github-4"
 			>
 				<button
 					type="button"
-					className="group relative inline-flex cursor-pointer items-center justify-between overflow-hidden rounded-full border border-white/20 bg-white/10 py-1 pl-5 pr-1 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-500 ease-out hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/15 active:translate-y-0"
+					className="group relative inline-flex cursor-pointer items-center justify-between overflow-hidden rounded-full border border-white/20 bg-white/10 py-1 pl-5 pr-1 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-500 ease-out hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/15 "
 				>
-					<span className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-white transition-all duration-700 ease-[cubic-bezier(.19,1,.22,1)] group-hover:right-0 group-hover:top-0 group-hover:h-full group-hover:w-full group-hover:translate-y-0" />
+					<span className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-white transition-all duration-700 ease-[cubic-bezier(.19,1,.22,1)] group-hover:right-0 group-hover:top-0 group-hover:h-full group-hover:w-full " />
 
 					<span className="relative z-10 text-sm transition-colors duration-500 group-hover:text-slate-900">
 						Let&apos;s Connect

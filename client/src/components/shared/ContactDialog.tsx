@@ -36,7 +36,6 @@ export function ContactDialog({
     name = "Kalyan",
     imageSrc = "/kalyan-manna.jpg",
     imageAlt = "Kalyan Manna",
-    calUrl = "#",
     linkedinUrl = "https://www.linkedin.com/",
     xUrl = "https://x.com/",
     githubUrl = "https://github.com/Kalyan-github-4",
@@ -133,7 +132,7 @@ export function ContactDialog({
 
                         <div className="mt-3 grid gap-3 sm:grid-cols-2">
                             <ContactActionCard
-                                href={calUrl}
+                                href="/contact?book-call"
                                 icon={<CalendarBlank size={26} />}
                                 title="Book a call"
                                 description="30 min · no strings"
@@ -187,6 +186,26 @@ function ContactActionCard({
     description,
 }: ContactActionCardProps) {
     const isExternal = href.startsWith("http")
+    const isDisabled = !href || href === "#"
+
+    if (isDisabled) {
+        return (
+            <button
+                type="button"
+                disabled
+                className="group rounded-3xl border border-white/10 bg-white/2.5 p-6 text-center opacity-50"
+            >
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-300">
+                    {icon}
+                </div>
+
+                <h3 className="mt-4 font-sans font-semibold text-white">{title}</h3>
+                <p className="mt-1 break-all text-xs text-zinc-500">
+                    Coming soon
+                </p>
+            </button>
+        )
+    }
 
     return (
         <a
@@ -204,7 +223,6 @@ function ContactActionCard({
         </a>
     )
 }
-
 interface SocialLinkProps {
     href: string
     icon: ReactNode

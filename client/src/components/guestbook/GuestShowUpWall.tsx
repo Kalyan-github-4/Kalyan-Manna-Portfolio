@@ -298,7 +298,7 @@ export function ScrollPortraitWall({
               const origin = ci < cols / 2 ? "right bottom" : "left bottom"
 
               return (
-                <div key={ci} className="min-h-[230px] sm:min-h-[255px] lg:min-h-[280px]">
+                <div key={ci} className="min-h-57.5 sm:min-h-63.75 lg:min-h-70">
                   <div
                     className="spw-item relative z-40 h-full w-full"
                     style={{

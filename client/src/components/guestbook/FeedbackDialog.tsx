@@ -95,7 +95,7 @@ export default function FeedbackDialog() {
         </DialogHeader>
 
         <SignedOut>
-          <div className="mt-4 rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-center">
+          <div className="mt-4 rounded-2xl border border-white/10 bg-white/3 p-5 text-center">
             <p className="mb-4 text-sm text-zinc-400">
               Please sign in first so your name and profile image can be attached
               to your feedback.
@@ -124,7 +124,7 @@ export default function FeedbackDialog() {
                 onChange={(event) => setRole(event.target.value)}
                 placeholder="Founder · Bloom Studio"
                 maxLength={70}
-                className="w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-white/25"
+                className="w-full rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-white/25"
               />
             </div>
 
@@ -167,7 +167,7 @@ export default function FeedbackDialog() {
                 placeholder="Tell people what the experience was like..."
                 rows={5}
                 maxLength={500}
-                className="w-full resize-none rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-white outline-none placeholder:text-white/30 focus:border-white/25"
+                className="w-full resize-none rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm leading-6 text-white outline-none placeholder:text-white/30 focus:border-white/25"
               />
 
               <div className="mt-2 flex justify-between text-xs text-zinc-500">
