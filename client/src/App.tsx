@@ -11,6 +11,8 @@ import Links from "./pages/Links"
 import Uses from "./pages/Uses"
 import Attribution from "./pages/Attribution"
 
+import Contact from "./components/contact/Contact"
+
 import SignIn from "./auth/SignIn"
 import SignUp from "./auth/SignUp"
 import SSOCallback from "./auth/SSOCallback"
@@ -23,7 +25,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="work" element={<Work />} />
         <Route path="blog" element={<Blog />} />
-
+        <Route path="contact" element={<Contact />} />
         <Route path="more/guestbook" element={<GuestBook />} />
         <Route path="more/guestbook/sign-in" element={<SignIn />} />
         <Route path="more/guestbook/sign-up" element={<SignUp />} />
