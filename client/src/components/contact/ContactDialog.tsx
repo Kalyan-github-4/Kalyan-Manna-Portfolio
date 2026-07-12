@@ -1,10 +1,9 @@
 import { useMemo, useState, type ReactNode } from "react"
 import {
     ArrowRight,
-    CalendarBlank,
-    EnvelopeSimple,
     GithubLogo,
     LinkedinLogo,
+    Mailbox,
     XLogo,
 } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
@@ -17,7 +16,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-
+import  ContactActionCard  from "@/components/contact/ContactActionCard"
 interface ContactDialogProps {
     children: ReactNode
     email?: string
@@ -133,16 +132,36 @@ export function ContactDialog({
                         <div className="mt-3 grid gap-3 sm:grid-cols-2">
                             <ContactActionCard
                                 href="/contact?book-call"
-                                icon={<CalendarBlank size={26} />}
                                 title="Book a call"
                                 description="30 min · no strings"
+                                visual={
+                                    <div className="flex items-center justify-center gap-3">
+                                        <img
+                                            src="/kalyan-manna.jpg"
+                                            alt="Kalyan Manna"
+                                            className="h-13 w-13 rounded-full object-cover ring-2 ring-white/15"
+                                        />
+
+                                        <span className="text-xl font-medium text-zinc-400">+</span>
+
+                                        <div className="flex h-13 w-13 items-center justify-center rounded-full border border-white/15 bg-white/10 text-sm font-semibold text-zinc-300 shadow-inner shadow-white/5">
+                                            You
+                                        </div>
+                                    </div>
+                                }
                             />
 
                             <ContactActionCard
-                                href={mailHref}
-                                icon={<EnvelopeSimple size={26} />}
+                                href={`mailto:${email}`}
                                 title="Email me"
                                 description={email}
+                                visual={
+                                    <Mailbox
+                                        size={48}
+                                        weight="light"
+                                        className="text-zinc-400 transition-colors duration-300 group-hover:text-white"
+                                    />
+                                }
                             />
                         </div>
 
@@ -172,57 +191,6 @@ export function ContactDialog({
     )
 }
 
-interface ContactActionCardProps {
-    href: string
-    icon: ReactNode
-    title: string
-    description: string
-}
-
-function ContactActionCard({
-    href,
-    icon,
-    title,
-    description,
-}: ContactActionCardProps) {
-    const isExternal = href.startsWith("http")
-    const isDisabled = !href || href === "#"
-
-    if (isDisabled) {
-        return (
-            <button
-                type="button"
-                disabled
-                className="group rounded-3xl border border-white/10 bg-white/2.5 p-6 text-center opacity-50"
-            >
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-300">
-                    {icon}
-                </div>
-
-                <h3 className="mt-4 font-sans font-semibold text-white">{title}</h3>
-                <p className="mt-1 break-all text-xs text-zinc-500">
-                    Coming soon
-                </p>
-            </button>
-        )
-    }
-
-    return (
-        <a
-            href={href}
-            target={isExternal ? "_blank" : undefined}
-            rel={isExternal ? "noreferrer" : undefined}
-            className="group rounded-3xl border border-white/10 bg-white/[0.035] p-6 text-center transition-all duration-500 ease-out hover:-translate-y-1 hover:border-white/15 hover:bg-white/[0.07] hover:shadow-xl hover:shadow-black/20 active:translate-y-0"
-        >
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-300 transition-all duration-500 ease-out group-hover:scale-105 group-hover:border-white/20 group-hover:bg-white/10 group-hover:text-white">
-                {icon}
-            </div>
-
-            <h3 className="mt-4 font-sans font-semibold text-white">{title}</h3>
-            <p className="mt-1 break-all text-xs text-zinc-500">{description}</p>
-        </a>
-    )
-}
 interface SocialLinkProps {
     href: string
     icon: ReactNode

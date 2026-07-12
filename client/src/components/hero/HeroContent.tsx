@@ -71,7 +71,7 @@ export function HeroContent({ opacity, y, blur }: HeroContentProps) {
 					</Link>
 				</motion.div>
 
-				<motion.p
+				<motion.h1
 					variants={fadeUpVariants}
 					className="text-shadow-subtle mx-auto mb-8 max-w-4xl bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text font-display text-[2.4rem] leading-[1.12] text-transparent min-[390px]:text-5xl sm:text-5xl md:text-6xl lg:text-7xl"
 				>
@@ -79,7 +79,7 @@ export function HeroContent({ opacity, y, blur }: HeroContentProps) {
 					<span className="mt-2 block italic sm:mt-3">
 						Deploy with absolute confidence.
 					</span>
-				</motion.p>
+				</motion.h1>
 
 				<motion.h1
 					variants={fadeUpVariants}
