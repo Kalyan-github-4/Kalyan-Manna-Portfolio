@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { ArrowRight, Check, Copy } from "@phosphor-icons/react"
 
-import { ContactDialog } from "@/components/shared/ContactDialog"
+import { ContactDialog } from "@/components/contact/ContactDialog"
 
 export function HeroButtons() {
 	const email = "kalyanmanna439@gmail.com"

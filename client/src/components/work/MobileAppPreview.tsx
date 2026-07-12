@@ -38,23 +38,70 @@ export default function MobileAppPreview({
                         <div
                             key={image}
                             className={[
-                                "relative h-[300px] w-[150px] shrink-0 overflow-hidden rounded-[28px] border border-white/25 bg-zinc-950 shadow-2xl shadow-black/50 transition-all duration-700 ease-[cubic-bezier(.19,1,.22,1)]",
+                                "relative h-[300px] w-[150px] shrink-0 transition-all duration-700 ease-[cubic-bezier(.19,1,.22,1)]",
                                 "sm:h-[330px] sm:w-[165px]",
                                 "md:h-[350px] md:w-[175px]",
                                 positionClass,
                             ].join(" ")}
                         >
-                            <div className="absolute inset-0 rounded-[28px] ring-1 ring-inset ring-white/15" />
+                            {/* Phone Frame - Outer Bezel */}
+                            <div className="absolute inset-0 rounded-[32px] bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-900 shadow-2xl shadow-black/60">
+                                {/* Inner Bezel */}
+                                <div className="absolute inset-[3px] rounded-[29px] bg-black">
+                                    {/* Screen with slight curve */}
+                                    <div className="absolute inset-[2px] rounded-[27px] overflow-hidden bg-black">
+                                        {/* Screen Content */}
+                                        <img
+                                            src={image}
+                                            alt={`EasyPG app screen ${index + 1}`}
+                                            className="h-full w-full object-cover object-top"
+                                        />
 
-                            <div className="absolute left-1/2 top-2 z-20 h-5 w-16 -translate-x-1/2 rounded-full bg-black" />
+                                        {/* Screen Reflection Effect */}
+                                        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.15)_0%,transparent_30%,transparent_70%,rgba(255,255,255,0.05)_100%)]" />
+                                        
+                                        {/* Screen Glare */}
+                                        <div className="pointer-events-none absolute -top-[50%] left-1/2 h-[200%] w-[60%] -translate-x-1/2 rotate-[-25deg] bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,transparent_60%)]" />
 
-                            <img
-                                src={image}
-                                alt={`EasyPG app screen ${index + 1}`}
-                                className="h-full w-full object-cover object-top"
-                            />
+                                        {/* Status Bar Area */}
+                                        <div className="absolute top-0 left-0 right-0 h-[30px] bg-gradient-to-b from-black/30 to-transparent" />
+                                    </div>
+                                </div>
 
-                            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.12),transparent_18%,transparent_80%,rgba(0,0,0,0.25))]" />
+                                {/* Side Buttons - Left */}
+                                <div className="absolute left-[-2px] top-[100px] h-[30px] w-[4px] rounded-l-full bg-zinc-700 shadow-inner" />
+                                <div className="absolute left-[-2px] top-[140px] h-[45px] w-[4px] rounded-l-full bg-zinc-700 shadow-inner" />
+                                <div className="absolute left-[-2px] top-[195px] h-[45px] w-[4px] rounded-l-full bg-zinc-700 shadow-inner" />
+
+                                {/* Side Buttons - Right */}
+                                <div className="absolute right-[-2px] top-[100px] h-[60px] w-[4px] rounded-r-full bg-zinc-700 shadow-inner" />
+
+                                {/* Power Button - Right */}
+                                <div className="absolute right-[-2px] top-[180px] h-[40px] w-[4px] rounded-r-full bg-zinc-700 shadow-inner" />
+
+                                {/* Notch / Dynamic Island */}
+                                <div className="absolute left-1/2 top-[10px] z-20 -translate-x-1/2">
+                                    <div className="h-[25px] w-[110px] rounded-full bg-black shadow-[inset_0_1px_2px_rgba(255,255,255,0.1),0_2px_4px_rgba(0,0,0,0.3)]">
+                                        {/* Camera Dot */}
+                                        <div className="absolute right-[18px] top-1/2 h-[6px] w-[6px] -translate-y-1/2 rounded-full bg-[#1a1a2e]">
+                                            <div className="absolute inset-[1px] rounded-full bg-gradient-to-br from-[#2d2d44] to-[#0d0d1a]" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Bottom Bar / Home Indicator */}
+                                <div className="absolute bottom-[6px] left-1/2 z-20 -translate-x-1/2">
+                                    <div className="h-[4px] w-[100px] rounded-full bg-white/30" />
+                                </div>
+
+                                {/* Volume Button Details */}
+                                <div className="absolute left-[-2px] top-[230px] h-[30px] w-[3px] rounded-l-full bg-zinc-700 shadow-inner" />
+
+                                {/* Earpiece Speaker (for notched design) */}
+                                <div className="absolute left-1/2 top-[12px] -translate-x-1/2">
+                                    <div className="h-[3px] w-[40px] rounded-full bg-zinc-800 opacity-50" />
+                                </div>
+                            </div>
                         </div>
                     )
                 })}

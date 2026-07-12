@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 
-import { ContactDialog } from "@/components/shared/ContactDialog"
+import { ContactDialog } from "@/components/contact/ContactDialog"
 
 import { DesktopNavMenu } from "./DesktopNavMenu"
 import { NavbarLogo } from "./NavbarLogo"
