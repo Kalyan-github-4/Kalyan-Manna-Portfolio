@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import type { ReactNode } from "react"
 import { motion, useScroll, useSpring } from "framer-motion"
 
@@ -55,29 +55,44 @@ export default function LegalLayout({
   })
 
   const [activeId, setActiveId] = useState(sections[0]?.id ?? "")
-  const sectionsRef = useRef(sections)
-  sectionsRef.current = sections
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
+        const visibleEntries = entries
           .filter((entry) => entry.isIntersecting)
           .sort(
-            (a, b) => a.boundingClientRect.top - b.boundingClientRect.top
+            (a, b) =>
+              a.boundingClientRect.top - b.boundingClientRect.top
           )
 
-        if (visible[0]) setActiveId(visible[0].target.id)
+        const firstVisibleSection = visibleEntries[0]
+
+        if (firstVisibleSection) {
+          setActiveId(firstVisibleSection.target.id)
+        }
       },
-      { rootMargin: "-25% 0px -65% 0px", threshold: 0 }
+      {
+        rootMargin: "-25% 0px -65% 0px",
+        threshold: 0,
+      }
     )
 
-    sectionsRef.current.forEach((section) => {
-      const el = document.getElementById(section.id)
-      if (el) observer.observe(el)
+    const elements = sections
+      .map((section) => document.getElementById(section.id))
+      .filter((element): element is HTMLElement => element !== null)
+
+    elements.forEach((element) => {
+      observer.observe(element)
     })
 
-    return () => observer.disconnect()
+    return () => {
+      elements.forEach((element) => {
+        observer.unobserve(element)
+      })
+
+      observer.disconnect()
+    }
   }, [sections])
 
   return (
@@ -188,11 +203,10 @@ export default function LegalLayout({
                     <li key={section.id}>
                       <a
                         href={`#${section.id}`}
-                        className={`group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
-                          active
+                        className={`group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${active
                             ? "text-white"
                             : "text-zinc-500 hover:text-zinc-300"
-                        }`}
+                          }`}
                       >
                         {active && (
                           <motion.span
@@ -206,9 +220,8 @@ export default function LegalLayout({
                           />
                         )}
                         <span
-                          className={`font-mono text-[11px] tabular-nums transition-colors ${
-                            active ? "text-violet-300" : "text-zinc-600"
-                          }`}
+                          className={`font-mono text-[11px] tabular-nums transition-colors ${active ? "text-violet-300" : "text-zinc-600"
+                            }`}
                         >
                           {String(i + 1).padStart(2, "0")}
                         </span>
