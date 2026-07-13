@@ -10,15 +10,36 @@ import {
 const REDIRECT_URL = `${window.location.origin}/more/guestbook/sso-callback`
 const REDIRECT_COMPLETE_URL = "/more/guestbook"
 
+// Clerk throws a ClerkAPIResponseError whose `.errors[]` holds the useful
+// details (e.g. provider not enabled, misconfigured credentials). Surface that
+// to the visitor instead of failing silently.
+function getClerkErrorMessage(error: unknown, provider: "Linkedin" | "google") {
+  const label = provider === "Linkedin" ? "LinkedIn" : "Google"
+
+  if (error && typeof error === "object" && "errors" in error) {
+    const first = (error as { errors?: Array<{ longMessage?: string; message?: string }> })
+      .errors?.[0]
+    if (first?.longMessage || first?.message) {
+      return first.longMessage ?? first.message ?? ""
+    }
+  }
+
+  if (error instanceof Error && error.message) return error.message
+
+  return `Couldn't continue with ${label}. Please try again.`
+}
+
 export default function GuestbookLoginDialog() {
   const { signIn, isLoaded } = useSignIn()
   const [loadingProvider, setLoadingProvider] = useState<
     "Linkedin" | "google" | null
   >(null)
+  const [error, setError] = useState<string | null>(null)
 
   const handleOAuth = async (provider: "Linkedin" | "google") => {
     if (!isLoaded || !signIn) return
 
+    setError(null)
     setLoadingProvider(provider)
 
     try {
@@ -29,6 +50,7 @@ export default function GuestbookLoginDialog() {
       })
     } catch (error) {
       console.error("OAuth sign in failed:", error)
+      setError(getClerkErrorMessage(error, provider))
       setLoadingProvider(null)
     }
   }
@@ -116,6 +138,15 @@ export default function GuestbookLoginDialog() {
                   : "Continue with Google"}
               </button>
             </div>
+
+            {error && (
+              <p
+                role="alert"
+                className="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-center text-xs text-red-300"
+              >
+                {error}
+              </p>
+            )}
 
             <p className="mt-4 text-center text-xs text-white/35">
               We only access your name, avatar, and email for the guestbook.
