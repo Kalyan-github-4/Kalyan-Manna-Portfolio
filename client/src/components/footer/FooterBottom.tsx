@@ -18,7 +18,7 @@ function FooterBottom({ isInView }: FooterBottomProps) {
             className="mx-auto max-w-[calc(100%-48px)] border-x border-b border-dashed border-white/10 text-sm text-white/45 md:max-w-[calc(100%-80px)] md:grid-cols-[40px_1fr_40px]"
         >
             <div className="flex flex-col items-center justify-between gap-4 px-6 py-5 md:flex-row">
-                <p>© {currentYear} Kalyan Manna. All rights reserved</p>
+                <p>© {currentYear} <span className="font-bold">Kalyan Manna</span>. All rights reserved</p>
 
                 <div className="flex flex-wrap items-center justify-center gap-6">
                     <a href="/privacy" className="transition-colors hover:text-white">
