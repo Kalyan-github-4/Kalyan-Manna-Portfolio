@@ -57,6 +57,18 @@ function normalizeDoodles(value: unknown): Doodle[] {
   });
 }
 
+// Small, stable "random" tilt so the wall reads like pinned paper notes
+// instead of a rigid grid. Kept as full literal class strings so Tailwind's
+// JIT actually generates them. Seeded by the entry id (not the index) so each
+// card keeps its angle even when newer entries are prepended ahead of it.
+const TILT_CLASSES = ["-rotate-2", "-rotate-1", "rotate-1", "rotate-2"] as const;
+
+function getCardTilt(id: string): string {
+  let h = 0;
+  for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) % 99991;
+  return TILT_CLASSES[h % TILT_CLASSES.length];
+}
+
 function mapEntryToCard(entry: GuestbookEntryResponse): GuestEntry {
   const author = entry.user?.name || "Guest";
 
@@ -65,6 +77,7 @@ function mapEntryToCard(entry: GuestbookEntryResponse): GuestEntry {
     message: entry.message,
     gradient: toGradient(entry.gradient),
     doodles: normalizeDoodles(entry.doodles),
+    rotation: getCardTilt(entry.id),
     author,
     role: entry.role || "Visitor",
     rating: entry.rating ?? 5,
