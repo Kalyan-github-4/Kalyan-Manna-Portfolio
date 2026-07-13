@@ -86,7 +86,7 @@ export function HeroButtons() {
 							weight="bold"
 							className="
 				transition-transform duration-500
-				group-hover:-rotate-45
+				group-hover:translate-x-1
 			"
 						/>
 					</span>

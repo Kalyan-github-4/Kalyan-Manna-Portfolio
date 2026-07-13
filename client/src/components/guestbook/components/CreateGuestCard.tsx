@@ -228,7 +228,7 @@ function SignedInCreateCard({
       submittingRef.current = false
       setIsSubmitting(false)
     }
-  }, [isEmpty, message, activeGradient, doodles, onSubmit])
+  }, [isEmpty, message, activeGradient, doodles, role, rating, onSubmit])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -320,11 +320,18 @@ function SignedInCreateCard({
               </div>
             )}
 
-            <div>
-              <p className="text-sm text-white/90">{authorName}</p>
-              <p className="text-xs text-white/45">
-                {isSubmitting ? "Sending…" : isEmpty ? "Tap to write a memory" : "Composing…"}
-              </p>
+            <div className="min-w-0">
+              <p className="truncate text-sm text-white/90">{authorName}</p>
+              <input
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+                disabled={isSubmitting}
+                placeholder={isSubmitting ? "Sending…" : "Add your role · e.g. Designer"}
+                maxLength={60}
+                aria-label="Your role or title"
+                className="w-full bg-transparent text-xs text-white/60 outline-none placeholder:text-white/35 disabled:opacity-70"
+              />
             </div>
           </div>
 
