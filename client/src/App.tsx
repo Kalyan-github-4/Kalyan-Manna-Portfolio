@@ -16,6 +16,7 @@ import Contact from "./components/contact/Contact"
 import SignIn from "./auth/SignIn"
 import SignUp from "./auth/SignUp"
 import SSOCallback from "./auth/SSOCallback"
+import NotFound from "./pages/NotFound"
 
 function App() {
   return (
@@ -26,6 +27,23 @@ function App() {
         <Route path="work" element={<Work />} />
         <Route path="blog" element={<Blog />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="privacy" element={<main className="relative min-h-screen overflow-hidden bg-black text-white">
+          <section className="relative flex min-h-screen items-center justify-center px-4 text-center">
+            <p className="uppercase max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base md:text-lg md:leading-8">
+              This page is under construction. Please check back later for
+              updates!
+            </p>
+          </section>
+        </main>} />
+        <Route path="terms" element={<main className="relative min-h-screen overflow-hidden bg-black text-white">
+          <section className="relative flex min-h-screen items-center justify-center px-4 text-center">
+            <p className="uppercase max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base md:text-lg md:leading-8">
+              This page is under construction. Please check back later for
+              updates!
+            </p>
+          </section>
+        </main>} />
+
         <Route path="more/guestbook" element={<GuestBook />} />
         <Route path="more/guestbook/sign-in" element={<SignIn />} />
         <Route path="more/guestbook/sign-up" element={<SignUp />} />
@@ -35,6 +53,8 @@ function App() {
         <Route path="more/links" element={<Links />} />
         <Route path="more/uses" element={<Uses />} />
         <Route path="more/attribution" element={<Attribution />} />
+
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   )
