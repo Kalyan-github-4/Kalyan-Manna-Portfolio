@@ -9,6 +9,7 @@ import {
 import { motion } from "framer-motion"
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { siteConfig, socialLinks } from "@/config"
 import SocialIcon from "./SocialIcon"
 import type { ContactTab } from "./contactTypes"
 
@@ -66,19 +67,19 @@ export default function ContactTabs({
             </Tabs>
 
             <div className="hidden shrink-0 items-center gap-2 rounded-2xl border border-white/10 bg-white/4] p-2 sm:flex">
-                <SocialIcon href="mailto:kalyanmanna439@gmail.com">
+                <SocialIcon href={`mailto:${siteConfig.email}`}>
                     <EnvelopeSimple size={15} />
                 </SocialIcon>
 
-                <SocialIcon href="https://www.linkedin.com/">
+                <SocialIcon href={socialLinks.linkedin}>
                     <LinkedinLogo size={15} />
                 </SocialIcon>
 
-                <SocialIcon href="https://github.com/Kalyan-github-4">
+                <SocialIcon href={socialLinks.github}>
                     <GithubLogo size={15} />
                 </SocialIcon>
 
-                <SocialIcon href="https://x.com/">
+                <SocialIcon href={socialLinks.x}>
                     <XLogo size={15} />
                 </SocialIcon>
             </div>

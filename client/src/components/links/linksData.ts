@@ -12,6 +12,8 @@ import {
 } from "@phosphor-icons/react";
 import type { Icon } from "@phosphor-icons/react";
 
+import { siteConfig, socialLinks } from "@/config";
+
 export type ContactLink = {
   title: string;
   subtitle: string;
@@ -26,12 +28,12 @@ export type ContactSection = {
 };
 
 export const profileInfo = {
-  name: "Kalyan Manna",
+  name: siteConfig.name,
   role: "Fullstack Developer",
   tag: "Freelancer",
   location: "Kharagpur, India",
-  email: "kalyanmanna439@gmail.com",
-  image: "/kalyan-manna.jpg",
+  email: siteConfig.email,
+  image: siteConfig.profileImage,
 };
 
 export const contactSections: ContactSection[] = [
@@ -41,7 +43,7 @@ export const contactSections: ContactSection[] = [
       {
         title: "GitHub",
         subtitle: "@Kalyan-github-4",
-        href: "https://github.com/Kalyan-github-4",
+        href: socialLinks.github,
         icon: GithubLogo,
         external: true,
       },
@@ -59,14 +61,14 @@ export const contactSections: ContactSection[] = [
       {
         title: "LinkedIn",
         subtitle: "Connect professionally",
-        href: "https://www.linkedin.com/in/kalyan-manna",
+        href: socialLinks.linkedin,
         icon: LinkedinLogo,
         external: true,
       },
       {
         title: "Twitter / X",
         subtitle: "Follow my updates",
-        href: "https://x.com/",
+        href: socialLinks.x,
         icon: XLogo,
         external: true,
       },
@@ -100,7 +102,7 @@ export const quickActions = [
   },
   {
     label: "Email",
-    href: "mailto:kalyanmanna439@gmail.com",
+    href: `mailto:${siteConfig.email}`,
     icon: EnvelopeSimple,
   },
 ];

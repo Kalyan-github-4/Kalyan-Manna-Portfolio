@@ -2,9 +2,10 @@ import { useState } from "react"
 import { ArrowRight, Check, Copy } from "@phosphor-icons/react"
 
 import { ContactDialog } from "@/components/contact/ContactDialog"
+import { siteConfig } from "@/config"
 
 export function HeroButtons() {
-	const email = "kalyanmanna439@gmail.com"
+	const email = siteConfig.email
 	const [copied, setCopied] = useState(false)
 
 	const handleCopy = async () => {
@@ -22,16 +23,7 @@ export function HeroButtons() {
 
 	return (
 		<div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-			<ContactDialog
-				email={email}
-				name="Kalyan"
-				imageSrc="/kalyan-manna.jpg"
-				imageAlt="Kalyan Manna"
-				calUrl="https://cal.com/kalyanmanna"
-				linkedinUrl="https://www.linkedin.com/"
-				xUrl="https://x.com/"
-				githubUrl="https://github.com/Kalyan-github-4"
-			>
+			<ContactDialog>
 				<button
 					type="button"
 					className="

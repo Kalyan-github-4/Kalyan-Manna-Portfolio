@@ -1,3 +1,5 @@
+import { siteConfig } from "@/config"
+
 export default function MessagePanel() {
     return (
         <div className="grid min-h-130 gap-8 p-6 sm:p-10 lg:grid-cols-[0.9fr_1.1fr]">
@@ -17,7 +19,7 @@ export default function MessagePanel() {
             </div>
 
             <form
-                action="mailto:kalyanmanna439@gmail.com"
+                action={`mailto:${siteConfig.email}`}
                 method="post"
                 encType="text/plain"
                 className="space-y-4"
