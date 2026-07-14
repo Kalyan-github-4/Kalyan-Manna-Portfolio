@@ -1,6 +1,6 @@
 import {
   BookOpen,
-  FileText,
+  Compass,
   FolderOpen,
   House,
   Laptop,
@@ -29,9 +29,9 @@ export const navigationItems: NavItem[] = [
     icon: FolderOpen,
   },
   {
-    name: "Blog",
-    href: "/blog",
-    icon: FileText,
+    name: "Highlights",
+    href: "/highlights",
+    icon: Compass,
   },
   {
     name: "More",

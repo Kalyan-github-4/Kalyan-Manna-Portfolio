@@ -1,5 +1,7 @@
 import { GithubLogo, LinkedinLogo, XLogo } from "@phosphor-icons/react"
 
+import { socialLinks as socialProfiles } from "@/config"
+
 export const currentYear = new Date().getFullYear()
 
 export const diagonalStripeStyle = {
@@ -11,7 +13,7 @@ export const generalLinks = [
     { label: "Home", href: "/" },
     { label: "About", href: "/about" },
     { label: "Work", href: "/work" },
-    { label: "Blog", href: "/blog" },
+    { label: "Highlights", href: "/highlights" },
 ]
 
 export const specificLinks = [
@@ -32,16 +34,16 @@ export const socialLinks = [
     {
         icon: GithubLogo,
         label: "GitHub",
-        href: "https://github.com/Kalyan-github-4",
+        href: socialProfiles.github,
     },
     {
         icon: LinkedinLogo,
         label: "LinkedIn",
-        href: "#",
+        href: socialProfiles.linkedin,
     },
     {
         icon: XLogo,
         label: "Twitter (X)",
-        href: "#",
+        href: socialProfiles.x,
     },
 ]
