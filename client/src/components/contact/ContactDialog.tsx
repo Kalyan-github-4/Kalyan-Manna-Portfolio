@@ -17,6 +17,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import  ContactActionCard  from "@/components/contact/ContactActionCard"
+import { contactConfig } from "@/config"
 interface ContactDialogProps {
     children: ReactNode
     email?: string
@@ -31,13 +32,13 @@ interface ContactDialogProps {
 
 export function ContactDialog({
     children,
-    email = "kalyanmanna439@gmail.com",
-    name = "Kalyan",
-    imageSrc = "/kalyan-manna.jpg",
-    imageAlt = "Kalyan Manna",
-    linkedinUrl = "https://www.linkedin.com/",
-    xUrl = "https://x.com/",
-    githubUrl = "https://github.com/Kalyan-github-4",
+    email = contactConfig.email,
+    name = contactConfig.name,
+    imageSrc = contactConfig.imageSrc,
+    imageAlt = contactConfig.imageAlt,
+    linkedinUrl = contactConfig.linkedinUrl,
+    xUrl = contactConfig.xUrl,
+    githubUrl = contactConfig.githubUrl,
 }: ContactDialogProps) {
     const [message, setMessage] = useState("")
 
@@ -54,7 +55,10 @@ export function ContactDialog({
         <Dialog>
             <DialogTrigger asChild>{children}</DialogTrigger>
 
-            <DialogContent className="max-h-[90vh] overflow-y-auto border-white/10 bg-[#101014]/95 p-0 text-white shadow-2xl shadow-black/50 backdrop-blur-2xl sm:max-w-xl sm:rounded-4xl">
+            <DialogContent
+                data-lenis-prevent
+                className="max-h-[90vh] overflow-y-auto border-white/10 bg-[#101014]/95 p-0 text-white shadow-2xl shadow-black/50 backdrop-blur-2xl sm:max-w-xl sm:rounded-4xl"
+            >
                 <motion.div
                     initial={{ opacity: 0, y: 18, scale: 0.97, filter: "blur(8px)" }}
                     animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
