@@ -21,8 +21,6 @@ interface DesktopNavbarProps {
   onMoreOpenChange: (open: boolean) => void
 }
 
-const CONTACT_EMAIL = "kalyanmanna439@gmail.com"
-
 export function DesktopNavbar({
   items,
   pathname,
@@ -60,16 +58,7 @@ export function DesktopNavbar({
           pointerEvents: isScrolled ? "none" : "auto",
         }}
       >
-        <ContactDialog
-          email={CONTACT_EMAIL}
-          name="Kalyan"
-          imageSrc="/kalyan-manna.jpg"
-          imageAlt="Kalyan Manna"
-          calUrl="https://cal.com/kalyanmanna"
-          linkedinUrl="https://www.linkedin.com/"
-          xUrl="https://x.com/"
-          githubUrl="https://github.com/Kalyan-github-4"
-        >
+        <ContactDialog>
           <button
             type="button"
             className="

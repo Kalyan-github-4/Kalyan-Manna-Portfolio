@@ -4,13 +4,14 @@ import RootLayout from "./RootLayout"
 import Home from "./pages/Home"
 import About from "./pages/About"
 import Work from "./pages/Work"
-import Blog from "./pages/Blog"
+// import Highlights from "./pages/Highlights"
 import GuestBook from "./pages/Guestbook"
 import BucketList from "./pages/BucketList"
 import Links from "./pages/Links"
 import Uses from "./pages/Uses"
 import Attribution from "./pages/Attribution"
-
+// import Privacy from "./pages/Privacy"
+// import Terms from "./pages/Terms"
 import Contact from "./components/contact/Contact"
 
 import SignIn from "./auth/SignIn"
@@ -25,24 +26,31 @@ function App() {
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="work" element={<Work />} />
-        <Route path="blog" element={<Blog />} />
+        <Route path="highlights" element={<main className="relative min-h-screen overflow-hidden bg-black text-white">
+          <section className="relative flex min-h-screen items-center justify-center px-4 text-center">
+            <p className="uppercase max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base md:text-lg md:leading-8">
+              This page is under construction. Please check back later for
+              updates!
+            </p>
+          </section>
+        </main>} />
         <Route path="contact" element={<Contact />} />
         <Route path="privacy" element={<main className="relative min-h-screen overflow-hidden bg-black text-white">
-          <section className="relative flex min-h-screen items-center justify-center px-4 text-center">
-            <p className="uppercase max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base md:text-lg md:leading-8">
-              This page is under construction. Please check back later for
-              updates!
-            </p>
-          </section>
-        </main>} />
+      <section className="relative flex min-h-screen items-center justify-center px-4 text-center">
+          <p className="uppercase max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base md:text-lg md:leading-8">
+            This page is under construction. Please check back later for
+            updates!
+          </p>
+      </section>
+    </main>} />
         <Route path="terms" element={<main className="relative min-h-screen overflow-hidden bg-black text-white">
-          <section className="relative flex min-h-screen items-center justify-center px-4 text-center">
-            <p className="uppercase max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base md:text-lg md:leading-8">
-              This page is under construction. Please check back later for
-              updates!
-            </p>
-          </section>
-        </main>} />
+      <section className="relative flex min-h-screen items-center justify-center px-4 text-center">
+          <p className="uppercase max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base md:text-lg md:leading-8">
+            This page is under construction. Please check back later for
+            updates!
+          </p>
+      </section>
+    </main>} />
 
         <Route path="more/guestbook" element={<GuestBook />} />
         <Route path="more/guestbook/sign-in" element={<SignIn />} />

@@ -1,6 +1,7 @@
 import type { Icon } from "@phosphor-icons/react"
 import {
   BookOpen,
+  Compass,
   FileText,
   FolderOpen,
   House,
@@ -17,7 +18,7 @@ const FALLBACK_ICONS: Record<string, Icon> = {
   "/": House,
   "/about": User,
   "/work": FolderOpen,
-  "/blog": FileText,
+  "/highlights": Compass,
   "/more/guestbook": BookOpen,
   "/more/bucket-list": ListChecks,
   "/more/links": LinkSimple,
