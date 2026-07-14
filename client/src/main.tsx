@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/clerk-react"
 import "./styles/index.css"
 import App from "./App.tsx"
 import { ThemeProvider } from "@/components/ui/theme-provider.tsx"
+import SmoothScroll from "@/components/shared/SmoothScroll.tsx"
 
 const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -20,7 +21,9 @@ createRoot(document.getElementById("root")!).render(
     <ClerkProvider publishableKey={publishableKey}>
       <BrowserRouter>
         <ThemeProvider>
-          <App />
+          <SmoothScroll>
+            <App />
+          </SmoothScroll>
         </ThemeProvider>
       </BrowserRouter>
     </ClerkProvider>

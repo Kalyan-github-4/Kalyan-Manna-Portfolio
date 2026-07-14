@@ -10,7 +10,7 @@ export default function RootLayout() {
                     { name: "Home", href: "/" },
                     { name: "About", href: "/about" },
                     { name: "Work", href: "/work" },
-                    { name: "Blog", href: "/blog" },
+                    { name: "Highlights", href: "/highlights" },
                     {
                         name: "More",
                         href: "#",
