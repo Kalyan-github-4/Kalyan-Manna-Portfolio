@@ -17,6 +17,7 @@ import {
 import GradientText from "../components/shared/GradientText";
 import { AboutCarousel } from "../components/about/AboutCarousel";
 import BackgroundRipple from "../components/shared/BackgroundRipple";
+import { socialLinks } from "@/config";
 
 // Transition now lives INSIDE the variant, driven by `custom` (stagger index)
 const fadeUp = {
@@ -157,17 +158,17 @@ export default function About() {
                   {
                     icon: GithubLogo,
                     label: "GitHub",
-                    href: "https://github.com/Kalyan-github-4",
+                    href: socialLinks.github,
                   },
                   {
                     icon: LinkedinLogo,
                     label: "LinkedIn",
-                    href: "#",
+                    href: socialLinks.linkedin,
                   },
                   {
                     icon: XLogo,
                     label: "Twitter (X)",
-                    href: "#",
+                    href: socialLinks.x,
                   },
                 ].map(({ icon: Icon, href, label }) => (
                   <Tooltip key={label}>

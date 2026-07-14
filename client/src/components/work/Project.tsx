@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import GradientText from "@/components/shared/GradientText";
+import { projectImages } from "@/config";
 import PerspectiveScrollShowcase from "./PerspectiveScrollShowcase";
 import type { ProjectItem } from "./PerspectiveScrollShowcase";
 import { useRef } from "react";
@@ -11,7 +12,7 @@ const projects: ProjectItem[] = [
     title: "EasyPG",
     tags: ["React Native", "Expo", "Startup", "Mobile App"],
     bgText: "EasyPG",
-    src: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1600&auto=format&fit=crop&q=60",
+    src: projectImages.easyPg,
     githubUrl: "https://github.com/Kalyan-github-4/easypg",
     liveUrl: "https://play.google.com/store/apps/details?id=com.easypg",
   },
@@ -19,7 +20,7 @@ const projects: ProjectItem[] = [
     title: "Portfolio",
     tags: ["React", "TypeScript", "Tailwind", "Framer Motion"],
     bgText: "Portfolio",
-    src: "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=1600&auto=format&fit=crop&q=60",
+    src: projectImages.portfolio,
     githubUrl: "https://github.com/Kalyan-github-4/Kalyan-Manna-Portfolio",
     liveUrl: "https://kalyan-manna-portfolio.vercel.app/",
   },
@@ -27,7 +28,7 @@ const projects: ProjectItem[] = [
     title: "Management System",
     tags: ["Node.js", "Express", "PostgreSQL", "Dashboard"],
     bgText: "Dashboard",
-    src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&auto=format&fit=crop&q=60",
+    src: projectImages.managementSystem,
     githubUrl: "https://github.com/Kalyan-github-4/Management-System",
     liveUrl: "https://management-system-eta.vercel.app/",
   },
@@ -35,7 +36,7 @@ const projects: ProjectItem[] = [
     title: "Business Website",
     tags: ["Frontend", "SEO", "Responsive", "UI Design"],
     bgText: "Business",
-    src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&auto=format&fit=crop&q=60",
+    src: projectImages.businessWebsite,
     githubUrl: "https://github.com/Kalyan-github-4/Business-Website",
     liveUrl: "https://business-website-eta.vercel.app/",
   },
