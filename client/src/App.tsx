@@ -4,7 +4,7 @@ import RootLayout from "./RootLayout"
 import Home from "./pages/Home"
 import About from "./pages/About"
 import Work from "./pages/Work"
-// import Highlights from "./pages/Highlights"
+// import Vault from "./pages/Vault"
 import GuestBook from "./pages/Guestbook"
 import BucketList from "./pages/BucketList"
 import Links from "./pages/Links"
@@ -26,7 +26,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="work" element={<Work />} />
-        <Route path="highlights" element={<main className="relative min-h-screen overflow-hidden bg-black text-white">
+        <Route path="vault" element={<main className="relative min-h-screen overflow-hidden bg-black text-white">
           <section className="relative flex min-h-screen items-center justify-center px-4 text-center">
             <p className="uppercase max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base md:text-lg md:leading-8">
               This page is under construction. Please check back later for
