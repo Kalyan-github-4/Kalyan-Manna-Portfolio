@@ -29,8 +29,8 @@ export const navigationItems: NavItem[] = [
     icon: FolderOpen,
   },
   {
-    name: "Highlights",
-    href: "/highlights",
+    name: "Vault",
+    href: "/vault",
     icon: Compass,
   },
   {

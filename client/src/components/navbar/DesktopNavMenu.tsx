@@ -42,7 +42,7 @@ export function DesktopNavMenu({
     <motion.div
       layout
       animate={{
-        width: !introDone ? 250 : moreOpen ? 800 : 465,
+        width: !introDone ? 250 : moreOpen ? 800 : "auto",
       }}
       transition={{
         type: "spring",

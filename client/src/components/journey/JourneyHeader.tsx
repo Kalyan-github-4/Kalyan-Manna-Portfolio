@@ -26,7 +26,7 @@ export function JourneyHeader() {
                     transition={{ duration: 0.7, ease: EASE }}
                     className="mb-5 font-mono text-xs font-semibold uppercase tracking-[0.35em] text-white/50"
                 >
-                    Highlights
+                    Vault
                 </motion.p>
 
                 <motion.h1
@@ -42,7 +42,7 @@ export function JourneyHeader() {
                         colors={["#1E40AF", "#9333EA", "#DB2777"]}
                         animationSpeed={6}
                     >
-                        Highlighting
+                        Keeping
                     </GradientText>
                 </motion.h1>
 
