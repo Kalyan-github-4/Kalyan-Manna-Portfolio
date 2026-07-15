@@ -18,7 +18,7 @@ const FALLBACK_ICONS: Record<string, Icon> = {
   "/": House,
   "/about": User,
   "/work": FolderOpen,
-  "/highlights": Compass,
+  "/vault": Compass,
   "/more/guestbook": BookOpen,
   "/more/bucket-list": ListChecks,
   "/more/links": LinkSimple,
