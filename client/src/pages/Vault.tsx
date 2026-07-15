@@ -9,7 +9,7 @@ import { JourneyTimeline } from "@/components/journey/JourneyTimeline"
 import { JourneyCTA } from "@/components/journey/JourneyCTA"
 import { JourneyDialog } from "@/components/journey/JourneyDialog"
 
-export default function Highlights() {
+export default function Vault() {
     const [filter, setFilter] = useState<JourneyFilter>("All")
     const [selectedId, setSelectedId] = useState<number | null>(null)
 
