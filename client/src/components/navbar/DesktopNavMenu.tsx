@@ -1,3 +1,5 @@
+import { useCallback, useRef, useState } from "react"
+
 import { AnimatePresence, motion } from "framer-motion"
 
 import { MoreMenu } from "./MoreMenu"
@@ -38,11 +40,29 @@ export function DesktopNavMenu({
   moreOpen,
   onMoreOpenChange,
 }: DesktopNavMenuProps) {
+  const [navWidth, setNavWidth] = useState(465) // default width for the nav before measuring
+  const observerRef = useRef<ResizeObserver | null>(null)
+
+  // Measure the nav's real content width so the pill animates to a pixel value.
+  // Framer Motion can't spring smoothly to "auto" (that's what felt laggy);
+  // scrollWidth reports the full content width even mid-animation, so longer
+  // labels still fit while the transition stays smooth. A callback ref handles
+  // the AnimatePresence timing — the nav only mounts after the greeting exits.
+  const measureNav = useCallback((node: HTMLElement | null) => {
+    observerRef.current?.disconnect()
+    if (!node) return
+
+    setNavWidth(node.scrollWidth)
+    const observer = new ResizeObserver(() => setNavWidth(node.scrollWidth))
+    observer.observe(node)
+    observerRef.current = observer
+  }, [])
+
   return (
     <motion.div
       layout
       animate={{
-        width: !introDone ? 250 : moreOpen ? 800 : "auto",
+        width: !introDone ? 250 : moreOpen ? Math.max(navWidth, 800) : navWidth,
       }}
       transition={{
         type: "spring",
@@ -77,6 +97,7 @@ export function DesktopNavMenu({
           ) : (
             <motion.nav
               key="navbar"
+              ref={measureNav}
               aria-label="Main navigation"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
