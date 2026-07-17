@@ -61,7 +61,7 @@ function normalizeDoodles(value: unknown): Doodle[] {
 // instead of a rigid grid. Kept as full literal class strings so Tailwind's
 // JIT actually generates them. Seeded by the entry id (not the index) so each
 // card keeps its angle even when newer entries are prepended ahead of it.
-const TILT_CLASSES = ["-rotate-2", "-rotate-1", "rotate-1", "rotate-2"] as const;
+const TILT_CLASSES = ["-rotate-1", "-rotate-[0.5deg]", "rotate-[0.5deg]", "rotate-1"] as const;
 
 function getCardTilt(id: string): string {
   let h = 0;
@@ -152,8 +152,6 @@ function GuestBook() {
     return [];
   }, [entries]);
 
-  const firstRowEntries = displayEntries.slice(0, 2);
-  const secondRowEntries = displayEntries.slice(2, 5);
 
   const handleShare = useCallback(async (id: string) => {
     const entry = entries.find((item) => item.id === id);
@@ -288,9 +286,8 @@ function GuestBook() {
           </div>
         </div>
 
-        {/* Cards Section */}
+        {/* Cards Section — Create card first, then every approved entry */}
         <div className="w-full mt-20 px-4 sm:px-6 lg:px-12">
-          {/* First Row - 3 cards: Create card + 2 guest cards */}
           <div className="grid gap-8 md:grid-cols-3">
             {/* LEAVE YOUR MESSAGE CARD */}
             <div>
@@ -299,11 +296,10 @@ function GuestBook() {
               />
             </div>
 
-            {/* First 2 GUEST CARDS */}
-            {firstRowEntries.map((entry) => (
+            {/* ALL GUEST CARDS */}
+            {displayEntries.map((entry) => (
               <div key={entry.id}>
                 <GuestCard
-                  key={entry.id}
                   entry={entry}
                   onShare={handleShare}
                   onDelete={handleDelete}
@@ -311,20 +307,6 @@ function GuestBook() {
                   onOpen={(id) => console.log("open", id)}
                 />
               </div>
-            ))}
-          </div>
-
-          {/* Second Row - 3 guest cards */}
-          <div className="grid gap-8 md:grid-cols-3 mt-8">
-            {secondRowEntries.map((entry) => (
-              <GuestCard
-                key={entry.id}
-                entry={entry}
-                onShare={handleShare}
-                onDelete={handleDelete}
-                canDelete={Boolean(viewerId) && entry.ownerClerkUserId === viewerId && isWithinDeleteWindow(entry.createdAtIso)}
-                onOpen={(id) => console.log("open", id)}
-              />
             ))}
           </div>
 

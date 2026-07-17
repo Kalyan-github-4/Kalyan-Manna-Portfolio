@@ -175,7 +175,7 @@ function SignedInCreateCard({
       type,
       x: Math.max(0, Math.min(100, x)),
       y: Math.max(0, Math.min(100, y)),
-      size: 18 + Math.random() * 10,
+      size: 26 + Math.random() * 14,
       rotate: Math.random() * 360,
       opacity: 0.6 + Math.random() * 0.3,
     }
