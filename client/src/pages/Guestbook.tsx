@@ -4,6 +4,7 @@ import { useAuth, useUser } from "@clerk/clerk-react";
 import GradientText from "../components/shared/GradientText";
 import CreateGuestCard from "../components/guestbook/components/CreateGuestCard";
 import GuestCard, { type GuestEntry } from "../components/guestbook/components/GuestCard";
+import GuestCardSkeleton from "../components/guestbook/components/GuestCardSkeleton";
 import type { Doodle } from "../components/guestbook/components/DoodleSvg";
 // import { sampleEntries } from "./data/sampleEntries";
 import {
@@ -296,6 +297,15 @@ function GuestBook() {
               />
             </div>
 
+            {/* SKELETON PLACEHOLDERS — shown on first load before entries arrive */}
+            {loading &&
+              entries.length === 0 &&
+              Array.from({ length: 5 }).map((_, i) => (
+                <div key={`skeleton-${i}`}>
+                  <GuestCardSkeleton />
+                </div>
+              ))}
+
             {/* ALL GUEST CARDS */}
             {displayEntries.map((entry) => (
               <div key={entry.id}>
@@ -311,7 +321,6 @@ function GuestBook() {
           </div>
 
           <div className="mt-8 text-center text-sm text-zinc-400">
-            {loading && <p>Loading guestbook wall...</p>}
             {!loading && error && <p>{error}</p>}
             {submitState && <p>{submitState}</p>}
             {!loading && !error && entries.length === 0 && (
