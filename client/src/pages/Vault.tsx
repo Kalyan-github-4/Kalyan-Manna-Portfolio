@@ -1,75 +1,123 @@
-import { useMemo, useState } from "react"
+import { useMemo, useState, type ReactNode } from "react"
+import { AnimatePresence, motion } from "framer-motion"
 
 import { journeyItems, type JourneyFilter } from "@/data/journeyData"
 import { JourneyHeader } from "@/components/journey/JourneyHeader"
-import { JourneyFilters } from "@/components/journey/JourneyFilters"
-import { FeaturedMemory } from "@/components/journey/FeaturedMemory"
-import { JourneyGrid } from "@/components/journey/JourneyGrid"
-import { JourneyTimeline } from "@/components/journey/JourneyTimeline"
 import { JourneyCTA } from "@/components/journey/JourneyCTA"
-import { JourneyDialog } from "@/components/journey/JourneyDialog"
+import BackgroundRipple from "@/components/shared/BackgroundRipple"
+import { VaultFilterBar } from "@/components/vault/VaultFilterBar"
+import { VaultFeaturedCard } from "@/components/vault/VaultFeaturedCard"
+import { VaultCollectionCard } from "@/components/vault/VaultCollectionCard"
+
+function SectionLabel({ children }: { children: ReactNode }) {
+    return (
+        <p className="mb-8 text-center font-mono text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-white/40">
+            {children}
+        </p>
+    )
+}
 
 export default function Vault() {
     const [filter, setFilter] = useState<JourneyFilter>("All")
-    const [selectedId, setSelectedId] = useState<number | null>(null)
+    const [query, setQuery] = useState("")
 
-    // The featured memory is pinned above the gallery regardless of filter.
     const featured = useMemo(
         () => journeyItems.find((item) => item.featured) ?? journeyItems[0],
         []
     )
 
-    const galleryItems = useMemo(() => {
-        const rest = journeyItems.filter((item) => item.id !== featured.id)
-        return filter === "All"
-            ? rest
-            : rest.filter((item) => item.category === filter)
-    }, [filter, featured.id])
+    // The featured slot only makes sense while browsing everything — once the
+    // visitor filters or searches, they want results, not a pinned hero.
+    const trimmedQuery = query.trim()
+    const isBrowsingAll = filter === "All" && trimmedQuery === ""
 
-    // Dialog navigation walks the full ordered list so prev/next is predictable.
-    const selectedIndex =
-        selectedId === null
-            ? -1
-            : journeyItems.findIndex((item) => item.id === selectedId)
-    const selectedItem = selectedIndex >= 0 ? journeyItems[selectedIndex] : null
+    const results = useMemo(() => {
+        const needle = trimmedQuery.toLowerCase()
 
-    const openMemory = (id: number) => setSelectedId(id)
-    const closeMemory = () => setSelectedId(null)
+        return journeyItems.filter((item) => {
+            if (filter !== "All" && item.category !== filter) return false
+            if (!needle) return true
 
-    const navigate = (direction: 1 | -1) => {
-        if (selectedIndex < 0) return
-        const total = journeyItems.length
-        const next = (selectedIndex + direction + total) % total
-        setSelectedId(journeyItems[next].id)
-    }
+            return [
+                item.title,
+                item.description,
+                item.location,
+                item.role,
+                item.category,
+            ]
+                .filter(Boolean)
+                .some((field) => field!.toLowerCase().includes(needle))
+        })
+    }, [filter, trimmedQuery])
+
+    const gridItems = isBrowsingAll
+        ? results.filter((item) => item.id !== featured.id)
+        : results
 
     return (
-        <main className="relative min-h-screen overflow-hidden bg-black text-white">
-            <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 pt-32 sm:px-6 sm:pt-40 lg:px-8">
-                <JourneyHeader />
+        <main className="min-h-screen bg-black">
+            {/* Shell mirrors CaseStudyWorkSection: full-bleed inner column, the
+                same horizontal padding, and the same rippling backdrop. */}
+            <section className="relative overflow-hidden bg-black px-4 py-28 text-white sm:px-6 lg:px-8">
+                <BackgroundRipple rows={7} cols={30} />
 
-                <JourneyFilters active={filter} onChange={setFilter} />
+                <div className="relative z-10 mx-auto w-full">
+                    <JourneyHeader />
 
-                <FeaturedMemory item={featured} onOpen={openMemory} />
+                    <VaultFilterBar
+                        active={filter}
+                        onChange={setFilter}
+                        query={query}
+                        onQueryChange={setQuery}
+                    />
 
-                <JourneyGrid items={galleryItems} onOpen={openMemory} />
+                    {isBrowsingAll && (
+                        <section aria-label="Featured collection">
+                            <SectionLabel>Featured Collection</SectionLabel>
+                            <VaultFeaturedCard item={featured} />
+                        </section>
+                    )}
 
-                <JourneyTimeline items={journeyItems} onOpen={openMemory} />
+                    <section
+                        aria-label="All collections"
+                        className="mb-28 sm:mb-36"
+                    >
+                        <SectionLabel>
+                            {isBrowsingAll
+                                ? "Latest Collections"
+                                : `${results.length} ${
+                                      results.length === 1
+                                          ? "collection"
+                                          : "collections"
+                                  }`}
+                        </SectionLabel>
 
-                <JourneyCTA />
-            </div>
+                        {gridItems.length === 0 ? (
+                            <p className="py-20 text-center text-sm text-zinc-500">
+                                {trimmedQuery
+                                    ? `Nothing matches “${trimmedQuery}” — try another search.`
+                                    : "No collections in this category yet — check back soon."}
+                            </p>
+                        ) : (
+                            <motion.div
+                                layout
+                                className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                            >
+                                <AnimatePresence mode="popLayout">
+                                    {gridItems.map((item) => (
+                                        <VaultCollectionCard
+                                            key={item.id}
+                                            item={item}
+                                        />
+                                    ))}
+                                </AnimatePresence>
+                            </motion.div>
+                        )}
+                    </section>
 
-            <JourneyDialog
-                item={selectedItem}
-                position={
-                    selectedItem
-                        ? { index: selectedIndex, total: journeyItems.length }
-                        : null
-                }
-                onClose={closeMemory}
-                onPrev={() => navigate(-1)}
-                onNext={() => navigate(1)}
-            />
+                    <JourneyCTA />
+                </div>
+            </section>
         </main>
     )
 }
