@@ -46,10 +46,14 @@ export default function VaultCollection() {
         )
     }
 
-    // Wrap around so the visitor can keep walking the vault in either direction.
+    // Wrap around so the visitor can keep walking the vault in either
+    // direction. Below three collections the two directions land on the same
+    // page, so only "Next" is worth showing — and with one, neither is.
     const previous =
         journeyItems[(index - 1 + journeyItems.length) % journeyItems.length]
     const next = journeyItems[(index + 1) % journeyItems.length]
+    const hasNext = journeyItems.length > 1
+    const hasPrevious = journeyItems.length > 2
 
     return (
         <main className="min-h-screen bg-black">
@@ -149,44 +153,48 @@ export default function VaultCollection() {
                     </section>
 
                     {/* Prev / next collection */}
-                    <nav
-                        aria-label="Collection navigation"
-                        className="mt-20 grid gap-4 border-t border-white/10 pt-10 sm:mt-28 sm:grid-cols-2"
-                    >
-                        <Link
-                            to={`/vault/${previous.slug}`}
-                            className="group flex flex-col gap-1 rounded-2xl border border-white/10 bg-zinc-950/60 p-5 transition-colors hover:border-white/25"
+                    {hasNext && (
+                        <nav
+                            aria-label="Collection navigation"
+                            className="mt-20 grid gap-4 border-t border-white/10 pt-10 sm:mt-28 sm:grid-cols-2"
                         >
-                            <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-zinc-500">
-                                <CaretLeft
-                                    size={11}
-                                    weight="bold"
-                                    aria-hidden="true"
-                                />
-                                Previous
-                            </span>
-                            <span className="text-sm font-medium text-zinc-300 transition-colors group-hover:text-white sm:text-base">
-                                {previous.title}
-                            </span>
-                        </Link>
+                            {hasPrevious && (
+                                <Link
+                                    to={`/vault/${previous.slug}`}
+                                    className="group flex flex-col gap-1 rounded-2xl border border-white/10 bg-zinc-950/60 p-5 transition-colors hover:border-white/25"
+                                >
+                                    <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-zinc-500">
+                                        <CaretLeft
+                                            size={11}
+                                            weight="bold"
+                                            aria-hidden="true"
+                                        />
+                                        Previous
+                                    </span>
+                                    <span className="text-sm font-medium text-zinc-300 transition-colors group-hover:text-white sm:text-base">
+                                        {previous.title}
+                                    </span>
+                                </Link>
+                            )}
 
-                        <Link
-                            to={`/vault/${next.slug}`}
-                            className="group flex flex-col items-end gap-1 rounded-2xl border border-white/10 bg-zinc-950/60 p-5 text-right transition-colors hover:border-white/25"
-                        >
-                            <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-zinc-500">
-                                Next
-                                <CaretRight
-                                    size={11}
-                                    weight="bold"
-                                    aria-hidden="true"
-                                />
-                            </span>
-                            <span className="text-sm font-medium text-zinc-300 transition-colors group-hover:text-white sm:text-base">
-                                {next.title}
-                            </span>
-                        </Link>
-                    </nav>
+                            <Link
+                                to={`/vault/${next.slug}`}
+                                className="group flex flex-col items-end gap-1 rounded-2xl border border-white/10 bg-zinc-950/60 p-5 text-right transition-colors hover:border-white/25 sm:col-start-2"
+                            >
+                                <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-zinc-500">
+                                    Next
+                                    <CaretRight
+                                        size={11}
+                                        weight="bold"
+                                        aria-hidden="true"
+                                    />
+                                </span>
+                                <span className="text-sm font-medium text-zinc-300 transition-colors group-hover:text-white sm:text-base">
+                                    {next.title}
+                                </span>
+                            </Link>
+                        </nav>
+                    )}
                 </div>
             </section>
         </main>

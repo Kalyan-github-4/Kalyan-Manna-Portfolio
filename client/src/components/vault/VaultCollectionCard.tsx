@@ -48,7 +48,7 @@ export function VaultCollectionCard({ item }: VaultCollectionCardProps) {
                         sets card titles in the sans face, so opt back out. */}
                     <div className="absolute inset-0 flex items-center justify-center p-5">
                         <h3 className="text-center font-sans text-lg font-medium leading-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] sm:text-xl">
-                            {item.title}
+                            {item.coverTitle}
                         </h3>
                     </div>
 

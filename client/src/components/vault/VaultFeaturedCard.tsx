@@ -48,8 +48,8 @@ export function VaultFeaturedCard({ item }: VaultFeaturedCardProps) {
                     {/* Headings are globally serif on this site; the reference
                         sets card titles in the sans face, so opt back out. */}
                     <div className="absolute inset-0 flex items-center justify-center p-6">
-                        <h3 className="text-center font-sans text-2xl font-medium leading-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] sm:text-3xl">
-                            {item.title}
+                        <h3 className="text-center font-sans text-2xl  leading-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)] sm:text-3xl">
+                            {item.coverTitle}
                         </h3>
                     </div>
                 </div>

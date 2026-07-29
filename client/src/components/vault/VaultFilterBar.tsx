@@ -51,7 +51,7 @@ export function VaultFilterBar({
     }, [onQueryChange])
 
     return (
-        <div className="mb-16 border-y border-white/10 sm:mb-20">
+        <div className="mb-16 border-y border-white/10 sm:mb-10">
             <div className="flex flex-col gap-3 py-4 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
                 {/* Category pills — scroll horizontally rather than wrapping. */}
                 <div
