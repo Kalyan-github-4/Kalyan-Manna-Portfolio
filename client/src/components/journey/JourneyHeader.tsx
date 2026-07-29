@@ -11,7 +11,7 @@ const EASE = [0.22, 1, 0.36, 1] as const
  */
 export function JourneyHeader() {
     return (
-        <div className="relative mb-28 flex min-h-70 items-center justify-center text-center">
+        <div className="relative mb-20 flex min-h-50 items-center justify-center text-center">
             <div>
                 <motion.p
                     initial={{ opacity: 0, y: 18 }}
@@ -20,7 +20,7 @@ export function JourneyHeader() {
                     transition={{ duration: 0.7, ease: EASE }}
                     className="mb-5 font-mono text-xs font-semibold uppercase tracking-[0.35em] text-white/50"
                 >
-                    Vault
+                    Beyond the Code
                 </motion.p>
 
                 <motion.h1
@@ -40,7 +40,7 @@ export function JourneyHeader() {
                     </GradientText>
                 </motion.h1>
 
-                <motion.p
+                {/* <motion.p
                     initial={{ opacity: 0, y: 18 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: false, amount: 0.6 }}
@@ -49,7 +49,7 @@ export function JourneyHeader() {
                 >
                     A collection of hackathons, achievements, events, collaborations and
                     meaningful milestones that have shaped my growth as a developer.
-                </motion.p>
+                </motion.p> */}
             </div>
         </div>
     )

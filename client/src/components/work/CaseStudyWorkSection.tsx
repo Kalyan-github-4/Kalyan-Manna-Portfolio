@@ -17,7 +17,7 @@ export default function CaseStudyWorkSection() {
 
             <div className="relative z-10 mx-auto w-full">
                 {/* Header */}
-                <div className="relative mb-28 flex min-h-70 items-center justify-center text-center">
+                <div className="relative mb-20 flex min-h-50 items-center justify-center text-center">
                     <div>
                         <motion.p
                             initial={{ opacity: 0, y: 18 }}
@@ -52,21 +52,6 @@ export default function CaseStudyWorkSection() {
                                 Work
                             </GradientText>
                         </motion.h1>
-
-                        <motion.p
-                            initial={{ opacity: 0, y: 18 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: false, amount: 0.6 }}
-                            transition={{
-                                duration: 0.75,
-                                delay: 0.16,
-                                ease: [0.22, 1, 0.36, 1],
-                            }}
-                            className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base md:text-lg md:leading-8"
-                        >
-                            A curated collection of products, interfaces, and digital experiences I’ve
-                            designed and built with performance, usability, and clean engineering in mind.
-                        </motion.p>
                     </div>
                 </div>
 
