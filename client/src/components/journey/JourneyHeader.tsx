@@ -4,20 +4,14 @@ import GradientText from "@/components/shared/GradientText"
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
+/**
+ * Mirrors the header in CaseStudyWorkSection so /vault and /work read as the
+ * same page family — same eyebrow, same gradient display heading, same
+ * spacing. Only the copy differs.
+ */
 export function JourneyHeader() {
     return (
-        <div className="relative mb-20 flex min-h-70 items-center justify-center px-4 text-center sm:mb-28">
-            {/* Radial purple + blue glows behind the header. Kept low-opacity and
-                pointer-events-none so they never affect readability or clicks. */}
-            <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
-            >
-                <div className="absolute left-1/2 top-4 h-72 w-72 -translate-x-1/2 rounded-full bg-purple-600/20 blur-[120px] sm:h-96 sm:w-96" />
-                <div className="absolute left-[30%] top-24 h-56 w-56 -translate-x-1/2 rounded-full bg-blue-600/20 blur-[110px] sm:h-80 sm:w-80" />
-                <div className="absolute right-[28%] top-16 h-52 w-52 translate-x-1/2 rounded-full bg-pink-600/15 blur-[110px] sm:h-72 sm:w-72" />
-            </div>
-
+        <div className="relative mb-28 flex min-h-70 items-center justify-center text-center">
             <div>
                 <motion.p
                     initial={{ opacity: 0, y: 18 }}
