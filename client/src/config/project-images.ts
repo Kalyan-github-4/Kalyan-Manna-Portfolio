@@ -4,21 +4,34 @@
 // ever needs to be updated in one place.
 export const projectImages = {
   easyPg:
-    "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1600&auto=format&fit=crop&q=60",
+    "/projects/easyPG-1.jpeg",
+  githubRoast:
+    "/projects/github roast.png",
   portfolio:
-    "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=1600&auto=format&fit=crop&q=60",
+    "/projects/portfolio.png",
   managementSystem:
-    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&auto=format&fit=crop&q=60",
+    "/projects/gym-management-system.png",
   businessWebsite:
-    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&auto=format&fit=crop&q=60",
-  codeking:
-    "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1600&auto=format&fit=crop&q=60",
+    "/projects/business website.png",
   guestbookWall:
-    "https://images.unsplash.com/photo-1516387938699-a93567ec168e?w=1600&auto=format&fit=crop&q=60",
+    "/projects/guestbook-wall.png",
+  // Paired screenshots shown as the tilted, stacked desktop preview.
+  managementSystemScreens: [
+    "/projects/gym-management-system-1.png",
+    "/projects/gym-management-system-2.png",
+  ],
+  guthubRoastScreens: [
+    "/projects/github roast 2.png",
+    "/projects/github roast.png",
+  ],
+  portfolioScreens: [
+    "/projects/portfolio-1.png",
+    "/projects/portfolio.png",
+  ],
   // EasyPG in-app screenshots shown inside the mobile device frame.
   easyPgScreens: [
-    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&crop=center",
-    "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop&crop=center",
-    "https://images.unsplash.com/photo-1526498460520-4c246339dccb?w=800&h=600&fit=crop&crop=center",
+    "/projects/easyPG-1.jpeg",
+    "/projects/easyPG-2.jpeg",
+    "/projects/easyPG-3.jpeg",
   ],
 } as const
