@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import type { WorkProject } from "./workProjects"
 import WorkTechPill from "./WorkTechPill"
 import MobileAppPreview from "./MobileAppPreview"
+import DesktopAppPreview from "./DesktopAppPreview"
 
 type WorkProjectCardProps = {
     project: WorkProject
@@ -105,7 +106,7 @@ export default function WorkProjectCard({
                                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.35),transparent_32%),linear-gradient(to_bottom,rgba(0,0,0,0.04),rgba(0,0,0,0.45))]" />
 
                                 <div className="relative z-10 flex items-start justify-between gap-6">
-                                    <p className="max-w-xl text-base font-medium leading-relaxed text-zinc-200 md:text-lg">
+                                    <p className="max-w-xl text-sm font-medium leading-relaxed text-zinc-200 md:text-base">
                                         {project.description}
                                     </p>
 
@@ -114,19 +115,14 @@ export default function WorkProjectCard({
                                     </span>
                                 </div>
 
-                                <div className="absolute -bottom-10.5 left-1/2 z-10 w-[82%] -translate-x-1/2 overflow-hidden rounded-t-2xl border border-white/30 bg-black shadow-2xl shadow-black/50">
-                                    <div className="flex h-8 items-center gap-2 border-b border-white/10 bg-black px-4">
-                                        <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
-                                        <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
-                                        <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-                                    </div>
-
-                                    <img
-                                        src={project.image}
-                                        alt={`${project.title} preview`}
-                                        className="h-65 w-full object-cover object-top opacity-95 transition-transform duration-700 group-hover:scale-[1.04]"
-                                    />
-                                </div>
+                                <DesktopAppPreview
+                                    title={project.title}
+                                    images={
+                                        project.previewImages?.length
+                                            ? project.previewImages
+                                            : [project.image]
+                                    }
+                                />
                             </>
                         )}
                     </div>
