@@ -6,24 +6,29 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 
+import { AudioToggle } from "./AudioToggle"
 import { MobileNavItem } from "./MobileNavItem"
 import type { NavItem } from "./navbar-types"
 
 interface MobileNavbarProps {
   items: NavItem[]
   pathname: string
+  audioEnabled: boolean
+  onToggleAudio: () => void
 }
 
 export function MobileNavbar({
   items,
   pathname,
+  audioEnabled,
+  onToggleAudio,
 }: MobileNavbarProps) {
   const mobileItems = items.flatMap((item) =>
     item.hasDropdown ? (item.items ?? []) : [item]
   )
 
   return (
-    <div className="flex cursor-pointer justify-center md:hidden">
+    <div className="relative flex cursor-pointer justify-center md:hidden">
       <Drawer>
         <DrawerTrigger asChild>
           <motion.button
@@ -77,6 +82,13 @@ export function MobileNavbar({
           </div>
         </DrawerContent>
       </Drawer>
+
+      {/* Absolute so the logo pill stays optically centred. */}
+      <AudioToggle
+        enabled={audioEnabled}
+        onToggle={onToggleAudio}
+        className="absolute right-0 top-1/2 -translate-y-1/2"
+      />
     </div>
   )
 }

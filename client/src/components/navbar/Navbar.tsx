@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom"
 
 import { cn } from "@/lib/utils"
 
+import { useBackgroundAudio } from "./useBackgroundAudio"
 import { DesktopNavbar } from "./DesktopNavbar"
 import { MobileNavbar } from "./MobileNavbar"
 import type { NavbarProps } from "./navbar-types"
@@ -21,6 +22,9 @@ export function NavBar({
   const [introDone, setIntroDone] = useState(false)
 
   const { isScrolled, isVisible } = useNavbarScroll()
+
+  // One audio element for the whole site — both navbars drive the same one.
+  const { enabled: audioEnabled, toggle: toggleAudio } = useBackgroundAudio()
 
   const greeting = useMemo(() => {
     const hour = new Date().getHours()
@@ -81,12 +85,16 @@ export function NavBar({
         introDone={introDone}
         moreOpen={moreOpen}
         isScrolled={isScrolled}
+        audioEnabled={audioEnabled}
+        onToggleAudio={toggleAudio}
         onMoreOpenChange={setMoreOpen}
       />
 
       <MobileNavbar
         items={items}
         pathname={pathname}
+        audioEnabled={audioEnabled}
+        onToggleAudio={toggleAudio}
       />
     </motion.header>
   )
