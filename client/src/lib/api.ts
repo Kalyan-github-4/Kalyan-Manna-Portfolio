@@ -52,8 +52,8 @@ export interface GuestbookEntryResponse {
 	message: string
 	role: string | null
 	rating: number
-	gradient: string
-	doodles: unknown[]
+	/** Card template id assigned by the server (stored in the `gradient` column). */
+	template: string | null
 	createdAt: string
 	user: {
 		name: string
@@ -65,9 +65,6 @@ export interface GuestbookEntryResponse {
 export interface CreateGuestbookEntryPayload {
 	message: string
 	role?: string
-	rating: number
-	gradient: string
-	doodles: unknown[]
 }
 
 export interface ContactPayload {

@@ -1,21 +1,9 @@
-import { useMemo, useState, useEffect, useRef, useCallback } from "react"
+import { useMemo, useState, useRef, useCallback } from "react"
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-react"
-import type { GuestEntry } from "./GuestCard"
-import type { Doodle, DoodleName } from "./DoodleSvg"
 import DoodleSvg from "./DoodleSvg"
-import { ArrowRightIcon, PencilSimpleIcon } from "@phosphor-icons/react"
+import { previewTemplate, type CardTemplate } from "./cardTemplates"
+import { ArrowRightIcon, PencilSimpleIcon, SparkleIcon } from "@phosphor-icons/react"
 import GuestbookLoginDialog from "./GuestbookLoginDialog"
-
-type GradientName = GuestEntry["gradient"]
-
-const GRADIENTS: Record<GradientName, string> = {
-  purple: "linear-gradient(160deg, #7C4FE0 0%, #4A2E9E 55%, #2B1862 100%)",
-  forest: "linear-gradient(160deg, #1F6B4F 0%, #134634 60%, #0B2B20 100%)",
-  maroon: "linear-gradient(160deg, #8C2A2A 0%, #5E1717 55%, #390D0D 100%)",
-  navy: "linear-gradient(160deg, #2A3A8C 0%, #18225E 55%, #0E1338 100%)",
-  ocean: "linear-gradient(160deg, #1C7C8C 0%, #114F5E 55%, #0A323D 100%)",
-  sunset: "linear-gradient(160deg, #C2542E 0%, #8C3221 55%, #531A10 100%)",
-}
 
 function tornEdgePath(seed: number, w = 400, h = 280, tearDepth = 14) {
   let s = seed
@@ -41,35 +29,8 @@ function tornEdgePath(seed: number, w = 400, h = 280, tearDepth = 14) {
 
 interface CreateGuestCardProps {
   maxLength?: number
-  gradient?: GradientName
-  onSubmit?: (
-    message: string,
-    gradient: GradientName,
-    doodles: Doodle[],
-    role: string,
-    rating: number
-  ) => Promise<void> | void
+  onSubmit?: (message: string, role: string) => Promise<void> | void
 }
-
-const GRADIENT_ORDER: GradientName[] = [
-  "purple",
-  "forest",
-  "maroon",
-  "navy",
-  "ocean",
-  "sunset",
-]
-
-const DOODLE_OPTIONS: DoodleName[] = [
-  "heart",
-  "star",
-  "sparkle",
-  "lightning",
-  "swirl",
-  "cloud",
-  "arrow",
-  "moon",
-]
 
 function getInitials(name?: string | null) {
   if (!name) return "G"
@@ -83,14 +44,36 @@ function getInitials(name?: string | null) {
     .toUpperCase()
 }
 
-function SignedOutCreateCard({ gradient }: { gradient: GradientName }) {
-  const seed = useMemo(() => 439, [])
-  const clip = useMemo(() => tornEdgePath(seed), [seed])
+// Decorative layer shared by both states of the composer, so the empty card a
+// signed-out visitor sees and the one they type into are the same object.
+function TemplateDoodles({ template }: { template: CardTemplate }) {
+  return (
+    <div className="pointer-events-none absolute inset-0">
+      {template.doodles.map((d, i) => (
+        <div
+          key={`${d.type}-${i}`}
+          className="absolute"
+          style={{
+            left: `${d.x}%`,
+            top: `${d.y}%`,
+            transform: `translate(-50%, -50%) rotate(${d.rotate}deg)`,
+            opacity: d.opacity ?? 0.3,
+          }}
+        >
+          <DoodleSvg type={d.type} size={d.size} />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function SignedOutCreateCard({ template }: { template: CardTemplate }) {
+  const clip = useMemo(() => tornEdgePath(439), [])
 
   return (
     <div
       className="group relative overflow-hidden rounded-[20px] transition"
-      style={{ background: GRADIENTS[gradient] }}
+      style={{ background: template.gradient }}
     >
       <div className="relative z-10 flex min-h-[150px] flex-col items-center justify-center px-6 pb-3 pt-7 text-center">
         <p className="font-serif text-3xl italic text-white">
@@ -131,7 +114,6 @@ function SignedOutCreateCard({ gradient }: { gradient: GradientName }) {
 
 function SignedInCreateCard({
   maxLength,
-  gradient,
   onSubmit,
 }: Required<CreateGuestCardProps>) {
   const { user } = useUser()
@@ -146,17 +128,17 @@ function SignedInCreateCard({
   const authorInitials = getInitials(authorName)
 
   const [message, setMessage] = useState("")
-  const [activeGradient, setActiveGradient] = useState<GradientName>(gradient)
-  const [doodles, setDoodles] = useState<Doodle[]>([])
-  const [selectedDoodle, setSelectedDoodle] = useState<DoodleName | null>(null)
   const [role, setRole] = useState("")
-  const [rating, setRating] = useState(5)
-
-  const messageRef = useRef<HTMLDivElement>(null)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   const isEmpty = message.trim().length === 0
   const isLong = message.length > 70
+
+  // The card the composer wears while you type. The card you actually get is
+  // assigned server-side on submit — this is a taste of the set, not a promise.
+  const template = useMemo(
+    () => previewTemplate(user?.id || authorName),
+    [user?.id, authorName]
+  )
 
   const seed = useMemo(() => {
     let h = 0
@@ -170,42 +152,6 @@ function SignedInCreateCard({
 
   const clip = useMemo(() => tornEdgePath(seed), [seed])
 
-  const addDoodleAt = useCallback((type: DoodleName, x: number, y: number) => {
-    const newDoodle: Doodle = {
-      type,
-      x: Math.max(0, Math.min(100, x)),
-      y: Math.max(0, Math.min(100, y)),
-      size: 26 + Math.random() * 14,
-      rotate: Math.random() * 360,
-      opacity: 0.6 + Math.random() * 0.3,
-    }
-
-    setDoodles((prev) => [...prev, newDoodle])
-  }, [])
-
-  const removeLastDoodle = useCallback(() => {
-    setDoodles((prev) => prev.slice(0, -1))
-  }, [])
-
-  const handleMessageClick = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
-      if (!selectedDoodle || !messageRef.current) return
-
-      const rect = messageRef.current.getBoundingClientRect()
-      const x = ((e.clientX - rect.left) / rect.width) * 100
-      const y = ((e.clientY - rect.top) / rect.height) * 100
-
-      addDoodleAt(selectedDoodle, x, y)
-    },
-    [selectedDoodle, addDoodleAt]
-  )
-
-  const handleDoodleSelect = useCallback((doodle: DoodleName) => {
-    setSelectedDoodle((prev) => (prev === doodle ? null : doodle))
-
-    textareaRef.current?.focus()
-  }, [])
-
   const handleSubmit = useCallback(async () => {
     if (isEmpty || submittingRef.current) return
 
@@ -213,78 +159,37 @@ function SignedInCreateCard({
     setIsSubmitting(true)
 
     try {
-      console.log("CreateGuestCard submit started")
-
-      await onSubmit(message.trim(), activeGradient, doodles, role.trim(), rating)
+      await onSubmit(message.trim(), role.trim())
 
       setMessage("")
       setRole("")
-      setRating(5)
-      setDoodles([])
-      setSelectedDoodle(null)
     } catch (error) {
       console.error("CreateGuestCard submit failed:", error)
     } finally {
       submittingRef.current = false
       setIsSubmitting(false)
     }
-  }, [isEmpty, message, activeGradient, doodles, role, rating, onSubmit])
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const el = document.activeElement
-
-      const isTyping =
-        el?.tagName === "TEXTAREA" || (el as HTMLElement)?.isContentEditable
-
-      if (isTyping) return
-
-      if ((e.key === "Backspace" || e.key === "Delete") && doodles.length > 0) {
-        e.preventDefault()
-        removeLastDoodle()
-      }
-
-      if (e.key === "Escape" && selectedDoodle) {
-        setSelectedDoodle(null)
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown)
-
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [doodles.length, removeLastDoodle, selectedDoodle])
+  }, [isEmpty, message, role, onSubmit])
 
   return (
     <div
       className="group relative overflow-hidden rounded-[20px] transition"
-      style={{ background: GRADIENTS[activeGradient] }}
+      style={{ background: template.gradient }}
     >
-      <div
-        ref={messageRef}
-        className="relative z-10 min-h-[150px] px-6 pb-3 pt-7"
-        style={{ cursor: selectedDoodle ? "crosshair" : "default" }}
-        onClick={handleMessageClick}
-      >
-        <div className="pointer-events-none absolute inset-0">
-          {doodles.map((d, i) => (
-            <div
-              key={`${d.type}-${i}-${d.x}-${d.y}`}
-              className="absolute"
-              style={{
-                left: `${d.x}%`,
-                top: `${d.y}%`,
-                transform: `translate(-50%, -50%) rotate(${d.rotate}deg)`,
-                opacity: d.opacity ?? 0.6,
-                pointerEvents: "none",
-              }}
-            >
-              <DoodleSvg type={d.type} size={d.size} />
-            </div>
-          ))}
-        </div>
+      {template.texture && (
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-screen"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(135deg, white 0px, white 1px, transparent 1px, transparent 9px)",
+          }}
+        />
+      )}
 
+      <TemplateDoodles template={template} />
+
+      <div className="relative z-10 min-h-[150px] px-6 pb-3 pt-7">
         <textarea
-          ref={textareaRef}
           value={message}
           maxLength={maxLength}
           onChange={(e) => setMessage(e.target.value)}
@@ -294,9 +199,6 @@ function SignedInCreateCard({
             ? "text-base font-normal leading-relaxed"
             : "text-2xl font-semibold leading-snug"
             }`}
-          style={{
-            cursor: selectedDoodle ? "crosshair" : "text",
-          }}
         />
       </div>
 
@@ -325,7 +227,6 @@ function SignedInCreateCard({
               <input
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                onClick={(e) => e.stopPropagation()}
                 disabled={isSubmitting}
                 placeholder={isSubmitting ? "Sending…" : "Add your role · e.g. Designer"}
                 maxLength={60}
@@ -352,41 +253,10 @@ function SignedInCreateCard({
         </div>
       </div>
 
-      <div className="absolute left-4 top-4 z-20 flex gap-1.5 opacity-0 transition-opacity group-hover:opacity-100">
-        {DOODLE_OPTIONS.map((d) => {
-          const active = selectedDoodle === d
-
-          return (
-            <button
-              key={d}
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation()
-                handleDoodleSelect(d)
-              }}
-              className={`grid h-7 w-7 place-items-center rounded-md transition-all ${active
-                ? "scale-110 bg-white text-black shadow-lg"
-                : "bg-white/10 text-white/80 hover:bg-white/20"
-                }`}
-              title={`Draw ${d} doodle`}
-            >
-              <DoodleSvg type={d} size={14} />
-            </button>
-          )
-        })}
-      </div>
-
-      <div className="absolute right-4 top-4 z-20 flex gap-1.5 opacity-0 transition-opacity group-hover:opacity-100">
-        {GRADIENT_ORDER.map((g) => (
-          <button
-            key={g}
-            type="button"
-            onClick={() => setActiveGradient(g)}
-            className="h-5 w-5 rounded-full ring-1 ring-white/30 transition hover:scale-110 hover:ring-white/60"
-            style={{ background: GRADIENTS[g] }}
-            title={`Change to ${g} theme`}
-          />
-        ))}
+      {/* Replaces the old colour + doodle pickers: guests write, we design. */}
+      <div className="absolute right-4 top-4 z-20 flex items-center gap-1.5 rounded-full bg-black/20 px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-white/55 backdrop-blur-sm">
+        <SparkleIcon size={12} weight="fill" />
+        Card style picked for you
       </div>
     </div>
   )
@@ -394,21 +264,16 @@ function SignedInCreateCard({
 
 export default function CreateGuestCard({
   maxLength = 100,
-  gradient = "purple",
   onSubmit = () => { },
 }: CreateGuestCardProps) {
   return (
     <>
       <SignedOut>
-        <SignedOutCreateCard gradient={gradient} />
+        <SignedOutCreateCard template={previewTemplate("guestbook-signed-out")} />
       </SignedOut>
 
       <SignedIn>
-        <SignedInCreateCard
-          maxLength={maxLength}
-          gradient={gradient}
-          onSubmit={onSubmit}
-        />
+        <SignedInCreateCard maxLength={maxLength} onSubmit={onSubmit} />
       </SignedIn>
     </>
   )

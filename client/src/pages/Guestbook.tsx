@@ -5,7 +5,7 @@ import GradientText from "../components/shared/GradientText";
 import CreateGuestCard from "../components/guestbook/components/CreateGuestCard";
 import GuestCard, { type GuestEntry } from "../components/guestbook/components/GuestCard";
 import GuestCardSkeleton from "../components/guestbook/components/GuestCardSkeleton";
-import type { Doodle } from "../components/guestbook/components/DoodleSvg";
+import { resolveTemplate } from "../components/guestbook/components/cardTemplates";
 // import { sampleEntries } from "./data/sampleEntries";
 import {
   createGuestbookEntry,
@@ -13,23 +13,6 @@ import {
   getGuestbookEntries,
   type GuestbookEntryResponse,
 } from "@/lib/api";
-
-type GradientName = GuestEntry["gradient"];
-
-const GRADIENT_NAMES: GradientName[] = [
-  "purple",
-  "forest",
-  "maroon",
-  "navy",
-  "ocean",
-  "sunset",
-];
-
-function toGradient(value: string): GradientName {
-  return GRADIENT_NAMES.includes(value as GradientName)
-    ? (value as GradientName)
-    : "purple";
-}
 
 function getInitials(name: string) {
   return name
@@ -39,23 +22,6 @@ function getInitials(name: string) {
     .map((part) => part[0])
     .join("")
     .toUpperCase();
-}
-
-function normalizeDoodles(value: unknown): Doodle[] {
-  if (!Array.isArray(value)) return [];
-
-  return value.filter((item): item is Doodle => {
-    if (!item || typeof item !== "object") return false;
-
-    const doodle = item as Doodle;
-    return (
-      typeof doodle.type === "string" &&
-      typeof doodle.x === "number" &&
-      typeof doodle.y === "number" &&
-      typeof doodle.size === "number" &&
-      typeof doodle.rotate === "number"
-    );
-  });
 }
 
 // Small, stable "random" tilt so the wall reads like pinned paper notes
@@ -73,11 +39,14 @@ function getCardTilt(id: string): string {
 function mapEntryToCard(entry: GuestbookEntryResponse): GuestEntry {
   const author = entry.user?.name || "Guest";
 
+  // Every visual choice comes from the template the server assigned — the
+  // guest supplies words only.
+  const template = resolveTemplate(entry.template, entry.id);
+
   return {
     id: entry.id,
     message: entry.message,
-    gradient: toGradient(entry.gradient),
-    doodles: normalizeDoodles(entry.doodles),
+    template,
     rotation: getCardTilt(entry.id),
     author,
     role: entry.role || "Visitor",
@@ -217,13 +186,7 @@ function GuestBook() {
   }, [entries, getToken, viewerId]);
 
   const handleSubmit = useCallback(
-    async (
-      message: string,
-      gradient: GradientName,
-      doodles: Doodle[],
-      role: string,
-      rating: number
-    ) => {
+    async (message: string, role: string) => {
       try {
         setSubmitState(null)
 
@@ -237,10 +200,7 @@ function GuestBook() {
         const response = await createGuestbookEntry(
           {
             message,
-            gradient,
-            doodles,
             role: role || "Visitor",
-            rating,
           },
           token
         )

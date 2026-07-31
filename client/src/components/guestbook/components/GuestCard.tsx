@@ -1,18 +1,10 @@
 import { useMemo } from "react";
 import DoodleSvg from "./DoodleSvg";
-import type { Doodle } from "./DoodleSvg";
 import tornEdgePath from "./tornEdgePath";
+import type { CardTemplate } from "./cardTemplates";
 import { ShareNetworkIcon, TrashIcon } from "@phosphor-icons/react";
 
 // ── Types ────────────────────────────────────────────────────────────────
-
-type GradientName =
-  | "purple"
-  | "forest"
-  | "maroon"
-  | "navy"
-  | "ocean"
-  | "sunset";
 
 interface Avatar {
   kind: "emoji" | "initials" | "photo";
@@ -24,9 +16,8 @@ export interface GuestEntry {
   role: string | null;
   rating: number;
   message: string;
-  gradient: GradientName;
-  doodles?: Doodle[];
-  texture?: boolean; // faint diagonal hatch
+  /** Gradient, doodles and texture — assigned by the system, not the guest. */
+  template: CardTemplate;
   author: string;
   avatar: Avatar;
   date: string;
@@ -43,17 +34,6 @@ interface GuestCardProps {
   onDelete?: (id: string) => void;
   canDelete?: boolean;
 }
-
-// ── Gradient + texture tokens ────────────────────────────────────────────
-
-const GRADIENTS: Record<GradientName, string> = {
-  purple: "linear-gradient(160deg, #7C4FE0 0%, #4A2E9E 55%, #2B1862 100%)",
-  forest: "linear-gradient(160deg, #1F6B4F 0%, #134634 60%, #0B2B20 100%)",
-  maroon: "linear-gradient(160deg, #8C2A2A 0%, #5E1717 55%, #390D0D 100%)",
-  navy: "linear-gradient(160deg, #2A3A8C 0%, #18225E 55%, #0E1338 100%)",
-  ocean: "linear-gradient(160deg, #1C7C8C 0%, #114F5E 55%, #0A323D 100%)",
-  sunset: "linear-gradient(160deg, #C2542E 0%, #8C3221 55%, #531A10 100%)",
-};
 
 // ── Message typography sizing ────────────────────────────────────────────
 
@@ -130,11 +110,11 @@ export default function GuestCard({
       className={`group relative overflow-hidden rounded-[20px] cursor-pointer
                  transition-transform duration-300 ease-out
                  hover:-translate-y-1 ${entry.rotation || ""}`}
-      style={{ background: GRADIENTS[entry.gradient] }}
+      style={{ background: entry.template.gradient }}
       onClick={() => onOpen?.(entry.id)}
     >
       {/* optional diagonal hatch texture */}
-      {entry.texture && (
+      {entry.template.texture && (
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-screen"
           style={{
@@ -145,7 +125,7 @@ export default function GuestCard({
       )}
 
       {/* hand-drawn doodles, asymmetric placement */}
-      {entry.doodles?.map((d, i) => (
+      {entry.template.doodles.map((d, i) => (
         <div
           key={i}
           className="pointer-events-none absolute"

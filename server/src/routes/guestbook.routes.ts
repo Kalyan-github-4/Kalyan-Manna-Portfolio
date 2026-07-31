@@ -9,6 +9,24 @@ import { getAuthenticatedClerkUserId } from "../lib/clerkAuth.js"
 
 const router = Router()
 
+// Card design is no longer a guest-facing choice: the client ships a fixed set
+// of designed templates, and the server hands each new entry one of them. The
+// ids match the colour words already stored in the `gradient` column, so
+// entries written before templates existed still resolve to a real template.
+const CARD_TEMPLATE_IDS = [
+  "purple",
+  "forest",
+  "maroon",
+  "navy",
+  "ocean",
+  "sunset",
+] as const
+
+function assignCardTemplate() {
+  const index = Math.floor(Math.random() * CARD_TEMPLATE_IDS.length)
+  return CARD_TEMPLATE_IDS[index] ?? "purple"
+}
+
 async function upsertUserFromClerk(clerkUserId: string) {
   const clerkUser = await clerkClient.users.getUser(clerkUserId)
 
@@ -74,8 +92,7 @@ router.get("/", async (_req, res) => {
     .select({
       id: guestbookEntries.id,
       message: guestbookEntries.message,
-      gradient: guestbookEntries.gradient,
-      doodles: guestbookEntries.doodles,
+      template: guestbookEntries.gradient,
       createdAt: guestbookEntries.createdAt,
       userName: users.name,
       userImageUrl: users.imageUrl,
@@ -90,8 +107,7 @@ router.get("/", async (_req, res) => {
     entries: entries.map((entry: (typeof entries)[number]) => ({
       id: entry.id,
       message: entry.message,
-      gradient: entry.gradient,
-      doodles: entry.doodles,
+      template: entry.template,
       createdAt: entry.createdAt,
       user: {
         name: entry.userName,
@@ -120,7 +136,7 @@ router.post("/", async (req, res) => {
       })
     }
 
-    const { message, role, gradient, doodles } = req.body
+    const { message } = req.body
 
     if (!message || typeof message !== "string" || message.trim().length < 2) {
       return res.status(400).json({
@@ -141,8 +157,10 @@ router.post("/", async (req, res) => {
       .values({
         userId: user.id,
         message: message.trim(),
-        gradient: gradient || "purple",
-        doodles: doodles || [],
+        // Ignores anything style-related in the request body on purpose —
+        // the design is ours to pick, not the guest's to send.
+        gradient: assignCardTemplate(),
+        doodles: [],
         status: "approved",
       })
       .returning()
@@ -160,8 +178,7 @@ router.post("/", async (req, res) => {
       entry: {
         id: entry.id,
         message: entry.message,
-        gradient: entry.gradient,
-        doodles: entry.doodles,
+        template: entry.gradient,
         createdAt: entry.createdAt,
         user: {
           name: user.name,

@@ -28,7 +28,7 @@ export const workProjects: WorkProject[] = [
             "A fun and interactive web app that analyzes GitHub profiles and generates witty roasts, humorous insights, and developer scores.",
         image: projectImages.githubRoast,
         previewImages: [...projectImages.guthubRoastScreens],
-        href: "/work/github-roast",
+        href: "https://git-hub-roast-mauve.vercel.app/",
         githubUrl: socialLinks.github,
         liveUrl: "",
         tags: [
@@ -49,7 +49,7 @@ export const workProjects: WorkProject[] = [
             "A handcrafted personal portfolio featuring motion-driven storytelling, interactive sections, project case studies, and a guestbook experience.",
         image: projectImages.portfolioScreens[0],
         previewImages: [...projectImages.portfolioScreens],
-        href: "/work/portfolio",
+        href: "https://kalyan-manna-portfolio.vercel.app/",
         githubUrl: socialLinks.github,
         liveUrl: "",
         tags: [
@@ -69,7 +69,7 @@ export const workProjects: WorkProject[] = [
             "A PG discovery and management platform designed for students and property owners, covering real-world rental and booking workflows.",
         image: projectImages.easyPg,
         previewImages: [...projectImages.easyPgScreens],
-        href: "/work/easypg",
+        href: "https://github.com/Kalyan-github-4/EasyPG-App",
         githubUrl: socialLinks.github,
         liveUrl: "",
         tags: [
