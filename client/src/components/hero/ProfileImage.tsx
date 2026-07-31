@@ -10,11 +10,10 @@ export function ProfileImage({
 	top,
 	x,
 	y,
-	width,
-	height,
-	borderRadius,
+	size,
 	opacity,
 	baseImageOpacity,
+	simplify = false,
 }: ProfileImageProps) {
 	return (
 		<motion.div
@@ -22,9 +21,9 @@ export function ProfileImage({
 				top,
 				x,
 				y,
-				width,
-				height,
-				borderRadius,
+				width: size,
+				height: size,
+				borderRadius: "50%",
 				opacity,
 			}}
 			className="pointer-events-none absolute left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 overflow-hidden border border-white/20 shadow-2xl shadow-black/50 lg:left-[51%]"
@@ -48,6 +47,7 @@ export function ProfileImage({
 					progress={progress}
 					start={slide.start}
 					end={slide.end}
+					simplify={simplify}
 				/>
 			))}
 		</motion.div>

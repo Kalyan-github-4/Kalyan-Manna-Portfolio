@@ -1,5 +1,5 @@
 import { CaretRight } from "@phosphor-icons/react"
-import { motion, useTransform } from "framer-motion"
+import { motion } from "framer-motion"
 import { Link } from "react-router-dom"
 
 import { HeroButtons } from "@/components/hero/HeroButtons"
@@ -32,15 +32,11 @@ const fadeUpVariants = {
 	},
 }
 
-export function HeroContent({ opacity, y, blur }: HeroContentProps) {
+export function HeroContent({ opacity, y, visibility }: HeroContentProps) {
 	return (
 		<motion.section
 			id="home"
-			style={{
-				opacity,
-				y,
-				filter: useTransform(blur, (value) => `blur(${value}px)`),
-			}}
+			style={{ opacity, y, visibility }}
 			className="relative z-10 flex min-h-screen flex-col items-center justify-center px-5 text-center sm:px-6 md:px-8 lg:px-10"
 		>
 			<motion.div

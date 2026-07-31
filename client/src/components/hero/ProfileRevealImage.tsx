@@ -7,23 +7,24 @@ export function ProfileRevealImage({
 	progress,
 	start,
 	end,
+	simplify = false,
 }: ProfileRevealImageProps) {
+	const ramp = 0.04
+
 	const opacity = useTransform(
 		progress,
-		[start, start + 0.025, end - 0.025, end],
+		[start, start + ramp, end - ramp, end],
 		[0, 1, 1, 0]
 	)
 
-	const scale = useTransform(
-		progress,
-		[start, start + 0.025, end],
-		[1.08, 1, 1.04]
-	)
+	// A gentle drift rather than a zoom — the old 1.08 start read as a lurch
+	// next to the slower text.
+	const scale = useTransform(progress, [start, start + ramp, end], [1.04, 1, 1.02])
 
 	const blur = useTransform(
 		progress,
-		[start, start + 0.025, end - 0.025, end],
-		["blur(18px)", "blur(0px)", "blur(0px)", "blur(18px)"]
+		[start, start + ramp, end - ramp, end],
+		["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]
 	)
 
 	return (
@@ -35,7 +36,7 @@ export function ProfileRevealImage({
 			style={{
 				opacity,
 				scale,
-				filter: blur,
+				...(simplify ? {} : { filter: blur }),
 			}}
 			className="absolute inset-0 h-full w-full object-cover"
 		/>

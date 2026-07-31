@@ -13,7 +13,8 @@ export interface AboutSlide {
 export interface HeroContentProps {
 	opacity: MotionValue<number>
 	y: MotionValue<number>
-	blur: MotionValue<number>
+	/** Flips to "hidden" once the hero has faded, so it stops catching clicks. */
+	visibility: MotionValue<"visible" | "hidden">
 }
 
 export interface AboutRevealSlideProps {
@@ -21,6 +22,8 @@ export interface AboutRevealSlideProps {
 	progress: MotionValue<number>
 	start: number
 	end: number
+	/** Drop blur and scale — set on phones, where they cost the most and read the least. */
+	simplify?: boolean
 }
 
 export interface ProfileRevealImageProps {
@@ -29,6 +32,7 @@ export interface ProfileRevealImageProps {
 	progress: MotionValue<number>
 	start: number
 	end: number
+	simplify?: boolean
 }
 
 export interface AboutContentProps {
@@ -36,6 +40,7 @@ export interface AboutContentProps {
 	progress: MotionValue<number>
 	opacity: MotionValue<number>
 	y: MotionValue<number>
+	simplify?: boolean
 }
 
 export interface ProfileImageProps {
@@ -43,12 +48,12 @@ export interface ProfileImageProps {
 	alt: string
 	slides: AboutSlide[]
 	progress: MotionValue<number>
-	top: MotionValue<string>
-	x: MotionValue<string>
-	y: MotionValue<string>
-	width: MotionValue<string>
-	height: MotionValue<string>
-	borderRadius: MotionValue<string>
+	simplify?: boolean
+	/** Static placement — the portrait no longer morphs out of the hero avatar. */
+	top: string
+	x: string
+	y: string
+	size: string
 	opacity: MotionValue<number>
 	baseImageOpacity: MotionValue<number>
 }

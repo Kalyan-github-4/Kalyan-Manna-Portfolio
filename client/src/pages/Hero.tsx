@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { motion, useScroll, useSpring, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 
 import GlowHorizon from "@/components/hero/GlowHorizon"
 import { AboutContent } from "@/components/hero/AboutContent"
@@ -30,6 +30,26 @@ function useMediaQuery(query: string) {
   return matches
 }
 
+// ── Scroll timeline ───────────────────────────────────────────────────────
+//
+// Every number below is a fraction of the pinned section's scroll range
+// (~340vh of scrolling), so 0.01 ≈ 3.4vh — about a third of a wheel notch.
+//
+//   0.00 – 0.02   hero holds still and fully readable
+//   0.02 – 0.10   hero lifts up and fades out — no blur, no morph
+//   0.10 – 0.15   about arrives: heading, portrait, veil
+//   0.12 – 0.95   the five about slides
+//   0.95 – 1.00   about releases as the section unpins
+//
+// The whole hero → about handoff is ~34vh of scrolling (one gesture) instead
+// of the ~150vh it used to take, and there is no spring smoothing anywhere:
+// everything tracks the raw scroll position 1:1 with the wheel or finger.
+const HERO_HOLD = 0.02
+const HERO_OUT = 0.1
+const ABOUT_IN_START = 0.1
+const ABOUT_IN_END = 0.15
+const ABOUT_OUT_START = 0.95
+
 const aboutSlides: AboutSlide[] = [
   {
     title: (
@@ -53,8 +73,8 @@ const aboutSlides: AboutSlide[] = [
     ),
     image: "/kalyan-manna.jpg",
     alt: "Portrait of Kalyan Manna",
-    start: 0.35,
-    end: 0.45,
+    start: 0.12,
+    end: 0.29,
   },
   {
     title: (
@@ -79,8 +99,8 @@ const aboutSlides: AboutSlide[] = [
     image:
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=600&fit=crop",
     alt: "Developer skills and coding workspace",
-    start: 0.45,
-    end: 0.55,
+    start: 0.29,
+    end: 0.46,
   },
   {
     title: (
@@ -107,8 +127,8 @@ const aboutSlides: AboutSlide[] = [
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
     alt: "Modern city skyline representing digital growth",
-    start: 0.55,
-    end: 0.65,
+    start: 0.46,
+    end: 0.63,
   },
   {
     title: (
@@ -133,8 +153,8 @@ const aboutSlides: AboutSlide[] = [
     image:
       "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=600&fit=crop",
     alt: "Person training in a gym",
-    start: 0.65,
-    end: 0.78,
+    start: 0.63,
+    end: 0.79,
   },
   {
     title: (
@@ -167,8 +187,8 @@ const aboutSlides: AboutSlide[] = [
     image:
       "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=600&fit=crop",
     alt: "Football match under stadium lights",
-    start: 0.78,
-    end: 0.92,
+    start: 0.79,
+    end: 0.95,
   },
 ]
 
@@ -178,91 +198,71 @@ export default function Hero() {
   const isMobile = useMediaQuery("(max-width: 767px)")
   const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1023px)")
 
-  const { scrollYProgress } = useScroll({
+  // No spring: a pinned section that eases toward the scroll position is what
+  // reads as "slow scroll". Everything below tracks scrollYProgress directly.
+  const { scrollYProgress: progress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   })
 
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 22,
-    mass: 0.4,
-  })
-
-  const heroOpacity = useTransform(smoothProgress, [0, 0.25], [1, 0])
-  const heroY = useTransform(smoothProgress, [0, 0.25], [0, -80])
-  const heroBlur = useTransform(smoothProgress, [0, 0.25], [0, 18])
-
-  const finalImageX = isMobile ? "0vw" : isTablet ? "20vw" : "28vw"
-  const middleImageX = isMobile ? "0vw" : isTablet ? "12vw" : "18vw"
-
-  const finalImageTop = isMobile ? "31%" : isTablet ? "52%" : "57%"
-  const middleImageTop = isMobile ? "45%" : isTablet ? "58%" : "61%"
-
-  const finalImageSize = isMobile ? "180px" : isTablet ? "340px" : "460px"
-
-  const imageX = useTransform(
-    smoothProgress,
-    [0, 0.18, 0.36, 1],
-    ["0vw", middleImageX, finalImageX, finalImageX]
+  // The hero does one thing on the way out — it travels up and fades. No blur,
+  // no scale, and it is gone inside HERO_OUT so the about can start.
+  const heroOpacity = useTransform(
+    progress,
+    [0, HERO_HOLD, HERO_OUT],
+    [1, 1, 0]
   )
 
-  const imageY = useTransform(
-    smoothProgress,
-    [0, 0.12, 0.36, 1],
-    ["0vh", "0vh", isMobile ? "-4vh" : "-2vh", isMobile ? "-4vh" : "-2vh"]
+  const heroY = useTransform(
+    progress,
+    [0, HERO_HOLD, HERO_OUT],
+    [0, 0, isMobile ? -70 : -110]
   )
 
-  const imageWidth = useTransform(
-    smoothProgress,
-    [0, 0.12, 0.36, 1],
-    ["2.9em", "3.4em", finalImageSize, finalImageSize]
+  // opacity: 0 still paints and still hit-tests — an invisible hero would keep
+  // catching clicks meant for the about section below it. Taking it out of the
+  // box entirely once it has faded is both the correct behaviour and cheaper.
+  const heroVisibility = useTransform(heroOpacity, (value) =>
+    value > 0.01 ? "visible" : "hidden"
   )
 
-  const imageHeight = useTransform(
-    smoothProgress,
-    [0, 0.12, 0.36, 1],
-    ["1.7em", "2em", finalImageSize, finalImageSize]
-  )
+  // The portrait no longer morphs out of the hero's inline avatar — it simply
+  // sits where the about section needs it and fades in with the rest.
+  const imageX = isMobile ? "0vw" : isTablet ? "20vw" : "28vw"
+  const imageY = isMobile ? "-4vh" : "-2vh"
+  const imageTop = isMobile ? "31%" : isTablet ? "52%" : "57%"
+  const imageSize = isMobile ? "180px" : isTablet ? "340px" : "460px"
 
-  const imageRadius = useTransform(
-    smoothProgress,
-    [0, 0.12, 0.36, 1],
-    ["999px", "999px", "50%", "50%"]
-  )
-
-  const imageTop = useTransform(
-    smoothProgress,
-    [0, 0.12, 0.36, 1],
-    ["58%", middleImageTop, finalImageTop, finalImageTop]
-  )
-
-  const imageOpacity = useTransform(
-    smoothProgress,
-    [0, 0.32, 0.38, 1],
-    [0, 0, 1, 1]
-  )
-
+  // Held at full until the first slide's own copy of the portrait is fully in,
+  // so the handoff between two copies of the same image never dips.
   const baseImageOpacity = useTransform(
-    smoothProgress,
-    [0, 0.32, 0.38, 0.42],
-    [0, 0, 1, 0]
+    progress,
+    [0, 0.16, 0.2],
+    [1, 1, 0]
   )
 
-  const aboutTextOpacity = useTransform(
-    smoothProgress,
-    [0.35, 0.4, 0.96, 1],
+  const aboutOpacity = useTransform(
+    progress,
+    [ABOUT_IN_START, ABOUT_IN_END, ABOUT_OUT_START, 1],
     [0, 1, 1, 0]
   )
 
-  const aboutTextY = useTransform(smoothProgress, [0.3, 0.4], [40, 0])
+  const aboutY = useTransform(
+    progress,
+    [ABOUT_IN_START, ABOUT_IN_END],
+    [isMobile ? 24 : 40, 0]
+  )
 
-  const veilOpacity = useTransform(smoothProgress, [0.15, 0.45], [0, 0.45])
+  const veilOpacity = useTransform(
+    progress,
+    [HERO_HOLD, ABOUT_IN_END],
+    [0, 0.45]
+  )
 
   return (
     <section
       ref={sectionRef}
-      className="relative h-[470vh] overflow-clip bg-black md:h-[500vh]"
+      className="relative h-[420vh] overflow-clip bg-black md:h-[440vh]"
     >
       <div className="sticky top-0 min-h-screen overflow-hidden">
         <GlowHorizon />
@@ -272,28 +272,32 @@ export default function Hero() {
           className="pointer-events-none absolute inset-0 z-2 bg-black"
         />
 
-        <HeroContent opacity={heroOpacity} y={heroY} blur={heroBlur} />
+        <HeroContent
+          opacity={heroOpacity}
+          y={heroY}
+          visibility={heroVisibility}
+        />
 
         <ProfileImage
           image="/kalyan-manna.jpg"
           alt="Kalyan Manna portrait"
           slides={aboutSlides}
-          progress={smoothProgress}
+          progress={progress}
+          simplify={isMobile}
           top={imageTop}
           x={imageX}
           y={imageY}
-          width={imageWidth}
-          height={imageHeight}
-          borderRadius={imageRadius}
-          opacity={imageOpacity}
+          size={imageSize}
+          opacity={aboutOpacity}
           baseImageOpacity={baseImageOpacity}
         />
 
         <AboutContent
           slides={aboutSlides}
-          progress={smoothProgress}
-          opacity={aboutTextOpacity}
-          y={aboutTextY}
+          progress={progress}
+          simplify={isMobile}
+          opacity={aboutOpacity}
+          y={aboutY}
         />
       </div>
 

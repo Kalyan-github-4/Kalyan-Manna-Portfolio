@@ -6,27 +6,34 @@ export function AboutRevealSlide({
 	progress,
 	start,
 	end,
+	simplify = false,
 }: AboutRevealSlideProps) {
 	const mid = (start + end) / 2
 
+	// A slide reads in over its first ~4% of scroll rather than 2.5%, so the
+	// heading is legible while the gesture is still in progress instead of
+	// snapping in at the end of it.
+	const ramp = 0.04
+	const travel = simplify ? 26 : 42
+
 	const opacity = useTransform(
 		progress,
-		[start, start + 0.025, end - 0.025, end],
+		[start, start + ramp, end - ramp, end],
 		[0, 1, 1, 0]
 	)
 
 	const y = useTransform(
 		progress,
-		[start, start + 0.025, end - 0.025, end],
-		[42, 0, 0, -42]
+		[start, start + ramp, end - ramp, end],
+		[travel, 0, 0, -travel]
 	)
 
-	const scale = useTransform(progress, [start, mid, end], [0.96, 1, 0.96])
+	const scale = useTransform(progress, [start, mid, end], [0.98, 1, 0.98])
 
 	const blur = useTransform(
 		progress,
-		[start, start + 0.025, end - 0.025, end],
-		["blur(14px)", "blur(0px)", "blur(0px)", "blur(14px)"]
+		[start, start + ramp, end - ramp, end],
+		["blur(8px)", "blur(0px)", "blur(0px)", "blur(8px)"]
 	)
 
 	return (
@@ -34,8 +41,10 @@ export function AboutRevealSlide({
 			style={{
 				opacity,
 				y,
-				scale,
-				filter: blur,
+				// Blur and scale on a full-width display heading are the two things
+				// that make this feel heavy on a phone — opacity and position alone
+				// carry the same reading there.
+				...(simplify ? {} : { scale, filter: blur }),
 			}}
 			className="absolute inset-0 flex flex-col items-center justify-start text-center sm:items-start sm:justify-center sm:text-left"
 		>

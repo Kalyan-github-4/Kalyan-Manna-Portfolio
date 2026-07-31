@@ -7,6 +7,7 @@ export function AboutContent({
 	progress,
 	opacity,
 	y,
+	simplify = false,
 }: AboutContentProps) {
 	return (
 		<motion.div
@@ -35,6 +36,7 @@ export function AboutContent({
 							progress={progress}
 							start={slide.start}
 							end={slide.end}
+							simplify={simplify}
 						/>
 					))}
 				</div>
