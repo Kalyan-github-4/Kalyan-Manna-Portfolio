@@ -6,8 +6,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import FeedbackDialog from "./FeedbackDialog"
+import ClerkGate from "@/auth/ClerkGate";
 import Speaker from "./GuestShowUp";
+
+// The dialog drags the whole Clerk SDK in with it, and this wall renders on
+// the home page. Splitting it out keeps auth off the critical path.
+const FeedbackDialog = React.lazy(() => import("./FeedbackDialog"));
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -101,6 +105,8 @@ function FeedbackCard({ speaker }: { speaker: Speaker }) {
               <img
                 src={speaker.src}
                 alt={speaker.name}
+                width={48}
+                height={48}
                 loading="lazy"
                 decoding="async"
                 draggable={false}
@@ -112,7 +118,7 @@ function FeedbackCard({ speaker }: { speaker: Speaker }) {
                   {speaker.name}
                 </h3>
 
-                <p className="mt-1 truncate text-[10px] uppercase tracking-[0.16em] text-white/40 sm:text-[11px]">
+                <p className="mt-1 truncate text-[10px] uppercase tracking-[0.16em] text-white/60 sm:text-[11px]">
                   {speaker.role}
                 </p>
               </div>
@@ -133,11 +139,11 @@ function FeedbackCard({ speaker }: { speaker: Speaker }) {
         </div>
 
         <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-4">
-          <span className="text-[9px] uppercase tracking-[0.2em] text-white/30 sm:text-[10px]">
+          <span className="text-[9px] uppercase tracking-[0.2em] text-white/60 sm:text-[10px]">
             Client Feedback
           </span>
 
-          <span className="rounded-full border border-white/10 bg-white/30 px-3 py-1 text-[9px] uppercase tracking-[0.16em] text-white/45 sm:text-[10px]">
+          <span className="rounded-full border border-white/10 bg-white/30 px-3 py-1 text-[9px] uppercase tracking-[0.16em] text-white/60 sm:text-[10px]">
             Verified
           </span>
         </div>
@@ -241,7 +247,7 @@ export function ScrollPortraitWall({
               duration: 0.8,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="mb-6 text-[11px] font-medium uppercase tracking-[0.35em] text-zinc-500"
+            className="mb-6 text-[11px] font-medium uppercase tracking-[0.35em] text-zinc-400"
           >
             {eyebrow}
           </motion.p>
@@ -332,7 +338,9 @@ export function ScrollPortraitWall({
         }}
         className="relative z-50 flex justify-center pb-40"
       >
-        <FeedbackDialog />
+        <ClerkGate>
+          <FeedbackDialog />
+        </ClerkGate>
       </motion.div>
     </section>
   );

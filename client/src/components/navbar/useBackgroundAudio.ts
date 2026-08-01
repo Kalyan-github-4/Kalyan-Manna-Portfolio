@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 const AUDIO_SRC = "/audio/bliss.mp3"
 
@@ -9,6 +9,11 @@ const VOLUME = 0.35
 /**
  * Owns the single background-audio element for the site. Lives in the navbar
  * so one instance serves both the desktop and the mobile controls.
+ *
+ * The element is built on the first real gesture rather than on mount. The
+ * track is several megabytes, and creating it eagerly meant every visitor —
+ * including ones who never hear a note, because autoplay is blocked until they
+ * interact — paid for the download on every route.
  */
 export function useBackgroundAudio() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -18,71 +23,88 @@ export function useBackgroundAudio() {
   // not flip the button to "off" — the track is still what they'll hear.
   const [enabled, setEnabled] = useState(true)
 
-  useEffect(() => {
-    const audio = new Audio(AUDIO_SRC)
+  const ensureAudio = useCallback(() => {
+    if (audioRef.current) {
+      return audioRef.current
+    }
+
+    const audio = new Audio()
 
     audio.loop = true
     audio.volume = VOLUME
-    audio.preload = "auto"
+    // "none" leaves the fetch to play(), so the bytes are only spent once we
+    // know the visitor has interacted and the track will actually be heard.
+    audio.preload = "none"
+    audio.src = AUDIO_SRC
 
     audioRef.current = audio
 
+    return audio
+  }, [])
+
+  // Creation is gesture-driven, so mount has nothing to do here — this effect
+  // exists purely to release the element when the navbar goes away.
+  useEffect(() => {
     return () => {
+      const audio = audioRef.current
+
+      if (!audio) {
+        return
+      }
+
       audio.pause()
       audio.removeAttribute("src")
+      audio.load()
       audioRef.current = null
     }
   }, [])
 
   useEffect(() => {
-    const audio = audioRef.current
-
-    if (!audio) {
+    if (!enabled) {
+      audioRef.current?.pause()
       return
     }
 
-    if (!enabled) {
-      audio.pause()
+    // An element already exists, so a gesture has happened and we are free to
+    // pick the track back up without waiting for another one.
+    const existing = audioRef.current
+
+    if (existing) {
+      void existing.play().catch(() => {
+        // Still blocked — nothing useful left to do.
+      })
       return
     }
 
     let disposed = false
 
-    const resume = () => {
+    // The first gesture is both the permission play() needs and the signal
+    // that the download is worth starting.
+    const start = () => {
       if (disposed) {
         return
       }
 
-      void audio.play().catch(() => {
-        // Still blocked — nothing useful left to do.
-      })
+      void ensureAudio()
+        .play()
+        .catch(() => {
+          // Still blocked — nothing useful left to do.
+        })
     }
 
-    const detach = () => {
-      window.removeEventListener("pointerdown", resume)
-      window.removeEventListener("keydown", resume)
-    }
-
-    // A rejected play() here is the expected autoplay block, not an error, so
-    // we wait for the first gesture anywhere on the page and try again.
-    void audio.play().catch(() => {
-      if (disposed) {
-        return
-      }
-
-      window.addEventListener("pointerdown", resume, { once: true })
-      window.addEventListener("keydown", resume, { once: true })
-    })
+    window.addEventListener("pointerdown", start, { once: true })
+    window.addEventListener("keydown", start, { once: true })
 
     return () => {
       disposed = true
-      detach()
+      window.removeEventListener("pointerdown", start)
+      window.removeEventListener("keydown", start)
     }
-  }, [enabled])
+  }, [enabled, ensureAudio])
 
-  const toggle = () => {
+  const toggle = useCallback(() => {
     setEnabled((current) => !current)
-  }
+  }, [])
 
   return { enabled, toggle }
 }
