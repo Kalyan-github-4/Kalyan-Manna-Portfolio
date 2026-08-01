@@ -195,7 +195,7 @@ function SignedInCreateCard({
           onChange={(e) => setMessage(e.target.value)}
           placeholder="Type something nice…"
           rows={3}
-          className={`relative z-10 w-full flex-1 resize-none bg-transparent text-white outline-none placeholder:text-white/35 ${isLong
+          className={`relative z-10 w-full flex-1 resize-none bg-transparent text-white outline-none placeholder:text-white/60 ${isLong
             ? "text-base font-normal leading-relaxed"
             : "text-2xl font-semibold leading-snug"
             }`}
@@ -214,6 +214,10 @@ function SignedInCreateCard({
               <img
                 src={user.imageUrl}
                 alt={authorName}
+                width={36}
+                height={36}
+                loading="lazy"
+                decoding="async"
                 className="h-9 w-9 rounded-full object-cover"
               />
             ) : (
@@ -231,13 +235,13 @@ function SignedInCreateCard({
                 placeholder={isSubmitting ? "Sending…" : "Add your role · e.g. Designer"}
                 maxLength={60}
                 aria-label="Your role or title"
-                className="w-full bg-transparent text-xs text-white/60 outline-none placeholder:text-white/35 disabled:opacity-70"
+                className="w-full bg-transparent text-xs text-white/60 outline-none placeholder:text-white/60 disabled:opacity-70"
               />
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <span className="text-xs text-white/40">
+            <span className="text-xs text-white/60">
               {message.length}/{maxLength}
             </span>
 

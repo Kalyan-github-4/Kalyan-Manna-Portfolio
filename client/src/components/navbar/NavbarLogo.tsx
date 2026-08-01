@@ -24,7 +24,7 @@ export function NavbarLogo({ isScrolled }: NavbarLogoProps) {
     >
       <Link to="/" aria-label="Go to homepage">
         <img
-          src="/logo-white.png"
+          src="/logo-white.webp"
           alt="Kalyan Manna Logo"
           width={55}
           height={55}

@@ -74,7 +74,7 @@ export function ContactDialog({
                                 Reach out
                             </DialogTitle>
 
-                            <DialogDescription className="text-sm text-zinc-500">
+                            <DialogDescription className="text-sm text-zinc-400">
                                 Send a message, book a call, or email me directly.
                             </DialogDescription>
                         </DialogHeader>
@@ -84,6 +84,10 @@ export function ContactDialog({
                                 <img
                                     src={imageSrc}
                                     alt={imageAlt}
+                                    width={36}
+                                    height={36}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="h-9 w-9 rounded-full object-cover ring-2 ring-white/10"
                                 />
 
@@ -91,7 +95,7 @@ export function ContactDialog({
                                     <p className="text-sm font-semibold text-white">
                                         Send {name} a message
                                     </p>
-                                    <p className="text-xs text-zinc-500">
+                                    <p className="text-xs text-zinc-400">
                                         I usually reply within a day
                                     </p>
                                 </div>
@@ -101,11 +105,11 @@ export function ContactDialog({
                                 value={message}
                                 onChange={(event) => setMessage(event.target.value)}
                                 placeholder={`Hey ${name}, I have a project idea...`}
-                                className="mt-4 min-h-28 w-full resize-none border-none bg-transparent text-sm text-zinc-200 outline-none placeholder:text-zinc-500"
+                                className="mt-4 min-h-28 w-full resize-none border-none bg-transparent text-sm text-zinc-200 outline-none placeholder:text-zinc-400"
                             />
 
                             <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
-                                <p className="hidden text-xs text-zinc-500 sm:block">
+                                <p className="hidden text-xs text-zinc-400 sm:block">
                                     Press Ctrl + Enter to continue
                                 </p>
 
@@ -124,7 +128,7 @@ export function ContactDialog({
                                     <button
                                         type="button"
                                         disabled
-                                        className="ml-auto inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-white/5 bg-white/4 px-4 py-2 text-xs font-medium text-zinc-600"
+                                        className="ml-auto inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-white/5 bg-white/4 px-4 py-2 text-xs font-medium text-zinc-400"
                                     >
                                         Continue
                                         <ArrowRight size={14} />
@@ -141,8 +145,12 @@ export function ContactDialog({
                                 visual={
                                     <div className="flex items-center justify-center gap-3">
                                         <img
-                                            src="/kalyan-manna.jpg"
+                                            src="/kalyan-manna.webp"
                                             alt="Kalyan Manna"
+                                            width={52}
+                                            height={52}
+                                            loading="lazy"
+                                            decoding="async"
                                             className="h-13 w-13 rounded-full object-cover ring-2 ring-white/15"
                                         />
 

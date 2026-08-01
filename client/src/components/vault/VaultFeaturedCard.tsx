@@ -32,6 +32,9 @@ export function VaultFeaturedCard({ item }: VaultFeaturedCardProps) {
                 <div className="relative aspect-[16/10] overflow-hidden md:aspect-auto md:min-h-[22rem]">
                     <MemoryImage
                         src={item.image}
+                        srcSet={item.imageSrcSet}
+                        width={item.width}
+                        height={item.height}
                         alt={`${item.title} — ${item.description}`}
                         category={item.category}
                         loading="eager"
@@ -63,7 +66,7 @@ export function VaultFeaturedCard({ item }: VaultFeaturedCardProps) {
                     <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[0.7rem] uppercase tracking-[0.15em] text-zinc-400">
                         <Images size={13} aria-hidden="true" />
                         {item.photos.length} photos
-                        <span aria-hidden="true" className="text-zinc-600">
+                        <span aria-hidden="true" className="text-zinc-400">
                             ·
                         </span>
                         {item.date}

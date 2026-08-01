@@ -92,8 +92,12 @@ export function JourneyCard({ item, onOpen }: JourneyCardProps) {
                 {/* Image */}
                 <MemoryImage
                     src={item.image}
+                    srcSet={item.imageSrcSet}
+                    width={item.width}
+                    height={item.height}
                     alt={`${item.title} — ${item.description}`}
                     category={item.category}
+                    sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
                     className="absolute inset-0"
                     imgClassName="transition-transform duration-[900ms] ease-out group-hover:scale-110"
                 />
@@ -145,7 +149,7 @@ export function JourneyCard({ item, onOpen }: JourneyCardProps) {
                                 <p className="mt-2 flex items-center gap-1.5 text-xs text-zinc-400">
                                     <MapPin
                                         size={13}
-                                        className="text-white/40"
+                                        className="text-white/60"
                                         aria-hidden="true"
                                     />
                                     {item.location}

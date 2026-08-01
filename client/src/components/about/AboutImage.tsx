@@ -28,7 +28,11 @@ md:h-44 md:w-44 lg:h-48 lg:w-48">
         {/* Image */}
         <img
           alt="Kalyan Manna Profile"
-          src="/kalyan-manna.jpg"
+          src="/kalyan-manna.webp"
+          width={192}
+          height={192}
+          loading="lazy"
+          decoding="async"
           className="relative z-10 h-32
 w-32 sm:h-40 sm:w-40 md:h-44 md:w-44 lg:h-48 lg:w-48 rounded-full object-cover p-3 sm:p-4 transition-all duration-500 cursor-pointer"
         />

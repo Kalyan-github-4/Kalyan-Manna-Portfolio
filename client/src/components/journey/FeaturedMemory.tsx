@@ -46,6 +46,9 @@ export function FeaturedMemory({ item, onOpen }: FeaturedMemoryProps) {
                 >
                     <MemoryImage
                         src={item.image}
+                        srcSet={item.imageSrcSet}
+                        width={item.width}
+                        height={item.height}
                         alt={`${item.title} — ${item.description}`}
                         category={item.category}
                         loading="eager"
@@ -67,7 +70,7 @@ export function FeaturedMemory({ item, onOpen }: FeaturedMemoryProps) {
                 {/* Content */}
                 <div className="flex flex-col justify-center gap-6 p-6 sm:p-10">
                     <div>
-                        <p className="mb-4 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-white/40">
+                        <p className="mb-4 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-white/60">
                             Featured Memory
                         </p>
 
@@ -84,7 +87,7 @@ export function FeaturedMemory({ item, onOpen }: FeaturedMemoryProps) {
                             <dt className="sr-only">Date</dt>
                             <CalendarBlank
                                 size={16}
-                                className="text-white/40"
+                                className="text-white/60"
                                 aria-hidden="true"
                             />
                             <dd>{item.date}</dd>
@@ -95,7 +98,7 @@ export function FeaturedMemory({ item, onOpen }: FeaturedMemoryProps) {
                                 <dt className="sr-only">Location</dt>
                                 <MapPin
                                     size={16}
-                                    className="text-white/40"
+                                    className="text-white/60"
                                     aria-hidden="true"
                                 />
                                 <dd>{item.location}</dd>
@@ -107,7 +110,7 @@ export function FeaturedMemory({ item, onOpen }: FeaturedMemoryProps) {
                                 <dt className="sr-only">Role</dt>
                                 <IdentificationBadge
                                     size={16}
-                                    className="text-white/40"
+                                    className="text-white/60"
                                     aria-hidden="true"
                                 />
                                 <dd>{item.role}</dd>

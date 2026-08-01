@@ -32,6 +32,9 @@ export function VaultCollectionCard({ item }: VaultCollectionCardProps) {
                 <div className="relative aspect-[4/3] overflow-hidden">
                     <MemoryImage
                         src={item.image}
+                        srcSet={item.imageSrcSet}
+                        width={item.width}
+                        height={item.height}
                         alt={`${item.title} — ${item.description}`}
                         category={item.category}
                         sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
@@ -68,10 +71,10 @@ export function VaultCollectionCard({ item }: VaultCollectionCardProps) {
                     </p>
 
                     <div className="mt-5 flex items-center justify-between gap-3 pt-1">
-                        <p className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-zinc-500">
+                        <p className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-zinc-400">
                             <Images size={12} aria-hidden="true" />
                             {item.photos.length} photos
-                            <span aria-hidden="true" className="text-zinc-700">
+                            <span aria-hidden="true" className="text-zinc-400">
                                 ·
                             </span>
                             {item.date}

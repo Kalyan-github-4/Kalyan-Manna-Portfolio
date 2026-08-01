@@ -39,6 +39,10 @@ export default function DesktopAppPreview({
                             <img
                                 src={image}
                                 alt={`${title} preview ${index + 1}`}
+                                width={1440}
+                                height={678}
+                                loading="lazy"
+                                decoding="async"
                                 className="h-44 w-full object-cover object-top sm:h-52 md:h-60"
                             />
                         </div>

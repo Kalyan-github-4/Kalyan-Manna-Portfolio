@@ -51,7 +51,7 @@ export function CollectionMasonry({
 
     if (photos.length === 0) {
         return (
-            <p className="py-20 text-center text-sm text-zinc-500">
+            <p className="py-20 text-center text-sm text-zinc-400">
                 No photos in this collection yet — check back soon.
             </p>
         )
@@ -92,7 +92,10 @@ function PhotoTileCard({ tile, total }: { tile: PhotoTile; total: number }) {
         <div className="group relative h-full w-full overflow-hidden rounded-2xl bg-zinc-900">
             <img
                 src={tile.photo.src}
+                srcSet={tile.photo.srcSet}
                 alt={tile.photo.caption ?? `Photo ${tile.index + 1} of ${total}`}
+                width={tile.photo.width}
+                height={tile.photo.height}
                 loading="lazy"
                 decoding="async"
                 sizes="(min-width:1536px) 20vw, (min-width:1100px) 25vw, (min-width:768px) 33vw, 50vw"

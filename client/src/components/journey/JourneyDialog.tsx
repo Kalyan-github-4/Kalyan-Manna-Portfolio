@@ -99,6 +99,9 @@ export function JourneyDialog({
                                 <div className="relative aspect-video w-full overflow-hidden sm:rounded-t-[28px]">
                                     <MemoryImage
                                         src={memory.image}
+                                        srcSet={memory.imageSrcSet}
+                                        width={memory.width}
+                                        height={memory.height}
                                         alt={`${memory.title} — ${memory.description}`}
                                         category={memory.category}
                                         loading="eager"
@@ -124,7 +127,7 @@ export function JourneyDialog({
                                             <dt className="sr-only">Date</dt>
                                             <CalendarBlank
                                                 size={16}
-                                                className="text-white/40"
+                                                className="text-white/60"
                                                 aria-hidden="true"
                                             />
                                             <dd>{memory.date}</dd>
@@ -135,7 +138,7 @@ export function JourneyDialog({
                                                 <dt className="sr-only">Location</dt>
                                                 <MapPin
                                                     size={16}
-                                                    className="text-white/40"
+                                                    className="text-white/60"
                                                     aria-hidden="true"
                                                 />
                                                 <dd>{memory.location}</dd>
@@ -147,7 +150,7 @@ export function JourneyDialog({
                                                 <dt className="sr-only">Role</dt>
                                                 <IdentificationBadge
                                                     size={16}
-                                                    className="text-white/40"
+                                                    className="text-white/60"
                                                     aria-hidden="true"
                                                 />
                                                 <dd>{memory.role}</dd>
@@ -220,7 +223,7 @@ export function JourneyDialog({
                             </button>
 
                             {position && (
-                                <span className="font-mono text-xs text-zinc-500">
+                                <span className="font-mono text-xs text-zinc-400">
                                     {position.index + 1} / {position.total}
                                 </span>
                             )}

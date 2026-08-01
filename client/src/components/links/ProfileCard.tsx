@@ -20,6 +20,10 @@ export default function ProfileCard() {
                         <img
                             src={profileInfo.image}
                             alt={profileInfo.name}
+                            width={112}
+                            height={112}
+                            loading="lazy"
+                            decoding="async"
                             className="h-full w-full rounded-full object-cover"
                         />
                     </div>
@@ -53,7 +57,7 @@ export default function ProfileCard() {
                             key={meta.label}
                             className="flex items-center gap-4 text-sm text-zinc-400"
                         >
-                            <Icon size={18} className="shrink-0 text-zinc-500" />
+                            <Icon size={18} className="shrink-0 text-zinc-400" />
                             <span>{meta.label}</span>
                         </div>
                     );

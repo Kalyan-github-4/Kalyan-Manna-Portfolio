@@ -58,6 +58,8 @@ export function MoreMenu() {
           <img
             src={card.image}
             alt={card.title}
+            loading="lazy"
+            decoding="async"
             className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-110"
           />
 

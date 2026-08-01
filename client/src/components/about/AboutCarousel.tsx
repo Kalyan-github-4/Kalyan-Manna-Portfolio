@@ -125,6 +125,8 @@ export const AboutCarousel = React.forwardRef<HTMLDivElement, AboutCarouselProps
                 <img
                   src={image.src}
                   alt={image.alt}
+                  loading="lazy"
+                  decoding="async"
                   draggable={false}
                   className="pointer-events-none h-full w-full rounded-4xl border border-white/10 object-cover shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
                 />

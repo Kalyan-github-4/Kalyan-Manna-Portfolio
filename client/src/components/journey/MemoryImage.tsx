@@ -14,6 +14,8 @@ const CATEGORY_GRADIENT: Record<JourneyCategory, string> = {
 
 interface MemoryImageProps {
     src: string
+    /** Candidate widths for the same image; pair it with `sizes` */
+    srcSet?: string
     alt: string
     category: JourneyCategory
     className?: string
@@ -21,6 +23,9 @@ interface MemoryImageProps {
     /** Passed straight to the underlying <img> — defaults to lazy */
     loading?: "lazy" | "eager"
     sizes?: string
+    /** Intrinsic pixel size — lets the browser reserve the box before load */
+    width?: number
+    height?: number
 }
 
 /**
@@ -31,12 +36,15 @@ interface MemoryImageProps {
  */
 export function MemoryImage({
     src,
+    srcSet,
     alt,
     category,
     className,
     imgClassName,
     loading = "lazy",
     sizes,
+    width,
+    height,
 }: MemoryImageProps) {
     const [status, setStatus] = useState<"loading" | "loaded" | "error">(
         "loading"
@@ -53,7 +61,7 @@ export function MemoryImage({
             {/* Fallback label — only meaningful when the image is missing */}
             {status === "error" && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-white/40">
+                    <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-white/60">
                         {category}
                     </span>
                 </div>
@@ -62,7 +70,10 @@ export function MemoryImage({
             {status !== "error" && (
                 <img
                     src={src}
+                    srcSet={srcSet}
                     alt={alt}
+                    width={width}
+                    height={height}
                     loading={loading}
                     decoding="async"
                     sizes={sizes}

@@ -44,8 +44,10 @@ export function MobileNavbar({
             "
           >
             <img
-              src="/logo-white.png"
+              src="/logo-white.webp"
               alt="Kalyan Manna Logo"
+              width={32}
+              height={32}
               className="h-8 w-8 object-contain"
             />
 

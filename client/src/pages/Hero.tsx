@@ -71,7 +71,7 @@ const aboutSlides: AboutSlide[] = [
         Full-stack developer with a bias for action.
       </>
     ),
-    image: "/kalyan-manna.jpg",
+    image: "/kalyan-manna.webp",
     alt: "Portrait of Kalyan Manna",
     start: 0.12,
     end: 0.29,
@@ -279,7 +279,7 @@ export default function Hero() {
         />
 
         <ProfileImage
-          image="/kalyan-manna.jpg"
+          image="/kalyan-manna.webp"
           alt="Kalyan Manna portrait"
           slides={aboutSlides}
           progress={progress}

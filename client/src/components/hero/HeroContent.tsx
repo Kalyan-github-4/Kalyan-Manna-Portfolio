@@ -62,7 +62,7 @@ export function HeroContent({ opacity, y, visibility }: HeroContentProps) {
 
 						<CaretRight
 							size={14}
-							className="-ml-1 mr-2 text-zinc-500 transition-all duration-300 group-hover:translate-x-1 group-hover:text-white"
+							className="-ml-1 mr-2 text-zinc-400 transition-all duration-300 group-hover:translate-x-1 group-hover:text-white"
 						/>
 					</Link>
 				</motion.div>
@@ -77,7 +77,9 @@ export function HeroContent({ opacity, y, visibility }: HeroContentProps) {
 					</span>
 				</motion.h1>
 
-				<motion.h1
+				{/* Sits under the real h1 as supporting copy, so it is a paragraph —
+				    a second h1 broke the document outline. */}
+				<motion.p
 					variants={fadeUpVariants}
 					className="mx-auto mb-6 flex max-w-2xl flex-wrap items-center justify-center gap-x-2 gap-y-2 font-sans text-sm leading-relaxed sm:text-base md:text-xl"
 				>
@@ -87,8 +89,11 @@ export function HeroContent({ opacity, y, visibility }: HeroContentProps) {
 
 					<span className="group relative inline-flex cursor-pointer items-center justify-center rounded-full bg-linear-to-b from-zinc-200 via-zinc-400 to-zinc-600 p-0.5 text-sm font-medium text-white transition-all duration-300 hover:from-zinc-300 hover:via-zinc-500 hover:to-zinc-700 sm:text-base">
 						<img
-							src="/kalyan-manna.jpg"
+							src="/kalyan-manna.webp"
 							alt="Kalyan Manna"
+							width={58}
+							height={32}
+							decoding="async"
 							className="h-[1.8em] w-[3.2em] rounded-full object-cover"
 						/>
 
@@ -100,7 +105,7 @@ export function HeroContent({ opacity, y, visibility }: HeroContentProps) {
 					<span className="bg-linear-to-b from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
 						a Fullstack Developer
 					</span>
-				</motion.h1>
+				</motion.p>
 
 				<motion.div variants={fadeUpVariants} className="z-99 mt-8 sm:mt-10">
 					<HeroButtons />

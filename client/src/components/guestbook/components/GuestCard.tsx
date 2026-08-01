@@ -56,6 +56,10 @@ function AvatarBadge({ avatar, name }: { avatar: Avatar; name: string }) {
       <img
         src={avatar.value}
         alt={name}
+        width={36}
+        height={36}
+        loading="lazy"
+        decoding="async"
         className="h-9 w-9 rounded-full object-cover ring-1 ring-white/15"
       />
     );
@@ -182,7 +186,7 @@ export default function GuestCard({
             <AvatarBadge avatar={entry.avatar} name={entry.author} />
             <div className="leading-tight">
               <p className="text-sm font-medium text-white/90">{entry.author}</p>
-              <p className="text-xs text-white/45">{entry.date}</p>
+              <p className="text-xs text-white/60">{entry.date}</p>
             </div>
           </div>
 
@@ -196,7 +200,7 @@ export default function GuestCard({
                     e.stopPropagation();
                     onDelete?.(entry.id);
                   }}
-                  className="cursor-pointer rounded-full p-2 text-white/40 opacity-0 transition
+                  className="cursor-pointer rounded-full p-2 text-white/60 opacity-0 transition
           hover:bg-rose-500/10 hover:text-rose-300 group-hover:opacity-100
           focus-visible:opacity-100 focus-visible:outline-none
           focus-visible:ring-1 focus-visible:ring-rose-300/35"
@@ -212,7 +216,7 @@ export default function GuestCard({
                   e.stopPropagation();
                   onShare?.(entry.id);
                 }}
-                className="cursor-pointer rounded-full p-2 text-white/40 opacity-0 transition
+                className="cursor-pointer rounded-full p-2 text-white/60 opacity-0 transition
         hover:bg-white/10 hover:text-white/80 group-hover:opacity-100
         focus-visible:opacity-100 focus-visible:outline-none
         focus-visible:ring-1 focus-visible:ring-white/40"

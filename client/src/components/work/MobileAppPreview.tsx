@@ -54,6 +54,10 @@ export default function MobileAppPreview({
                                         <img
                                             src={image}
                                             alt={`EasyPG app screen ${index + 1}`}
+                                            width={720}
+                                            height={1544}
+                                            loading="lazy"
+                                            decoding="async"
                                             className="h-full w-full object-cover object-top"
                                         />
 
