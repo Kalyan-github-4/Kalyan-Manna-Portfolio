@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "optimize:images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
@@ -54,6 +55,7 @@
     "globals": "^17",
     "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
+    "sharp": "^0.35.3",
     "typescript": "~6",
     "typescript-eslint": "^8",
     "vite": "^8"

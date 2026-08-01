@@ -4,34 +4,30 @@
 // ever needs to be updated in one place.
 export const projectImages = {
   easyPg:
-    "/projects/easyPG-1.jpeg",
+    "/projects/easyPG-banner.webp",
   githubRoast:
-    "/projects/github roast.png",
+    "/projects/github roast.webp",
   portfolio:
-    "/projects/portfolio.png",
+    "/projects/portfolio.webp",
   managementSystem:
-    "/projects/gym-management-system.png",
-  businessWebsite:
-    "/projects/business website.png",
-  guestbookWall:
-    "/projects/guestbook-wall.png",
+    "/projects/gym-management-system.webp",
   // Paired screenshots shown as the tilted, stacked desktop preview.
   managementSystemScreens: [
-    "/projects/gym-management-system-1.png",
-    "/projects/gym-management-system-2.png",
+    "/projects/gym-management-system-1.webp",
+    "/projects/gym-management-system-2.webp",
   ],
-  guthubRoastScreens: [
-    "/projects/github roast 2.png",
-    "/projects/github roast.png",
+  githubRoastScreens: [
+    "/projects/github roast 2.webp",
+    "/projects/github roast.webp",
   ],
   portfolioScreens: [
-    "/projects/portfolio-1.png",
-    "/projects/portfolio.png",
+    "/projects/portfolio-1.webp",
+    "/projects/portfolio.webp",
   ],
   // EasyPG in-app screenshots shown inside the mobile device frame.
   easyPgScreens: [
-    "/projects/easyPG-1.jpeg",
-    "/projects/easyPG-2.jpeg",
-    "/projects/easyPG-3.jpeg",
+    "/projects/easyPG-1.webp",
+    "/projects/easyPG-2.webp",
+    "/projects/easyPG-3.webp",
   ],
 } as const

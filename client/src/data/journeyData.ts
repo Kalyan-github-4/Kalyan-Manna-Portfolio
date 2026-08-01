@@ -12,7 +12,11 @@
 // 2. Name the cover `cover.jpeg` (or `.jpg`) and list it first — it becomes
 //    both the card cover on /vault and the opening tile of the masonry.
 //
-// 3. Read the real pixel dimensions of every file. From `client/`:
+// 3. Run `npm run optimize:images` — it rewrites the folder as WebP at several
+//    widths. Keep listing the ORIGINAL filenames below; the `.webp` paths and
+//    the srcset are derived from them.
+//
+// 4. Read the real pixel dimensions of every file. From `client/`:
 //
 //        Add-Type -AssemblyName System.Drawing
 //        Get-ChildItem public/<dir> | Sort-Object Name | ForEach-Object {
@@ -66,6 +70,8 @@ export type JourneySize = "small" | "medium" | "wide" | "tall"
 export type VaultPhoto = {
     id: string
     src: string
+    /** Candidate WebP widths for the same photo, ready for an `srcset` */
+    srcSet: string
     /** Intrinsic width in px — only the width:height ratio is used */
     width: number
     /** Intrinsic height in px */
@@ -95,6 +101,8 @@ export type JourneyItem = {
     longDescription?: string
     /** Cover image (public path) — derived from the first file */
     image: string
+    /** Candidate WebP widths for the cover, ready for an `srcset` */
+    imageSrcSet: string
     /** Intrinsic cover width in px — only the width:height ratio is used */
     width: number
     /** Intrinsic cover height in px */
@@ -118,7 +126,7 @@ type PhotoFile = [file: string, width: number, height: number]
  */
 type CollectionSource = Omit<
     JourneyItem,
-    "image" | "width" | "height" | "photos"
+    "image" | "imageSrcSet" | "width" | "height" | "photos"
 > & {
     /** Folder under `client/public/` holding this collection's photos */
     dir: string
@@ -209,12 +217,47 @@ const collections: CollectionSource[] = [
     },
 ]
 
+/**
+ * Widths `scripts/optimize-images.mjs` emits for gallery directories. The
+ * largest one an image is big enough for drops its suffix and becomes `src`;
+ * the rest are `-<width>.webp` neighbours. Keep this in step with the RULES
+ * entry in that script or srcset will point at files that do not exist.
+ */
+const VARIANT_WIDTHS = [640, 1024, 1400]
+
+/** `["IMG_01.jpg", 3000]` -> `{ src, srcSet }` over the emitted WebP set. */
+function buildSources(dir: string, file: string, intrinsicWidth: number) {
+    const base = file.replace(/\.(jpe?g|png)$/i, "")
+    // Encoded so a filename that slips through with a space still resolves.
+    const url = (name: string) => `/${dir}/${encodeURIComponent(name)}.webp`
+
+    const available = VARIANT_WIDTHS.filter((width) => width <= intrinsicWidth)
+    const src = url(base)
+
+    // Narrower than every variant: the optimizer wrote a single file at the
+    // image's own width, so that is the only candidate there is.
+    if (available.length === 0) {
+        return { src, srcSet: `${src} ${intrinsicWidth}w` }
+    }
+
+    const primary = Math.max(...available)
+
+    const srcSet = available
+        .map((width) =>
+            width === primary
+                ? `${src} ${width}w`
+                : `${url(`${base}-${width}`)} ${width}w`
+        )
+        .join(", ")
+
+    return { src, srcSet }
+}
+
 /** Expands a authored collection into the shape the Vault renders. */
 function buildCollection({ dir, files, ...meta }: CollectionSource): JourneyItem {
     const photos: VaultPhoto[] = files.map(([file, width, height]) => ({
         id: `${dir}-${file}`,
-        // Encoded so a filename that slips through with a space still resolves.
-        src: `/${dir}/${encodeURIComponent(file)}`,
+        ...buildSources(dir, file, width),
         width,
         height,
     }))
@@ -224,6 +267,7 @@ function buildCollection({ dir, files, ...meta }: CollectionSource): JourneyItem
     return {
         ...meta,
         image: cover.src,
+        imageSrcSet: cover.srcSet,
         width: cover.width,
         height: cover.height,
         photos,

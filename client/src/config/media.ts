@@ -1,7 +1,7 @@
 export const media = {
-  logoWhite: "/logo-white.png",
+  logoWhite: "/logo-white.webp",
   logoWithBackground: "/logo-with-bg.png",
-  profile: "/kalyan-manna.jpg",
+  profile: "/kalyan-manna.webp",
   heroImage: "/images/hero-image.webp",
   aboutImage: "/images/about-image.webp",
 } as const
