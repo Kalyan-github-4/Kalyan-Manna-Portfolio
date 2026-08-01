@@ -79,13 +79,6 @@ async function apiRequest<T>(
 ): Promise<T> {
 	const url = `${API_URL}${path}`
 
-	console.log("API request:", {
-		url,
-		method,
-		hasBody: Boolean(body),
-		hasToken: Boolean(token),
-	})
-
 	const response = await fetch(url, {
 		method,
 		headers: {
@@ -94,12 +87,6 @@ async function apiRequest<T>(
 		},
 		credentials: "include",
 		body: body ? JSON.stringify(body) : undefined,
-	})
-
-	console.log("API response:", {
-		url,
-		status: response.status,
-		ok: response.ok,
 	})
 
 	if (!response.ok) {
