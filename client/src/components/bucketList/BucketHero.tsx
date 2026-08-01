@@ -25,7 +25,7 @@ export default function BucketHero() {
             duration: 0.7,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="mb-6 text-[11px] font-medium uppercase tracking-[0.45em] text-zinc-500"
+          className="mb-6 text-[11px] font-medium uppercase tracking-[0.45em] text-zinc-400"
         >
           Life Goals
         </motion.p>

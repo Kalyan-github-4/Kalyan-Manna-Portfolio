@@ -94,7 +94,7 @@ export default function SignIn() {
               </button>
             </div>
 
-            <p className="mt-5 text-center text-sm text-white/45">
+            <p className="mt-5 text-center text-sm text-white/60">
               Don&apos;t have an account?{" "}
               <Link
                 to="/more/guestbook/sign-up"
@@ -104,7 +104,7 @@ export default function SignIn() {
               </Link>
             </p>
 
-            <p className="mt-4 text-center text-xs text-white/35">
+            <p className="mt-4 text-center text-xs text-white/60">
               We only access your name, avatar, and email for the guestbook.
             </p>
           </div>

@@ -86,7 +86,7 @@ export default function VaultCollection() {
                                 <dt className="sr-only">Photos</dt>
                                 <Images
                                     size={13}
-                                    className="text-white/40"
+                                    className="text-white/60"
                                     aria-hidden="true"
                                 />
                                 <dd>{collection.photos.length} photos</dd>
@@ -96,7 +96,7 @@ export default function VaultCollection() {
                                 <dt className="sr-only">Date</dt>
                                 <CalendarBlank
                                     size={13}
-                                    className="text-white/40"
+                                    className="text-white/60"
                                     aria-hidden="true"
                                 />
                                 <dd>{collection.date}</dd>
@@ -107,7 +107,7 @@ export default function VaultCollection() {
                                     <dt className="sr-only">Location</dt>
                                     <MapPin
                                         size={13}
-                                        className="text-white/40"
+                                        className="text-white/60"
                                         aria-hidden="true"
                                     />
                                     <dd>{collection.location}</dd>
@@ -119,7 +119,7 @@ export default function VaultCollection() {
                                     <dt className="sr-only">Role</dt>
                                     <IdentificationBadge
                                         size={13}
-                                        className="text-white/40"
+                                        className="text-white/60"
                                         aria-hidden="true"
                                     />
                                     <dd>{collection.role}</dd>
@@ -163,7 +163,7 @@ export default function VaultCollection() {
                                     to={`/vault/${previous.slug}`}
                                     className="group flex flex-col gap-1 rounded-2xl border border-white/10 bg-zinc-950/60 p-5 transition-colors hover:border-white/25"
                                 >
-                                    <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-zinc-500">
+                                    <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-zinc-400">
                                         <CaretLeft
                                             size={11}
                                             weight="bold"
@@ -181,7 +181,7 @@ export default function VaultCollection() {
                                 to={`/vault/${next.slug}`}
                                 className="group flex flex-col items-end gap-1 rounded-2xl border border-white/10 bg-zinc-950/60 p-5 text-right transition-colors hover:border-white/25 sm:col-start-2"
                             >
-                                <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-zinc-500">
+                                <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-zinc-400">
                                     Next
                                     <CaretRight
                                         size={11}

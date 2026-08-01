@@ -115,7 +115,7 @@ export default function FeedbackDialog() {
         <SignedIn>
           <form onSubmit={handleSubmit} className="mt-4 space-y-4">
             <div>
-              <label className="mb-2 block text-xs font-medium uppercase tracking-[0.2em] text-zinc-500">
+              <label className="mb-2 block text-xs font-medium uppercase tracking-[0.2em] text-zinc-400">
                 Your role / title
               </label>
 
@@ -124,12 +124,12 @@ export default function FeedbackDialog() {
                 onChange={(event) => setRole(event.target.value)}
                 placeholder="Founder · Bloom Studio"
                 maxLength={70}
-                className="w-full rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-white/25"
+                className="w-full rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-none placeholder:text-white/60 focus:border-white/25"
               />
             </div>
 
             <div>
-              <label className="mb-2 block text-xs font-medium uppercase tracking-[0.2em] text-zinc-500">
+              <label className="mb-2 block text-xs font-medium uppercase tracking-[0.2em] text-zinc-400">
                 Rating
               </label>
 
@@ -157,7 +157,7 @@ export default function FeedbackDialog() {
             </div>
 
             <div>
-              <label className="mb-2 block text-xs font-medium uppercase tracking-[0.2em] text-zinc-500">
+              <label className="mb-2 block text-xs font-medium uppercase tracking-[0.2em] text-zinc-400">
                 Feedback
               </label>
 
@@ -167,10 +167,10 @@ export default function FeedbackDialog() {
                 placeholder="Tell people what the experience was like..."
                 rows={5}
                 maxLength={500}
-                className="w-full resize-none rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm leading-6 text-white outline-none placeholder:text-white/30 focus:border-white/25"
+                className="w-full resize-none rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm leading-6 text-white outline-none placeholder:text-white/60 focus:border-white/25"
               />
 
-              <div className="mt-2 flex justify-between text-xs text-zinc-500">
+              <div className="mt-2 flex justify-between text-xs text-zinc-400">
                 <span>{status}</span>
                 <span>{feedback.length}/500</span>
               </div>

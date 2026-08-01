@@ -114,8 +114,8 @@ export function PhotoLightbox({
                         Previous
                     </button>
 
-                    <p className="font-mono text-xs text-zinc-500">
-                        {cached + 1} <span className="text-zinc-700">/</span>{" "}
+                    <p className="font-mono text-xs text-zinc-400">
+                        {cached + 1} <span className="text-zinc-400">/</span>{" "}
                         {photos.length}
                     </p>
 

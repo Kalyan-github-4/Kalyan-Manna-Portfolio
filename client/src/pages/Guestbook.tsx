@@ -227,7 +227,7 @@ function GuestBook() {
         {/* Header Section */}
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center text-center">
-            <p className="mb-5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.3em] sm:tracking-[0.35em] text-zinc-500">
+            <p className="mb-5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.3em] sm:tracking-[0.35em] text-zinc-400">
               the wall remembers
             </p>
             <h1 className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text text-4xl sm:text-5xl md:text-6xl text-transparent text-shadow-subtle">
@@ -274,7 +274,6 @@ function GuestBook() {
                   onShare={handleShare}
                   onDelete={handleDelete}
                   canDelete={Boolean(viewerId) && entry.ownerClerkUserId === viewerId && isWithinDeleteWindow(entry.createdAtIso)}
-                  onOpen={(id) => console.log("open", id)}
                 />
               </div>
             ))}

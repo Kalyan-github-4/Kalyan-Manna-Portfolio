@@ -22,7 +22,7 @@ export function AboutContent({
 					opacity,
 					y,
 				}}
-				className="absolute left-1/2 top-[10%] -translate-x-1/2 text-center text-[10px] font-medium uppercase tracking-[0.28em] text-zinc-500 sm:top-[12%] sm:text-[11px] sm:tracking-[0.35em] lg:top-[14%]"
+				className="absolute left-1/2 top-[10%] -translate-x-1/2 text-center text-[10px] font-medium uppercase tracking-[0.28em] text-zinc-400 sm:top-[12%] sm:text-[11px] sm:tracking-[0.35em] lg:top-[14%]"
 			>
 				A BIT ABOUT ME
 			</motion.p>

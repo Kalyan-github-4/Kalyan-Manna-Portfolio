@@ -88,12 +88,12 @@ export default function About() {
             variants={fadeUp}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="mb-5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.3em] sm:tracking-[0.35em] text-zinc-500"
+            className="mb-5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.3em] sm:tracking-[0.35em] text-zinc-400"
           >
             Know About Me
           </motion.p>
 
-          <motion.h2
+          <motion.h1
             custom={1}
             variants={fadeUp}
             initial="hidden"
@@ -112,7 +112,7 @@ export default function About() {
             >
               engineer
             </GradientText>
-          </motion.h2>
+          </motion.h1>
 
           <motion.p
             custom={2}
@@ -177,14 +177,14 @@ export default function About() {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-zinc-500 transition-all duration-300 hover:scale-110 hover:text-violet-300"
+                        className="text-zinc-400 transition-all duration-300 hover:scale-110 hover:text-violet-300"
                       >
                         <Icon size={24} className="sm:w-7 sm:h-7" weight="duotone" />
                       </a>
                     </TooltipTrigger>
 
                     <TooltipContent side="top" sideOffset={10}>
-                      <p className="text-xs font-semibold text-zinc-700">{label}</p>
+                      <p className="text-xs font-semibold text-zinc-400">{label}</p>
                     </TooltipContent>
                   </Tooltip>
                 ))}

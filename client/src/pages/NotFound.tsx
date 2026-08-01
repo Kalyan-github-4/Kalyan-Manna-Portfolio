@@ -24,7 +24,7 @@ export default function NotFound() {
                     transition={{ duration: 0.6, ease }}
                     className="flex flex-col items-center"
                 >
-                    <p className="mb-8 font-mono text-xs uppercase tracking-[0.28em] text-zinc-500">
+                    <p className="mb-8 font-mono text-xs uppercase tracking-[0.28em] text-zinc-400">
                         Error / 404
                     </p>
 
@@ -68,7 +68,7 @@ export default function NotFound() {
                     className="mt-12 max-w-3xl font-sans text-4xl font-semibold tracking-[-0.05em] text-white sm:text-6xl"
                 >
                     Lost in
-                    <span className="font-serif font-normal italic text-zinc-500">
+                    <span className="font-serif font-normal italic text-zinc-400">
                         {" "}
                         orbit.
                     </span>
@@ -78,7 +78,7 @@ export default function NotFound() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.18, ease }}
-                    className="mt-6 max-w-md text-sm leading-7 text-zinc-500 sm:text-base sm:leading-8"
+                    className="mt-6 max-w-md text-sm leading-7 text-zinc-400 sm:text-base sm:leading-8"
                 >
                     The page you&apos;re looking for drifted off into deep space, or
                     perhaps it never existed. Let&apos;s get you back on course.

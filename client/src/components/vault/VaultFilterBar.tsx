@@ -95,7 +95,7 @@ export function VaultFilterBar({
                     <MagnifyingGlass
                         size={16}
                         aria-hidden="true"
-                        className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500"
+                        className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400"
                     />
 
                     <input
@@ -105,7 +105,7 @@ export function VaultFilterBar({
                         onChange={(event) => onQueryChange(event.target.value)}
                         placeholder="Search memories"
                         aria-label="Search memories"
-                        className="w-full rounded-full border border-white/10 bg-white/[0.04] py-2.5 pl-10 pr-20 text-sm text-white placeholder:text-zinc-500 focus:border-white/25 focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+                        className="w-full rounded-full border border-white/10 bg-white/[0.04] py-2.5 pl-10 pr-20 text-sm text-white placeholder:text-zinc-400 focus:border-white/25 focus:outline-none [&::-webkit-search-cancel-button]:hidden"
                     />
 
                     {query ? (
@@ -118,7 +118,7 @@ export function VaultFilterBar({
                             <X size={13} weight="bold" aria-hidden="true" />
                         </button>
                     ) : (
-                        <kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[0.65rem] text-zinc-500">
+                        <kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[0.65rem] text-zinc-400">
                             {IS_MAC ? "⌘" : "Ctrl"} K
                         </kbd>
                     )}

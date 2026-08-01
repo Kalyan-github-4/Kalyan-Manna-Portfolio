@@ -1,5 +1,5 @@
 import { memo } from "react"
-import { motion } from "motion/react"
+import { motion } from "framer-motion"
 
 import { currentYear, diagonalStripeStyle } from "./footerData"
 import { fadeUp } from "./footerMotion"
@@ -15,7 +15,7 @@ function FooterBottom({ isInView }: FooterBottomProps) {
             custom={8}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="mx-auto max-w-[calc(100%-48px)] border-x border-b border-dashed border-white/10 text-sm text-white/45 md:max-w-[calc(100%-80px)] md:grid-cols-[40px_1fr_40px]"
+            className="mx-auto max-w-[calc(100%-48px)] border-x border-b border-dashed border-white/10 text-sm text-white/60 md:max-w-[calc(100%-80px)] md:grid-cols-[40px_1fr_40px]"
         >
             <div className="flex flex-col items-center justify-between gap-4 px-6 py-5 md:flex-row">
                 <p>© {currentYear} <span className="font-bold">Kalyan Manna</span>. All rights reserved</p>

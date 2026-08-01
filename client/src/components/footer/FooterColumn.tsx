@@ -1,5 +1,5 @@
 import { memo } from "react"
-import { motion } from "motion/react"
+import { motion } from "framer-motion"
 
 import { linkItem } from "./footerMotion"
 
@@ -30,7 +30,7 @@ function FooterColumn({ title, links, isInView, delay = 0 }: FooterColumnProps) 
         >
             <motion.p
                 variants={linkItem}
-                className="mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white/35 sm:mb-5 sm:text-[11px] md:text-xs"
+                className="mb-4 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-white/60 sm:mb-5 sm:text-[11px] md:text-xs"
             >
                 {title}
             </motion.p>

@@ -26,7 +26,7 @@ export default function ContactActionCard({
                 {title}
             </h3>
 
-            <p className="mt-1 break-all font-mono text-xs font-semibold text-zinc-500">
+            <p className="mt-1 break-all font-mono text-xs font-semibold text-zinc-400">
                 {description}
             </p>
         </>

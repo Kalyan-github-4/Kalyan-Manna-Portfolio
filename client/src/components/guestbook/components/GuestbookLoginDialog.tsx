@@ -148,7 +148,7 @@ export default function GuestbookLoginDialog() {
               </p>
             )}
 
-            <p className="mt-4 text-center text-xs text-white/35">
+            <p className="mt-4 text-center text-xs text-white/60">
               We only access your name, avatar, and email for the guestbook.
             </p>
           </div>

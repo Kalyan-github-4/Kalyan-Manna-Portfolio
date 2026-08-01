@@ -20,7 +20,7 @@ export default function LinkSection({ section, sectionIndex }: LinkSectionProps)
             delay: sectionIndex * 0.08,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-zinc-600"
+          className="font-mono text-xs font-semibold uppercase tracking-[0.25em] text-zinc-400"
         >
           {section.title}
         </motion.p>

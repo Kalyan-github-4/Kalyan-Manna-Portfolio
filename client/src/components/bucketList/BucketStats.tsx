@@ -46,7 +46,7 @@ export default function BucketStats({ items }: BucketStatsProps) {
           <p className="text-3xl font-semibold text-white sm:text-4xl">
             {stat.value}
           </p>
-          <p className="mt-2 text-xs uppercase tracking-[0.25em] text-zinc-500">
+          <p className="mt-2 text-xs uppercase tracking-[0.25em] text-zinc-400">
             {stat.label}
           </p>
         </div>

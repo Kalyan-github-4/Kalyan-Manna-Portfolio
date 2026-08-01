@@ -37,7 +37,7 @@ export default function ContactLinkCard({ item, index }: ContactLinkCardProps) {
 
         <div>
           <h3 className="text-base font-medium tracking-wide text-white">{item.title}</h3>
-          <p className="mt-1 font-mono text-xs font-semibold text-zinc-500">
+          <p className="mt-1 font-mono text-xs font-semibold text-zinc-400">
             {item.subtitle}
           </p>
         </div>
@@ -45,7 +45,7 @@ export default function ContactLinkCard({ item, index }: ContactLinkCardProps) {
 
       <ArrowUpRight
         size={18}
-        className="relative z-10 text-zinc-600 opacity-0 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-white group-hover:opacity-100"
+        className="relative z-10 text-zinc-400 opacity-0 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-white group-hover:opacity-100"
       />
     </motion.div>
   );

@@ -13,7 +13,7 @@ export function JourneyGrid({ items, onOpen }: JourneyGridProps) {
     return (
         <section aria-label="Memory gallery" className="mb-28 sm:mb-36">
             {items.length === 0 ? (
-                <p className="py-20 text-center text-sm text-zinc-500">
+                <p className="py-20 text-center text-sm text-zinc-400">
                     No memories in this category yet — check back soon.
                 </p>
             ) : (

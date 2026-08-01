@@ -4,7 +4,7 @@ export default function MessagePanel() {
     return (
         <div className="grid min-h-130 gap-8 p-6 sm:p-10 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
-                <p className="text-sm uppercase tracking-[0.25em] text-zinc-500">
+                <p className="text-sm uppercase tracking-[0.25em] text-zinc-400">
                     Send Message
                 </p>
 
@@ -27,20 +27,20 @@ export default function MessagePanel() {
                 <input
                     name="name"
                     placeholder="Your name"
-                    className="w-full rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-600 focus:border-white/20"
+                    className="w-full rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-400 focus:border-white/20"
                 />
 
                 <input
                     name="email"
                     type="email"
                     placeholder="Your email"
-                    className="w-full rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-600 focus:border-white/20"
+                    className="w-full rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-400 focus:border-white/20"
                 />
 
                 <textarea
                     name="message"
                     placeholder="Hey Kalyan, I have a project idea..."
-                    className="min-h-40 w-full resize-none rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-600 focus:border-white/20"
+                    className="min-h-40 w-full resize-none rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-none placeholder:text-zinc-400 focus:border-white/20"
                 />
 
                 <button

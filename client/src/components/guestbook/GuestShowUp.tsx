@@ -27,7 +27,6 @@ export default function GuestShowUp() {
       .then((response) => {
         if (cancelled) return
 
-        console.log("Feedback wall entries:", response.entries)
         setEntries(response.entries)
       })
       .catch((error) => {
@@ -65,7 +64,7 @@ export default function GuestShowUp() {
     return (
       <section className="relative flex min-h-screen items-center justify-center px-5 text-center">
         <div>
-          <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.35em] text-zinc-500">
+          <p className="mb-6 text-[11px] font-medium uppercase tracking-[0.35em] text-zinc-400">
             Client Feedback
           </p>
 

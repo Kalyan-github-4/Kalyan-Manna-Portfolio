@@ -121,7 +121,7 @@ export function JourneyTimeline({ items, onOpen }: JourneyTimelineProps) {
                                                 <span className="block font-medium text-zinc-200 transition-colors group-hover:text-white">
                                                     {item.title}
                                                 </span>
-                                                <span className="mt-0.5 flex items-center gap-2 text-xs text-zinc-500">
+                                                <span className="mt-0.5 flex items-center gap-2 text-xs text-zinc-400">
                                                     <span>{item.month}</span>
                                                     <span aria-hidden="true">·</span>
                                                     <span

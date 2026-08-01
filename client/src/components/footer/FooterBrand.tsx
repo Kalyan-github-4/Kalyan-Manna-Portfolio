@@ -1,5 +1,5 @@
 import { memo } from "react"
-import { motion } from "motion/react"
+import { motion } from "framer-motion"
 
 import {
     Tooltip,
@@ -20,8 +20,12 @@ function FooterBrand({ isInView }: FooterBrandProps) {
         <div className="flex flex-col justify-between border-b border-dashed border-white/10 p-6 sm:p-8 lg:border-b-0 lg:border-r lg:p-10">
             <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
                 <motion.img
-                    src="/logo-white.png"
+                    src="/logo-white.webp"
                     alt="Kalyan Manna logo"
+                    width={256}
+                    height={256}
+                    loading="lazy"
+                    decoding="async"
                     className="h-10 w-auto object-contain sm:h-12"
                     initial={{ opacity: 0, y: 18 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
@@ -77,7 +81,7 @@ function FooterBrand({ isInView }: FooterBrandProps) {
                                             whileTap={{
                                                 scale: 0.95,
                                             }}
-                                            className="text-zinc-500 transition-colors duration-300 hover:text-violet-300"
+                                            className="text-zinc-400 transition-colors duration-300 hover:text-violet-300"
                                         >
                                             <Icon
                                                 size={18}
@@ -88,7 +92,7 @@ function FooterBrand({ isInView }: FooterBrandProps) {
                                     </TooltipTrigger>
 
                                     <TooltipContent side="top" sideOffset={10}>
-                                        <p className="text-xs font-semibold text-zinc-700">
+                                        <p className="text-xs font-semibold text-zinc-400">
                                             {label}
                                         </p>
                                     </TooltipContent>

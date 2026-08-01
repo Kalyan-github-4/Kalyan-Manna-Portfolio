@@ -22,7 +22,7 @@ export default function BucketListGrid({ items }: BucketListGridProps) {
         className="mb-12 flex flex-col justify-between gap-5 border-b border-white/10 pb-8 md:flex-row md:items-end"
       >
         <div>
-          <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.35em] text-zinc-500">
+          <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.35em] text-zinc-400">
             The List
           </p>
 

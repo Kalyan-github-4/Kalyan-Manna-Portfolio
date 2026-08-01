@@ -1,5 +1,5 @@
 import { memo, useRef } from "react"
-import { motion, useInView } from "motion/react"
+import { motion, useInView } from "framer-motion"
 
 import FooterCTA from "./FooterCTA"
 import FooterBrand from "./FooterBrand"
@@ -31,7 +31,7 @@ function Footer() {
                 animate={isInView ? "visible" : "hidden"}
                 className="mx-auto max-w-[calc(100%-24px)] border-x border-dashed border-white/10 px-4 py-5 sm:max-w-[calc(100%-40px)] sm:px-6 md:max-w-[calc(100%-64px)] lg:max-w-[calc(100%-80px)]"
             >
-                <p className="font-mono text-xs text-white/20 sm:text-sm">{"{/}"}</p>
+                <p className="font-mono text-xs text-white/60 sm:text-sm">{"{/}"}</p>
             </motion.div>
 
             <motion.div

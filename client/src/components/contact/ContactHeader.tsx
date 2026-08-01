@@ -22,7 +22,7 @@ export default function ContactHeader() {
                 variants={fadeUp}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
-                className="mb-5 text-[11px] font-medium uppercase tracking-[0.3em] text-zinc-500 sm:text-xs sm:tracking-[0.35em]"
+                className="mb-5 text-[11px] font-medium uppercase tracking-[0.3em] text-zinc-400 sm:text-xs sm:tracking-[0.35em]"
             >
                 Contact
             </motion.p>
@@ -52,7 +52,7 @@ export default function ContactHeader() {
                 variants={fadeUp}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
-                className="mx-auto mt-6 max-w-xl text-sm leading-6 text-zinc-500 sm:text-base"
+                className="mx-auto mt-6 max-w-xl text-sm leading-6 text-zinc-400 sm:text-base"
             >
                 Book a quick call, send a project inquiry, or reach out directly.
                 I usually reply within a day.

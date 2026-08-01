@@ -1,6 +1,6 @@
 import { memo } from "react"
 import { ArrowRight } from "@phosphor-icons/react"
-import { motion } from "motion/react"
+import { motion } from "framer-motion"
 
 import NeuralBackground from "./NeuralBackground"
 import { fadeScale, fadeUp, staggerContainer } from "./footerMotion"

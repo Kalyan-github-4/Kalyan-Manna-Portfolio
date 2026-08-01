@@ -11,7 +11,7 @@ import { VaultCollectionCard } from "@/components/vault/VaultCollectionCard"
 
 function SectionLabel({ children }: { children: ReactNode }) {
     return (
-        <p className="mb-8 text-center font-mono text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-white/40">
+        <p className="mb-8 text-center font-mono text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-white/60">
             {children}
         </p>
     )
@@ -93,7 +93,7 @@ export default function Vault() {
                         </SectionLabel>
 
                         {gridItems.length === 0 ? (
-                            <p className="py-20 text-center text-sm text-zinc-500">
+                            <p className="py-20 text-center text-sm text-zinc-400">
                                 {trimmedQuery
                                     ? `Nothing matches “${trimmedQuery}” — try another search.`
                                     : "No collections in this category yet — check back soon."}

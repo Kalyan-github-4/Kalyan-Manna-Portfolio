@@ -80,7 +80,7 @@ export default function BucketListCard({ item, index }: BucketListCardProps) {
           </span>
         </div>
 
-        <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-zinc-500">
+        <p className="mb-3 text-xs font-medium uppercase tracking-[0.3em] text-zinc-400">
           {item.category}
         </p>
 
@@ -94,7 +94,7 @@ export default function BucketListCard({ item, index }: BucketListCardProps) {
 
         <div className="mt-8 h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent" />
 
-        <div className="mt-5 flex items-center justify-between text-xs text-zinc-500">
+        <div className="mt-5 flex items-center justify-between text-xs text-zinc-400">
           <span>#{String(index + 1).padStart(2, "0")}</span>
           <span className="transition-colors group-hover:text-white">
             Keep moving
