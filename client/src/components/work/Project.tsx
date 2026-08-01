@@ -2,45 +2,38 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import GradientText from "@/components/shared/GradientText";
-import { projectImages } from "@/config";
 import PerspectiveScrollShowcase from "./PerspectiveScrollShowcase";
 import type { ProjectItem } from "./PerspectiveScrollShowcase";
+import { workProjects } from "./workProjects";
 import { useRef } from "react";
 
-const projects: ProjectItem[] = [
-  {
-    title: "EasyPG",
-    tags: ["React Native", "Expo", "Startup", "Mobile App"],
-    bgText: "EasyPG",
-    src: projectImages.easyPg,
-    githubUrl: "https://github.com/Kalyan-github-4/easypg",
-    liveUrl: "https://play.google.com/store/apps/details?id=com.easypg",
-  },
-  {
-    title: "Portfolio",
-    tags: ["React", "TypeScript", "Tailwind", "Framer Motion"],
-    bgText: "Portfolio",
-    src: projectImages.portfolio,
-    githubUrl: "https://github.com/Kalyan-github-4/Kalyan-Manna-Portfolio",
-    liveUrl: "https://kalyan-manna-portfolio.vercel.app/",
-  },
-  {
-    title: "Management System",
-    tags: ["Node.js", "Express", "PostgreSQL", "Dashboard"],
-    bgText: "Dashboard",
-    src: projectImages.managementSystem,
-    githubUrl: "https://github.com/Kalyan-github-4/Management-System",
-    liveUrl: "https://management-system-eta.vercel.app/",
-  },
-  {
-    title: "Business Website",
-    tags: ["Frontend", "SEO", "Responsive", "UI Design"],
-    bgText: "Business",
-    src: projectImages.businessWebsite,
-    githubUrl: "https://github.com/Kalyan-github-4/Business-Website",
-    liveUrl: "https://business-website-eta.vercel.app/",
-  },
-];
+// Short marquee word + tint per project, keyed by workProjects title.
+// Everything else (image, tags, copy, links) comes from workProjects so the
+// home showcase and the work page can never drift apart again.
+const showcaseMeta: Record<string, { bgText: string; color: string }> = {
+  "GitHub Roast": { bgText: "Roast", color: "#F97316" },
+  Portfolio: { bgText: "Portfolio", color: "#3B82F6" },
+  EasyPG: { bgText: "EasyPG", color: "#A855F7" },
+  "Gym Management System": { bgText: "Dashboard", color: "#6366F1" },
+};
+
+const projects: ProjectItem[] = workProjects.map((project) => {
+  const isInternal = project.href.startsWith("/");
+  const meta = showcaseMeta[project.title];
+
+  return {
+    title: project.title,
+    tags: project.tags,
+    bgText: meta?.bgText ?? project.title,
+    src: project.image,
+    description: project.description,
+    year: project.date,
+    color: meta?.color,
+    githubUrl: project.githubUrl,
+    liveUrl: project.liveUrl || (isInternal ? undefined : project.href),
+    workUrl: isInternal ? project.href : "/work",
+  };
+});
 
 const fadeUp = {
   hidden: {
@@ -82,7 +75,7 @@ export default function Project() {
                 duration: 0.8,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="mb-6 text-[11px] font-medium uppercase tracking-[0.35em] text-zinc-500"
+              className="mb-6 text-[11px] font-medium uppercase tracking-[0.35em] text-zinc-400"
             >
               Selected Projects
             </motion.p>

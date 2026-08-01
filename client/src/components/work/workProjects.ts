@@ -27,7 +27,7 @@ export const workProjects: WorkProject[] = [
         description:
             "A fun and interactive web app that analyzes GitHub profiles and generates witty roasts, humorous insights, and developer scores.",
         image: projectImages.githubRoast,
-        previewImages: [...projectImages.guthubRoastScreens],
+        previewImages: [...projectImages.githubRoastScreens],
         href: "https://git-hub-roast-mauve.vercel.app/",
         githubUrl: socialLinks.github,
         liveUrl: "",

@@ -140,7 +140,7 @@ function ProjectCard({
             <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-linear-to-b from-black/50 to-transparent sm:h-32" />
 
             <div className="absolute bottom-0 left-0 flex w-full flex-col gap-3 p-4 sm:gap-3 sm:p-10">
-                <div className="flex items-center gap-2 text-xs font-medium text-white/45 sm:gap-3 sm:text-sm">
+                <div className="flex items-center gap-2 text-xs font-medium text-white/60 sm:gap-3 sm:text-sm">
                     <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 backdrop-blur-sm sm:px-3">
                         {(index + 1).toString().padStart(2, "0")}
                     </span>
