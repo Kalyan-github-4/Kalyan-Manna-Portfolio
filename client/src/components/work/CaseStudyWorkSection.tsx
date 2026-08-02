@@ -4,16 +4,18 @@ import WorkProjectCard from "./WorkProjectCard"
 import { workProjects } from "./workProjects"
 import GradientText from "../shared/GradientText"
 import BackgroundRipple from "../shared/BackgroundRipple"
+import EdgeStripes from "../shared/EdgeStripes"
 
 export default function CaseStudyWorkSection() {
     return (
-        <section className="relative overflow-hidden bg-black px-4 py-28 text-white sm:px-6 lg:px-8">
+        <section className="relative overflow-hidden bg-black px-4 py-28 text-white sm:px-8 lg:px-12">
 
             {/* Background Glow */}
             <BackgroundRipple
                 rows={7}
                 cols={30} />
 
+            <EdgeStripes />
 
             <div className="relative z-10 mx-auto w-full">
                 {/* Header */}
