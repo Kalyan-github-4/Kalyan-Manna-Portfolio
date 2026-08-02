@@ -1,6 +1,4 @@
-import { AudioToggle } from "./AudioToggle"
 import { DesktopNavMenu } from "./DesktopNavMenu"
-import { NavbarLogo } from "./NavbarLogo"
 import type { NavItem } from "./navbar-types"
 
 interface Greeting {
@@ -14,9 +12,6 @@ interface DesktopNavbarProps {
   greeting: Greeting
   introDone: boolean
   moreOpen: boolean
-  isScrolled: boolean
-  audioEnabled: boolean
-  onToggleAudio: () => void
   onMoreOpenChange: (open: boolean) => void
 }
 
@@ -26,15 +21,10 @@ export function DesktopNavbar({
   greeting,
   introDone,
   moreOpen,
-  isScrolled,
-  audioEnabled,
-  onToggleAudio,
   onMoreOpenChange,
 }: DesktopNavbarProps) {
   return (
-    <div className="hidden w-full grid-cols-[1fr_auto_1fr] items-start gap-4 md:grid">
-      <NavbarLogo isScrolled={isScrolled} />
-
+    <div className="hidden w-full justify-center md:flex">
       <DesktopNavMenu
         items={items}
         pathname={pathname}
@@ -43,15 +33,6 @@ export function DesktopNavbar({
         moreOpen={moreOpen}
         onMoreOpenChange={onMoreOpenChange}
       />
-
-      {/*
-        Unlike the CTA this replaced, the toggle does not fade out with the
-        rest of the chrome on scroll: music the visitor cannot switch off
-        after one screen of scrolling is a trap.
-      */}
-      <div className="flex h-13 items-center justify-end">
-        <AudioToggle enabled={audioEnabled} onToggle={onToggleAudio} />
-      </div>
     </div>
   )
 }

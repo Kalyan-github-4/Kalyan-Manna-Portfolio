@@ -6,23 +6,15 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 
-import { AudioToggle } from "./AudioToggle"
 import { MobileNavItem } from "./MobileNavItem"
 import type { NavItem } from "./navbar-types"
 
 interface MobileNavbarProps {
   items: NavItem[]
   pathname: string
-  audioEnabled: boolean
-  onToggleAudio: () => void
 }
 
-export function MobileNavbar({
-  items,
-  pathname,
-  audioEnabled,
-  onToggleAudio,
-}: MobileNavbarProps) {
+export function MobileNavbar({ items, pathname }: MobileNavbarProps) {
   const mobileItems = items.flatMap((item) =>
     item.hasDropdown ? (item.items ?? []) : [item]
   )
@@ -36,22 +28,14 @@ export function MobileNavbar({
             whileTap={{ scale: 0.96 }}
             aria-label="Open navigation menu"
             className="
-              flex items-center gap-20
+              flex items-center
               rounded-full border border-white/10
-              bg-zinc-950/45 px-3 py-1.5
+              bg-zinc-950/45 px-5 py-2.5
               shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_0_20px_rgba(255,255,255,0.06)]
               backdrop-blur-3xl backdrop-saturate-150
             "
           >
-            <img
-              src="/logo-white.webp"
-              alt="Kalyan Manna Logo"
-              width={32}
-              height={32}
-              className="h-8 w-8 object-contain"
-            />
-
-            <span className="pr-1 text-sm font-semibold uppercase tracking-wide text-white">
+            <span className="text-sm font-semibold uppercase tracking-wide text-white">
               Kalyan
             </span>
           </motion.button>
@@ -84,13 +68,6 @@ export function MobileNavbar({
           </div>
         </DrawerContent>
       </Drawer>
-
-      {/* Absolute so the logo pill stays optically centred. */}
-      <AudioToggle
-        enabled={audioEnabled}
-        onToggle={onToggleAudio}
-        className="absolute right-0 top-1/2 -translate-y-1/2"
-      />
     </div>
   )
 }

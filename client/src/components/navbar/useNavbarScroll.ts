@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from "react"
 
 interface NavbarScrollState {
-  isScrolled: boolean
   isVisible: boolean
 }
 
 export function useNavbarScroll(): NavbarScrollState {
   const previousScrollPosition = useRef(0)
 
-  const [isScrolled, setIsScrolled] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
 
   useEffect(() => {
@@ -18,8 +16,6 @@ export function useNavbarScroll(): NavbarScrollState {
       const currentScrollPosition = window.scrollY
       const isScrollingDown =
         currentScrollPosition > previousScrollPosition.current
-
-      setIsScrolled(currentScrollPosition > 50)
 
       if (isScrollingDown && currentScrollPosition > 50) {
         setIsVisible(false)
@@ -40,7 +36,6 @@ export function useNavbarScroll(): NavbarScrollState {
   }, [])
 
   return {
-    isScrolled,
     isVisible,
   }
 }
