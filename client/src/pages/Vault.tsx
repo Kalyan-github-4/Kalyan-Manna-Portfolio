@@ -3,8 +3,8 @@ import { AnimatePresence, motion } from "framer-motion"
 
 import { journeyItems, type JourneyFilter } from "@/data/journeyData"
 import { JourneyHeader } from "@/components/journey/JourneyHeader"
-import { JourneyCTA } from "@/components/journey/JourneyCTA"
 import BackgroundRipple from "@/components/shared/BackgroundRipple"
+import EdgeStripes from "@/components/shared/EdgeStripes"
 import { VaultFilterBar } from "@/components/vault/VaultFilterBar"
 import { VaultFeaturedCard } from "@/components/vault/VaultFeaturedCard"
 import { VaultCollectionCard } from "@/components/vault/VaultCollectionCard"
@@ -58,8 +58,10 @@ export default function Vault() {
         <main className="min-h-screen bg-black">
             {/* Shell mirrors CaseStudyWorkSection: full-bleed inner column, the
                 same horizontal padding, and the same rippling backdrop. */}
-            <section className="relative overflow-hidden bg-black px-4 py-28 text-white sm:px-6 lg:px-8">
+            <section className="relative overflow-hidden bg-black px-4 py-28 text-white sm:px-8 lg:px-9">
                 <BackgroundRipple rows={7} cols={30} />
+
+                <EdgeStripes />
 
                 <div className="relative z-10 mx-auto w-full">
                     <JourneyHeader />
@@ -72,7 +74,7 @@ export default function Vault() {
                     />
 
                     {isBrowsingAll && (
-                        <section aria-label="Featured collection">
+                        <section aria-label="Featured collection" className="px-4">
                             <SectionLabel>Featured Collection</SectionLabel>
                             <VaultFeaturedCard item={featured} />
                         </section>
@@ -80,16 +82,15 @@ export default function Vault() {
 
                     <section
                         aria-label="All collections"
-                        className="mb-28 sm:mb-36"
+                        className="mb-28 sm:mb-36 px-4"
                     >
                         <SectionLabel>
                             {isBrowsingAll
                                 ? "Latest Collections"
-                                : `${results.length} ${
-                                      results.length === 1
-                                          ? "collection"
-                                          : "collections"
-                                  }`}
+                                : `${results.length} ${results.length === 1
+                                    ? "collection"
+                                    : "collections"
+                                }`}
                         </SectionLabel>
 
                         {gridItems.length === 0 ? (
@@ -115,7 +116,8 @@ export default function Vault() {
                         )}
                     </section>
 
-                    <JourneyCTA />
+                    <SectionLabel>The journey still being written...</SectionLabel>
+
                 </div>
             </section>
         </main>

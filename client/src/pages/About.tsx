@@ -17,6 +17,7 @@ import {
 import GradientText from "../components/shared/GradientText";
 import { AboutCarousel } from "../components/about/AboutCarousel";
 import BackgroundRipple from "../components/shared/BackgroundRipple";
+import EdgeStripes from "../components/shared/EdgeStripes";
 import { socialLinks } from "@/config";
 
 // Transition now lives INSIDE the variant, driven by `custom` (stagger index)
@@ -78,6 +79,9 @@ export default function About() {
         <BackgroundRipple
           rows={7}
           cols={30} />
+
+        <EdgeStripes />
+
         {/* Left */}
         <div
           className="relative z-10 w-full max-w-2xl text-center lg:max-w-xl lg:text-left"

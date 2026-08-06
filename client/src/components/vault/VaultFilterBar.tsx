@@ -51,13 +51,13 @@ export function VaultFilterBar({
     }, [onQueryChange])
 
     return (
-        <div className="mb-16 border-y border-white/10 sm:mb-10">
-            <div className="flex flex-col gap-3 py-4 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
+        <div className="mb-16 border-y border-dashed border-white/10 sm:mb-10">
+            <div className="flex flex-col gap-3 py-2 px-4 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
                 {/* Category pills — scroll horizontally rather than wrapping. */}
                 <div
                     role="group"
                     aria-label="Filter collections by category"
-                    className="flex max-w-full items-center gap-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    className="flex max-w-full items-center gap-1 overflow-x-auto [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden"
                 >
                     {JOURNEY_FILTERS.map((filter) => {
                         const isActive = filter === active
@@ -105,7 +105,7 @@ export function VaultFilterBar({
                         onChange={(event) => onQueryChange(event.target.value)}
                         placeholder="Search memories"
                         aria-label="Search memories"
-                        className="w-full rounded-full border border-white/10 bg-white/[0.04] py-2.5 pl-10 pr-20 text-sm text-white placeholder:text-zinc-400 focus:border-white/25 focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+                        className="w-full rounded-full border border-white/10 bg-white/4 py-2.5 pl-10 pr-20 text-sm text-white placeholder:text-zinc-400 focus:border-white/25 focus:outline-none [&::-webkit-search-cancel-button]:hidden"
                     />
 
                     {query ? (
