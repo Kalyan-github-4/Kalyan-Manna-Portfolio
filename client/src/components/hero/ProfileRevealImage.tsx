@@ -11,11 +11,12 @@ export function ProfileRevealImage({
 }: ProfileRevealImageProps) {
 	const ramp = 0.04
 
-	const opacity = useTransform(
-		progress,
-		[start, start + ramp, end - ramp, end],
-		[0, 1, 1, 0]
-	)
+	// Layers stack in slide order and only ever fade *in* — each one holds at
+	// full once it arrives and is simply covered by the next. Fading out at the
+	// end of a slide instead would leave every boundary with all layers at zero
+	// for an instant, blinking the portrait circle empty. The last layer is
+	// taken away by the section's own exit fade.
+	const opacity = useTransform(progress, [start, start + ramp], [0, 1])
 
 	// A gentle drift rather than a zoom — the old 1.08 start read as a lurch
 	// next to the slower text.
@@ -23,8 +24,8 @@ export function ProfileRevealImage({
 
 	const blur = useTransform(
 		progress,
-		[start, start + ramp, end - ramp, end],
-		["blur(10px)", "blur(0px)", "blur(0px)", "blur(10px)"]
+		[start, start + ramp],
+		["blur(10px)", "blur(0px)"]
 	)
 
 	return (

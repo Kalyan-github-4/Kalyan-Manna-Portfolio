@@ -47,7 +47,10 @@ export function ProfileImage({
 					progress={progress}
 					start={slide.start}
 					end={slide.end}
-					simplify={simplify}
+					// The first layer is the same portrait as the eager base image
+					// sitting underneath it, so a blur-and-scale entrance would
+					// ghost against its own twin. Fading it in alone is invisible.
+					simplify={simplify || index === 0}
 				/>
 			))}
 		</motion.div>
