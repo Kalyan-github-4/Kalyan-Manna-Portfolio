@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 
 import EdgeStripes from "@/components/shared/EdgeStripes"
 
-import { Globe } from "./globe"
+import { Globe } from "../components/shared/globe"
 
 const ease = [0.22, 1, 0.36, 1] as const
 
