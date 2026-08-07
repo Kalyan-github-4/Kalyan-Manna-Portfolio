@@ -2,24 +2,22 @@ import LinksHero from "@/components/links/LinksHero";
 import ProfileCard from "@/components/links/ProfileCard";
 import LinkSection from "@/components/links/LinkSection";
 import { contactSections } from "@/components/links/linksData";
-import { diagonalStripeStyle } from "@/components/shared/stripeStyles";
+import EdgeStripes from "@/components/shared/EdgeStripes";
 
 const Links = () => {
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-white">
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-0 -z-10 opacity-70"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(147,51,234,0.16),transparent_32%),linear-gradient(to_bottom,#050505,#000000)]" />
-        <div className="absolute left-0 top-0 h-full w-16 opacity-60" style={diagonalStripeStyle} />
-        <div className="absolute right-0 top-0 h-full w-16 opacity-60" style={diagonalStripeStyle} />
-      </div>
+        className="pointer-events-none fixed inset-0 -z-10 opacity-70 bg-[radial-gradient(circle_at_50%_0%,rgba(147,51,234,0.16),transparent_32%),linear-gradient(to_bottom,#050505,#000000)]"
+      />
 
-      <section className="relative flex min-h-screen flex-col px-6 py-28 sm:px-8 md:px-10 lg:px-13">
+      <section className="relative flex min-h-screen flex-col overflow-hidden px-6 py-28 sm:px-8 md:px-10 lg:px-13">
+        <EdgeStripes />
+
         <LinksHero />
 
-        <div className="mx-auto grid w-full gap-10 border-y border-dashed border-white/10 py-8 lg:grid-cols-[360px_1fr]">
+        <div className="relative z-10 mx-auto grid w-full gap-10 border-y border-dashed border-white/10 py-8 lg:grid-cols-[360px_1fr]">
           <div className="relative">
             <div className="absolute -inset-y-8 -right-5 hidden border-r border-dashed border-white/10 lg:block" />
             <ProfileCard />

@@ -2,6 +2,8 @@ import { ArrowLeft, ArrowUpRight, House } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 import { Link, useNavigate } from "react-router-dom"
 
+import EdgeStripes from "@/components/shared/EdgeStripes"
+
 import { Globe } from "./globe"
 
 const ease = [0.22, 1, 0.36, 1] as const
@@ -16,6 +18,8 @@ export default function NotFound() {
                 <div className="absolute left-1/2 top-[-14rem] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-violet-500/10 blur-[150px]" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
             </div>
+
+            <EdgeStripes />
 
             <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-5 py-28 text-center sm:px-8 lg:px-10">
                 <motion.div

@@ -14,6 +14,7 @@ import { motion, useReducedMotion } from "framer-motion"
 import { journeyItems } from "@/data/journeyData"
 import { CategoryBadge } from "@/components/journey/CategoryBadge"
 import { CollectionMasonry } from "@/components/vault/CollectionMasonry"
+import EdgeStripes from "@/components/shared/EdgeStripes"
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -26,8 +27,10 @@ export default function VaultCollection() {
 
     if (!collection) {
         return (
-            <main className="relative flex min-h-screen items-center justify-center bg-black px-4 text-center text-white">
-                <div>
+            <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black px-4 text-center text-white">
+                <EdgeStripes />
+
+                <div className="relative z-10">
                     <h1 className="font-display text-3xl sm:text-4xl">
                         Collection not found
                     </h1>
@@ -59,6 +62,8 @@ export default function VaultCollection() {
         <main className="min-h-screen bg-black">
             {/* Same shell and full-bleed inner column as /work and /vault. */}
             <section className="relative overflow-hidden bg-black px-4 py-28 text-white sm:px-6 lg:px-8">
+                <EdgeStripes />
+
                 <div className="relative z-10 mx-auto w-full">
                     <Link
                         to="/vault"

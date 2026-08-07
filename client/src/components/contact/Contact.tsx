@@ -4,6 +4,7 @@ import { getCalApi } from "@calcom/embed-react"
 import ContactHeader from "./ContactHeader"
 import ContactTabs from "./ContactTabs"
 import ContactPanel from "./ContactPanel"
+import EdgeStripes from "../shared/EdgeStripes"
 import type { ContactTab } from "./contactTypes"
 
 export default function Contact() {
@@ -26,8 +27,10 @@ export default function Contact() {
     }, [])
 
     return (
-        <main className="min-h-screen overflow-hidden bg-[#08080a] px-4 py-28 text-white">
-            <section className="mx-auto max-w-6xl">
+        <main className="relative min-h-screen overflow-hidden bg-[#08080a] px-4 py-28 text-white">
+            <EdgeStripes />
+
+            <section className="relative z-10 mx-auto max-w-6xl">
                 <ContactHeader />
 
                 <ContactTabs

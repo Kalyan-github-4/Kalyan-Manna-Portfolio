@@ -7,6 +7,8 @@ import {
   PencilSimpleIcon,
 } from "@phosphor-icons/react"
 
+import EdgeStripes from "@/components/shared/EdgeStripes"
+
 const REDIRECT_URL = `${window.location.origin}/more/guestbook/sso-callback`
 const REDIRECT_COMPLETE_URL = "/more/guestbook"
 
@@ -36,6 +38,8 @@ export default function SignUp() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-black px-6 py-28 text-white">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(124,79,224,0.28),transparent_35%),radial-gradient(circle_at_20%_80%,rgba(33,146,218,0.16),transparent_30%)]" />
+
+      <EdgeStripes />
 
       <section className="relative mx-auto flex min-h-[calc(100vh-14rem)] max-w-107.5 items-center justify-center">
         <div className="w-full overflow-hidden rounded-[28px] border border-white/10 bg-[#121214] shadow-2xl">

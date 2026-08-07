@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 
 import GradientText from "../components/shared/GradientText";
+import EdgeStripes from "../components/shared/EdgeStripes";
 import CreateGuestCard from "../components/guestbook/components/CreateGuestCard";
 import GuestCard, { type GuestEntry } from "../components/guestbook/components/GuestCard";
 import GuestCardSkeleton from "../components/guestbook/components/GuestCardSkeleton";
@@ -223,9 +224,11 @@ function GuestBook() {
 
   return (
     <div>
-      <section className="pt-28 min-h-screen flex flex-col justify-center">
+      <section className="relative overflow-hidden pt-28 min-h-screen flex flex-col justify-center">
+        <EdgeStripes />
+
         {/* Header Section */}
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center text-center">
             <p className="mb-5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.3em] sm:tracking-[0.35em] text-zinc-400">
               the wall remembers
@@ -248,7 +251,7 @@ function GuestBook() {
         </div>
 
         {/* Cards Section — Create card first, then every approved entry */}
-        <div className="w-full mt-20 px-4 sm:px-6 lg:px-12">
+        <div className="relative z-10 w-full mt-20 px-4 sm:px-6 lg:px-12">
           <div className="grid gap-8 md:grid-cols-3">
             {/* LEAVE YOUR MESSAGE CARD */}
             <div>
