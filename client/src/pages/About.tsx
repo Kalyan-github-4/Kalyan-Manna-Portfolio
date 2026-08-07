@@ -15,7 +15,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import GradientText from "../components/shared/GradientText";
-import { AboutCarousel } from "../components/about/AboutCarousel";
+import { IconCloud } from "../components/about/IconCloud";
 import BackgroundRipple from "../components/shared/BackgroundRipple";
 import EdgeStripes from "../components/shared/EdgeStripes";
 import { socialLinks } from "@/config";
@@ -36,32 +36,39 @@ const fadeUp = {
     },
   }),
 };
-const images = [
-  {
-    src: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=900&auto=format&fit=crop&q=60",
-    alt: "Code on dark screen with vibrant syntax highlighting",
-    title: "I Code",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=900&auto=format&fit=crop",
-    alt: "MacBook with code and coffee",
-    title: "I Build",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&auto=format&fit=crop&q=60",
-    alt: "Diverse team collaborating around table",
-    title: "I Collaborate",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=900&auto=format&fit=crop",
-    alt: "Developer thinking at desk",
-    title: "I Solve",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1535378917042-10a22c95931a?q=80&w=900&auto=format&fit=crop",
-    alt: "Developer workspace with code",
-    title: "I Create",
-  },
+// simple-icons slugs. Module scope on purpose: a fresh array each render would
+// make the cloud refetch on every pass.
+const techSlugs = [
+  "react",
+  "nextdotjs",
+  "vite",
+  "typescript",
+  "javascript",
+  "tailwindcss",
+  "nodedotjs",
+  "express",
+  "postgresql",
+  "drizzle",
+  "prisma",
+  "neondatabase",
+  "clerk",
+  "expo",
+  "git",
+  "github",
+  "vercel",
+  "render",
+  "openai",
+  "claude",
+  "python",
+  "pytorch",
+  "opencv",
+  "mediapipe",
+  "cloudinary",
+  "postman",
+  "figma",
+  "framer",
+  "threedotjs",
+  "visualstudiocode",
 ];
 export default function About() {
   const contentRef = useRef(null);
@@ -206,7 +213,7 @@ export default function About() {
           animate={isInView ? "visible" : "hidden"}
           className="relative flex w-full max-w-140 flex-col items-center justify-center overflow-hidden"
         >
-          <AboutCarousel images={images} />
+          <IconCloud iconSlugs={techSlugs} />
         </motion.div>
 
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.08)_60%,rgba(0,0,0,0.85)_100%)]" />
