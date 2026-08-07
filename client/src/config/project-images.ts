@@ -13,21 +13,21 @@ export const projectImages = {
     "/projects/gym-management-system.webp",
   // Paired screenshots shown as the tilted, stacked desktop preview.
   managementSystemScreens: [
-    "/projects/gym-management-system-1.webp",
     "/projects/gym-management-system-2.webp",
+    "/projects/gym-management-system-1.webp",
   ],
   githubRoastScreens: [
-    "/projects/github roast 2.webp",
     "/projects/github roast.webp",
+    "/projects/github roast 2.webp",
   ],
   portfolioScreens: [
-    "/projects/portfolio-1.webp",
     "/projects/portfolio.webp",
+    "/projects/portfolio-1.webp",
   ],
   // EasyPG in-app screenshots shown inside the mobile device frame.
   easyPgScreens: [
-    "/projects/easyPG-1.webp",
     "/projects/easyPG-2.webp",
+    "/projects/easyPG-1.webp",
     "/projects/easyPG-3.webp",
   ],
 } as const

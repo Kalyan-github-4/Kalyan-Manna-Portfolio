@@ -1,5 +1,6 @@
 import { ArrowUpRight, GithubLogo } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
+import type { ReactNode } from "react"
 import { Link } from "react-router-dom"
 
 import type { WorkProject } from "./workProjects"
@@ -10,6 +11,37 @@ import DesktopAppPreview from "./DesktopAppPreview"
 type WorkProjectCardProps = {
     project: WorkProject
     index: number
+}
+
+/** External projects open in a new tab; in-app case studies stay client-side. */
+function PreviewLink({
+    href,
+    label,
+    children,
+}: {
+    href: string
+    label: string
+    children: ReactNode
+}) {
+    if (href.startsWith("http")) {
+        return (
+            <a
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                className="group block"
+                aria-label={label}
+            >
+                {children}
+            </a>
+        )
+    }
+
+    return (
+        <Link to={href} className="group block" aria-label={label}>
+            {children}
+        </Link>
+    )
 }
 
 export default function WorkProjectCard({
@@ -76,10 +108,9 @@ export default function WorkProjectCard({
             </h3>
 
             {/* Preview Card */}
-            <Link
-                to={project.href}
-                className="group block"
-                aria-label={`View ${project.title} project`}
+            <PreviewLink
+                href={project.href}
+                label={`View ${project.title} project`}
             >
                 <motion.div
                     whileHover={{ y: -8 }}
@@ -100,6 +131,7 @@ export default function WorkProjectCard({
                             <MobileAppPreview
                                 description={project.description}
                                 images={project.mobileImages}
+                                label={project.title}
                             />
                         ) : (
                             <>
@@ -127,7 +159,7 @@ export default function WorkProjectCard({
                         )}
                     </div>
                 </motion.div>
-            </Link>
+            </PreviewLink>
 
             {/* Tags */}
             <div className="mt-8 flex flex-wrap gap-2.5">

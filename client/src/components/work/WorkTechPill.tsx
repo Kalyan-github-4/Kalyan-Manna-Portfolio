@@ -147,7 +147,7 @@ export default function WorkTechPill({
             <Icon
                 size={14}
                 aria-hidden="true"
-                className="shrink-0 text-[color:var(--tech)] opacity-85 transition-opacity duration-300 group-hover/pill:opacity-100"
+                className="shrink-0 text-(--tech) opacity-85 transition-opacity duration-300 group-hover/pill:opacity-100"
             />
 
             <span>{label}</span>
