@@ -15,8 +15,8 @@ export default function NotFound() {
         <main className="relative min-h-screen overflow-hidden bg-[#08080a] text-white">
             {/* Ambient background */}
             <div className="pointer-events-none absolute inset-0">
-                <div className="absolute left-1/2 top-[-14rem] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-violet-500/10 blur-[150px]" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
+                <div className="absolute left-1/2 -top-56 h-136 w-136 -translate-x-1/2 rounded-full bg-violet-500/10 blur-[150px]" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-size-[64px_64px] mask-[radial-gradient(ellipse_at_center,black,transparent_75%)]" />
             </div>
 
             <EdgeStripes />
@@ -69,7 +69,7 @@ export default function NotFound() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.1, ease }}
-                    className="mt-12 max-w-3xl font-sans text-4xl font-semibold tracking-[-0.05em] text-white sm:text-6xl"
+                    className="mt-12 max-w-3xl font-sans text-4xl font-semibold tracking-tighter text-white sm:text-6xl"
                 >
                     Lost in
                     <span className="font-serif font-normal italic text-zinc-400">

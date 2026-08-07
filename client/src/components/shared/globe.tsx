@@ -87,7 +87,7 @@ export function Globe({
     <div className={cn("relative aspect-square w-full max-w-md", className)}>
       <canvas
         ref={canvasRef}
-        className="size-full [contain:layout_paint_size]"
+        className="size-full contain-[layout_paint_size]"
       />
     </div>
   )
