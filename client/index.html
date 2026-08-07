@@ -39,7 +39,14 @@
   />
   <meta property="og:url" content="https://kalyanmanna.com/" />
   <meta property="og:site_name" content="Kalyan Manna Portfolio" />
-  <meta property="og:image" content="https://kalyanmanna.com/og-image.png" />
+  <!-- 1200x630 and under 300KB: WhatsApp and friends skip heavier images, and
+       the explicit dimensions let crawlers lay the card out on first scrape
+       instead of waiting until they have fetched the file. -->
+  <meta property="og:image" content="https://kalyanmanna.com/og-image.jpg" />
+  <meta property="og:image:secure_url" content="https://kalyanmanna.com/og-image.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Kalyan Manna Full Stack Developer Portfolio" />
 
   <!-- Twitter / X -->
@@ -49,7 +56,8 @@
     name="twitter:description"
     content="Full stack developer building modern websites, web apps, mobile apps, and digital products."
   />
-  <meta name="twitter:image" content="https://kalyanmanna.com/og-image.png" />
+  <meta name="twitter:image" content="https://kalyanmanna.com/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Kalyan Manna Full Stack Developer Portfolio" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
