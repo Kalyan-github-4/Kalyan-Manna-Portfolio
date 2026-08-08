@@ -5,8 +5,8 @@ import { useRef } from "react";
 // import { AboutOrbit } from "./AboutOrbit";
 import {
   GithubLogo,
+  InstagramLogo,
   LinkedinLogo,
-  XLogo,
 } from "@phosphor-icons/react";
 import {
   Tooltip,
@@ -177,10 +177,11 @@ export default function About() {
                     href: socialLinks.linkedin,
                   },
                   {
-                    icon: XLogo,
-                    label: "Twitter (X)",
-                    href: socialLinks.x,
+                    icon: InstagramLogo,
+                    label: "Instagram",
+                    href: socialLinks.instagram,
                   },
+
                 ].map(({ icon: Icon, href, label }) => (
                   <Tooltip key={label}>
                     <TooltipTrigger asChild>
@@ -190,12 +191,12 @@ export default function About() {
                         rel="noopener noreferrer"
                         className="text-zinc-400 transition-all duration-300 hover:scale-110 hover:text-violet-300"
                       >
-                        <Icon size={24} className="sm:w-7 sm:h-7" weight="duotone" />
+                        <Icon size={24} className="sm:w-6 sm:h-6" weight="duotone" />
                       </a>
                     </TooltipTrigger>
 
                     <TooltipContent side="top" sideOffset={10}>
-                      <p className="text-xs font-semibold text-zinc-400">{label}</p>
+                      <p className="text-xs font-semibold text-zinc-600">{label}</p>
                     </TooltipContent>
                   </Tooltip>
                 ))}

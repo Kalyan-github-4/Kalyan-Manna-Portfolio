@@ -2,6 +2,7 @@ import { useMemo, useState, type ReactNode } from "react"
 import {
     ArrowRight,
     GithubLogo,
+    InstagramLogo,
     LinkedinLogo,
     Mailbox,
     XLogo,
@@ -26,6 +27,7 @@ interface ContactDialogProps {
     imageAlt?: string
     calUrl?: string
     linkedinUrl?: string
+    instagramUrl?: string
     xUrl?: string
     githubUrl?: string
 }
@@ -37,6 +39,7 @@ export function ContactDialog({
     imageSrc = contactConfig.imageSrc,
     imageAlt = contactConfig.imageAlt,
     linkedinUrl = contactConfig.linkedinUrl,
+    instagramUrl = contactConfig.instagramUrl,
     xUrl = contactConfig.xUrl,
     githubUrl = contactConfig.githubUrl,
 }: ContactDialogProps) {
@@ -177,11 +180,17 @@ export function ContactDialog({
                             />
                         </div>
 
-                        <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
+                        <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
                             <SocialLink
                                 href={linkedinUrl}
                                 icon={<LinkedinLogo size={16} />}
                                 label="LinkedIn"
+                            />
+
+                            <SocialLink
+                                href={instagramUrl}
+                                icon={<InstagramLogo size={16} />}
+                                label="Instagram"
                             />
 
                             <SocialLink

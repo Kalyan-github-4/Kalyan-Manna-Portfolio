@@ -92,7 +92,7 @@ function FooterBrand({ isInView }: FooterBrandProps) {
                                     </TooltipTrigger>
 
                                     <TooltipContent side="top" sideOffset={10}>
-                                        <p className="text-xs font-semibold text-zinc-400">
+                                        <p className="text-xs font-semibold text-zinc-600">
                                             {label}
                                         </p>
                                     </TooltipContent>

@@ -8,6 +8,7 @@ export const contactConfig = {
   imageAlt: `${siteConfig.name} profile image`,
   calUrl: socialLinks.calendar,
   linkedinUrl: socialLinks.linkedin,
+  instagramUrl: socialLinks.instagram,
   xUrl: socialLinks.x,
   githubUrl: socialLinks.github,
 } as const

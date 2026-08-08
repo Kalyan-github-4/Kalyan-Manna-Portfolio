@@ -4,9 +4,9 @@ import {
   EnvelopeSimple,
   GithubLogo,
   Globe,
+  InstagramLogo,
   LinkedinLogo,
   MapPin,
-  PaperPlaneTilt,
   XLogo,
   LinkSimple,
 } from "@phosphor-icons/react";
@@ -20,6 +20,12 @@ export type ContactLink = {
   href: string;
   icon: Icon;
   external?: boolean;
+  /**
+   * A profile that belongs to Kalyan, so the anchor gets rel="me". Only set it
+   * on accounts that link back here — rel="me" asserts shared identity, and it
+   * is wrong on an external link that merely happens to be interesting.
+   */
+  identity?: boolean;
 };
 
 export type ContactSection = {
@@ -46,6 +52,7 @@ export const contactSections: ContactSection[] = [
         href: socialLinks.github,
         icon: GithubLogo,
         external: true,
+        identity: true,
       },
       {
         title: "Guestbook",
@@ -64,20 +71,23 @@ export const contactSections: ContactSection[] = [
         href: socialLinks.linkedin,
         icon: LinkedinLogo,
         external: true,
+        identity: true,
+      },
+      {
+        title: "Instagram",
+        subtitle: "@kalyan_manna404",
+        href: socialLinks.instagram,
+        icon: InstagramLogo,
+        external: true,
+        identity: true,
       },
       {
         title: "Twitter / X",
-        subtitle: "Follow my updates",
+        subtitle: "@Kalyan_Manna_4",
         href: socialLinks.x,
         icon: XLogo,
         external: true,
-      },
-      {
-        title: "Telegram",
-        subtitle: "Message me directly",
-        href: "https://t.me/",
-        icon: PaperPlaneTilt,
-        external: true,
+        identity: true,
       },
       {
         title: "Portfolio",

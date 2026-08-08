@@ -3,6 +3,7 @@ import {
     ChatText,
     EnvelopeSimple,
     GithubLogo,
+    InstagramLogo,
     LinkedinLogo,
     XLogo,
 } from "@phosphor-icons/react"
@@ -77,6 +78,10 @@ export default function ContactTabs({
 
                 <SocialIcon href={socialLinks.github}>
                     <GithubLogo size={15} />
+                </SocialIcon>
+
+                <SocialIcon href={socialLinks.instagram}>
+                    <InstagramLogo size={15} />
                 </SocialIcon>
 
                 <SocialIcon href={socialLinks.x}>

@@ -1,4 +1,4 @@
-import { GithubLogo, LinkedinLogo, XLogo } from "@phosphor-icons/react"
+import { GithubLogo, InstagramLogo, LinkedinLogo } from "@phosphor-icons/react"
 
 import { socialLinks as socialProfiles } from "@/config"
 
@@ -39,8 +39,8 @@ export const socialLinks = [
         href: socialProfiles.linkedin,
     },
     {
-        icon: XLogo,
-        label: "Twitter (X)",
-        href: socialProfiles.x,
+        icon: InstagramLogo,
+        label: "Instagram",
+        href: socialProfiles.instagram,
     },
 ]

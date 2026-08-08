@@ -52,7 +52,11 @@ export default function ContactLinkCard({ item, index }: ContactLinkCardProps) {
 
   if (item.external) {
     return (
-      <a href={item.href} target="_blank" rel="noreferrer">
+      <a
+        href={item.href}
+        target="_blank"
+        rel={item.identity ? "me noreferrer" : "noreferrer"}
+      >
         {content}
       </a>
     );
