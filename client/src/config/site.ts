@@ -3,6 +3,6 @@ export const siteConfig = {
   shortName: "Kalyan",
   description: "Full-stack developer portfolio",
   email: "kalyanmanna439@gmail.com",
-  logo: "/logo-white.webp",
+  logo: "/logo.webp",
   profileImage: "/kalyan-manna.webp",
 } as const

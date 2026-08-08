@@ -13,7 +13,7 @@ export default function CuratedWorkDetails({ project }: CuratedWorkDetailsProps)
         <div>
             <div className="flex items-center gap-4">
                 <span
-                    className="h-0.5 w-7 rounded-full"
+                    className="h-0.5 w-7"
                     style={{ backgroundColor: project.mark }}
                 />
 
