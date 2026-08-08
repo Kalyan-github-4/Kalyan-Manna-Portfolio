@@ -21,11 +21,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://kalyanmanna.com/" />
+  <link rel="canonical" href="https://www.kalyanmanna.com/" />
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/webp" href="/logo.webp" />
-  <link rel="apple-touch-icon" href="/logo.webp" />
+  <!-- Favicon. PNG/ICO only: WebP is not among the formats Google's favicon
+       crawler accepts, so /logo.webp left the search result with a generic
+       globe. Sizes are square multiples of 48 as Google asks for. -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/png" href="/favicon-96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="/favicon-192.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
   <!-- Theme Color -->
   <meta name="theme-color" content="#08080a" />
@@ -37,13 +41,13 @@
     property="og:description"
     content="I build fast, modern, and scalable websites, web apps, mobile apps, and digital products for businesses and startups."
   />
-  <meta property="og:url" content="https://kalyanmanna.com/" />
+  <meta property="og:url" content="https://www.kalyanmanna.com/" />
   <meta property="og:site_name" content="Kalyan Manna Portfolio" />
   <!-- 1200x630 and under 300KB: WhatsApp and friends skip heavier images, and
        the explicit dimensions let crawlers lay the card out on first scrape
        instead of waiting until they have fetched the file. -->
-  <meta property="og:image" content="https://kalyanmanna.com/og-image.jpg" />
-  <meta property="og:image:secure_url" content="https://kalyanmanna.com/og-image.jpg" />
+  <meta property="og:image" content="https://www.kalyanmanna.com/og-image.jpg" />
+  <meta property="og:image:secure_url" content="https://www.kalyanmanna.com/og-image.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -56,7 +60,7 @@
     name="twitter:description"
     content="Full stack developer building modern websites, web apps, mobile apps, and digital products."
   />
-  <meta name="twitter:image" content="https://kalyanmanna.com/og-image.jpg" />
+  <meta name="twitter:image" content="https://www.kalyanmanna.com/og-image.jpg" />
   <meta name="twitter:image:alt" content="Kalyan Manna Full Stack Developer Portfolio" />
 
   <!-- Fonts -->
@@ -67,36 +71,98 @@
     rel="stylesheet"
   />
 
-  <!-- Structured Data -->
+  <!-- Structured Data.
+       A @graph rather than a lone Person: the three nodes reference each other
+       by @id, which marks this page as the entity home for "Kalyan Manna" and
+       tells Google which of the several people by that name this site is about.
+       sameAs is the corroboration list — every URL here must be a profile that
+       links back, or it weakens rather than strengthens the association. -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Kalyan Manna",
-      "url": "https://kalyanmanna.com/",
-      "image": "https://kalyanmanna.com/kalyan-manna.webp",
-      "jobTitle": "Full Stack Developer",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Kharagpur",
-        "addressRegion": "West Bengal",
-        "addressCountry": "IN"
-      },
-      "sameAs": [
-        "https://github.com/Kalyan-github-4",
-        "https://www.linkedin.com/in/kalyan-manna"
-      ],
-      "knowsAbout": [
-        "React",
-        "TypeScript",
-        "Node.js",
-        "PostgreSQL",
-        "Express.js",
-        "React Native",
-        "Expo",
-        "Full Stack Development",
-        "Web Development",
-        "Mobile App Development"
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://www.kalyanmanna.com/#person",
+          "name": "Kalyan Manna",
+          "alternateName": "Kalyan",
+          "url": "https://www.kalyanmanna.com/",
+          "description": "Full stack developer and freelancer from Kharagpur, India, building websites, web apps, mobile apps, and digital products.",
+          "jobTitle": "Full Stack Developer",
+          "email": "mailto:kalyanmanna439@gmail.com",
+          "image": {
+            "@type": "ImageObject",
+            "@id": "https://www.kalyanmanna.com/#profile-image",
+            "url": "https://www.kalyanmanna.com/kalyan-manna.webp",
+            "caption": "Kalyan Manna"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Kharagpur",
+            "addressRegion": "West Bengal",
+            "addressCountry": "IN"
+          },
+          "hasOccupation": {
+            "@type": "Occupation",
+            "name": "Full Stack Developer",
+            "occupationalCategory": "15-1254.00",
+            "occupationLocation": {
+              "@type": "City",
+              "name": "Kharagpur",
+              "containedInPlace": {
+                "@type": "State",
+                "name": "West Bengal"
+              }
+            },
+            "skills": "React, TypeScript, Node.js, Express.js, PostgreSQL, React Native, Expo, Tailwind CSS"
+          },
+          "workLocation": {
+            "@type": "Place",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Kharagpur",
+              "addressRegion": "West Bengal",
+              "addressCountry": "IN"
+            }
+          },
+          "mainEntityOfPage": { "@id": "https://www.kalyanmanna.com/#webpage" },
+          "sameAs": [
+            "https://github.com/Kalyan-github-4",
+            "https://www.linkedin.com/in/kalyan-manna",
+            "https://www.instagram.com/kalyan_manna404",
+            "https://x.com/Kalyan_Manna_4"
+          ],
+          "knowsAbout": [
+            "React",
+            "TypeScript",
+            "Node.js",
+            "PostgreSQL",
+            "Express.js",
+            "React Native",
+            "Expo",
+            "Full Stack Development",
+            "Web Development",
+            "Mobile App Development"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.kalyanmanna.com/#website",
+          "url": "https://www.kalyanmanna.com/",
+          "name": "Kalyan Manna Portfolio",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://www.kalyanmanna.com/#person" }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://www.kalyanmanna.com/#webpage",
+          "url": "https://www.kalyanmanna.com/",
+          "name": "Kalyan Manna | Full Stack Developer & Freelancer",
+          "inLanguage": "en",
+          "isPartOf": { "@id": "https://www.kalyanmanna.com/#website" },
+          "about": { "@id": "https://www.kalyanmanna.com/#person" },
+          "primaryImageOfPage": { "@id": "https://www.kalyanmanna.com/#profile-image" }
+        }
       ]
     }
   </script>
