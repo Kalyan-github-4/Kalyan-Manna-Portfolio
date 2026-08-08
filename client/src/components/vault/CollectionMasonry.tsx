@@ -99,7 +99,7 @@ function PhotoTileCard({ tile, total }: { tile: PhotoTile; total: number }) {
                 loading="lazy"
                 decoding="async"
                 sizes="(min-width:1536px) 20vw, (min-width:1100px) 25vw, (min-width:768px) 33vw, 50vw"
-                className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
+                className="h-full w-full object-cover transition-transform duration-900ms ease-out group-hover:scale-105"
             />
 
             {/* Hover affordance — the whole tile opens the lightbox. */}

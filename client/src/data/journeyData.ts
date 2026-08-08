@@ -111,7 +111,8 @@ export type JourneyItem = {
     photos: VaultPhoto[]
     /** Optional additional images for the legacy dialog gallery */
     gallery?: string[]
-    featured?: boolean
+    /** Pins this collection to the Vault's "Latest Collection" hero slot */
+    latest?: boolean
     size?: JourneySize
     externalUrl?: string
     externalLabel?: string
@@ -150,7 +151,7 @@ const collections: CollectionSource[] = [
             "A collection of memories from HexaFall 2.0—filled with teamwork, coding, new connections and unforgettable hackathon moments.",
         longDescription:
             "HexaFall 2.0 was more than just a hackathon; it became a collection of memories I will always value. From brainstorming ideas and building alongside my teammates to late-night debugging, meeting passionate developers and presenting our work, every moment contributed to an unforgettable experience. This gallery captures the energy, friendships, challenges and small moments that made HexaFall 2.0 a meaningful chapter in my journey as a developer.",
-        featured: true,
+        latest: true,
         size: "wide",
         externalUrl: "https://hexafall.example.com",
         externalLabel: "Event Page",

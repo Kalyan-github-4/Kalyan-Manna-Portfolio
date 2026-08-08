@@ -6,7 +6,7 @@ import { JourneyHeader } from "@/components/journey/JourneyHeader"
 import BackgroundRipple from "@/components/shared/BackgroundRipple"
 import EdgeStripes from "@/components/shared/EdgeStripes"
 import { VaultFilterBar } from "@/components/vault/VaultFilterBar"
-import { VaultFeaturedCard } from "@/components/vault/VaultFeaturedCard"
+import { VaultLatestCard } from "@/components/vault/VaultLatestCard"
 import { VaultCollectionCard } from "@/components/vault/VaultCollectionCard"
 
 function SectionLabel({ children }: { children: ReactNode }) {
@@ -21,12 +21,12 @@ export default function Vault() {
     const [filter, setFilter] = useState<JourneyFilter>("All")
     const [query, setQuery] = useState("")
 
-    const featured = useMemo(
-        () => journeyItems.find((item) => item.featured) ?? journeyItems[0],
+    const latest = useMemo(
+        () => journeyItems.find((item) => item.latest) ?? journeyItems[0],
         []
     )
 
-    // The featured slot only makes sense while browsing everything — once the
+    // The latest slot only makes sense while browsing everything — once the
     // visitor filters or searches, they want results, not a pinned hero.
     const trimmedQuery = query.trim()
     const isBrowsingAll = filter === "All" && trimmedQuery === ""
@@ -51,7 +51,7 @@ export default function Vault() {
     }, [filter, trimmedQuery])
 
     const gridItems = isBrowsingAll
-        ? results.filter((item) => item.id !== featured.id)
+        ? results.filter((item) => item.id !== latest.id)
         : results
 
     return (
@@ -74,9 +74,9 @@ export default function Vault() {
                     />
 
                     {isBrowsingAll && (
-                        <section aria-label="Featured collection" className="px-4">
-                            <SectionLabel>Featured Collection</SectionLabel>
-                            <VaultFeaturedCard item={featured} />
+                        <section aria-label="Latest collection" className="px-4">
+                            <SectionLabel>Latest Collection</SectionLabel>
+                            <VaultLatestCard item={latest} />
                         </section>
                     )}
 
@@ -86,7 +86,7 @@ export default function Vault() {
                     >
                         <SectionLabel>
                             {isBrowsingAll
-                                ? "Latest Collections"
+                                ? "More Collections"
                                 : `${results.length} ${results.length === 1
                                     ? "collection"
                                     : "collections"

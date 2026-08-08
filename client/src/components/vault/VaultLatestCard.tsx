@@ -8,11 +8,11 @@ import { MemoryImage } from "@/components/journey/MemoryImage"
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
-interface VaultFeaturedCardProps {
+interface VaultLatestCardProps {
     item: JourneyItem
 }
 
-export function VaultFeaturedCard({ item }: VaultFeaturedCardProps) {
+export function VaultLatestCard({ item }: VaultLatestCardProps) {
     const reduceMotion = useReducedMotion()
 
     return (
@@ -29,7 +29,7 @@ export function VaultFeaturedCard({ item }: VaultFeaturedCardProps) {
                 className="group grid overflow-hidden rounded-3xl border border-white/10 bg-zinc-950/60 transition-colors duration-500 hover:border-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black md:grid-cols-2"
             >
                 {/* Cover */}
-                <div className="relative aspect-[16/10] overflow-hidden md:aspect-auto md:min-h-[22rem]">
+                <div className="relative aspect-16/10 overflow-hidden md:aspect-auto md:min-h-88">
                     <MemoryImage
                         src={item.image}
                         srcSet={item.imageSrcSet}
@@ -60,7 +60,7 @@ export function VaultFeaturedCard({ item }: VaultFeaturedCardProps) {
                 {/* Body */}
                 <div className="flex flex-col p-6 sm:p-8">
                     <p className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-white/50">
-                        Featured
+                        Latest
                     </p>
 
                     <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[0.7rem] uppercase tracking-[0.15em] text-zinc-400">
@@ -84,14 +84,14 @@ export function VaultFeaturedCard({ item }: VaultFeaturedCardProps) {
                         <CategoryBadge category={item.category} />
 
                         {item.location && (
-                            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-zinc-400">
+                            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/4 px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-zinc-400">
                                 <MapPin size={12} aria-hidden="true" />
                                 {item.location}
                             </span>
                         )}
 
                         {item.role && (
-                            <span className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-zinc-400">
+                            <span className="inline-flex items-center rounded-full border border-white/10 bg-white/4 px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-zinc-400">
                                 {item.role}
                             </span>
                         )}
