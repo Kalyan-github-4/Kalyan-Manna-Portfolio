@@ -44,7 +44,12 @@ export function AboutRevealSlide({
 				// Blur and scale on a full-width display heading are the two things
 				// that make this feel heavy on a phone — opacity and position alone
 				// carry the same reading there.
-				...(simplify ? {} : { scale, filter: blur }),
+				//
+				// Both keys stay in the object either way. Motion only writes style
+				// keys it currently owns, so *removing* `filter` here would leave
+				// whatever blur was last painted stuck on the element permanently.
+				scale: simplify ? 1 : scale,
+				filter: simplify ? "none" : blur,
 			}}
 			className="absolute inset-0 flex flex-col items-center justify-start text-center sm:items-start sm:justify-center sm:text-left"
 		>

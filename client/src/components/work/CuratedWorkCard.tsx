@@ -66,7 +66,10 @@ export default function CuratedWorkCard({ project }: CuratedWorkCardProps) {
             <CardShell
                 href={project.href}
                 label={`View ${project.title}`}
-                className={`group relative block h-[58vh] max-h-155 min-h-95 overflow-hidden rounded-xl bg-linear-to-br p-6 sm:p-8 lg:h-[74vh] lg:max-h-176 lg:p-10 ${project.accent}`}
+                // Phones get a shorter card. The artwork is anchored to the
+                // bottom edge, so trimming the height closes the dead band
+                // between the blurb and the mockup rather than cropping either.
+                className={`group relative block h-[46vh] max-h-110 min-h-78 overflow-hidden rounded-xl bg-linear-to-br p-6 sm:h-[58vh] sm:max-h-155 sm:min-h-95 sm:p-8 lg:h-[74vh] lg:max-h-176 lg:p-10 ${project.accent}`}
             >
                 {/* Lifts the copy off the brighter gradient stops. Also
                     carries the top-edge highlight — on the card itself it would
@@ -102,14 +105,14 @@ export default function CuratedWorkCard({ project }: CuratedWorkCardProps) {
                         className="absolute inset-x-6 bottom-[-38px] z-10 flex items-end justify-center sm:inset-x-10"
                     />
                 ) : (
-                <div className="absolute inset-x-6 bottom-0 top-[28%] flex items-end sm:inset-x-10">
+                <div className="absolute inset-x-6 bottom-0 top-[20%] flex items-end sm:inset-x-10 sm:top-[28%]">
                     <div
                         className="
             relative w-full overflow-hidden
             rounded-[18px]
             border border-white/15
             bg-[#141217]
-            p-[10px]
+            p-2.5
             shadow-[0_35px_80px_rgba(0,0,0,.45),0_8px_24px_rgba(0,0,0,.3),inset_0_1px_0_rgba(255,255,255,.08)]
             transition-all duration-700
             group-hover:-translate-y-2

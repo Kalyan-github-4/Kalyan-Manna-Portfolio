@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 
-import GlowHorizon from "@/components/hero/GlowHorizon"
+import GlowHorizon from "@/components/shared/GlowHorizon"
 import { AboutContent } from "@/components/hero/AboutContent"
 import { HeroContent } from "@/components/hero/HeroContent"
 import { ProfileImage } from "@/components/hero/ProfileImage"
@@ -10,7 +10,12 @@ import GradientText from "../components/shared/GradientText"
 import type { AboutSlide } from "@/components/hero/types"
 
 function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false)
+  // Resolved during the first render, not after it. Starting at `false` meant
+  // a phone rendered one frame as a desktop, which was long enough for the
+  // heavy-effect branch to write styles the light branch never takes back.
+  const [matches, setMatches] = useState(
+    () => typeof window !== "undefined" && window.matchMedia(query).matches
+  )
 
   useEffect(() => {
     const media = window.matchMedia(query)

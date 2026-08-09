@@ -28,9 +28,9 @@ export function MobileNavbar({ items, pathname }: MobileNavbarProps) {
             whileTap={{ scale: 0.96 }}
             aria-label="Open navigation menu"
             className="
-              flex items-center
+              flex items-center gap-5.5
               rounded-full border border-white/10
-              bg-zinc-950/45 px-5 py-2.5
+              bg-zinc-950/45 px-5 py-1.5
               shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_0_20px_rgba(255,255,255,0.06)]
               backdrop-blur-3xl backdrop-saturate-150
             "
@@ -38,6 +38,16 @@ export function MobileNavbar({ items, pathname }: MobileNavbarProps) {
             <span className="text-sm font-semibold uppercase tracking-wide text-white">
               Kalyan
             </span>
+
+            <img
+              src="/logo-white.webp"
+              alt=""
+              aria-hidden="true"
+              width={256}
+              height={256}
+              decoding="async"
+              className="h-6.75 w-auto object-contain"
+            />
           </motion.button>
         </DrawerTrigger>
 

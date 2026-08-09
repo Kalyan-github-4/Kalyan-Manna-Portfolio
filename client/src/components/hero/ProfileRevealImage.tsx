@@ -37,7 +37,10 @@ export function ProfileRevealImage({
 			style={{
 				opacity,
 				scale,
-				...(simplify ? {} : { filter: blur }),
+				// Kept in the object even when skipped — see AboutRevealSlide: a
+				// dropped `filter` key is never written again, so the last blur
+				// would stay baked into the image.
+				filter: simplify ? "none" : blur,
 			}}
 			className="absolute inset-0 h-full w-full object-cover"
 		/>

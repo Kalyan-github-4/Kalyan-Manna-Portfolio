@@ -33,11 +33,11 @@ export default function GlowHorizon({ className = '' }: GlowHorizonProps) {
 
       <div className="glow-horizon-haze absolute left-1/2 bottom-[31vh] h-[28vh] w-[76vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(42,26,77,0.7)_0%,rgba(42,26,77,0.42)_18%,rgba(0,0,0,0)_72%)] blur-[120px]" />
 
-      <div className="absolute bottom-[18%] left-[18%] h-[34vh] w-[2px] bg-[linear-gradient(to_top,rgba(255,255,255,0.12),rgba(255,255,255,0))] opacity-35 blur-[1px]" />
+      <div className="absolute bottom-[18%] left-[18%] h-[34vh] w-0.5 bg-[linear-gradient(to_top,rgba(255,255,255,0.12),rgba(255,255,255,0))] opacity-35 blur-[1px]" />
       <div className="absolute bottom-[16%] left-[34%] h-[42vh] w-px bg-[linear-gradient(to_top,rgba(255,255,255,0.1),rgba(255,255,255,0))] opacity-25 blur-[1px]" />
       <div className="absolute bottom-[15%] left-1/2 h-[44vh] w-px -translate-x-1/2 bg-[linear-gradient(to_top,rgba(255,255,255,0.14),rgba(255,255,255,0))] opacity-35 blur-[1px]" />
       <div className="absolute bottom-[17%] right-[34%] h-[40vh] w-px bg-[linear-gradient(to_top,rgba(255,255,255,0.1),rgba(255,255,255,0))] opacity-25 blur-[1px]" />
-      <div className="absolute bottom-[18%] right-[18%] h-[31vh] w-[2px] bg-[linear-gradient(to_top,rgba(255,255,255,0.11),rgba(255,255,255,0))] opacity-35 blur-[1px]" />
+      <div className="absolute bottom-[18%] right-[18%] h-[31vh] w-0.5 bg-[linear-gradient(to_top,rgba(255,255,255,0.11),rgba(255,255,255,0))] opacity-35 blur-[1px]" />
 
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.1)_58%,rgba(0,0,0,0.82)_100%)]" />
 
