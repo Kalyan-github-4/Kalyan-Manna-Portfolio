@@ -2,6 +2,7 @@ import { memo } from "react"
 import { ArrowRight } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 
+import { ContactDialog } from "@/components/contact/ContactDialog"
 import { MagneticButton } from "../shared/MagneticButton"
 import NeuralBackground from "./NeuralBackground"
 import { fadeScale, fadeUp, staggerContainer } from "./footerMotion"
@@ -83,20 +84,23 @@ function FooterCTA({ isInView }: FooterCTAProps) {
                             y, which is the axis MagneticButton drives. */}
                         <motion.div custom={2} variants={fadeUp}>
                             <MagneticButton>
-                                <motion.button
-                                    whileTap={{ scale: 0.97 }}
-                                    className="group relative inline-flex cursor-pointer items-center justify-between overflow-hidden rounded-full border border-white/20 bg-white/10 py-1 pl-4 pr-1 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-500 sm:pl-5"
-                                >
-                                    <span className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-white transition-all duration-700 ease-[cubic-bezier(.19,1,.22,1)] group-hover:right-0 group-hover:top-0 group-hover:h-full group-hover:w-full group-hover:translate-y-0" />
+                                <ContactDialog>
+                                    <motion.button
+                                        type="button"
+                                        whileTap={{ scale: 0.97 }}
+                                        className="group relative inline-flex cursor-pointer items-center justify-between overflow-hidden rounded-full border border-white/20 bg-white/10 py-1 pl-4 pr-1 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-500 sm:pl-5"
+                                    >
+                                        <span className="absolute right-1 top-1/2 h-8 w-8 -translate-y-1/2 rounded-full bg-white transition-all duration-700 ease-[cubic-bezier(.19,1,.22,1)] group-hover:right-0 group-hover:top-0 group-hover:h-full group-hover:w-full group-hover:translate-y-0" />
 
-                                    <span className="relative z-10 text-xs transition-colors duration-500 group-hover:text-slate-900 sm:text-sm">
-                                        Let&apos;s Connect
-                                    </span>
+                                        <span className="relative z-10 text-xs transition-colors duration-500 group-hover:text-slate-900 sm:text-sm">
+                                            Let&apos;s Connect
+                                        </span>
 
-                                    <span className="relative z-10 ml-2 flex h-9 w-9 items-center justify-center rounded-full bg-white text-slate-900 transition-transform duration-500 group-hover:translate-x-1 sm:h-10 sm:w-10">
-                                        <ArrowRight size={14} />
-                                    </span>
-                                </motion.button>
+                                        <span className="relative z-10 ml-2 flex h-9 w-9 items-center justify-center rounded-full bg-white text-slate-900 transition-transform duration-500 group-hover:translate-x-1 sm:h-10 sm:w-10">
+                                            <ArrowRight size={14} />
+                                        </span>
+                                    </motion.button>
+                                </ContactDialog>
                             </MagneticButton>
                         </motion.div>
 

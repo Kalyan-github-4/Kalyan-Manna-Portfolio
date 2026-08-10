@@ -56,7 +56,6 @@ export default function ContactActionCard({
                 p-6 text-center
                 shadow-inner shadow-white/2
                 transition-all duration-500 ease-out
-                hover:-translate-y-1
                 hover:border-white/15
                 hover:from-white/7
                 hover:to-white/2.5
