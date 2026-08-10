@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom"
 
 import "./styles/index.css"
 import App from "./App.tsx"
-import { ThemeProvider } from "@/components/ui/theme-provider.tsx"
 import SmoothScroll from "@/components/shared/SmoothScroll.tsx"
 
 // ClerkProvider is mounted per-route by ClerkGate rather than here, so pages
@@ -12,11 +11,9 @@ import SmoothScroll from "@/components/shared/SmoothScroll.tsx"
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <ThemeProvider>
-        <SmoothScroll>
-          <App />
-        </SmoothScroll>
-      </ThemeProvider>
+      <SmoothScroll>
+        <App />
+      </SmoothScroll>
     </BrowserRouter>
   </StrictMode>
 )

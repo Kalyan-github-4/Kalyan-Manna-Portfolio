@@ -12,7 +12,6 @@ import {
     iconToSvgDataUri,
     type SimpleIcon,
 } from "@/lib/simple-icons"
-import { useTheme } from "@/components/ui/theme-provider"
 
 // https://www.goat1000.com/tagcanvas-options.php
 const tagCanvasOptions: Record<string, unknown> = {
@@ -34,16 +33,19 @@ const tagCanvasOptions: Record<string, unknown> = {
 
 const ICON_SIZE = 45
 
+// The site is dark-only, so the contrast reference is fixed: --background-secondary.
+const BACKGROUND_HEX = "#080510"
+const FALLBACK_HEX = "#ffffff"
+const MIN_CONTRAST_RATIO = 2
+
 /**
  * TagCanvas reads the canvas' child anchors, so each icon is a real <a> with an
  * inline SVG image. Brand colours that disappear into the page background fall
  * back to a neutral one.
  */
-const renderIcon = (icon: SimpleIcon, theme: "dark" | "light") => {
-    const bgHex = theme === "light" ? "#f3f2ef" : "#080510"
-    const fallbackHex = theme === "light" ? "#6e6e73" : "#ffffff"
-    const minContrastRatio = theme === "dark" ? 2 : 1.2
-    const isReadable = contrastRatio(bgHex, icon.hex) > minContrastRatio
+const renderIcon = (icon: SimpleIcon) => {
+    const isReadable =
+        contrastRatio(BACKGROUND_HEX, icon.hex) > MIN_CONTRAST_RATIO
 
     return (
         <a
@@ -58,7 +60,7 @@ const renderIcon = (icon: SimpleIcon, theme: "dark" | "light") => {
                 width={ICON_SIZE}
                 src={iconToSvgDataUri({
                     icon,
-                    hex: isReadable ? icon.hex : fallbackHex,
+                    hex: isReadable ? icon.hex : FALLBACK_HEX,
                     size: ICON_SIZE,
                 })}
             />
@@ -72,36 +74,8 @@ export type DynamicCloudProps = {
 
 type IconData = Awaited<ReturnType<typeof fetchSimpleIcons>>
 
-const DARK_QUERY = "(prefers-color-scheme: dark)"
-
-/**
- * The provider stores "system" as-is, so resolve it here — the icons need a
- * concrete background to compute their contrast against.
- */
-function useResolvedTheme(): "dark" | "light" {
-    const { theme } = useTheme()
-    const [systemTheme, setSystemTheme] = useState<"dark" | "light">(() =>
-        window.matchMedia(DARK_QUERY).matches ? "dark" : "light",
-    )
-
-    useEffect(() => {
-        if (theme !== "system") return
-
-        const media = window.matchMedia(DARK_QUERY)
-        const sync = () => setSystemTheme(media.matches ? "dark" : "light")
-
-        sync()
-        media.addEventListener("change", sync)
-
-        return () => media.removeEventListener("change", sync)
-    }, [theme])
-
-    return theme === "system" ? systemTheme : theme
-}
-
 export function IconCloud({ iconSlugs }: DynamicCloudProps) {
     const [data, setData] = useState<IconData | null>(null)
-    const resolvedTheme = useResolvedTheme()
 
     const containerRef = useRef<HTMLDivElement>(null)
     // TagCanvas addresses the canvas by id, so each instance needs its own.
@@ -128,11 +102,11 @@ export function IconCloud({ iconSlugs }: DynamicCloudProps) {
     const renderedIcons = useMemo(() => {
         if (!data) return null
 
-        return Object.values(data).map((icon) => renderIcon(icon, resolvedTheme))
-    }, [data, resolvedTheme])
+        return Object.values(data).map((icon) => renderIcon(icon))
+    }, [data])
 
-    // Start once the icons are in the DOM; a theme switch swaps every <img>,
-    // so tear down and re-read the tags rather than animating stale ones.
+    // Start once the icons are in the DOM; tear down and re-read the tags
+    // rather than animating stale ones.
     useEffect(() => {
         const tagCanvas = window.TagCanvas
 

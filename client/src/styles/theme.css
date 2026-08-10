@@ -58,40 +58,10 @@
   --z-toast: 50;
 }
 
+/* Single, permanent dark palette. There is no light theme and no runtime theme
+   switching — index.html hard-codes `class="dark"` on <html> so the `dark:`
+   utility variant above always matches. */
 :root {
-  color-scheme: light dark;
-
-  --background: oklch(1 0 0);
-  --background-secondary: oklch(0.97 0 0);
-  --background-tertiary: oklch(0.93 0 0);
-  --foreground: oklch(0.10 0 0);
-  --foreground-muted: oklch(0.40 0 0);
-  --foreground-subtle: oklch(0.60 0 0);
-  --accent: oklch(0.52 0.18 293);
-  --accent-foreground: oklch(1 0 0);
-  --accent-glow: oklch(0.52 0.18 293 / 0.15);
-  --accent-dim: oklch(0.52 0.18 293 / 0.12);
-  --cyan: oklch(0.67 0.15 210);
-  --cyan-dim: oklch(0.67 0.15 210 / 0.12);
-  --available: oklch(0.73 0.20 142);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.10 0 0);
-  --card-border: oklch(0.88 0 0);
-  --border: oklch(0.90 0 0);
-  --input: oklch(0.90 0 0);
-  --ring: oklch(0.52 0.18 293 / 0.40);
-  --primary: oklch(0.10 0 0);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.96 0 0);
-  --secondary-foreground: oklch(0.10 0 0);
-  --muted: oklch(0.96 0 0);
-  --muted-foreground: oklch(0.50 0 0);
-  --destructive: oklch(0.58 0.24 27);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.10 0 0);
-}
-
-.dark {
   color-scheme: dark;
 
   /* Backgrounds */
@@ -108,6 +78,16 @@
   --foreground: #faf8ff;
   --foreground-muted: rgba(250,248,255,.72);
   --foreground-subtle: rgba(250,248,255,.45);
+
+  /* These three had no dark override and fell through to the old light
+     palette's near-black, so every surface using them overrides the colour
+     locally. Values kept as-is to preserve current rendering. */
+  --card-foreground: oklch(0.10 0 0);
+  --popover-foreground: oklch(0.10 0 0);
+  --secondary-foreground: oklch(0.10 0 0);
+
+  --cyan: oklch(0.67 0.15 210);
+  --cyan-dim: oklch(0.67 0.15 210 / 0.12);
 
   /* Brand */
   --primary: #b4a0ff;
