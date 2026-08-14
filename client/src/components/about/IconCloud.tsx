@@ -31,7 +31,7 @@ const tagCanvasOptions: Record<string, unknown> = {
     textColour: null,
 }
 
-const ICON_SIZE = 45
+const ICON_SIZE = 40
 
 // The site is dark-only, so the contrast reference is fixed: --background-secondary.
 const BACKGROUND_HEX = "#080510"

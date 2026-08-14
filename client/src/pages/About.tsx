@@ -212,7 +212,7 @@ export default function About() {
           variants={fadeUp}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="relative flex w-full max-w-140 flex-col items-center justify-center overflow-hidden"
+          className="relative flex w-full max-w-130 flex-col items-center justify-center overflow-hidden"
         >
           <IconCloud iconSlugs={techSlugs} />
         </motion.div>
