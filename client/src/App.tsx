@@ -19,6 +19,7 @@ const Links = lazy(() => import("./pages/Links"))
 const Uses = lazy(() => import("./pages/Uses"))
 const Attribution = lazy(() => import("./pages/Attribution"))
 const Contact = lazy(() => import("./components/contact/Contact"))
+const Privacy = lazy(() => import("./components/privacy/privacy"))
 
 const SignIn = lazy(() => import("./auth/SignIn"))
 const SignUp = lazy(() => import("./auth/SignUp"))
@@ -56,7 +57,7 @@ function App() {
           <Route path="vault" element={<Vault />} />
           <Route path="vault/:slug" element={<VaultCollection />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="privacy" element={<UnderConstruction />} />
+          <Route path="privacy" element={<Privacy />} />
           <Route path="terms" element={<UnderConstruction />} />
 
           {/* The only routes that mount Clerk. */}
