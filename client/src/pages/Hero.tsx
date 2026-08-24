@@ -1,6 +1,5 @@
 import { useMotionValue } from "framer-motion"
 
-import GlowHorizon from "@/components/shared/GlowHorizon"
 // import { AboutContent } from "@/components/hero/AboutContent"
 import { HeroContent } from "@/components/hero/HeroContent"
 // import { ProfileImage } from "@/components/hero/ProfileImage"
@@ -211,15 +210,10 @@ export default function Hero() {
   const heroVisibility = useMotionValue<"visible" | "hidden">("visible")
 
   return (
-    <section className="relative overflow-clip bg-black">
-      {/* isolate: GlowHorizon paints at -z-10, so it needs a stacking context
-          of its own here — without one it falls behind the section's bg-black.
-          The old sticky wrapper created that context implicitly. */}
-      <div className="relative isolate min-h-screen overflow-hidden">
-        {/* absolute, not its default fixed: the hero is one screen tall now, so
-            a viewport-fixed glow would keep painting behind the sections below. */}
-        <GlowHorizon className="absolute" />
-
+    <section className="relative overflow-clip">
+      {/* No background of its own: the page-wide GlowHorizon in Home renders
+          fixed behind every section, and an opaque bg here would hide it. */}
+      <div className="relative min-h-screen">
         <HeroContent
           opacity={heroOpacity}
           y={heroY}
