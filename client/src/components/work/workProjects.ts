@@ -32,10 +32,9 @@ export const workProjects: WorkProject[] = [
         githubUrl: "https://github.com/Kalyan-github-4/NGO-portfolio-2",
         liveUrl: "https://ngo-portfolio-2.vercel.app",
         tags: [
-            "React",
+            "Next.js",
             "TypeScript",
             "Tailwind CSS",
-            "Framer Motion",
         ],
         accent: "from-emerald-700 via-emerald-500 to-orange-500",
     },
