@@ -21,6 +21,26 @@ export type WorkProject = {
 export const workProjects: WorkProject[] = [
     {
         number: "01",
+        title: "HopeBridge",
+        category: "Website",
+        date: "2026",
+        description:
+            "A multi-page site for an NGO working with vulnerable children across India — causes, impact reporting, and a donation flow front and centre.",
+        image: projectImages.hopeBridge,
+        previewImages: [...projectImages.hopeBridgeScreens],
+        href: "https://ngo-portfolio-2.vercel.app",
+        githubUrl: "https://github.com/Kalyan-github-4/NGO-portfolio-2",
+        liveUrl: "https://ngo-portfolio-2.vercel.app",
+        tags: [
+            "React",
+            "TypeScript",
+            "Tailwind CSS",
+            "Framer Motion",
+        ],
+        accent: "from-emerald-700 via-emerald-500 to-orange-500",
+    },
+    {
+        number: "02",
         title: "GitHub Roast",
         category: "Web App",
         date: "2026",
@@ -41,7 +61,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-orange-500 via-pink-500 to-purple-600",
     },
     {
-        number: "02",
+        number: "03",
         title: "Portfolio",
         category: "Web App",
         date: "2026",
@@ -66,7 +86,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-cyan-500 via-blue-600 to-violet-600",
     },
     {
-        number: "03",
+        number: "04",
         title: "EasyPG",
         category: "Mobile App",
         date: "2026",
@@ -93,7 +113,7 @@ export const workProjects: WorkProject[] = [
         mobileImages: [...projectImages.easyPgScreens],
     },
     {
-        number: "04",
+        number: "05",
         title: "Gym Management System",
         category: "Web App",
         date: "2026",

@@ -59,6 +59,17 @@ const curatedMeta: Record<string, CuratedMeta> = {
         ],
         mark: "#818CF8",
     },
+    HopeBridge: {
+        tagline:
+            "A non-profit’s whole story on one site — the causes, the impact, and a donate button that is never more than a scroll away",
+        highlights: [
+            "Cause and NGO listings with the work laid out per programme.",
+            "Impact figures and stories carried through every page.",
+            "Donation call-to-action pinned in the nav and repeated down the page.",
+            "Built in React and TypeScript, styled with Tailwind.",
+        ],
+        mark: "#F97316",
+    },
 }
 
 // A project with no entry above still renders — it just leans on its own

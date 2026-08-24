@@ -11,6 +11,8 @@ export const projectImages = {
     "/projects/portfolio.webp",
   managementSystem:
     "/projects/gym-management-system.webp",
+  hopeBridge:
+    "/projects/hopebridge.webp",
   // Paired screenshots shown as the tilted, stacked desktop preview.
   managementSystemScreens: [
     "/projects/gym-management-system-2.webp",
@@ -19,6 +21,10 @@ export const projectImages = {
   githubRoastScreens: [
     "/projects/github roast.webp",
     "/projects/github roast 2.webp",
+  ],
+  hopeBridgeScreens: [
+    "/projects/hopebridge.webp",
+    "/projects/hopebridge-2.webp",
   ],
   portfolioScreens: [
     "/projects/portfolio.webp",
