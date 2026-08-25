@@ -21,6 +21,27 @@ export type WorkProject = {
 export const workProjects: WorkProject[] = [
     {
         number: "01",
+        title: "Keythm",
+        category: "Web App",
+        date: "2026",
+        description:
+            "A typing trainer built for the feel of it — customisable tests, live wpm and accuracy, and a mechanical keyboard that thocks under every keystroke.",
+        image: projectImages.keythm,
+        previewImages: [...projectImages.keythmScreens],
+        href: "https://keythm-two.vercel.app",
+        githubUrl: "https://github.com/Kalyan-github-4/Keythm",
+        liveUrl: "https://keythm-two.vercel.app",
+        tags: [
+            "Next.js",
+            "TypeScript",
+            "Tailwind CSS",
+            "Framer Motion",
+            "Web Audio API",
+        ],
+        accent: "from-amber-700 via-amber-500 to-stone-400",
+    },
+    {
+        number: "02",
         title: "HopeBridge",
         category: "Website",
         date: "2026",
@@ -39,7 +60,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-emerald-700 via-emerald-500 to-orange-500",
     },
     {
-        number: "02",
+        number: "03",
         title: "GitHub Roast",
         category: "Web App",
         date: "2026",
@@ -60,7 +81,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-orange-500 via-pink-500 to-purple-600",
     },
     {
-        number: "03",
+        number: "04",
         title: "Portfolio",
         category: "Web App",
         date: "2026",
@@ -85,7 +106,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-cyan-500 via-blue-600 to-violet-600",
     },
     {
-        number: "04",
+        number: "05",
         title: "EasyPG",
         category: "Mobile App",
         date: "2026",
@@ -112,7 +133,7 @@ export const workProjects: WorkProject[] = [
         mobileImages: [...projectImages.easyPgScreens],
     },
     {
-        number: "05",
+        number: "06",
         title: "Gym Management System",
         category: "Web App",
         date: "2026",

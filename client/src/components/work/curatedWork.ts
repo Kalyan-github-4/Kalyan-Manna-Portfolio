@@ -15,6 +15,17 @@ export type CuratedProject = WorkProject & CuratedMeta
 // workProjects without widening the shape every other card has to carry —
 // the same arrangement Project.tsx uses for its marquee text.
 const curatedMeta: Record<string, CuratedMeta> = {
+    Keythm: {
+        tagline:
+            "A typing trainer you can hear — every keystroke thocks, and the numbers land the moment the timer runs out",
+        highlights: [
+            "Time, words, quote, and zen modes, with punctuation and numbers on demand.",
+            "Live wpm, accuracy, raw speed, and character breakdown as you type.",
+            "An on-screen mechanical keyboard with switch audio behind every press.",
+            "Built on Next.js and TypeScript, styled with Tailwind.",
+        ],
+        mark: "#B45309",
+    },
     "GitHub Roast": {
         tagline:
             "Hand it a GitHub username and it reads your commit history back to you — with jokes",
