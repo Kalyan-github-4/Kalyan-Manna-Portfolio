@@ -151,7 +151,6 @@ const collections: CollectionSource[] = [
             "A collection of memories from HexaFall 2.0—filled with teamwork, coding, new connections and unforgettable hackathon moments.",
         longDescription:
             "HexaFall 2.0 was more than just a hackathon; it became a collection of memories I will always value. From brainstorming ideas and building alongside my teammates to late-night debugging, meeting passionate developers and presenting our work, every moment contributed to an unforgettable experience. This gallery captures the energy, friendships, challenges and small moments that made HexaFall 2.0 a meaningful chapter in my journey as a developer.",
-        latest: true,
         size: "wide",
         externalUrl: "https://hexafall.example.com",
         externalLabel: "Event Page",
@@ -214,6 +213,33 @@ const collections: CollectionSource[] = [
             ["ah-17.jpeg", 960, 1280],
             ["ah-13.jpeg", 1280, 720],
             ["ah-18.jpeg", 960, 1280],
+        ],
+    },
+    {
+        id: 3,
+        slug: "react-kolkata",
+        coverTitle: "React Kolkata",
+        title: "Memories from React Kolkata",
+        category: "Events",
+        date: "August 2026",
+        year: 2026,
+        month: "Aug",
+        location: "Kolkata, India",
+        role: "Attendee",
+        description:
+            "A collection of memories from the React Kolkata community meetup — talks, a full auditorium, and developers worth meeting.",
+        longDescription:
+            "React Kolkata's August 2026 edition was a room full of people who build for the web, gathered for an evening of talks and conversation. Between the sessions came the part I remember most — meeting developers from across the city, swapping notes on what everyone was working on, and realising how much of this community had been within reach the whole time. This gallery captures the hall, the stage, the people and the ordinary moments in between.",
+        latest: true,
+        size: "wide",
+        dir: "react-kolkata",
+        files: [
+            ["cover.jpeg", 1600, 1200],
+            ["rk-01.jpeg", 963, 1280],
+            ["rk-02.jpeg", 1280, 960],
+            ["rk-03.jpeg", 960, 1280],
+            ["rk-04.jpeg", 1280, 960],
+            ["rk-05.jpeg", 1280, 960],
         ],
     },
 ]
