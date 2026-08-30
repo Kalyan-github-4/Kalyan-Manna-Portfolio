@@ -52,7 +52,7 @@ export default function TimezoneCard({ className = "" }: { className?: string })
     >
       {/* Wider than the slot and pushed below it — the card's overflow-hidden
           does the cropping, so only the top arc of the globe reads. */}
-      <div className="pointer-events-none absolute inset-x-0 -top-5 flex justify-center">
+      <div className="pointer-events-none absolute inset-x-0 -top-9 flex justify-center">
         <Globe className="w-[130%] max-w-none" config={TILE_GLOBE} />
       </div>
     </BentoCard>

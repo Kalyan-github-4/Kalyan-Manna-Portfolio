@@ -53,8 +53,9 @@ const TAG_ROWS: Tag[][] = [
 
 const LENS_SIZE = 92
 
-// The band the marquee occupies, pinned to the bottom of the tile. Shared by
-// the rows and the edge fades so they stay aligned.
+// The band the marquee occupies, pinned to the bottom of the tile. Everything
+// that has to agree on a centre — the rows, the clip, the mask and the lens's
+// rest position — lives inside it.
 const ROWS_BAND = "absolute inset-x-0 bottom-0 h-[168px] sm:h-[196px]"
 
 /**
@@ -94,7 +95,7 @@ export default function StackLens() {
             <div
               key={`${tag.id}-${index}-${reveal ? "reveal" : "base"}`}
               className={cn(
-                "flex w-fit items-center gap-2.5 whitespace-nowrap rounded-full border px-4 py-2.5 font-mono text-[13px] tracking-tight",
+                "flex w-fit items-center gap-2.5 whitespace-nowrap rounded-md border px-3 py-2 font-mono text-[13px] tracking-tight",
                 reveal
                   ? "ml-6 scale-125 border-white/25 bg-zinc-900 font-semibold text-white shadow-lg shadow-black/50"
                   : "border-white/10 bg-zinc-950/90 text-white/70",
@@ -110,41 +111,47 @@ export default function StackLens() {
 
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden">
-      <motion.div
-        style={{ WebkitMaskImage: inverseMask, maskImage: inverseMask }}
-        className="absolute inset-0 flex flex-col justify-end gap-3 pb-5 sm:pb-6"
-      >
-        {rows()}
-      </motion.div>
+      {/* The rail. `calc(50% + x)` in the clip and the mask now resolves
+          against this band, and the lens rests at its centre — so the glass
+          starts over the pills rather than in the middle of the card. Drag
+          constraints still point at the full-card container above. */}
+      <div className={ROWS_BAND}>
+        <motion.div
+          style={{ WebkitMaskImage: inverseMask, maskImage: inverseMask }}
+          className="absolute inset-0 flex flex-col justify-end gap-3 pb-5 sm:pb-6"
+        >
+          {rows()}
+        </motion.div>
 
-      <motion.div
-        style={{ clipPath }}
-        className="absolute inset-0 flex select-none flex-col justify-end gap-3 pb-5 sm:pb-6"
-      >
-        {rows(true)}
-      </motion.div>
+        <motion.div
+          style={{ clipPath }}
+          className="absolute inset-0 flex select-none flex-col justify-end gap-3 pb-5 sm:pb-6"
+        >
+          {rows(true)}
+        </motion.div>
 
-      {/* Fades to black rather than to the tile colour — the tile is nearly
-          transparent, so black is what actually sits behind the pills. */}
-      <div className={`${ROWS_BAND} right-auto w-16 bg-linear-to-r from-black to-transparent`} />
-      <div className={`${ROWS_BAND} left-auto w-16 bg-linear-to-l from-black to-transparent`} />
+        {/* Fades to black rather than to the tile colour — the tile is nearly
+            transparent, so black is what actually sits behind the pills. */}
+        <div className="absolute inset-y-0 left-0 w-16 bg-linear-to-r from-black to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-16 bg-linear-to-l from-black to-transparent" />
 
-      {/* Snaps back to centre the moment the visitor lets go, so the tile is
-          never left with the glass parked in a corner. */}
-      <motion.div
-        drag
-        dragMomentum={false}
-        dragSnapToOrigin
-        dragConstraints={containerRef}
-        transition={{ type: "spring", stiffness: 260, damping: 26 }}
-        style={{ x: lensX, y: lensY }}
-        className="pointer-events-auto absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 cursor-grab drop-shadow-xl active:cursor-grabbing"
-      >
-        <div className="relative">
-          <MagnifyingLens size={LENS_SIZE} />
-          <div className="pointer-events-none absolute left-1.5 top-1.5 size-15 rounded-full bg-white/10" />
-        </div>
-      </motion.div>
+        {/* Snaps back to centre the moment the visitor lets go, so the tile is
+            never left with the glass parked in a corner. */}
+        <motion.div
+          drag
+          dragMomentum={false}
+          dragSnapToOrigin
+          dragConstraints={containerRef}
+          transition={{ type: "spring", stiffness: 260, damping: 26 }}
+          style={{ x: lensX, y: lensY }}
+          className="pointer-events-auto absolute left-1/2 top-1/2 z-40 -translate-x-1/2 -translate-y-1/2 cursor-grab drop-shadow-xl active:cursor-grabbing"
+        >
+          <div className="relative">
+            <MagnifyingLens size={LENS_SIZE} />
+            <div className="pointer-events-none absolute left-1.5 top-1.5 size-15 rounded-full bg-white/10" />
+          </div>
+        </motion.div>
+      </div>
     </div>
   )
 }
