@@ -5,9 +5,9 @@ import { Link } from "react-router-dom"
 import { bentoFadeUp } from "./bentoMotion"
 
 type BentoCardProps = {
-  /** Small mono label above the title. */
-  eyebrow: string
-  title: string
+  /** Small mono label above the title. Omit both to drop the copy block. */
+  eyebrow?: string
+  title?: string
   /** Where the copy sits relative to the visual. */
   titlePosition?: "top" | "bottom"
   /** Optional route — renders the round arrow affordance and links the tile. */
@@ -47,6 +47,9 @@ export default function BentoCard({
   children,
   overlay,
 }: BentoCardProps) {
+  // A tile can drop the copy entirely and let its visual carry the whole card.
+  const hasCopy = Boolean(eyebrow || title)
+
   const copy = (
     <div className="flex items-end justify-between gap-4">
       <div className="min-w-0">
@@ -69,7 +72,7 @@ export default function BentoCard({
 
   const body = (
     <>
-      {titlePosition === "top" ? (
+      {hasCopy && titlePosition === "top" ? (
         <div className={copyClassName}>{copy}</div>
       ) : null}
 
@@ -78,7 +81,7 @@ export default function BentoCard({
         {children}
       </div>
 
-      {titlePosition === "bottom" ? (
+      {hasCopy && titlePosition === "bottom" ? (
         <div className={copyClassName}>{copy}</div>
       ) : null}
 
