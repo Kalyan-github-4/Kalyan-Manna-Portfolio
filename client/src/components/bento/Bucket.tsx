@@ -77,7 +77,8 @@ export default function Bucket({ className }: BucketProps) {
 
   return (
     <div className={cn(
-      "relative isolate aspect-655/352 overflow-hidden",
+      // Deliberately not clipped: the chip enters from above the frame.
+      "relative isolate aspect-655/352",
       className
     )}>
       {/* ── Behind the chip: the rear flaps ─────────────────────────────── */}
@@ -141,24 +142,22 @@ export default function Bucket({ className }: BucketProps) {
       </svg>
 
       {/* ── The chip ────────────────────────────────────────────────────── */}
-      <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
-        {/* The bottom padding collapses the content box, which parks the chip
-            against the top of the frame — above the mouth of the box. */}
-        <div
-          className="relative flex h-full w-full items-center justify-center"
-          style={{ paddingBottom: "65%" }}
-        >
+      {/* The chip is pinned to the bottom of this band, so it holds its height
+          above the lip at any render size. The lip itself is at 22.4% (y=79 of
+          the 352 viewBox); the band stops short of it to leave a gap. */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[13%]">
+        <div className="relative flex h-full w-full items-end justify-center">
           <AnimatePresence mode="popLayout">
             <motion.div
               key={chip.id}
-              initial={{ y: -48, opacity: 0, scale: 0.8 }}
+              initial={{ y: -40, opacity: 0, scale: 0.8 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 66, scale: 0.8, transition: { duration: 0.8 } }}
+              exit={{ y: 56, scale: 0.8, transition: { duration: 0.8 } }}
               transition={{
                 duration: 0.5,
                 ease: [0.455, 0.03, 0.515, 0.955],
               }}
-              className="pointer-events-auto absolute flex w-47.5 origin-bottom items-center gap-2 rounded-full border border-white/12 bg-zinc-950/95 py-1.5 pl-1.5 pr-3 text-left shadow-lg shadow-black/40"
+              className="pointer-events-auto absolute bottom-0 flex w-47.5 origin-bottom items-center gap-2 rounded-full border border-white/12 bg-zinc-950/95 py-1.5 pl-1.5 pr-3 text-left shadow-lg shadow-black/40"
             >
               <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-white/8 text-white/70">
                 <ChipIcon size={14} weight="duotone" />
