@@ -16,8 +16,18 @@ type BentoCardProps = {
   index?: number
   /** Grid placement + any per-tile sizing. */
   className?: string
+  /** Sizing/overflow for the visual slot, when a tile needs more than the default. */
+  visualClassName?: string
+  /** Sizing for the copy block, for tiles that want the heading to sit in more space. */
+  copyClassName?: string
   /** The tile's visual. Left empty until each one is designed. */
   children?: React.ReactNode
+  /**
+   * A layer stretched over the whole card, above the copy. For visuals that
+   * have to escape the visual slot — the stack tile's draggable magnifier
+   * roams the full tile, heading included.
+   */
+  overlay?: React.ReactNode
 }
 
 /**
@@ -32,7 +42,10 @@ export default function BentoCard({
   href,
   index = 0,
   className = "",
+  visualClassName = "",
+  copyClassName = "",
   children,
+  overlay,
 }: BentoCardProps) {
   const copy = (
     <div className="flex items-end justify-between gap-4">
@@ -41,7 +54,7 @@ export default function BentoCard({
           {eyebrow}
         </p>
 
-        <h3 className="mt-3 font-display text-xl font-medium leading-snug tracking-tight text-white sm:text-2xl">
+        <h3 className="mt-2.5 font-display text-xl font-medium leading-snug tracking-tight text-white sm:text-2xl">
           {title}
         </h3>
       </div>
@@ -56,12 +69,26 @@ export default function BentoCard({
 
   const body = (
     <>
-      {titlePosition === "top" ? copy : null}
+      {titlePosition === "top" ? (
+        <div className={copyClassName}>{copy}</div>
+      ) : null}
 
       {/* Visual slot — each tile fills this in its own pass. */}
-      <div className="relative min-h-40 flex-1">{children}</div>
+      <div className={`relative min-h-32 flex-1 ${visualClassName}`}>
+        {children}
+      </div>
 
-      {titlePosition === "bottom" ? copy : null}
+      {titlePosition === "bottom" ? (
+        <div className={copyClassName}>{copy}</div>
+      ) : null}
+
+      {/* Inert by default so it never swallows clicks on the copy; whatever
+          inside needs pointer events opts back in. */}
+      {overlay ? (
+        <div className="pointer-events-none absolute inset-0 z-30">
+          {overlay}
+        </div>
+      ) : null}
     </>
   )
 
@@ -72,7 +99,7 @@ export default function BentoCard({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.25 }}
-      className="group relative flex h-full flex-col gap-6 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] p-6 text-center transition-colors duration-300 hover:border-white/20 sm:p-8"
+      className="group relative flex h-full flex-col gap-5 overflow-hidden rounded-3xl border border-white/10 bg-white/2 p-5 text-center transition-colors duration-300 hover:border-white/20 sm:p-6"
     >
       {body}
     </motion.article>

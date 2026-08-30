@@ -7,9 +7,10 @@ import UsesCard from "./UsesCard"
 /**
  * The tile wall that sits directly under the hero.
  *
- * A six-column grid on desktop: two half-width tiles on the top row, three
- * third-width tiles below. Tablets collapse to two equal columns with the
- * collaborate tile spanning both, and phones stack.
+ * A six-column grid on desktop: the top row splits 4/2 so the stack tile sits
+ * in a box close to the lens illustration's natural width, and the bottom row
+ * is three even thirds. Tablets collapse to two equal columns with the wide
+ * tiles spanning both, and phones stack.
  */
 export default function BentoGrid() {
   return (
@@ -18,16 +19,20 @@ export default function BentoGrid() {
       className="relative text-white"
       aria-label="How I work"
     >
-      {/* Same gutters as the curated-work section below it — 120rem cap,
-          px-5 / sm:px-8 / lg:px-20 — so both sections share one edge line. */}
-      <div className="mx-auto w-full max-w-[120rem] px-5 py-20 sm:px-8 sm:py-24 lg:px-20">
-        <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-6">
-          <CollaborateCard className="md:col-span-2 lg:col-span-3" />
+      <div className="mx-auto w-full max-w-[120rem] px-5 py-20 sm:px-8 sm:py-24 lg:px-12">
+        <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-7">
+
+          {/* First row */}
+          <CollaborateCard className="md:col-span-2 lg:col-span-4" />
           <TechStackCard className="md:col-span-2 lg:col-span-3" />
 
-          <WhatYouGetCard className="lg:col-span-2" />
-          <TimezoneCard className="lg:col-span-2" />
-          <UsesCard className="md:col-span-2 lg:col-span-2" />
+          {/* Second row */}
+          <div className="grid gap-3 sm:gap-4 md:col-span-2 lg:col-span-7 lg:grid-cols-3">
+            <WhatYouGetCard />
+            <TimezoneCard />
+            <UsesCard />
+          </div>
+
         </div>
       </div>
     </section>
