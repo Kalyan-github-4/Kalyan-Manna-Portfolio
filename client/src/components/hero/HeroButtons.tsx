@@ -2,6 +2,7 @@ import { useState } from "react"
 import { ArrowRight, Check, Copy } from "@phosphor-icons/react"
 
 import { ContactDialog } from "@/components/contact/ContactDialog"
+import { MagneticButton } from "@/components/shared/MagneticButton"
 import { siteConfig } from "@/config"
 
 export function HeroButtons() {
@@ -23,67 +24,69 @@ export function HeroButtons() {
 
 	return (
 		<div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-			<ContactDialog>
-				<button
-					type="button"
-					className="
-		group relative inline-flex cursor-pointer items-center justify-between
-		overflow-hidden rounded-full border border-white/20
-		bg-white/10 py-1 pl-5 pr-1
-		text-sm font-semibold text-white
-		backdrop-blur-xl
-		transition-all duration-500 ease-out
-		hover:-translate-y-0.5
-		hover:border-white/30
-		hover:bg-white/15
-		active:translate-y-0 active:scale-[0.98]
-	"
-				>
-					<span
-						aria-hidden="true"
+			<MagneticButton>
+				<ContactDialog>
+					<button
+						type="button"
 						className="
-			absolute right-1 top-1/2
-			h-10 w-10 -translate-y-1/2
-			rounded-full bg-white
-			transition-all duration-700
-			ease-[cubic-bezier(.19,1,.22,1)]
-			group-hover:right-0
-			group-hover:h-full
-			group-hover:w-full
-		"
-					/>
-
-					<span
-						className="
-			relative z-10 whitespace-nowrap
-			transition-colors duration-500
-			group-hover:text-slate-900
+			group relative inline-flex cursor-pointer items-center justify-between
+			overflow-hidden rounded-full border border-white/20
+			bg-white/10 py-1 pl-5 pr-1
+			text-sm font-semibold text-white
+			backdrop-blur-xl
+			transition-all duration-500 ease-out
+			hover:-translate-y-0.5
+			hover:border-white/30
+			hover:bg-white/15
+			active:translate-y-0 active:scale-[0.98]
 		"
 					>
-						Let&apos;s Connect
-					</span>
-
-					<span
-						className="
-			relative z-10 ml-2
-			flex h-10 w-10 shrink-0
-			items-center justify-center
-			rounded-full text-slate-900
-			transition-transform duration-500 ease-out
-			group-hover:translate-x-0.5
-		"
-					>
-						<ArrowRight
-							size={14}
-							weight="bold"
+						<span
+							aria-hidden="true"
 							className="
-				transition-transform duration-500
-				group-hover:translate-x-1
+				absolute right-1 top-1/2
+				h-10 w-10 -translate-y-1/2
+				rounded-full bg-white
+				transition-all duration-700
+				ease-[cubic-bezier(.19,1,.22,1)]
+				group-hover:right-0
+				group-hover:h-full
+				group-hover:w-full
 			"
 						/>
-					</span>
-				</button>
-			</ContactDialog>
+
+						<span
+							className="
+				relative z-10 whitespace-nowrap
+				transition-colors duration-500
+				group-hover:text-slate-900
+			"
+						>
+							Let&apos;s Connect
+						</span>
+
+						<span
+							className="
+				relative z-10 ml-2
+				flex h-10 w-10 shrink-0
+				items-center justify-center
+				rounded-full text-slate-900
+				transition-transform duration-500 ease-out
+				group-hover:translate-x-0.5
+			"
+						>
+							<ArrowRight
+								size={14}
+								weight="bold"
+								className="
+					transition-transform duration-500
+					group-hover:translate-x-1
+				"
+							/>
+						</span>
+					</button>
+				</ContactDialog>
+			</MagneticButton>
 
 			<button
 				type="button"
