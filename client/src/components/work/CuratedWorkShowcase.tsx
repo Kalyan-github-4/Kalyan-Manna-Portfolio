@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion"
+import { motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 
 import GradientText from "../shared/GradientText"
@@ -126,18 +126,14 @@ export default function CuratedWorkShowcase() {
                 </div>
 
                 <div className="hidden lg:sticky lg:top-0 lg:flex lg:h-svh lg:items-center">
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={activeProject.title}
-                            initial={{ opacity: 0, y: 28 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -16 }}
-                            transition={{ duration: 0.4, ease: EASE }}
-                            className="w-full"
-                        >
-                            <CuratedWorkDetails project={activeProject} />
-                        </motion.div>
-                    </AnimatePresence>
+                    {/* The write-up swaps outright — no fade in or out. The
+                        block is vertically centred in a fixed-height column,
+                        so the only thing that moves between projects is the
+                        text itself, and `layout` eases that reflow instead of
+                        letting the lines jump to their new positions. */}
+                    <motion.div layout transition={{ duration: 0.35, ease: EASE }} className="w-full">
+                        <CuratedWorkDetails project={activeProject} />
+                    </motion.div>
                 </div>
             </div>
         </section>
