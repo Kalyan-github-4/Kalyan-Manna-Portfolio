@@ -63,7 +63,7 @@ export default function BentoCard({
       </div>
 
       {href ? (
-        <span className="grid size-10 shrink-0 place-items-center rounded-full border border-white/15 text-white/70 transition-colors duration-300 group-hover:border-white/30 group-hover:text-white">
+        <span className="grid size-10 shrink-0 translate-y-2.5 scale-95 place-items-center rounded-full border border-white/15 text-white/80 opacity-0 transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-transform transform-gpu group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-hover:duration-[600ms] group-hover:ease-[cubic-bezier(0.16,1,0.3,1)]">
           <ArrowRight size={16} weight="bold" />
         </span>
       ) : null}
@@ -73,16 +73,16 @@ export default function BentoCard({
   const body = (
     <>
       {hasCopy && titlePosition === "top" ? (
-        <div className={copyClassName}>{copy}</div>
+        <div className={`relative z-10 ${copyClassName}`}>{copy}</div>
       ) : null}
 
       {/* Visual slot — each tile fills this in its own pass. */}
-      <div className={`relative min-h-32 flex-1 ${visualClassName}`}>
+      <div className={`relative z-10 min-h-32 flex-1 ${visualClassName}`}>
         {children}
       </div>
 
       {hasCopy && titlePosition === "bottom" ? (
-        <div className={copyClassName}>{copy}</div>
+        <div className={`relative z-10 ${copyClassName}`}>{copy}</div>
       ) : null}
 
       {/* Inert by default so it never swallows clicks on the copy; whatever
@@ -102,8 +102,19 @@ export default function BentoCard({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.25 }}
-      className="group relative flex h-full flex-col gap-5 overflow-hidden rounded-3xl border border-white/10 bg-white/2 p-5 text-center transition-colors duration-300 hover:border-white/20 sm:p-6"
+      className="group relative flex h-full flex-col gap-5 overflow-hidden rounded-3xl border border-white/10 bg-white/2 p-5 text-center sm:p-6"
     >
+      {/* A soft white wash blooming out of the bottom-right corner — the only
+          thing hover changes on the shell, so the border stays put. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
+        style={{
+          backgroundImage:
+            "radial-gradient(120% 90% at 100% 100%, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.05) 35%, transparent 70%)",
+        }}
+      />
+
       {body}
     </motion.article>
   )
