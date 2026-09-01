@@ -19,8 +19,12 @@ export default function BentoGrid() {
       className="relative text-white"
       aria-label="How I work"
     >
-      <div className="mx-auto w-full max-w-[120rem] px-5 py-20 sm:px-8 sm:py-24 lg:px-12">
-        <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-7">
+      {/* Padding is asymmetric on purpose: it matches EdgeStripes exactly so
+          the card edges land on the hatched gutters' inner border lines.
+          Left gutter sits at left-3 (12px) and is 20/28/32px wide -> 32/40/44px.
+          Right gutter is pinned to the edge at 20/28/36px wide. */}
+      <div className="mx-auto w-full max-w-[120rem] py-20 pl-8 pr-5 sm:py-24 sm:pl-10 sm:pr-7 lg:pl-11 lg:pr-9">
+        <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-7 border-y border-white/10">
 
           {/* First row */}
           <CollaborateCard className="md:col-span-2 lg:col-span-4" />

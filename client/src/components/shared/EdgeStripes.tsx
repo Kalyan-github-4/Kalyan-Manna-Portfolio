@@ -8,12 +8,12 @@ export default function EdgeStripes() {
     return (
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
             <div
-                className="absolute inset-y-0 left-0 w-5 sm:w-7 lg:w-8 border-x border-dashed border-white/10"
+                className="absolute inset-y-0 left-3 w-5 sm:w-7 lg:w-8 border-x border-white/20"
                 style={diagonalStripeStyle}
             />
 
             <div
-                className="absolute inset-y-0 right-0 w-5 sm:w-7 lg:w-9 border-x border-dashed border-white/10"
+                className="absolute inset-y-0 right-0 w-5 sm:w-7 lg:w-9 border-x border-white/20"
                 style={diagonalStripeStyle}
             />
         </div>
