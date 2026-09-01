@@ -26,6 +26,10 @@ const SignUp = lazy(() => import("./auth/SignUp"))
 const SSOCallback = lazy(() => import("./auth/SSOCallback"))
 const NotFound = lazy(() => import("./pages/NotFound"))
 
+// Its own chunk for a reason: three.js plus drei is the heaviest bundle in the
+// project, and only this route pays for it.
+const Robot = lazy(() => import("./pages/Robot"))
+
 function UnderConstruction() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-white">
@@ -50,7 +54,11 @@ function App() {
   return (
     <Suspense fallback={<RouteFallback />}>
       <Routes>
+        {/* Outside RootLayout on purpose — the robot hero brings its own
+            navbar and owns the full viewport. */}
+
         <Route element={<RootLayout />}>
+          <Route path="robot" element={<Robot />} />
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="work" element={<Work />} />
