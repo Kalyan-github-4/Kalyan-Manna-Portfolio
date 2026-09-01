@@ -968,6 +968,8 @@ export interface RobotSceneProps {
   pantallaBrillo?: number;
   blinkCycle?: number;
   metalness?: number;
+  /** Nudge the model up (+) or down (-) in the frame, in model units. */
+  yOffset?: number;
   className?: string;
 }
 
@@ -988,11 +990,12 @@ export function RobotScene({
   pantallaBrillo = 1.2,
   blinkCycle = 3.0,
   metalness = 0.0,
+  yOffset = 0,
   className = "",
 }: RobotSceneProps = {}) {
   return (
     <div className={`absolute inset-0 ${className}`}>
-      <Canvas camera={{ position: [0, 0.2, 6], fov: 40 }}>
+      <Canvas camera={{ position: [0, 0, 4.2], fov: 38 }}>
         <ambientLight intensity={0.55} color="#ffffff" />
 
         <directionalLight position={[0, 6, 3]} intensity={1.1} color="#ffffff" />
@@ -1009,6 +1012,13 @@ export function RobotScene({
         </Suspense>
 
         <ResponsiveGroup scale={scale}>
+          {/* RobotPrototype parks its root group at y=-0.3, which is what
+              keeps it clear of RobotHero's navbar. Cancelling that here means
+              scaling grows the model around the middle of the frame instead
+              of driving it off the bottom edge. `yOffset` then rides on top
+              of that, and is scaled with the model so the gap it leaves reads
+              the same however big the robot is. */}
+          <group position={[0, 0.3 + yOffset, 0]}>
           <RobotPrototype
             neckParams={{
               baseR: 0.215,
@@ -1033,6 +1043,7 @@ export function RobotScene({
             blinkCycle={blinkCycle}
             metalness={metalness}
           />
+          </group>
         </ResponsiveGroup>
       </Canvas>
     </div>
