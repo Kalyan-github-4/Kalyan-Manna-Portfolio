@@ -47,7 +47,7 @@ export default function TimezoneCard({ className = "" }: { className?: string })
     >
       {/* Wider than the slot and pushed below it — the card's overflow-hidden
           does the cropping, so only the top arc of the globe reads. */}
-      <div className="absolute inset-x-0 -top-9 flex justify-center">
+      <div className="absolute inset-x-0 -top-14 flex justify-center">
         <Globe
           className="w-[130%] max-w-none"
           markers={TILE_MARKERS}

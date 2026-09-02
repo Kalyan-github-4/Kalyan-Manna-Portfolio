@@ -56,7 +56,7 @@ const LENS_SIZE = 92
 // The band the marquee occupies, pinned to the bottom of the tile. Everything
 // that has to agree on a centre — the rows, the clip, the mask and the lens's
 // rest position — lives inside it.
-const ROWS_BAND = "absolute inset-x-0 bottom-0 h-[168px] sm:h-[196px]"
+const ROWS_BAND = "absolute inset-x-0 bottom-0 h-[188px] sm:h-[220px]"
 
 /**
  * The stack marquee with a magnifier the visitor can drag anywhere on the
@@ -118,14 +118,14 @@ export default function StackLens() {
       <div className={ROWS_BAND}>
         <motion.div
           style={{ WebkitMaskImage: inverseMask, maskImage: inverseMask }}
-          className="absolute inset-0 flex flex-col justify-end gap-3 pb-5 sm:pb-6"
+          className="absolute inset-0 flex flex-col justify-end gap-5 pb-5 sm:pb-6"
         >
           {rows()}
         </motion.div>
 
         <motion.div
           style={{ clipPath }}
-          className="absolute inset-0 flex select-none flex-col justify-end gap-3 pb-5 sm:pb-6"
+          className="absolute inset-0 flex select-none flex-col justify-end gap-5 pb-5 sm:pb-6"
         >
           {rows(true)}
         </motion.div>
