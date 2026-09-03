@@ -1,9 +1,43 @@
-import { useMemo, useRef, useState, useEffect, Suspense } from "react";
+import {
+  useMemo,
+  useRef,
+  useState,
+  useEffect,
+  Suspense,
+  Component,
+} from "react";
+import type { ReactNode } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, ContactShadows } from "@react-three/drei";
 import * as THREE from "three";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ShoppingBag } from "@phosphor-icons/react";
+
+/* Suspense only catches thrown promises, not thrown errors. drei's
+   environment loader throws when the HDR fetch fails — a blocked CDN under
+   our CSP, an offline visitor, a CDN outage — and that error unwinds past
+   every Suspense boundary and takes the whole page down. This catches it so
+   the scene falls back to the plain lights, which already read the model. */
+class SceneErrorBoundary extends Component<
+  { children: ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  componentDidCatch(error: unknown) {
+    if (import.meta.env.DEV) {
+      console.warn("Robot scene: optional element failed to load", error);
+    }
+  }
+
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
 
 class HeartCurve extends THREE.Curve<THREE.Vector3> {
   constructor() {
@@ -901,9 +935,11 @@ export function RobotHero({
               Suspense — so without this, a slow or blocked fetch suspends the
               entire scene and the robot never appears. The three lights above
               are enough to read the model on their own. */}
-          <Suspense fallback={null}>
-            <Environment preset="studio" blur={0.5} />
-          </Suspense>
+          <SceneErrorBoundary>
+            <Suspense fallback={null}>
+              <Environment preset="studio" blur={0.5} />
+            </Suspense>
+          </SceneErrorBoundary>
 
           <ResponsiveGroup scale={scale}>
             <ContactShadows
@@ -1007,9 +1043,11 @@ export function RobotScene({
 
         {/* Behind its own boundary — Canvas wraps every child in one Suspense,
             so a slow HDR fetch would otherwise blank the whole scene. */}
-        <Suspense fallback={null}>
-          <Environment preset="studio" blur={0.5} />
-        </Suspense>
+        <SceneErrorBoundary>
+          <Suspense fallback={null}>
+            <Environment preset="studio" blur={0.5} />
+          </Suspense>
+        </SceneErrorBoundary>
 
         <ResponsiveGroup scale={scale}>
           {/* RobotPrototype parks its root group at y=-0.3, which is what
