@@ -1,3 +1,5 @@
+"use client"
+
 import {
   useMemo,
   useRef,
@@ -29,7 +31,7 @@ class SceneErrorBoundary extends Component<
   }
 
   componentDidCatch(error: unknown) {
-    if (import.meta.env.DEV) {
+    if (process.env.NODE_ENV !== "production") {
       console.warn("Robot scene: optional element failed to load", error);
     }
   }

@@ -1,3 +1,5 @@
+"use client"
+
 import createGlobe, { type COBEOptions } from "cobe"
 import { useEffect, useRef } from "react"
 

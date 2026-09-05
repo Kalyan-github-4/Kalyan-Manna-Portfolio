@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useState } from "react"
 import { CaretLeft, CaretRight, X } from "@phosphor-icons/react"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"

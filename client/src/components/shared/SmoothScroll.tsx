@@ -1,11 +1,13 @@
+"use client"
+
 import { useEffect, type ReactNode } from "react"
 import { ReactLenis, useLenis } from "lenis/react"
-import { useLocation } from "react-router-dom"
+import { usePathname } from "next/navigation"
 import { useReducedMotion } from "framer-motion"
 
 function ScrollToTop() {
   const lenis = useLenis()
-  const { pathname } = useLocation()
+  const pathname = usePathname()
 
   useEffect(() => {
     if (lenis) {

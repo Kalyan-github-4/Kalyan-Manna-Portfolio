@@ -1,8 +1,11 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Instrument Serif", Georgia, serif;
+  /* The two families are loaded by next/font in app/layout.tsx, which exposes
+     each as a CSS variable on <html>. Named fallbacks stay so the tokens still
+     resolve if a face fails to load. */
+  --font-sans: var(--font-poppins), "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
   --font-mono: ui-monospace, "Cascadia Code", "Fira Code", monospace;
 
   --color-background: var(--background);

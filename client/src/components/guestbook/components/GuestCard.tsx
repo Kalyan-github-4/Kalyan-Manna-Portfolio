@@ -1,3 +1,5 @@
+"use client"
+
 import { useMemo } from "react";
 import DoodleSvg from "./DoodleSvg";
 import tornEdgePath from "./tornEdgePath";

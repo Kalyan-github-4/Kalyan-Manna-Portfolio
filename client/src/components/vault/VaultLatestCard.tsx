@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom"
+"use client"
+
+import Link from "next/link"
 import { ArrowRight, Images, MapPin } from "@phosphor-icons/react"
 import { motion, useReducedMotion } from "framer-motion"
 
@@ -24,7 +26,7 @@ export function VaultLatestCard({ item }: VaultLatestCardProps) {
             className="mb-24 sm:mb-32"
         >
             <Link
-                to={`/vault/${item.slug}`}
+                href={`/vault/${item.slug}`}
                 aria-label={`View the ${item.title} collection`}
                 className="group grid overflow-hidden rounded-3xl border border-white/10 bg-zinc-950/60 transition-colors duration-500 hover:border-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black md:grid-cols-2"
             >

@@ -1,3 +1,5 @@
+"use client"
+
 import { memo } from "react"
 import { ArrowRight } from "@phosphor-icons/react"
 import { motion } from "framer-motion"

@@ -1,3 +1,5 @@
+"use client"
+
 import { motion } from "framer-motion"
 import { AboutRevealSlide } from "./AboutRevealSlide"
 import type { AboutContentProps } from "./types"

@@ -1,3 +1,5 @@
+"use client"
+
 import { useMemo, useState, useRef, useCallback } from "react"
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-react"
 import DoodleSvg from "./DoodleSvg"

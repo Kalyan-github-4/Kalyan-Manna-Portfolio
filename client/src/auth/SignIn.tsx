@@ -1,5 +1,7 @@
+"use client"
+
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 import { useSignIn } from "@clerk/clerk-react"
 import {
   LinkedinLogoIcon,
@@ -8,9 +10,8 @@ import {
 } from "@phosphor-icons/react"
 
 import EdgeStripes from "@/components/shared/EdgeStripes"
+import { getSsoCallbackUrl, SSO_COMPLETE_URL } from "@/auth/ssoRedirect"
 
-const REDIRECT_URL = `${window.location.origin}/more/guestbook/sso-callback`
-const REDIRECT_COMPLETE_URL = "/more/guestbook"
 
 export default function SignIn() {
   const { signIn, isLoaded } = useSignIn()
@@ -26,8 +27,8 @@ export default function SignIn() {
     try {
       await signIn.authenticateWithRedirect({
         strategy: provider === "Linkedin" ? "oauth_linkedin_oidc" : "oauth_google",
-        redirectUrl: REDIRECT_URL,
-        redirectUrlComplete: REDIRECT_COMPLETE_URL,
+        redirectUrl: getSsoCallbackUrl(),
+        redirectUrlComplete: SSO_COMPLETE_URL,
       })
     } catch (error) {
       console.error("OAuth sign in failed:", error)
@@ -101,7 +102,7 @@ export default function SignIn() {
             <p className="mt-5 text-center text-sm text-white/60">
               Don&apos;t have an account?{" "}
               <Link
-                to="/more/guestbook/sign-up"
+                href="/more/guestbook/sign-up"
                 className="font-semibold text-white hover:underline"
               >
                 Sign up

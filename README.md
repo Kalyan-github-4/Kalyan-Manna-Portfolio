@@ -30,13 +30,12 @@ The goal of this portfolio is to present my work professionally to potential cli
 
 ### Frontend
 
+* Next.js (App Router)
 * React
 * TypeScript
-* Vite
 * Tailwind CSS
 * Framer Motion
 * shadcn/ui
-* React Router
 
 ### Backend
 
@@ -97,8 +96,9 @@ npm install
 Create a `.env` file inside the `client` folder.
 
 ```env
-VITE_API_URL=http://localhost:5000
-VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+NEXT_PUBLIC_API_URL=http://localhost:5000
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+NEXT_PUBLIC_CAL_LINK=your_cal_com_link
 ```
 
 ### Server `.env`
@@ -109,10 +109,12 @@ Create a `.env` file inside the `server` folder.
 PORT=5000
 DATABASE_URL=your_neon_postgres_database_url
 CLERK_SECRET_KEY=your_clerk_secret_key
-ALLOWED_ORIGINS=http://localhost:5173
+CLIENT_URL=https://your-deployed-frontend-url
+CLIENT_URLS=http://localhost:3000
 ```
 
-For production, update `ALLOWED_ORIGINS` with your deployed frontend URL.
+`CLIENT_URL` plus the comma-separated `CLIENT_URLS` form the CORS allowlist. For
+production, set `CLIENT_URL` to your deployed frontend URL.
 
 ## Running Locally
 
@@ -135,7 +137,7 @@ npm run dev
 The frontend should run at:
 
 ```txt
-http://localhost:5173
+http://localhost:3000
 ```
 
 The backend should run at:
@@ -170,13 +172,17 @@ npm run db:studio
 
 ### Frontend
 
-The frontend can be deployed on Vercel.
+The frontend can be deployed on Vercel. Set the framework preset to **Next.js**
+and the root directory to `client`.
 
-Make sure to add the following environment variables in the Vercel dashboard:
+Make sure to add the following environment variables in the Vercel dashboard.
+Next inlines `NEXT_PUBLIC_*` values at build time, so they must be present
+before the build runs, not just at runtime:
 
 ```env
-VITE_API_URL=your_backend_url
-VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+NEXT_PUBLIC_API_URL=your_backend_url
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+NEXT_PUBLIC_CAL_LINK=your_cal_com_link
 ```
 
 ### Backend
@@ -189,7 +195,7 @@ Make sure to add the following environment variables in the Render dashboard:
 PORT=5000
 DATABASE_URL=your_neon_postgres_database_url
 CLERK_SECRET_KEY=your_clerk_secret_key
-ALLOWED_ORIGINS=your_frontend_url
+CLIENT_URL=your_frontend_url
 ```
 
 ## Main Sections

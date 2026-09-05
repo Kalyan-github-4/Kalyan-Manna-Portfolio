@@ -1,7 +1,9 @@
+"use client"
+
 import { ArrowUpRight, GithubLogo } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 import type { ReactNode } from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 
 import type { WorkProject } from "./workProjects"
 import WorkTechPill from "./WorkTechPill"
@@ -38,7 +40,7 @@ function PreviewLink({
     }
 
     return (
-        <Link to={href} className="group block" aria-label={label}>
+        <Link href={href} className="group block" aria-label={label}>
             {children}
         </Link>
     )

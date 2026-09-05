@@ -1,6 +1,8 @@
+"use client"
+
 import { motion } from "framer-motion"
 import { ArrowRight } from "@phosphor-icons/react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 
 import { bentoFadeUp } from "./bentoMotion"
 
@@ -133,7 +135,7 @@ export default function BentoCard({
       {card}
     </a>
   ) : (
-    <Link to={href} className={className}>
+    <Link href={href} className={className}>
       {card}
     </Link>
   )

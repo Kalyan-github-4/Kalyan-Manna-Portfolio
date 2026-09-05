@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { motion } from "framer-motion"
-import { useLocation } from "react-router-dom"
+import { usePathname } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 
@@ -15,7 +15,7 @@ export function NavBar({
   items,
   className,
 }: NavbarProps) {
-  const { pathname } = useLocation()
+  const pathname = usePathname() ?? "/"
 
   const [moreOpen, setMoreOpen] = useState(false)
   const [introDone, setIntroDone] = useState(false)

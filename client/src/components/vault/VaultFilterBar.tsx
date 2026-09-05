@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useRef } from "react"
 import { MagnifyingGlass, X } from "@phosphor-icons/react"
 import { motion } from "framer-motion"

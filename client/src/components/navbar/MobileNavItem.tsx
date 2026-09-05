@@ -1,6 +1,8 @@
+"use client"
+
 import { createElement } from "react"
 import { motion } from "framer-motion"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 
 import { DrawerClose } from "@/components/ui/drawer"
 import { cn } from "@/lib/utils"
@@ -27,7 +29,7 @@ export function MobileNavItem({
   return (
     <DrawerClose asChild>
       <Link
-        to={item.href}
+        href={item.href}
         className={cn(
           "flex items-center gap-3 rounded-2xl p-2 transition-colors",
           isActive

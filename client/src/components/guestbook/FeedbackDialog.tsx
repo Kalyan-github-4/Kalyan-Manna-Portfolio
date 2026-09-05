@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 import { useAuth, SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react"
 import { ArrowRight, Star } from "@phosphor-icons/react"

@@ -1,3 +1,5 @@
+"use client"
+
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import { profileInfo, profileMeta, quickActions } from "./linksData";

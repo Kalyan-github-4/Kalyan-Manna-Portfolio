@@ -1,3 +1,5 @@
+"use client"
+
 import { motion } from "framer-motion"
 import type { ProfileImageProps } from "./types"
 import { ProfileRevealImage } from "./ProfileRevealImage"

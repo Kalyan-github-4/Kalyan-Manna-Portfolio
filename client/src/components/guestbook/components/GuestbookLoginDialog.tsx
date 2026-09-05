@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { useSignIn } from "@clerk/clerk-react"
@@ -7,8 +9,8 @@ import {
   PencilSimpleIcon,
 } from "@phosphor-icons/react"
 
-const REDIRECT_URL = `${window.location.origin}/more/guestbook/sso-callback`
-const REDIRECT_COMPLETE_URL = "/more/guestbook"
+import { getSsoCallbackUrl, SSO_COMPLETE_URL } from "@/auth/ssoRedirect"
+
 
 // Clerk throws a ClerkAPIResponseError whose `.errors[]` holds the useful
 // details (e.g. provider not enabled, misconfigured credentials). Surface that
@@ -45,8 +47,8 @@ export default function GuestbookLoginDialog() {
     try {
       await signIn.authenticateWithRedirect({
         strategy: provider === "Linkedin" ? "oauth_linkedin_oidc" : "oauth_google",
-        redirectUrl: REDIRECT_URL,
-        redirectUrlComplete: REDIRECT_COMPLETE_URL,
+        redirectUrl: getSsoCallbackUrl(),
+        redirectUrlComplete: SSO_COMPLETE_URL,
       })
     } catch (error) {
       console.error("OAuth sign in failed:", error)

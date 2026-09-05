@@ -1,3 +1,5 @@
+"use client"
+
 import { Sparkle } from "@phosphor-icons/react"
 
 import WorkTechPill from "./WorkTechPill"

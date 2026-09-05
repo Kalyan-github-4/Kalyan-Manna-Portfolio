@@ -1,6 +1,8 @@
+"use client"
+
 import { CaretDown } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 
 import { cn } from "@/lib/utils"
 
@@ -23,7 +25,7 @@ export function DesktopNavItem({
 }: DesktopNavItemProps) {
   return (
     <Link
-      to={item.href}
+      href={item.href}
       onClick={() => {
         if (item.hasDropdown) {
           onDropdownClick()

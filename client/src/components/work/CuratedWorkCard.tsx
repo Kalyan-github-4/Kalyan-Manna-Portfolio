@@ -1,7 +1,9 @@
+"use client"
+
 import { ArrowUpRight } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 import type { ReactNode } from "react"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 
 import MobileAppScreens from "./MobileAppScreens"
 import type { CuratedProject } from "./curatedWork"
@@ -39,7 +41,7 @@ function CardShell({
     }
 
     return (
-        <Link to={href} aria-label={label} className={className}>
+        <Link href={href} aria-label={label} className={className}>
             {children}
         </Link>
     )

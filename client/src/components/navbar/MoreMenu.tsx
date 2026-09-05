@@ -2,7 +2,7 @@
 
 import { LinkSimple, BookOpenText, IdentificationCard } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const bigCards = [
   {
@@ -41,8 +41,9 @@ const smallCards = [
     href: "/more/attribution",
   },
 ];
+const MotionLink = motion.create(Link);
+
 export function MoreMenu() {
-  const MotionLink = motion(Link);
 
   return (
     <div className="grid grid-cols-[1fr_1fr_1fr] gap-3 p-3">
@@ -50,7 +51,7 @@ export function MoreMenu() {
       {bigCards.map((card) => (
         <MotionLink
           key={card.title}
-          to={card.href}
+          href={card.href}
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.2 }}
           className="group relative h-55 overflow-hidden rounded-3xl"
@@ -85,7 +86,7 @@ export function MoreMenu() {
           return (
             <MotionLink
               key={card.title}
-              to={card.href}
+              href={card.href}
               className="
                 group flex flex-1 items-center gap-4
                 rounded-2xl

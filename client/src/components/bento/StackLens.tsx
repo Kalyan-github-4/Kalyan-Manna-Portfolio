@@ -1,3 +1,5 @@
+"use client"
+
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion"
 import { useRef } from "react"
 import type { IconType } from "react-icons"

@@ -1,6 +1,8 @@
+"use client"
+
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "@phosphor-icons/react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import type { ContactLink } from "./linksData";
 
 type ContactLinkCardProps = {
@@ -62,5 +64,5 @@ export default function ContactLinkCard({ item, index }: ContactLinkCardProps) {
     );
   }
 
-  return <Link to={item.href}>{content}</Link>;
+  return <Link href={item.href}>{content}</Link>;
 }

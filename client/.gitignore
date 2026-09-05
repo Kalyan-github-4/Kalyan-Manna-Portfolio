@@ -8,10 +8,19 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+
+# Build output. `dist` is left over from Vite; `.next` and `out` are Next's.
 dist
 dist-ssr
+.next
+out
+next-env.d.ts
+
 *.local
+
+# Local env files — .env.example is committed on purpose
 .env
+.env*.local
 
 # Editor directories and files
 .vscode/*
@@ -24,3 +33,5 @@ dist-ssr
 *.sln
 *.sw?
 code_audit.md
+CLAUDE.md
+AGENTS.md

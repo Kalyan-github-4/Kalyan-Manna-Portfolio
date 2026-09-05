@@ -1,4 +1,7 @@
-import { Link, useParams } from "react-router-dom"
+"use client"
+
+import Link from "next/link"
+import { useParams } from "next/navigation"
 import {
     ArrowLeft,
     ArrowSquareOut,
@@ -19,7 +22,8 @@ import EdgeStripes from "@/components/shared/EdgeStripes"
 const EASE = [0.22, 1, 0.36, 1] as const
 
 export default function VaultCollection() {
-    const { slug } = useParams<{ slug: string }>()
+    const params = useParams<{ slug: string }>()
+    const slug = params?.slug
     const reduceMotion = useReducedMotion()
 
     const index = journeyItems.findIndex((item) => item.slug === slug)
@@ -38,7 +42,7 @@ export default function VaultCollection() {
                         That memory isn’t in the vault — it may have been renamed.
                     </p>
                     <Link
-                        to="/vault"
+                        href="/vault"
                         className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm text-zinc-200 transition-colors hover:border-white/30 hover:text-white"
                     >
                         <ArrowLeft size={14} weight="bold" aria-hidden="true" />
@@ -66,7 +70,7 @@ export default function VaultCollection() {
 
                 <div className="relative z-10 mx-auto w-full">
                     <Link
-                        to="/vault"
+                        href="/vault"
                         className="inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                     >
                         <ArrowLeft size={14} weight="bold" aria-hidden="true" />
@@ -165,7 +169,7 @@ export default function VaultCollection() {
                         >
                             {hasPrevious && (
                                 <Link
-                                    to={`/vault/${previous.slug}`}
+                                    href={`/vault/${previous.slug}`}
                                     className="group flex flex-col gap-1 rounded-2xl border border-white/10 bg-zinc-950/60 p-5 transition-colors hover:border-white/25"
                                 >
                                     <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-zinc-400">
@@ -183,7 +187,7 @@ export default function VaultCollection() {
                             )}
 
                             <Link
-                                to={`/vault/${next.slug}`}
+                                href={`/vault/${next.slug}`}
                                 className="group flex flex-col items-end gap-1 rounded-2xl border border-white/10 bg-zinc-950/60 p-5 text-right transition-colors hover:border-white/25 sm:col-start-2"
                             >
                                 <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-zinc-400">

@@ -1,6 +1,8 @@
+"use client"
+
 import { CaretRight } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
-import { Link } from "react-router-dom"
+import Link from "next/link"
 
 import { HeroButtons } from "@/components/hero/HeroButtons"
 import type { HeroContentProps } from "./types"
@@ -47,7 +49,7 @@ export function HeroContent({ opacity, y, visibility }: HeroContentProps) {
 			>
 				<motion.div variants={fadeUpVariants}>
 					<Link
-						to="/work"
+						href="/work"
 						className="group mb-6 inline-flex items-center gap-3 rounded-2xl px-1 py-1 transition-all duration-300 hover:border hover:border-white/20 sm:mb-8"
 					>
 						<span className="flex h-5 min-w-10 items-center justify-center rounded-full bg-sky-600 px-2 text-[10px] font-medium text-white sm:min-w-10.5 sm:text-[11px]">

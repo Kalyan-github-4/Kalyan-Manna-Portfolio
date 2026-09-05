@@ -1,11 +1,7 @@
+"use client"
+
 import { useEffect, useMemo, useRef, useState } from "react"
 
-// Drives the canvas by assigning window.TagCanvas. react-icon-cloud's own
-// <Cloud> keeps this library as a string and eval()s it, which our production
-// CSP blocks — and it swallows the resulting error by hiding the canvas, so the
-// cloud just vanished on the deployed site. Importing a real module keeps it
-// under script-src 'self'.
-import "@/lib/tagcanvas"
 import {
     contrastRatio,
     fetchSimpleIcons,
@@ -108,31 +104,52 @@ export function IconCloud({ iconSlugs }: DynamicCloudProps) {
     // Start once the icons are in the DOM; tear down and re-read the tags
     // rather than animating stale ones.
     useEffect(() => {
-        const tagCanvas = window.TagCanvas
+        if (!renderedIcons) return
 
-        if (!renderedIcons || !tagCanvas) return
+        let cancelled = false
+        let started = false
 
-        try {
-            tagCanvas.Start(canvasId, null, {
-                ...tagCanvasOptions,
-                // Touch devices get to spin it by hand; pointer devices keep
-                // hover, which dragControl would otherwise take over.
-                dragControl:
-                    "ontouchstart" in window || navigator.maxTouchPoints > 0,
-            })
-        } catch (error) {
-            // Thrown when the browser cannot back the canvas — leave the space
-            // empty rather than showing a dead square.
-            if (containerRef.current) {
-                containerRef.current.style.display = "none"
+        // Drives the canvas by assigning window.TagCanvas. react-icon-cloud's
+        // own <Cloud> keeps this library as a string and eval()s it, which our
+        // production CSP blocks — and it swallows the resulting error by hiding
+        // the canvas, so the cloud just vanished on the deployed site. A real
+        // module keeps it under script-src 'self'.
+        //
+        // Imported here rather than at the top of the file because the library
+        // reads `document` while it evaluates, which would throw during the
+        // server prerender that every client component still goes through.
+        void import("@/lib/tagcanvas").then(() => {
+            if (cancelled) return
+
+            const tagCanvas = window.TagCanvas
+            if (!tagCanvas) return
+
+            try {
+                tagCanvas.Start(canvasId, null, {
+                    ...tagCanvasOptions,
+                    // Touch devices get to spin it by hand; pointer devices keep
+                    // hover, which dragControl would otherwise take over.
+                    dragControl:
+                        "ontouchstart" in window || navigator.maxTouchPoints > 0,
+                })
+                started = true
+            } catch (error) {
+                // Thrown when the browser cannot back the canvas — leave the
+                // space empty rather than showing a dead square.
+                if (containerRef.current) {
+                    containerRef.current.style.display = "none"
+                }
+                console.error("IconCloud: TagCanvas failed to start", error)
             }
-            console.error("IconCloud: TagCanvas failed to start", error)
-            return
-        }
+        })
 
         return () => {
+            cancelled = true
+
+            if (!started) return
+
             try {
-                tagCanvas.Delete(canvasId)
+                window.TagCanvas?.Delete(canvasId)
             } catch {
                 // Already torn down.
             }

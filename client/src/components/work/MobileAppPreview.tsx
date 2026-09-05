@@ -1,3 +1,5 @@
+"use client"
+
 
 import { ArrowUpRight } from "@phosphor-icons/react"
 

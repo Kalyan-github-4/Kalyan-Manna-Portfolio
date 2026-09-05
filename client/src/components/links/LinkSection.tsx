@@ -1,3 +1,5 @@
+"use client"
+
 import { motion } from "framer-motion";
 import ContactLinkCard from "./ContactLinkCard";
 import type { ContactSection } from "./linksData";

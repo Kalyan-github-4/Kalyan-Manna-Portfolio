@@ -1,3 +1,5 @@
+"use client"
+
 import { Suspense, lazy, useEffect, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"

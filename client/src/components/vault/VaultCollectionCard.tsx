@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom"
+"use client"
+
+import Link from "next/link"
 import { ArrowRight, Images } from "@phosphor-icons/react"
 import { motion, useReducedMotion } from "framer-motion"
 
@@ -24,7 +26,7 @@ export function VaultCollectionCard({ item }: VaultCollectionCardProps) {
             transition={{ duration: 0.45, ease: EASE }}
         >
             <Link
-                to={`/vault/${item.slug}`}
+                href={`/vault/${item.slug}`}
                 aria-label={`View the ${item.title} collection`}
                 className="group flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-zinc-950/60 transition-colors duration-500 hover:border-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
