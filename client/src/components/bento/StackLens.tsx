@@ -58,7 +58,7 @@ const LENS_SIZE = 92
 // The band the marquee occupies, pinned to the bottom of the tile. Everything
 // that has to agree on a centre — the rows, the clip, the mask and the lens's
 // rest position — lives inside it.
-const ROWS_BAND = "absolute inset-x-0 bottom-0 h-[188px] sm:h-[220px]"
+const ROWS_BAND = "absolute inset-x-0 bottom-0 h-[160px] sm:h-[176px]"
 
 /**
  * The stack marquee with a magnifier the visitor can drag anywhere on the

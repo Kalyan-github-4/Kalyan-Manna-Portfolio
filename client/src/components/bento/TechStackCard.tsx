@@ -19,7 +19,7 @@ export default function TechStackCard({ className = "" }: { className?: string }
       title={title}
       index={1}
       className={className}
-      visualClassName="h-[188px] sm:h-[220px]"
+      visualClassName="h-[160px] sm:h-[176px]"
       copyClassName="flex flex-1 flex-col justify-start [&>div]:justify-center"
       overlay={<StackLens />}
     />

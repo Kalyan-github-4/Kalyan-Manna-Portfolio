@@ -1,24 +1,25 @@
 import Bucket from "./Bucket"
 import BentoCard from "./BentoCard"
-// import { bentoCopy } from "./bentoData"
+import { bentoCopy } from "./bentoData"
 
 /**
  * Bottom-left tile: the open-box illustration with deliverable chips dropping
  * into it on a loop.
  */
 export default function WhatYouGetCard({ className = "" }: { className?: string }) {
-  // const { eyebrow, title } = bentoCopy.whatYouGet
+  const { eyebrow, title } = bentoCopy.whatYouGet
 
   return (
     <BentoCard
-      // eyebrow={eyebrow}
-      // title={title}
+      eyebrow={eyebrow}
+      title={title}
       index={2}
       className={className}
       // The illustration is anchored to the card's bottom edge and reaches
       // well above the slot, so the slot has to reserve its full height —
       // otherwise the chip lands on top of the heading.
-      visualClassName="h-44 sm:h-48"
+      visualClassName="h-44 flex-none"
+      copyClassName="text-left"
     >
       {/* Negative bottom cancels the card's own padding, so the box meets the
           card's bottom edge instead of floating above it. */}
