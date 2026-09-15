@@ -25,7 +25,7 @@ export const workProjects: WorkProject[] = [
         category: "VS Code Extension",
         date: "2026",
         description:
-            "A VS Code extension that finds unused dependencies, dead files, and unused exports in JavaScript and TypeScript projects — scores how safe each is to delete, and removes them with a preview and one-click undo.",
+            "A VS Code extension that finds unused dependencies, dead files, and exports — and removes them safely, with a preview and one-click undo.",
         image: projectImages.deadweight,
         previewImages: [...projectImages.deadweightScreens],
         href: "https://marketplace.visualstudio.com/items?itemName=kalyanmanna.deadweight",
