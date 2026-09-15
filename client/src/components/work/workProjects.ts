@@ -21,6 +21,29 @@ export type WorkProject = {
 export const workProjects: WorkProject[] = [
     {
         number: "01",
+        title: "Deadweight",
+        category: "VS Code Extension",
+        date: "2026",
+        description:
+            "A VS Code extension that finds unused dependencies, dead files, and unused exports in JavaScript and TypeScript projects — scores how safe each is to delete, and removes them with a preview and one-click undo.",
+        image: projectImages.deadweight,
+        previewImages: [...projectImages.deadweightScreens],
+        href: "https://marketplace.visualstudio.com/items?itemName=kalyanmanna.deadweight",
+        githubUrl: "https://github.com/Kalyan-github-4/DeadWeight",
+        liveUrl: "https://marketplace.visualstudio.com/items?itemName=kalyanmanna.deadweight",
+        tags: [
+            "TypeScript",
+            "VS Code Extension API",
+            "Node.js",
+            "knip",
+            "depcheck",
+            "Cytoscape.js",
+            "MCP",
+        ],
+        accent: "from-red-700 via-red-500 to-zinc-500",
+    },
+    {
+        number: "02",
         title: "Keythm",
         category: "Web App",
         date: "2026",
@@ -41,7 +64,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-amber-700 via-amber-500 to-stone-400",
     },
     {
-        number: "02",
+        number: "03",
         title: "HopeBridge",
         category: "Website",
         date: "2026",
@@ -60,7 +83,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-emerald-700 via-emerald-500 to-orange-500",
     },
     {
-        number: "03",
+        number: "04",
         title: "GitHub Roast",
         category: "Web App",
         date: "2026",
@@ -81,7 +104,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-orange-500 via-pink-500 to-purple-600",
     },
     {
-        number: "04",
+        number: "05",
         title: "Portfolio",
         category: "Web App",
         date: "2026",
@@ -106,7 +129,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-cyan-500 via-blue-600 to-violet-600",
     },
     {
-        number: "05",
+        number: "06",
         title: "EasyPG",
         category: "Mobile App",
         date: "2026",
@@ -133,7 +156,7 @@ export const workProjects: WorkProject[] = [
         mobileImages: [...projectImages.easyPgScreens],
     },
     {
-        number: "06",
+        number: "07",
         title: "Gym Management System",
         category: "Web App",
         date: "2026",

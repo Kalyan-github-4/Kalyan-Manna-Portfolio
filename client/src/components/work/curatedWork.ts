@@ -15,6 +15,17 @@ export type CuratedProject = WorkProject & CuratedMeta
 // workProjects without widening the shape every other card has to carry —
 // the same arrangement Project.tsx uses for its marquee text.
 const curatedMeta: Record<string, CuratedMeta> = {
+    Deadweight: {
+        tagline:
+            "Finds the unused packages, files, and exports in your codebase — and tells you how safe each one is to delete",
+        highlights: [
+            "A safe-to-delete score for every finding, built from knip, depcheck, and its own import graph agreeing.",
+            "Review & Remove with a preview, verified by your own type check, build, and tests — rolled back if anything breaks.",
+            "An interactive connection graph and blast radius for any file, fully offline.",
+            "Ships an MCP server for AI agents and a GitHub Action that guards every pull request.",
+        ],
+        mark: "#EF4444",
+    },
     Keythm: {
         tagline:
             "A typing trainer you can hear — every keystroke thocks, and the numbers land the moment the timer runs out",

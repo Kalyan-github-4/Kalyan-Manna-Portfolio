@@ -15,6 +15,8 @@ export const projectImages = {
     "/projects/hopebridge.webp",
   keythm:
     "/projects/keythm.webp",
+  deadweight:
+    "/projects/deadweight.webp",
   // Paired screenshots shown as the tilted, stacked desktop preview.
   managementSystemScreens: [
     "/projects/gym-management-system-2.webp",
@@ -23,6 +25,10 @@ export const projectImages = {
   githubRoastScreens: [
     "/projects/github roast.webp",
     "/projects/github roast 2.webp",
+  ],
+  deadweightScreens: [
+    "/projects/deadweight.webp",
+    "/projects/deadweight-2.webp",
   ],
   keythmScreens: [
     "/projects/keythm-2.webp",
