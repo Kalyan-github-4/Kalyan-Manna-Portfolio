@@ -8,7 +8,16 @@ import type { NextConfig } from "next"
 const CLERK = "https://*.clerk.accounts.dev"
 const TURNSTILE = "https://challenges.cloudflare.com"
 const CAL = "https://app.cal.com https://cal.com"
-const API = "https://kalyan-manna-developer.onrender.com"
+// Follows NEXT_PUBLIC_API_URL so a local API (see .env.local) isn't blocked in
+// development; always keeps the deployed API allowed.
+const API = Array.from(
+  new Set(
+    [
+      "https://kalyan-manna-developer.onrender.com",
+      process.env.NEXT_PUBLIC_API_URL && new URL(process.env.NEXT_PUBLIC_API_URL).origin,
+    ].filter(Boolean),
+  ),
+).join(" ")
 // @react-three/drei fetches its <Environment preset> HDRIs from here — see
 // node_modules/@react-three/drei/core/useEnvironment.js. The old vercel.json
 // allowed raw.githubusercontent.com and cdn.jsdelivr.net instead, neither of

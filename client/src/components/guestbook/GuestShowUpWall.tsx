@@ -198,16 +198,20 @@ export function ScrollPortraitWall({
         return;
       }
 
-      gsap.to(hintRef.current, {
-        autoAlpha: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: root.current,
-          start: "top top",
-          end: "+=40%",
-          scrub: true,
-        },
-      });
+      // The hint element is currently commented out, so only fade it when it
+      // is actually rendered.
+      if (hintRef.current) {
+        gsap.to(hintRef.current, {
+          autoAlpha: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: root.current,
+            start: "top top",
+            end: "+=40%",
+            scrub: true,
+          },
+        });
+      }
 
       items.forEach((el) => {
         gsap
