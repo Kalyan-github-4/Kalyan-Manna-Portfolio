@@ -1,18 +1,19 @@
 "use client"
 
-import { Suspense, lazy, useEffect, useState, type ReactNode } from "react"
+import { Suspense, lazy, useSyncExternalStore, type ReactNode } from "react"
 
-const rawPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+// Read at module scope so Next inlines it, but never validated here: this
+// module is evaluated during the server prerender of /more/guestbook, so a
+// throw at this level fails `next build` outright rather than degrading the
+// one route that needs auth. The key is checked in the component instead,
+// where the blast radius is the Clerk subtree.
+const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
-if (!rawPublishableKey) {
-  throw new Error(
-    "Missing NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY environment variable. Please add it to your .env file."
+if (!publishableKey && typeof window !== "undefined") {
+  console.error(
+    "Missing NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY — auth surfaces are disabled. Set it in the build environment."
   )
 }
-
-// The throw above narrows it here, but that narrowing does not survive into the
-// component body, where `process.env.X` is still `string | undefined`.
-const publishableKey: string = rawPublishableKey
 
 // Clerk is the single largest dependency in the app and only three surfaces
 // need it: the guestbook, the auth pages, and the feedback dialog on the home
@@ -23,6 +24,15 @@ const LazyClerkProvider = lazy(async () => {
 
   return { default: ClerkProvider }
 })
+
+// "Have we hydrated yet?" as an external store rather than the usual
+// useState + useEffect(() => setMounted(true)) pair. The store never changes,
+// so it never subscribes; the snapshots differ across the hydration boundary,
+// which is the whole point. React lints the setState-in-an-effect version as a
+// cascading render, and this expresses the same thing without one.
+const subscribeToNothing = () => () => {}
+const getHydratedSnapshot = () => true
+const getServerSnapshot = () => false
 
 type ClerkGateProps = {
   children: ReactNode
@@ -42,16 +52,23 @@ type ClerkGateProps = {
  * whole Clerk subtree out of the server pass. The trade-off is that everything
  * inside is absent from the prerendered HTML — fine here, since all of it is
  * interactive, auth-dependent, and not content we want indexed.
+ *
+ * Without NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY the gate stays on its fallback
+ * forever and logs once. NEXT_PUBLIC_* values are inlined at build time, so
+ * the variable has to exist wherever `next build` runs — the deploy host's
+ * environment, not just the local .env.
  */
 export default function ClerkGate({
   children,
   fallback = null,
 }: ClerkGateProps) {
-  const [mounted, setMounted] = useState(false)
+  const hydrated = useSyncExternalStore(
+    subscribeToNothing,
+    getHydratedSnapshot,
+    getServerSnapshot
+  )
 
-  useEffect(() => setMounted(true), [])
-
-  if (!mounted) return <>{fallback}</>
+  if (!hydrated || !publishableKey) return <>{fallback}</>
 
   return (
     <Suspense fallback={fallback}>
