@@ -65,7 +65,7 @@ export default function VaultCollection() {
     return (
         <main className="min-h-screen bg-black">
             {/* Same shell and full-bleed inner column as /work and /vault. */}
-            <section className="relative overflow-hidden bg-black px-4 py-28 text-white sm:px-6 lg:px-8">
+            <section className="relative overflow-hidden bg-black px-10 py-28 text-white sm:px-12 lg:px-14">
                 <EdgeStripes />
 
                 <div className="relative z-10 mx-auto w-full">

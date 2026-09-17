@@ -230,7 +230,7 @@ const collections: CollectionSource[] = [
             "A collection of memories from the React Kolkata community meetup — talks, a full auditorium, and developers worth meeting.",
         longDescription:
             "React Kolkata's August 2026 edition was a room full of people who build for the web, gathered for an evening of talks and conversation. Between the sessions came the part I remember most — meeting developers from across the city, swapping notes on what everyone was working on, and realising how much of this community had been within reach the whole time. This gallery captures the hall, the stage, the people and the ordinary moments in between.",
-        latest: true,
+        // latest: true,
         size: "wide",
         dir: "react-kolkata",
         files: [
@@ -242,6 +242,46 @@ const collections: CollectionSource[] = [
             ["rk-05.jpeg", 1280, 960],
         ],
     },
+    {
+        id: 4,
+        slug: "hackrit",
+        coverTitle: "HackRIT",
+        title: "Memories from HackRIT",
+        category: "Hackathons",
+        date: "September 2026",
+        year: 2026,
+        month: "Sep",
+        location: "Kolkata, India",
+        role: "Participant",
+        description:
+            "A collection of memories from HackRIT — building under pressure, teamwork, late-night debugging and the moments between the code.",
+        longDescription:
+            "HackRIT was another chapter of building, experimenting and pushing ideas from concept to something that actually works. From working alongside teammates and debugging under pressure to presenting the final product, every part of the hackathon became a memory worth keeping. This gallery captures the people, the workspace, the build process and the moments that made HackRIT memorable.",
+        size: "wide",
+        dir: "Hackrit 2.0",
+        latest: true,
+        files: [
+            ["hackrit-img-1", 1040, 585],
+            ["hackrit-img-2", 720, 1280],
+            ["hackrit-img-3", 1152, 648],
+            ["hackrit-img-4", 1280, 720],
+            ["hackrit-img-5", 960, 1280],
+            ["hackrit-img-6", 4080, 2296],
+            ["hackrit-img-7", 1152, 648],
+            ["hackrit-img-8", 1805, 1023],
+            ["hackrit-img-9", 720, 1280],
+            ["hackrit-img-10", 1152, 648],
+            ["hackrit-img-11", 1805, 1023],
+            ["hackrit-img-12", 1805, 1023],
+            ["hackrit-img-13", 1805, 1023],
+            ["hackrit-img-14", 2296, 4080],
+            ["hackrit-img-15", 960, 1280],
+            ["hackrit-img-16", 1536, 817],
+            ["hackrit-img-17", 1536, 812],
+            ["hackrit-img-18", 1536, 816],
+        ],
+    },
+
 ]
 
 /**
@@ -250,13 +290,14 @@ const collections: CollectionSource[] = [
  * the rest are `-<width>.webp` neighbours. Keep this in step with the RULES
  * entry in that script or srcset will point at files that do not exist.
  */
-const VARIANT_WIDTHS = [640, 1024, 1400]
+const VARIANT_WIDTHS: number[] = []
 
 /** `["IMG_01.jpg", 3000]` -> `{ src, srcSet }` over the emitted WebP set. */
 function buildSources(dir: string, file: string, intrinsicWidth: number) {
     const base = file.replace(/\.(jpe?g|png)$/i, "")
     // Encoded so a filename that slips through with a space still resolves.
-    const url = (name: string) => `/${dir}/${encodeURIComponent(name)}.webp`
+    const url = (name: string) =>
+        `/${encodeURIComponent(dir)}/${encodeURIComponent(name)}.webp`
 
     const available = VARIANT_WIDTHS.filter((width) => width <= intrinsicWidth)
     const src = url(base)

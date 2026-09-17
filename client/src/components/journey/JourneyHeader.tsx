@@ -41,17 +41,6 @@ export function JourneyHeader() {
                         Keeping
                     </GradientText>
                 </motion.h1>
-
-                {/* <motion.p
-                    initial={{ opacity: 0, y: 18 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false, amount: 0.6 }}
-                    transition={{ duration: 0.75, delay: 0.16, ease: EASE }}
-                    className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-zinc-400 sm:text-base md:text-lg md:leading-8"
-                >
-                    A collection of hackathons, achievements, events, collaborations and
-                    meaningful milestones that have shaped my growth as a developer.
-                </motion.p> */}
             </div>
         </div>
     )
