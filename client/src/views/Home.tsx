@@ -2,6 +2,7 @@ import Hero from "@/views/Hero";
 import CuratedWorkShowcase from "../components/work/CuratedWorkShowcase";
 import GuestShowUp from "@/components/guestbook/GuestShowUp";
 import BentoGrid from "../components/bento/BentoGrid";
+import VaultShowcase from "@/components/vault/VaultShowcase";
 import GlowHorizon from "@/components/shared/GlowHorizon";
 import EdgeStripes from "@/components/shared/EdgeStripes";
 
@@ -20,6 +21,7 @@ function Home() {
         <Hero />
         <BentoGrid />
         <CuratedWorkShowcase />
+        <VaultShowcase />
 
         <section className="relative mt-40 md:mt-56 lg:mt-72">
           <GuestShowUp />
