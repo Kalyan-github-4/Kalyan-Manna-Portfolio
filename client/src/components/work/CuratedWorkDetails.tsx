@@ -3,7 +3,7 @@
 import { Sparkle } from "@phosphor-icons/react"
 
 import WorkTechPill from "./WorkTechPill"
-import type { CuratedProject } from "./curatedWork"
+import type { CuratedProject } from "@/data/curatedWorkData"
 
 type CuratedWorkDetailsProps = {
     project: CuratedProject

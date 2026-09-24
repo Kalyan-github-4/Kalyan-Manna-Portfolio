@@ -1,6 +1,8 @@
 import { workProjects, type WorkProject } from "./workProjects"
 
 type CuratedMeta = {
+    /** Showcase order, 1 first. Only the top `HOME_LIMIT` make the home page. */
+    rank: number
     /** The one-sentence pitch printed large inside the coloured card. */
     tagline: string
     /** Bulleted capability list beside the card. */
@@ -16,6 +18,7 @@ export type CuratedProject = WorkProject & CuratedMeta
 // the same arrangement Project.tsx uses for its marquee text.
 const curatedMeta: Record<string, CuratedMeta> = {
     Deadweight: {
+        rank: 1,
         tagline:
             "Finds the unused packages, files, and exports in your codebase — and tells you how safe each one is to delete",
         highlights: [
@@ -27,6 +30,7 @@ const curatedMeta: Record<string, CuratedMeta> = {
         mark: "#EF4444",
     },
     Keythm: {
+        rank: 2,
         tagline:
             "A typing trainer you can hear — every keystroke thocks, and the numbers land the moment the timer runs out",
         highlights: [
@@ -38,6 +42,7 @@ const curatedMeta: Record<string, CuratedMeta> = {
         mark: "#B45309",
     },
     "GitHub Roast": {
+        rank: 4,
         tagline:
             "Hand it a GitHub username and it reads your commit history back to you — with jokes",
         highlights: [
@@ -49,6 +54,7 @@ const curatedMeta: Record<string, CuratedMeta> = {
         mark: "#FB923C",
     },
     Portfolio: {
+        rank: 7,
         tagline:
             "A personal site built like a product — motion, case studies, and a guestbook visitors actually sign",
         highlights: [
@@ -60,6 +66,7 @@ const curatedMeta: Record<string, CuratedMeta> = {
         mark: "#38BDF8",
     },
     EasyPG: {
+        rank: 3,
         tagline:
             "PG hunting for students and listing management for owners, in one mobile app",
         highlights: [
@@ -71,6 +78,7 @@ const curatedMeta: Record<string, CuratedMeta> = {
         mark: "#D946EF",
     },
     "Gym Management System": {
+        rank: 5,
         tagline:
             "Members, memberships, payments, and workouts — one dashboard for the whole gym",
         highlights: [
@@ -82,6 +90,7 @@ const curatedMeta: Record<string, CuratedMeta> = {
         mark: "#818CF8",
     },
     HopeBridge: {
+        rank: 6,
         tagline:
             "A non-profit’s whole story on one site — the causes, the impact, and a donate button that is never more than a scroll away",
         highlights: [
@@ -96,13 +105,21 @@ const curatedMeta: Record<string, CuratedMeta> = {
 
 // A project with no entry above still renders — it just leans on its own
 // description instead of a written pitch.
+// Unranked, it sorts after every ranked project.
 const fallback = (project: WorkProject): CuratedMeta => ({
+    rank: Number.POSITIVE_INFINITY,
     tagline: project.description,
     highlights: [],
     mark: "#A1A1AA",
 })
 
-export const curatedProjects: CuratedProject[] = workProjects.map((project) => ({
-    ...project,
-    ...(curatedMeta[project.title] ?? fallback(project)),
-}))
+/** How many projects the home showcase shows. */
+const HOME_LIMIT = 4
+
+export const curatedProjects: CuratedProject[] = workProjects
+    .map((project) => ({
+        ...project,
+        ...(curatedMeta[project.title] ?? fallback(project)),
+    }))
+    .sort((a, b) => a.rank - b.rank)
+    .slice(0, HOME_LIMIT)

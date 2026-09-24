@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import type { ReactNode } from "react"
 import Link from "next/link"
 
-import type { WorkProject } from "./workProjects"
+import type { WorkProject } from "@/data/workProjects"
 import WorkTechPill from "./WorkTechPill"
 import MobileAppPreview from "./MobileAppPreview"
 import DesktopAppPreview from "./DesktopAppPreview"

@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react"
 import GradientText from "../shared/GradientText"
 import CuratedWorkCard from "./CuratedWorkCard"
 import CuratedWorkDetails from "./CuratedWorkDetails"
-import { curatedProjects } from "./curatedWork"
+import { curatedProjects } from "@/data/curatedWorkData"
 
 const EASE = [0.22, 1, 0.36, 1] as const
 

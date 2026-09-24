@@ -6,7 +6,7 @@ import type { ReactNode } from "react"
 import Link from "next/link"
 
 import MobileAppScreens from "./MobileAppScreens"
-import type { CuratedProject } from "./curatedWork"
+import type { CuratedProject } from "@/data/curatedWorkData"
 
 type CuratedWorkCardProps = {
     project: CuratedProject

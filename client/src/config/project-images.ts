@@ -1,6 +1,6 @@
 // Single source of truth for project preview images.
 // Imported by the home showcase (components/work/Project.tsx) and the
-// work case-study list (components/work/workProjects.ts) so an image only
+// work case-study list (data/workProjects.ts) so an image only
 // ever needs to be updated in one place.
 export const projectImages = {
   easyPg:

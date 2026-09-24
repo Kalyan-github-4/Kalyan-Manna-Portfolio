@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 
 import WorkProjectCard from "./WorkProjectCard"
-import { workProjects } from "./workProjects"
+import { workProjects } from "@/data/workProjects"
 import GradientText from "../shared/GradientText"
 import BackgroundRipple from "../shared/BackgroundRipple"
 import EdgeStripes from "../shared/EdgeStripes"
