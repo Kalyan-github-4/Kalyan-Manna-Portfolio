@@ -74,26 +74,25 @@ export default function VaultShowcase() {
                 whileInView="visible"
                 viewport={{ once: false, amount: 0.15 }}
                 transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
-                className="mx-auto w-full max-w-[120rem] px-5 sm:px-8 lg:px-20"
+                className="mx-auto w-full max-w-[120rem] px-5 sm:px-8 lg:px-12"
             >
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
                     {featured.map((item) => (
                         <VaultCollectionCard key={item.id} item={item} />
                     ))}
                 </div>
 
-                <div className="mt-12 flex justify-center">
+                {/* Same bare mono CTA the reference ends on — no pill, just
+                    the label and the card's circular arrow. */}
+                <div className="mt-14 flex justify-center pb-4">
                     <Link
                         href="/vault"
-                        className="group flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-medium text-zinc-300 transition-colors duration-300 hover:border-white/30 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                        className="group flex items-center gap-2.5 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-zinc-300 transition-colors duration-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-4 focus-visible:ring-offset-black"
                     >
-                        Browse the vault
-                        <ArrowRight
-                            size={13}
-                            weight="bold"
-                            aria-hidden="true"
-                            className="transition-transform duration-300 group-hover:translate-x-0.5"
-                        />
+                        See more collections
+                        <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/15 bg-white/5 transition-transform duration-300 group-hover:translate-x-0.5">
+                            <ArrowRight size={11} weight="bold" aria-hidden="true" />
+                        </span>
                     </Link>
                 </div>
             </motion.div>

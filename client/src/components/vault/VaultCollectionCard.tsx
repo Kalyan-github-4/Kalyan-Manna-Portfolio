@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Images } from "@phosphor-icons/react"
+import { ArrowRight } from "@phosphor-icons/react"
 import { motion, useReducedMotion } from "framer-motion"
 
 import type { JourneyItem } from "@/data/journeyData"
@@ -28,10 +28,12 @@ export function VaultCollectionCard({ item }: VaultCollectionCardProps) {
             <Link
                 href={`/vault/${item.slug}`}
                 aria-label={`View the ${item.title} collection`}
-                className="group flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-zinc-950/60 transition-colors duration-500 hover:border-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                className="group flex h-full flex-col overflow-hidden rounded-3xl bg-zinc-950/60 p-2 transition-colors duration-500 hover:bg-zinc-900/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
-                {/* Cover with the title laid over it, as in the reference. */}
-                <div className="relative aspect-4/3 overflow-hidden">
+                {/* Cover with the title laid over it, as in the reference: a
+                    3:2 crop sitting inset inside the card frame, so a sliver of
+                    the card shows as a border all the way round it. */}
+                <div className="relative aspect-3/2 overflow-hidden rounded-2xl">
                     <MemoryImage
                         src={item.image}
                         srcSet={item.imageSrcSet}
@@ -63,7 +65,7 @@ export function VaultCollectionCard({ item }: VaultCollectionCardProps) {
                 </div>
 
                 {/* Body */}
-                <div className="flex flex-1 flex-col p-5">
+                <div className="flex flex-1 flex-col pb-3 pt-4">
                     <h4 className="font-sans text-base font-semibold leading-snug text-white sm:text-lg">
                         {item.title}
                     </h4>
@@ -74,7 +76,6 @@ export function VaultCollectionCard({ item }: VaultCollectionCardProps) {
 
                     <div className="mt-5 flex items-center justify-between gap-3 pt-1">
                         <p className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.15em] text-zinc-400">
-                            <Images size={12} aria-hidden="true" />
                             {item.photos.length} photos
                             <span aria-hidden="true" className="text-zinc-400">
                                 ·
