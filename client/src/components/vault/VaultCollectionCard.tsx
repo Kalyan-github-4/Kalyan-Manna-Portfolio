@@ -28,7 +28,7 @@ export function VaultCollectionCard({ item }: VaultCollectionCardProps) {
             <Link
                 href={`/vault/${item.slug}`}
                 aria-label={`View the ${item.title} collection`}
-                className="group flex h-full flex-col overflow-hidden rounded-3xl bg-zinc-950/60 p-2 transition-colors duration-500 hover:bg-zinc-900/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/60 p-2 transition-colors duration-500 hover:bg-zinc-900/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
                 {/* Cover with the title laid over it, as in the reference: a
                     3:2 crop sitting inset inside the card frame, so a sliver of
@@ -65,7 +65,7 @@ export function VaultCollectionCard({ item }: VaultCollectionCardProps) {
                 </div>
 
                 {/* Body */}
-                <div className="flex flex-1 flex-col pb-3 pt-4">
+                <div className="flex flex-1 flex-col pb-3 pt-4 px-3">
                     <h4 className="font-sans text-base font-semibold leading-snug text-white sm:text-lg">
                         {item.title}
                     </h4>

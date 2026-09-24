@@ -74,9 +74,13 @@ export default function VaultShowcase() {
                 whileInView="visible"
                 viewport={{ once: false, amount: 0.15 }}
                 transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
-                className="mx-auto w-full max-w-[120rem] px-5 sm:px-8 lg:px-12"
+                // Same asymmetric gutters as the bento wall, so the cards land
+                // on the hatched EdgeStripes' inner border lines.
+                className="mx-auto w-full max-w-[120rem] pl-8 pr-5 sm:pl-10 sm:pr-7 lg:pl-11 lg:pr-9"
             >
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {/* One frame for the row: hairlines above and below, the same
+                    treatment the bento grid gets. */}
+                <div className="grid grid-cols-1 gap-3 border-y border-white/10 sm:grid-cols-2 lg:grid-cols-3">
                     {featured.map((item) => (
                         <VaultCollectionCard key={item.id} item={item} />
                     ))}
