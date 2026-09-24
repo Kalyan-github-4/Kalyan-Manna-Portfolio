@@ -35,3 +35,6 @@ next-env.d.ts
 code_audit.md
 CLAUDE.md
 AGENTS.md
+
+# TypeScript build cache
+*.tsbuildinfo
