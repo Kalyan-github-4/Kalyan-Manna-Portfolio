@@ -12,6 +12,8 @@ type BentoCardProps = {
   title?: string
   /** Where the copy sits relative to the visual. */
   titlePosition?: "top" | "bottom"
+  /** Horizontal placement of the copy block. */
+  copyAlign?: "start" | "center"
   /** Optional route — renders the round arrow affordance and links the tile. */
   href?: string
   /** Stagger order within the grid. */
@@ -41,6 +43,7 @@ export default function BentoCard({
   eyebrow,
   title,
   titlePosition = "top",
+  copyAlign = "start",
   href,
   index = 0,
   className = "",
@@ -53,7 +56,9 @@ export default function BentoCard({
   const hasCopy = Boolean(eyebrow || title)
 
   const copy = (
-    <div className="flex items-end justify-between gap-4">
+    <div
+      className={`flex items-end gap-4 ${copyAlign === "center" ? "justify-center" : "justify-between"}`}
+    >
       <div className="min-w-0">
         <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-white/40 sm:text-[11px]">
           {eyebrow}

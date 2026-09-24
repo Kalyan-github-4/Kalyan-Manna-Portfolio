@@ -59,6 +59,13 @@ type BucketProps = {
   className?: string
 }
 
+/**
+ * How far the box sits below its frame, in px. Only the box moves — the chip
+ * keeps its place, so it hovers a little higher above the lip and falls that
+ * much further on its way in.
+ */
+const BOX_DROP = 32
+
 export default function Bucket({ className }: BucketProps) {
   const [items, setItems] = useState(INITIAL_CHIPS)
 
@@ -92,6 +99,7 @@ export default function Bucket({ className }: BucketProps) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="absolute inset-0 z-0"
+        style={{ transform: `translate3d(0, ${BOX_DROP}px, 0)` }}
       >
         <g filter="url(#filter1_dddi_51_65)">
           <path
@@ -154,7 +162,7 @@ export default function Bucket({ className }: BucketProps) {
               key={chip.id}
               initial={{ y: -40, opacity: 0, scale: 0.8 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
-              exit={{ y: 56, scale: 0.8, transition: { duration: 0.8 } }}
+              exit={{ y: 56 + BOX_DROP, scale: 0.8, transition: { duration: 0.8 } }}
               transition={{
                 duration: 0.5,
                 ease: [0.455, 0.03, 0.515, 0.955],
@@ -187,7 +195,7 @@ export default function Bucket({ className }: BucketProps) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="pointer-events-none absolute inset-0 z-20 overflow-hidden"
-        style={{ transform: "translate3d(0, 0, 0)" }}
+        style={{ transform: `translate3d(0, ${BOX_DROP}px, 0)` }}
       >
         <g filter="url(#filter0_i_51_65)">
           <path

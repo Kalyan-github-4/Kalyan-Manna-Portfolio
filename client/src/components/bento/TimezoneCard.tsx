@@ -61,7 +61,8 @@ export default function TimezoneCard({ className = "" }: { className?: string })
           markerSize={0.06}
           baseColor={[0.28, 0.28, 0.32]}
           markerColor={[147 / 255, 51 / 255, 234 / 255]}
-          glowColor={[0.16, 0.16, 0.2]}
+          // Near-white so the rim lights up as a halo against the dark tile.
+          glowColor={[0.9, 0.9, 0.95]}
           arcColor={[147 / 255, 51 / 255, 234 / 255]}
           arcWidth={0.5}
           arcHeight={0.25}

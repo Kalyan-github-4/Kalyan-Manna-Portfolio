@@ -24,9 +24,9 @@ export default function BentoGrid() {
           Left gutter sits at left-3 (12px) and is 20/28/32px wide -> 32/40/44px.
           Right gutter is pinned to the edge at 20/28/36px wide. */}
       <div className="mx-auto w-full max-w-[120rem] py-20 pl-8 pr-5 sm:py-24 sm:pl-10 sm:pr-7 lg:pl-11 lg:pr-9">
-        {/* lg:auto-rows-fr gives both rows the same height on desktop, so the
-            bottom three tiles match the top two. */}
-        <div className="grid grid-cols-1 gap-3  md:grid-cols-2 lg:grid-cols-7 lg:auto-rows-fr border-y border-white/10">
+        {/* Rows size to their own content, so the top two tiles stay a touch
+            shorter than the bottom three. */}
+        <div className="grid grid-cols-1 gap-3  md:grid-cols-2 lg:grid-cols-7 border-y border-white/10">
 
           {/* First row */}
           <CollaborateCard className="md:col-span-2 lg:col-span-4" />
