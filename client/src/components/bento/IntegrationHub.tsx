@@ -79,13 +79,21 @@ const MotionLogo = ({ className }: LogoProps) => (
   </svg>
 )
 
+/**
+ * Where the Motion tile sits below the hub, in design-space units (hub is at
+ * y=205, the bottom edge at 410). Its connector runs straight down to it, so
+ * this one number sets the line's length — lower it to shorten, raise it to
+ * lengthen.
+ */
+const MOTION_Y = 385
+
 // Hub sits at the centre of the design space: 282, 205.
 const INTEGRATIONS: Integration[] = [
   { id: "figma", label: "Figma", color: "#F24E1E", icon: FigmaLogo, x: 110, y: 90, path: "M 270 205 V 105 Q 270 90 255 90 H 110", delay: 0.1 },
   { id: "claude", label: "Claude", color: "#D97757", icon: ClaudeLogo, x: 360, y: 70, path: "M 294 205 V 85 Q 294 70 309 70 H 360", delay: 0.2 },
   { id: "shadcn", label: "shadcn/ui", color: "#FFFFFF", icon: ShadcnLogo, x: 160, y: 205, path: "M 250 205 H 160", delay: 0.3 },
   { id: "react", label: "React", color: "#61DAFB", icon: ReactLogo, x: 480, y: 205, path: "M 314 205 H 480", delay: 0.4 },
-  { id: "motion", label: "Motion", color: "#FFF312", icon: MotionLogo, x: 282, y: 360, path: "M 282 205 V 360", delay: 0.6 },
+  { id: "motion", label: "Motion", color: "#FFF312", icon: MotionLogo, x: 282, y: MOTION_Y, path: `M 282 205 V ${MOTION_Y}`, delay: 0.6 },
   { id: "vscode", label: "VS Code", color: "#22A6F2", icon: VscVscode, x: 460, y: 340, path: "M 314 215 V 325 Q 314 340 329 340 H 460", delay: 0.7 },
 ]
 
