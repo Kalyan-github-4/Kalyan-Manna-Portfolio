@@ -1,99 +1,88 @@
-# Kalyan Manna Portfolio
+<div align="center">
 
-A modern personal portfolio website built to showcase my work, skills, projects, and digital presence as a full-stack developer and freelancer.
+# Hi, I'm Kalyan Manna 👋
 
-This portfolio includes a smooth landing experience, animated sections, case studies, guestbook/feedback features, contact links, and supporting pages like Blog, Uses, Bucket List, and Attribution.
+**Full-stack developer & freelancer from Kharagpur, India**
 
-## Overview
+I build fast, modern, and scalable websites, web apps, mobile apps, and digital products.
 
-This project is my personal developer portfolio, designed with a strong focus on visual polish, responsiveness, animations, and real-world functionality.
+[**kalyanmanna.com**](https://www.kalyanmanna.com) · [LinkedIn](https://www.linkedin.com/in/kalyan-manna) · [X](https://x.com/Kalyan_Manna_4) · [Book a call](https://cal.com/kalyanmanna) · [Email](mailto:kalyanmanna439@gmail.com)
 
-The goal of this portfolio is to present my work professionally to potential clients, recruiters, collaborators, and businesses looking for web development, app development, and digital presence solutions.
+</div>
 
-## Features
+<br />
 
-* Modern responsive UI
-* Animated hero and about section
-* Smooth scroll-based transitions
-* Work and case study showcase
-* Guestbook / feedback section
-* Dynamic backend-powered data
-* Clerk authentication integration
-* PostgreSQL database support
-* Contact and social links page
-* Footer with animated visual background
-* Clean routing structure
-* SEO-ready structure
-* Mobile-first improvements
+<a href="https://www.kalyanmanna.com">
+  <img src=".github/assets/hero.jpg" alt="The hero section of kalyanmanna.com: 'Build at the speed of thought. Deploy with absolute confidence.'" />
+</a>
 
-## Tech Stack
+## About me
 
-### Frontend
+I'm a full-stack developer, freelancer and problem solver. I care about the whole
+product, from clean architecture and maintainable code on the backend to
+interfaces that feel fast, polished and intuitive.
 
-* Next.js (App Router)
-* React
-* TypeScript
-* Tailwind CSS
-* Framer Motion
-* shadcn/ui
+I work mostly across the TypeScript ecosystem: React and Next.js on the web, Expo
+for mobile, and Node.js with PostgreSQL behind them. Lately I've been building
+developer tools too.
 
-### Backend
+Outside client work you'll find me at hackathons and community meetups like
+HackRIT, AceHack and React Kolkata, building under pressure and meeting people
+worth knowing.
 
-* Node.js
-* Express.js
-* TypeScript
-* Drizzle ORM
-* Neon PostgreSQL
-* Clerk Authentication
+> **Open to work:** I'm available for full-time roles and freelance projects.
+> [Let's talk](https://www.kalyanmanna.com/contact).
 
-### Deployment
+## What I've built
 
-* Vercel for frontend
-* Render for backend
-* Neon for database
+| Project | What it is |
+| --- | --- |
+| [**Deadweight**](https://marketplace.visualstudio.com/items?itemName=kalyanmanna.deadweight) | A VS Code extension that finds unused dependencies, dead files and exports, and removes them safely with a preview and one-click undo. Ships an MCP server for AI agents and a GitHub Action. |
+| [**Keythm**](https://keythm-two.vercel.app) | A typing trainer built for the feel of it: customisable tests, live WPM and accuracy, and a mechanical keyboard that thocks under every keystroke. |
+| [**EasyPG**](https://github.com/Kalyan-github-4/EasyPG-App) | A PG discovery and management app for students and property owners, covering real-world rental and booking workflows. |
+| [**GitHub Roast**](https://git-hub-roast-mauve.vercel.app/) | A web app that analyses GitHub profiles and serves up witty roasts, humorous insights and a developer score. |
+| [**HopeBridge**](https://ngo-portfolio-2.vercel.app) | A multi-page site for an NGO working with vulnerable children across India: causes, impact reporting and a donation flow front and centre. |
 
-## Pages
+More case studies are on [kalyanmanna.com/work](https://www.kalyanmanna.com/work).
 
-* `/` — Home page
-* `/about` — About page
-* `/work` — Work / case studies
-* `/blog` — Blog page
-* `/more/guestbook` — Guestbook
-* `/more/bucket-list` — Bucket List
-* `/more/links` — Contact links
-* `/more/uses` — Uses page
-* `/more/attribution` — Attribution page
-* `/sign-in` — Sign in page
-* `/sign-up` — Sign up page
+<img src=".github/assets/work.jpg" alt="The Curated Works section, showing the Deadweight case study" />
 
-## Getting Started
+## My stack
 
-### 1. Clone the repository
+- **Frontend:** React · Next.js · TypeScript · Tailwind CSS · Framer Motion · Vite
+- **Backend:** Node.js · Express · PostgreSQL · Drizzle ORM · Prisma
+- **Mobile:** Expo · React Native
+- **Tools & platforms:** Git · Docker · Vercel · Render · Neon · Clerk · Figma
+
+<img src=".github/assets/bento.jpg" alt="The bento grid on the home page: collaboration, tech stack, deliverables, timezone and tools" />
+
+## Moments & memories
+
+The Vault on my site is where I keep photos from the hackathons and events
+I've been part of.
+
+<img src=".github/assets/vault.jpg" alt="The Vault section with photo collections from HackRIT, React Kolkata and AceHack 5.0" />
+
+## About this repo
+
+This is the source for [kalyanmanna.com](https://www.kalyanmanna.com): a Next.js
+front end in [`client/`](client) and an Express + Drizzle API in
+[`server/`](server) that powers the guestbook and feedback.
+
+<details>
+<summary><strong>Running it locally</strong></summary>
+
+<br />
 
 ```bash
 git clone https://github.com/Kalyan-github-4/Kalyan-Manna-Portfolio.git
 cd Kalyan-Manna-Portfolio
+
+cd client && npm install
+cd ../server && npm install
 ```
 
-### 2. Install frontend dependencies
-
-```bash
-cd client
-npm install
-```
-
-### 3. Install backend dependencies
-
-```bash
-cd ../server
-npm install
-```
-
-## Environment Variables
-
-### Client `.env`
-
-Create a `.env` file inside the `client` folder.
+**`client/.env`**
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000
@@ -101,9 +90,7 @@ NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
 NEXT_PUBLIC_CAL_LINK=your_cal_com_link
 ```
 
-### Server `.env`
-
-Create a `.env` file inside the `server` folder.
+**`server/.env`**
 
 ```env
 PORT=5000
@@ -113,136 +100,18 @@ CLIENT_URL=https://your-deployed-frontend-url
 CLIENT_URLS=http://localhost:3000
 ```
 
-`CLIENT_URL` plus the comma-separated `CLIENT_URLS` form the CORS allowlist. For
-production, set `CLIENT_URL` to your deployed frontend URL.
+`CLIENT_URL` plus the comma-separated `CLIENT_URLS` form the CORS allowlist.
 
-## Running Locally
+Run `npm run dev` in `server/` (port 5000) and in `client/` (port 3000). Database
+commands (`db:generate`, `db:migrate`, `db:studio`) run inside `server/`.
 
-### Start the backend
+The front end deploys to Vercel with `client` as the root directory. `NEXT_PUBLIC_*`
+values are inlined at build time, so set them before the build. The API deploys
+to Render.
 
-```bash
-cd server
-npm run dev
-```
-
-### Start the frontend
-
-Open a new terminal:
-
-```bash
-cd client
-npm run dev
-```
-
-The frontend should run at:
-
-```txt
-http://localhost:3000
-```
-
-The backend should run at:
-
-```txt
-http://localhost:5000
-```
-
-## Database Commands
-
-Run these inside the `server` folder.
-
-### Generate migrations
-
-```bash
-npm run db:generate
-```
-
-### Run migrations
-
-```bash
-npm run db:migrate
-```
-
-### Open Drizzle Studio
-
-```bash
-npm run db:studio
-```
-
-## Deployment Notes
-
-### Frontend
-
-The frontend can be deployed on Vercel. Set the framework preset to **Next.js**
-and the root directory to `client`.
-
-Make sure to add the following environment variables in the Vercel dashboard.
-Next inlines `NEXT_PUBLIC_*` values at build time, so they must be present
-before the build runs, not just at runtime:
-
-```env
-NEXT_PUBLIC_API_URL=your_backend_url
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-NEXT_PUBLIC_CAL_LINK=your_cal_com_link
-```
-
-### Backend
-
-The backend can be deployed on Render.
-
-Make sure to add the following environment variables in the Render dashboard:
-
-```env
-PORT=5000
-DATABASE_URL=your_neon_postgres_database_url
-CLERK_SECRET_KEY=your_clerk_secret_key
-CLIENT_URL=your_frontend_url
-```
-
-## Main Sections
-
-### Hero
-
-The landing section introduces me as a developer and freelancer with animated text, CTA buttons, and a profile visual.
-
-### About
-
-The about section uses scroll-based animations to reveal personal introduction and technical skills.
-
-### Work
-
-The work section highlights selected projects and case studies with visual previews and technology tags.
-
-### Guestbook
-
-Visitors can leave feedback or thoughts. Authentication is handled through Clerk, and entries are stored in the database.
-
-### Footer
-
-The footer includes brand information, navigation links, social links, and a polished animated background.
-
-## Future Improvements
-
-* Improve SEO metadata
-* Add dynamic blog content
-* Add project detail pages
-* Improve accessibility
-* Add sitemap and robots.txt
-* Add better Open Graph preview support
-* Add analytics
-* Improve mobile responsiveness further
-* Add admin controls for guestbook entries
-
-## Author
-
-**Kalyan Manna**
-
-Full-stack developer and freelancer based in Kharagpur, India.
-
-* GitHub: [Kalyan-github-4](https://github.com/Kalyan-github-4)
-* Email: [kalyanmanna439@gmail.com](mailto:kalyanmanna439@gmail.com)
+</details>
 
 ## License
 
-This project is currently for personal portfolio use.
-
-If you want to use parts of the design or structure, please give proper credit.
+This project is for my personal portfolio. If you use parts of the design or
+structure, please give credit.
