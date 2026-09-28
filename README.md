@@ -58,10 +58,23 @@ More case studies are on [kalyanmanna.com/work](https://www.kalyanmanna.com/work
 
 ## Moments & memories
 
-The Vault on my site is where I keep photos from the hackathons and events
-I've been part of.
+The [Vault](https://www.kalyanmanna.com/vault) on my site is where I keep photos
+from the hackathons and events I've been part of. Here's
+[AceHack 5.0](https://www.kalyanmanna.com/vault/acehack-5-0): long build hours,
+a team that kept going, and the people met along the way.
 
-<img src=".github/assets/vault.jpg" alt="The Vault section with photo collections from HackRIT, React Kolkata and AceHack 5.0" />
+<a href="https://www.kalyanmanna.com/vault/acehack-5-0">
+  <img src=".github/assets/acehack.jpg" alt="The masonry photo gallery from AceHack 5.0 in the Vault" />
+</a>
+
+## Sign the guestbook
+
+Visitors leave notes on [the wall](https://www.kalyanmanna.com/more/guestbook).
+If you've stopped by, I'd love to read yours.
+
+<a href="https://www.kalyanmanna.com/more/guestbook">
+  <img src=".github/assets/guestbook.jpg" alt="The guestbook page, 'Words that echo always', with a wall of visitor messages" />
+</a>
 
 ## About this repo
 
