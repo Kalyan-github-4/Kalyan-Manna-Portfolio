@@ -15,7 +15,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import GradientText from "../components/shared/GradientText";
-import { IconCloud } from "../components/about/IconCloud";
+// The tech cloud is parked while the robot fills the right column. Restore
+// this import and the <IconCloud /> below to bring it back.
+// import { IconCloud } from "../components/about/IconCloud";
+import LazyRobotScene from "@/components/robot/LazyRobotScene";
 import BackgroundRipple from "../components/shared/BackgroundRipple";
 import EdgeStripes from "../components/shared/EdgeStripes";
 import { socialLinks } from "@/config";
@@ -37,7 +40,8 @@ const fadeUp = {
   }),
 };
 // simple-icons slugs. Module scope on purpose: a fresh array each render would
-// make the cloud refetch on every pass.
+// make the cloud refetch on every pass. Kept while the cloud is parked.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const techSlugs = [
   "react",
   "nextdotjs",
@@ -214,7 +218,8 @@ export default function About() {
           animate={isInView ? "visible" : "hidden"}
           className="relative flex w-full max-w-130 flex-col items-center justify-center overflow-hidden"
         >
-          <IconCloud iconSlugs={techSlugs} />
+          {/* <IconCloud iconSlugs={techSlugs} /> */}
+          <LazyRobotScene wrapperClassName="aspect-square w-full" />
         </motion.div>
 
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.08)_60%,rgba(0,0,0,0.85)_100%)]" />

@@ -19,7 +19,24 @@ import BentoCard from "./BentoCard"
  */
 
 /** Ring centres, in diameters out from the tile's midline. Tangent, so one apart. */
-const RING_OFFSETS = [0.745, 1.745, 2.745]
+const RING_OFFSETS = [1.745, 2.745]
+
+/**
+ * The two innermost links are fused into one infinity knot, with the portrait
+ * on its crossing. A lemniscate of Bernoulli whose tips land where the old
+ * rings' outer edges did (±1.245), stretched vertically so each lobe stands a
+ * full diameter tall like the rings it replaced. Units are diameters.
+ */
+const INFINITY_REACH = 1.245
+const INFINITY_LIFT = 1.136
+const INFINITY_PATH =
+  Array.from({ length: 160 }, (_, i) => {
+    const t = (i / 160) * Math.PI * 2
+    const k = 1 + Math.sin(t) ** 2
+    const x = (INFINITY_REACH * Math.cos(t)) / k
+    const y = (INFINITY_REACH * INFINITY_LIFT * Math.sin(t) * Math.cos(t)) / k
+    return `${i ? "L" : "M"}${x.toFixed(4)} ${y.toFixed(4)}`
+  }).join("") + "Z"
 
 /** Stroke weight and the ring box it implies — the border straddles `--d`. */
 const STROKE = "calc(var(--d) * 0.061)"
@@ -52,6 +69,7 @@ export default function CollaborateCard({ className = "" }: { className?: string
     <BentoCard
       index={0}
       className={className}
+      href="/contact"
       eyebrow="Let's build together"
       title="Clear communication, fast iterations, no surprises"
       titlePosition="bottom"
@@ -88,6 +106,20 @@ export default function CollaborateCard({ className = "" }: { className?: string
               }}
             />
           ))}
+
+          <svg
+            className="absolute top-1/2 left-1/2 -translate-1/2 overflow-visible text-white transition-colors duration-500 ease-out group-hover:text-primary"
+            style={{ width: "calc(var(--d) * 2.6)", height: "calc(var(--d) * 1.1)" }}
+            viewBox="-1.3 -0.55 2.6 1.1"
+          >
+            <path
+              d={INFINITY_PATH}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={0.061}
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
 
         {/* Outside the faded layer, so the portrait holds full strength however

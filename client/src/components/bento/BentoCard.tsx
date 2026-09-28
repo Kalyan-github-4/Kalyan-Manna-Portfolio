@@ -55,9 +55,18 @@ export default function BentoCard({
   // A tile can drop the copy entirely and let its visual carry the whole card.
   const hasCopy = Boolean(eyebrow || title)
 
+  // Bottom copy shares its row with the corner arrow, so it keeps clear of it —
+  // on both sides when centred, so the centring holds.
+  const arrowClearance =
+    href && titlePosition === "bottom"
+      ? copyAlign === "center"
+        ? "px-14"
+        : "pr-14"
+      : ""
+
   const copy = (
     <div
-      className={`flex items-end gap-4 ${copyAlign === "center" ? "justify-center" : "justify-between"}`}
+      className={`flex items-end ${copyAlign === "center" ? "justify-center" : "justify-start"} ${arrowClearance}`}
     >
       <div className="min-w-0">
         <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-white/40 sm:text-[11px]">
@@ -68,14 +77,18 @@ export default function BentoCard({
           {title}
         </h3>
       </div>
-
-      {href ? (
-        <span className="grid size-10 shrink-0 translate-y-2.5 scale-95 place-items-center rounded-full border border-white/15 text-white/80 opacity-0 transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] will-change-transform transform-gpu group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-hover:duration-[600ms] group-hover:ease-[cubic-bezier(0.16,1,0.3,1)]">
-          <ArrowRight size={16} weight="bold" />
-        </span>
-      ) : null}
     </div>
   )
+
+  // Always the card's bottom-right corner, wherever the copy sits, so every
+  // linked tile points the same way. Tailwind v4's translate/scale utilities
+  // set the standalone `translate` and `scale` properties, so those — not
+  // `transform` — are what the transition has to name.
+  const arrow = href ? (
+    <span className="pointer-events-none absolute right-5 bottom-5 z-20 grid size-10 translate-y-2.5 scale-95 place-items-center rounded-full border border-white/15 text-white/80 opacity-0 transition-[opacity,translate,scale] duration-200 ease-out will-change-[opacity,translate,scale] group-hover:translate-y-0 group-hover:scale-100 group-hover:opacity-100 group-hover:duration-400 group-hover:ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:translate-y-0 motion-reduce:scale-100 sm:right-6 sm:bottom-6">
+      <ArrowRight size={16} weight="bold" />
+    </span>
+  ) : null
 
   const body = (
     <>
@@ -91,6 +104,8 @@ export default function BentoCard({
       {hasCopy && titlePosition === "bottom" ? (
         <div className={`relative z-10 ${copyClassName}`}>{copy}</div>
       ) : null}
+
+      {arrow}
 
       {/* Inert by default so it never swallows clicks on the copy; whatever
           inside needs pointer events opts back in. */}

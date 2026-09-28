@@ -4,15 +4,16 @@ import { bentoCopy } from "./bentoData"
 
 /**
  * Bottom-left tile: the open-box illustration with deliverable chips dropping
- * into it on a loop.
+ * into it on a loop, linking to the /work page.
  */
 export default function WhatYouGetCard({ className = "" }: { className?: string }) {
-  const { eyebrow, title } = bentoCopy.whatYouGet
+  const { eyebrow, title, href } = bentoCopy.whatYouGet
 
   return (
     <BentoCard
       eyebrow={eyebrow}
       title={title}
+      href={href}
       index={2}
       className={className}
       // The illustration is anchored to the card's bottom edge and reaches

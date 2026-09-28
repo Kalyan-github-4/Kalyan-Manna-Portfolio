@@ -13,6 +13,7 @@ export const bentoCopy = {
   whatYouGet: {
     eyebrow: "what you get",
     title: "Clean code, pixel-perfect UI, deployed & scaling",
+    href: "/work",
   },
   timezones: {
     eyebrow: "flexible with timezones",
