@@ -1,5 +1,3 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
-
 type HttpMethod = "GET" | "POST" | "DELETE" | "PATCH";
 
 interface ApiRequestOptions {
@@ -77,15 +75,12 @@ async function apiRequest<T>(
 	path: string,
 	{ method = "GET", body, token }: ApiRequestOptions = {}
 ): Promise<T> {
-	const url = `${API_URL}${path}`
-
-	const response = await fetch(url, {
+	const response = await fetch(path, {
 		method,
 		headers: {
 			"Content-Type": "application/json",
 			...(token ? { Authorization: `Bearer ${token}` } : {}),
 		},
-		credentials: "include",
 		body: body ? JSON.stringify(body) : undefined,
 	})
 

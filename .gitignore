@@ -9,3 +9,6 @@ out
 .env
 .env*.local
 brag-output
+.deadweight-trash/
+AGENTS.md
+.deadweight
