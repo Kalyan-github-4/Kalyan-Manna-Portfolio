@@ -41,7 +41,7 @@ const csp = [
   "font-src 'self' data:",
   "img-src 'self' data: blob: https:",
   "media-src 'self'",
-  `connect-src 'self' ${CLERK} https://clerk-telemetry.com https://api.cal.com ${CAL} ${DREI_ASSETS} https://cdn.jsdelivr.net https://raw.githubusercontent.com`,
+  `connect-src 'self' ${CLERK} https://clerk-telemetry.com https://api.cal.com ${CAL} ${DREI_ASSETS} https://cdn.jsdelivr.net https://raw.githubusercontent.com https://github-contributions-api.jogruber.de`,
   `frame-src 'self' ${CLERK} ${TURNSTILE} ${CAL}`,
   "worker-src 'self' blob:",
   "manifest-src 'self'",

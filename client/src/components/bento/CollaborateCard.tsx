@@ -43,6 +43,31 @@ const STROKE = "calc(var(--d) * 0.061)"
 const RING_BOX = "calc(var(--d) * 1.061)"
 
 /**
+ * A hairline traced around the whole chain, standing `OUTLINE_GAP` off the
+ * heavy strokes. It is the silhouette of the chain grown by the gap, minus the
+ * same silhouette a hair smaller, so only the outer contour survives — nothing
+ * is drawn inside the links. Units are diameters.
+ */
+const OUTLINE_GAP = 0.05
+const OUTLINE_WEIGHT = 0.012
+const PORTRAIT_RADIUS = 0.3575
+
+/** The chain's silhouette with its heavy strokes grown outward by `grow`. */
+function ChainSilhouette({ grow }: { grow: number }) {
+  return (
+    <>
+      {RING_OFFSETS.flatMap((offset) => [-offset, offset]).map((offset) => (
+        <circle key={offset} cx={offset} r={0.5305 + grow} stroke="none" />
+      ))}
+      <path d={INFINITY_PATH} strokeWidth={0.061 + grow * 2} strokeLinejoin="round" />
+      {/* The portrait's disc, so the hairline swells around it at the crossing
+          and its widest point lands on the portrait's own border. */}
+      <circle r={PORTRAIT_RADIUS - OUTLINE_GAP - OUTLINE_WEIGHT + grow} stroke="none" />
+    </>
+  )
+}
+
+/**
  * The chain doesn't end, it fades — it falls from full strength at the midline
  * to nothing well short of the card's edge, so the rings read as a fragment of
  * something longer rather than a row of six.
@@ -89,9 +114,63 @@ export default function CollaborateCard({ className = "" }: { className?: string
             flattening the effect depends on. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 opacity-[0.135] transition-opacity duration-500 ease-out group-hover:opacity-[0.3]"
-          style={{ maskImage: CHAIN_FADE, WebkitMaskImage: CHAIN_FADE }}
+          className="absolute inset-x-0 opacity-[0.135] transition-opacity duration-500 ease-out group-hover:opacity-[0.3]"
+          style={{
+            // Taller than the figure, so the mask doesn't crop the hairline
+            // that stands proud of the rings.
+            top: "calc(var(--d) * -0.16)",
+            bottom: "calc(var(--d) * -0.16)",
+            maskImage: CHAIN_FADE,
+            WebkitMaskImage: CHAIN_FADE,
+          }}
         >
+          <svg
+            className="absolute top-1/2 left-1/2 -translate-1/2 overflow-visible text-white transition-colors duration-500 ease-out group-hover:text-primary"
+            style={{ width: "calc(var(--d) * 6.8)", height: "calc(var(--d) * 1.4)" }}
+            viewBox="-3.4 -0.7 6.8 1.4"
+          >
+            <defs>
+              {/* Blur then re-harden the edge: rounds the sharp notches where
+                  two links meet into soft fillets, leaving the curves alone. */}
+              <filter
+                id="collaborate-outline-soften"
+                filterUnits="userSpaceOnUse"
+                x={-3.4}
+                y={-0.7}
+                width={6.8}
+                height={1.4}
+                colorInterpolationFilters="sRGB"
+              >
+                <feGaussianBlur stdDeviation={0.035} />
+                <feComponentTransfer>
+                  <feFuncA type="linear" slope={14} intercept={-6.5} />
+                </feComponentTransfer>
+              </filter>
+              <mask
+                id="collaborate-outline-cut"
+                maskUnits="userSpaceOnUse"
+                x={-3.4}
+                y={-0.7}
+                width={6.8}
+                height={1.4}
+              >
+                <rect x={-3.4} y={-0.7} width={6.8} height={1.4} fill="white" />
+                <g filter="url(#collaborate-outline-soften)" fill="black" stroke="black">
+                  <ChainSilhouette grow={OUTLINE_GAP} />
+                </g>
+              </mask>
+            </defs>
+            <g mask="url(#collaborate-outline-cut)">
+              <g
+                filter="url(#collaborate-outline-soften)"
+                fill="currentColor"
+                stroke="currentColor"
+              >
+                <ChainSilhouette grow={OUTLINE_GAP + OUTLINE_WEIGHT} />
+              </g>
+            </g>
+          </svg>
+
           {RING_OFFSETS.flatMap((offset) => [-offset, offset]).map((offset) => (
             <span
               key={offset}
