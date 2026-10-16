@@ -79,8 +79,8 @@ If you've stopped by, I'd love to read yours.
 ## About this repo
 
 This is the source for [kalyanmanna.com](https://www.kalyanmanna.com): a Next.js
-front end in [`client/`](client) and an Express + Drizzle API in
-[`server/`](server) that powers the guestbook and feedback.
+app whose route handlers in [`src/app/api`](src/app/api) (backed by Drizzle and
+Neon Postgres) power the guestbook and feedback.
 
 <details>
 <summary><strong>Running it locally</strong></summary>
@@ -90,37 +90,25 @@ front end in [`client/`](client) and an Express + Drizzle API in
 ```bash
 git clone https://github.com/Kalyan-github-4/Kalyan-Manna-Portfolio.git
 cd Kalyan-Manna-Portfolio
-
-cd client && npm install
-cd ../server && npm install
+npm install
 ```
 
-**`client/.env`**
+Copy [`.env.example`](.env.example) to `.env.local` and fill it in:
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:5000
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
 NEXT_PUBLIC_CAL_LINK=your_cal_com_link
-```
 
-**`server/.env`**
-
-```env
-PORT=5000
 DATABASE_URL=your_neon_postgres_database_url
 CLERK_SECRET_KEY=your_clerk_secret_key
-CLIENT_URL=https://your-deployed-frontend-url
-CLIENT_URLS=http://localhost:3000
+ADMIN_EMAIL=you@example.com
 ```
 
-`CLIENT_URL` plus the comma-separated `CLIENT_URLS` form the CORS allowlist.
+Run `npm run dev` (port 3000). Database commands (`db:generate`, `db:migrate`,
+`db:studio`) run from the repo root.
 
-Run `npm run dev` in `server/` (port 5000) and in `client/` (port 3000). Database
-commands (`db:generate`, `db:migrate`, `db:studio`) run inside `server/`.
-
-The front end deploys to Vercel with `client` as the root directory. `NEXT_PUBLIC_*`
-values are inlined at build time, so set them before the build. The API deploys
-to Render.
+The site deploys to Vercel from the repo root. `NEXT_PUBLIC_*` values are inlined
+at build time, so set them before the build.
 
 </details>
 
