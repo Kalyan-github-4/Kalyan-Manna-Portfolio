@@ -1,1 +1,0 @@
-ALTER TABLE "guestbook_entries" ADD COLUMN "ratings" jsonb DEFAULT '[]'::jsonb NOT NULL;
