@@ -1,1 +1,0 @@
-ALTER TABLE "guestbook_entries" RENAME COLUMN "ratings" TO "rating";
