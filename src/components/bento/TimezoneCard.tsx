@@ -7,7 +7,7 @@ import { bentoCopy } from "./bentoData"
 // of its inputs change value, so a fresh array each render would tear the
 // globe down and build it again on every pass.
 const TILE_MARKERS = [
-  { id: "bankura", location: [23.1815, 87.3036], label: "Bankura" },
+  { id: "kolkata", location: [22.5726, 88.3639], label: "Kolkata" },
   { id: "delhi", location: [28.6139, 77.209], label: "New Delhi" },
   { id: "dubai", location: [25.2048, 55.2708], label: "Dubai" },
   { id: "london", location: [51.5074, -0.1278], label: "London" },
@@ -17,7 +17,7 @@ const TILE_MARKERS = [
 
 // Every route starts at home, so the tile reads as one hub reaching out
 // rather than an undirected mesh. Same module-scope rule as the markers.
-const HOME: [number, number] = [23.1815, 87.3036]
+const HOME: [number, number] = [22.5726, 88.3639]
 
 const TILE_ARCS = [
   { id: "home-delhi", from: HOME, to: [28.6139, 77.209] },
