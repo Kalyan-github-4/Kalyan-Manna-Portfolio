@@ -20,7 +20,8 @@ const fadeUp = {
  * pinned "latest" one leads, the rest fall in newest-first, and the cards are
  * the same ones /vault uses so the two pages can never drift apart.
  */
-const featured = [...journeyItems]
+const featured = journeyItems
+    .filter((item) => !item.hideOnHome)
     .sort((a, b) => {
         if (a.latest !== b.latest) return a.latest ? -1 : 1
         return b.id - a.id

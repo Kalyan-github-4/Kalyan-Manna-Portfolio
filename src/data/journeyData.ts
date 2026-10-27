@@ -113,6 +113,8 @@ export type JourneyItem = {
     gallery?: string[]
     /** Pins this collection to the Vault's "Latest Collection" hero slot */
     latest?: boolean
+    /** Keeps this collection on /vault but out of the home page showcase */
+    hideOnHome?: boolean
     size?: JourneySize
     externalUrl?: string
     externalLabel?: string
@@ -231,6 +233,7 @@ const collections: CollectionSource[] = [
         longDescription:
             "React Kolkata's August 2026 edition was a room full of people who build for the web, gathered for an evening of talks and conversation. Between the sessions came the part I remember most — meeting developers from across the city, swapping notes on what everyone was working on, and realising how much of this community had been within reach the whole time. This gallery captures the hall, the stage, the people and the ordinary moments in between.",
         // latest: true,
+        hideOnHome: true,
         size: "wide",
         dir: "react-kolkata",
         files: [
@@ -279,6 +282,37 @@ const collections: CollectionSource[] = [
             ["hackrit-img-16", 1536, 817],
             ["hackrit-img-17", 1536, 812],
             ["hackrit-img-18", 1536, 816],
+        ],
+    },
+    {
+        id: 5,
+        slug: "hacktoberfest-x-jis",
+        coverTitle: "Hacktoberfest x JIS",
+        title: "Memories from Hacktoberfest x JIS",
+        category: "Events",
+        date: "October 2026",
+        year: 2026,
+        month: "Oct",
+        location: "JIS University, Kolkata",
+        role: "Attendee",
+        description:
+            "A collection of memories from Kolkata HackDays at JIS University — open source, a packed hall and a day spent with the community.",
+        longDescription:
+            "Hacktoberfest x JIS brought Kolkata HackDays to JIS University on 8 October 2026 — a full day of open source, talks and building alongside developers from across the city. From the hall filling up in the morning to the swag on stage at the end, this gallery captures the campus, the people, the food and the small moments that made the day worth remembering.",
+        size: "wide",
+        dir: "hacktoberfest-x-jis",
+        files: [
+            ["hacktoberfest-img-1.jpg", 1280, 960],
+            ["hacktoberfest-img-2.jpeg", 720, 1280],
+            ["hacktoberfest-img-3.jpg", 1280, 960],
+            ["hacktoberfest-img-4.jpeg", 720, 1280],
+            ["hacktoberfest-img-5.jpeg", 1152, 648],
+            ["hacktoberfest-img-6.jpeg", 720, 1280],
+            ["hacktoberfest-img-7.jpeg", 1280, 720],
+            ["hacktoberfest-img-8.jpeg", 720, 1280],
+            ["hacktoberfest-img-9.jpeg", 1152, 648],
+            ["hacktoberfest-img-10.jpg", 1280, 960],
+            ["hacktoberfest-img-11.jpeg", 1280, 720],
         ],
     },
 
