@@ -289,16 +289,16 @@ const collections: CollectionSource[] = [
         slug: "hacktoberfest-x-jis",
         coverTitle: "Hacktoberfest x JIS",
         title: "Memories from Hacktoberfest x JIS",
-        category: "Events",
+        category: "Hackathons",
         date: "October 2026",
         year: 2026,
         month: "Oct",
         location: "JIS University, Kolkata",
-        role: "Attendee",
+        role: "Participant",
         description:
-            "A collection of memories from Kolkata HackDays at JIS University — open source, a packed hall and a day spent with the community.",
+            "A collection of memories from the Kolkata HackDays hackathon at JIS University — building with the team, a packed hall and the people met along the way.",
         longDescription:
-            "Hacktoberfest x JIS brought Kolkata HackDays to JIS University on 8 October 2026 — a full day of open source, talks and building alongside developers from across the city. From the hall filling up in the morning to the swag on stage at the end, this gallery captures the campus, the people, the food and the small moments that made the day worth remembering.",
+            "Hacktoberfest x JIS brought the Kolkata HackDays hackathon to JIS University on 8 October 2026 — a day of building against the clock alongside developers from across the city. From the hall filling up in the morning to the swag on stage at the end, this gallery captures the campus, the teammates, the food and the small moments that made the hackathon worth remembering.",
         size: "wide",
         dir: "hacktoberfest-x-jis",
         files: [
