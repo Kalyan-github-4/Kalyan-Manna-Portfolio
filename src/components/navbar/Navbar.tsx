@@ -1,15 +1,36 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState, useSyncExternalStore } from "react"
 import { motion } from "framer-motion"
 import { usePathname } from "next/navigation"
 
+import { playTap } from "@/lib/tap-sound"
 import { cn } from "@/lib/utils"
 
 import { DesktopNavbar } from "./DesktopNavbar"
 import { MobileNavbar } from "./MobileNavbar"
 import type { NavbarProps } from "./navbar-types"
 import { useNavbarScroll } from "./useNavbarScroll"
+
+interface Greeting {
+  text: string
+  icon: string
+}
+
+// The greeting only shows for the intro, so there is nothing to re-render on.
+const subscribeNoop = () => () => {}
+
+function getGreeting(hour: number): Greeting {
+  if (hour < 12) {
+    return { text: "Good Morning", icon: "🌅" }
+  }
+
+  if (hour < 17) {
+    return { text: "Good Afternoon", icon: "☀️" }
+  }
+
+  return { text: "Good Evening", icon: "🌙" }
+}
 
 export function NavBar({
   items,
@@ -22,28 +43,16 @@ export function NavBar({
 
   const { isVisible } = useNavbarScroll()
 
-  const greeting = useMemo(() => {
-    const hour = new Date().getHours()
-
-    if (hour < 12) {
-      return {
-        text: "Good Morning",
-        icon: "🌅",
-      }
-    }
-
-    if (hour < 17) {
-      return {
-        text: "Good Afternoon",
-        icon: "☀️",
-      }
-    }
-
-    return {
-      text: "Good Evening",
-      icon: "🌙",
-    }
-  }, [])
+  // Read on the client only, so it uses the visitor's local clock — during SSR
+  // `new Date()` is the server's time zone, which baked a wrong greeting into
+  // the HTML. The server snapshot is null, so the slot renders empty there and
+  // hydration fills it in without a mismatch.
+  const hour = useSyncExternalStore(
+    subscribeNoop,
+    () => new Date().getHours(),
+    () => null
+  )
+  const greeting = hour === null ? null : getGreeting(hour)
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -72,6 +81,14 @@ export function NavBar({
       transition={{
         duration: 0.3,
         ease: "easeInOut",
+      }}
+      // One listener for every navbar control. React events bubble through
+      // portals, so this also covers the mobile drawer and the search results.
+      onPointerDown={(event) => {
+        const target = event.target as HTMLElement
+        if (target.closest("a, button, [role='option']")) {
+          playTap()
+        }
       }}
     >
       <DesktopNavbar

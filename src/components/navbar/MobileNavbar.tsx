@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/drawer"
 
 import { MobileNavItem } from "./MobileNavItem"
+import { NavSearch } from "./NavSearch"
 import type { NavItem } from "./navbar-types"
 
 interface MobileNavbarProps {
@@ -22,7 +23,7 @@ export function MobileNavbar({ items, pathname }: MobileNavbarProps) {
   )
 
   return (
-    <div className="relative flex cursor-pointer justify-center md:hidden">
+    <div className="relative flex cursor-pointer items-center justify-center gap-2.5 md:hidden">
       <Drawer>
         <DrawerTrigger asChild>
           <motion.button
@@ -31,10 +32,10 @@ export function MobileNavbar({ items, pathname }: MobileNavbarProps) {
             aria-label="Open navigation menu"
             className="
               flex items-center gap-5.5
-              rounded-full border border-white/10
-              bg-zinc-950/45 px-5 py-1.5
-              shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_0_20px_rgba(255,255,255,0.06)]
-              backdrop-blur-3xl backdrop-saturate-150
+              rounded-full border border-white/[0.09]
+              bg-zinc-900/85 px-5 py-1.5
+              shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_0_0_1px_rgba(0,0,0,0.6),0_8px_24px_rgba(0,0,0,0.45)]
+              backdrop-blur-xl backdrop-saturate-150
             "
           >
             <span className="text-sm font-semibold uppercase tracking-wide text-white">
@@ -80,6 +81,8 @@ export function MobileNavbar({ items, pathname }: MobileNavbarProps) {
           </div>
         </DrawerContent>
       </Drawer>
+
+      <NavSearch items={items} className="size-[42px]" />
     </div>
   )
 }

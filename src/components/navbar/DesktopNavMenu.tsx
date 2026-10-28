@@ -16,7 +16,8 @@ interface Greeting {
 interface DesktopNavMenuProps {
   items: NavItem[]
   pathname: string
-  greeting: Greeting
+  /** Null until the client has read the visitor's local time. */
+  greeting: Greeting | null
   introDone: boolean
   moreOpen: boolean
   onMoreOpenChange: (open: boolean) => void
@@ -74,15 +75,16 @@ export function DesktopNavMenu({
       onMouseLeave={() => onMoreOpenChange(false)}
       className="
         overflow-hidden rounded-[30px]
-        border border-white/10
-        bg-zinc-950/45
-        shadow-[0_0_30px_rgba(255,255,255,0.08)]
-        backdrop-blur-3xl backdrop-saturate-150
+        border border-white/[0.09]
+        bg-zinc-900/85
+        shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_0_0_1px_rgba(0,0,0,0.6),0_8px_24px_rgba(0,0,0,0.45)]
+        backdrop-blur-xl backdrop-saturate-150
       "
     >
       <div className="relative flex h-13 items-center justify-center overflow-hidden">
         <AnimatePresence mode="wait">
           {!introDone ? (
+            greeting && (
             <motion.div
               key="greeting"
               initial={{ opacity: 0, y: 8 }}
@@ -96,6 +98,7 @@ export function DesktopNavMenu({
               <span aria-hidden="true">{greeting.icon}</span>
               <span>{greeting.text}</span>
             </motion.div>
+            )
           ) : (
             <motion.nav
               key="navbar"

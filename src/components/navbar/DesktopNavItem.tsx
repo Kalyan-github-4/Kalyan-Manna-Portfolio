@@ -38,7 +38,7 @@ export function DesktopNavItem({
       }}
       className={cn(
         "relative flex items-center justify-center rounded-[30px]",
-        "px-6 py-2.5 text-sm font-medium",
+        "px-5 py-2.5 text-[15px] font-semibold",
         "transition-all duration-300",
         "md:gap-2 hover:text-zinc-100"
       )}
@@ -53,9 +53,9 @@ export function DesktopNavItem({
           }}
           className="
             absolute inset-0 rounded-full
-            border border-white/10
-            bg-linear-to-b from-zinc-600/70 to-zinc-700/40
-            shadow-[inset_0_1px_1px_rgba(255,255,255,0.08),0_0_12px_rgba(255,255,255,0.08)]
+            border border-white/8
+            bg-linear-to-b from-zinc-700 to-zinc-800
+            shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_1px_3px_rgba(0,0,0,0.5)]
           "
         />
       )}
