@@ -1,6 +1,6 @@
 import Hero from "@/views/Hero";
 import CuratedWorkShowcase from "../components/work/CuratedWorkShowcase";
-import GuestShowUp from "@/components/guestbook/GuestShowUp";
+// import GuestShowUp from "@/components/guestbook/GuestShowUp";
 import BentoGrid from "../components/bento/BentoGrid";
 import VaultShowcase from "@/components/vault/VaultShowcase";
 import GlowHorizon from "@/components/shared/GlowHorizon";
@@ -23,9 +23,11 @@ function Home() {
         <CuratedWorkShowcase />
         <VaultShowcase />
 
+        {/* User feedback section hidden for now.
         <section className="relative mt-40 md:mt-56 lg:mt-72">
           <GuestShowUp />
         </section>
+        */}
       </div>
     </>
   );
