@@ -8,61 +8,66 @@ import type { ContactLink } from "./linksData";
 type ContactLinkCardProps = {
   item: ContactLink;
   index: number;
+  /** Mobile rows drop the subtitle and push the arrow to the edge. */
+  compact?: boolean;
 };
 
-export default function ContactLinkCard({ item, index }: ContactLinkCardProps) {
+export default function ContactLinkCard({ item, index, compact = false }: ContactLinkCardProps) {
   const Icon = item.icon;
 
-  const content = (
-    <motion.div
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, amount: 0.35 }}
-      transition={{
-        duration: 0.65,
-        delay: index * 0.05,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-      whileHover={{
-        y: -5,
-      }}
-      className="group relative flex min-h-[104px] items-center justify-between overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025] p-5 backdrop-blur-xl transition-colors hover:bg-white/[0.055]"
-    >
-      <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(147,51,234,0.16),transparent_38%)]" />
+  const content = compact ? (
+    <>
+      <div className="flex size-10 items-center justify-center rounded-lg bg-white/5 text-zinc-300">
+        <Icon size={20} />
       </div>
-
-      <div className="relative z-10 flex items-center gap-5">
-        <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-white/10 bg-white/10 text-zinc-300 transition-colors group-hover:text-white">
-          <Icon size={24} weight="regular" />
-        </div>
-
-        <div>
-          <h3 className="text-base font-medium tracking-wide text-white">{item.title}</h3>
-          <p className="mt-1 font-mono text-xs font-semibold text-zinc-400">
-            {item.subtitle}
-          </p>
-        </div>
+      <span className="flex-1 text-sm font-medium text-white">{item.title}</span>
+      <ArrowUpRight size={16} className="text-zinc-500" />
+    </>
+  ) : (
+    <>
+      <div className="flex size-12 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-zinc-400 transition-colors group-hover:text-white">
+        <Icon size={22} />
       </div>
-
-      <ArrowUpRight
-        size={18}
-        className="relative z-10 text-zinc-400 opacity-0 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-white group-hover:opacity-100"
-      />
-    </motion.div>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-1">
+          <h4 className="text-sm font-semibold text-white">{item.title}</h4>
+          <ArrowUpRight
+            size={12}
+            className="text-zinc-500 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white"
+          />
+        </div>
+        <p className="line-clamp-1 font-mono text-[10px] text-zinc-500">{item.subtitle}</p>
+      </div>
+    </>
   );
 
-  if (item.external) {
-    return (
-      <a
-        href={item.href}
-        target="_blank"
-        rel={item.identity ? "me noreferrer" : "noreferrer"}
-      >
-        {content}
-      </a>
-    );
-  }
+  const className = compact
+    ? "flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.03] p-4 transition-transform duration-150 active:scale-[0.98]"
+    : "group flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-4 transition-colors hover:border-white/20 hover:bg-white/[0.05]";
 
-  return <Link href={item.href}>{content}</Link>;
+  const link = item.external ? (
+    <a
+      href={item.href}
+      target="_blank"
+      rel={item.identity ? "me noopener noreferrer" : "noopener noreferrer"}
+      className={className}
+    >
+      {content}
+    </a>
+  ) : (
+    <Link href={item.href} className={className}>
+      {content}
+    </Link>
+  );
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.5, delay: index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {link}
+    </motion.div>
+  );
 }

@@ -8,7 +8,6 @@ import {
   LinkedinLogo,
   MapPin,
   XLogo,
-  LinkSimple,
 } from "@phosphor-icons/react";
 import type { Icon } from "@phosphor-icons/react";
 
@@ -35,8 +34,8 @@ export type ContactSection = {
 
 export const profileInfo = {
   name: siteConfig.name,
-  role: "Fullstack Developer",
-  tag: "Freelancer",
+  tagline: "Full-Stack Developer crafting fast, thoughtful web experiences.",
+  badges: ["Developer", "Freelancer", "Problem Solver"],
   location: "Kharagpur, India",
   email: siteConfig.email,
   image: siteConfig.profileImage,
@@ -67,17 +66,9 @@ export const contactSections: ContactSection[] = [
     links: [
       {
         title: "LinkedIn",
-        subtitle: "Connect professionally",
+        subtitle: "in/kalyan-manna",
         href: socialLinks.linkedin,
         icon: LinkedinLogo,
-        external: true,
-        identity: true,
-      },
-      {
-        title: "Instagram",
-        subtitle: "@kalyan_manna404",
-        href: socialLinks.instagram,
-        icon: InstagramLogo,
         external: true,
         identity: true,
       },
@@ -90,32 +81,28 @@ export const contactSections: ContactSection[] = [
         identity: true,
       },
       {
-        title: "Portfolio",
-        subtitle: "Explore my work",
-        href: "/",
-        icon: Globe,
+        title: "Instagram",
+        subtitle: "@kalyan_manna404",
+        href: socialLinks.instagram,
+        icon: InstagramLogo,
+        external: true,
+        identity: true,
       },
     ],
   },
 ];
 
-export const quickActions = [
-  {
-    label: "Book a Call",
-    href: "/contact",
-    icon: CalendarBlank,
-  },
-  {
-    label: "Website",
-    href: "/",
-    icon: Globe,
-  },
-  {
-    label: "Email",
-    href: `mailto:${siteConfig.email}`,
-    icon: EnvelopeSimple,
-  },
-];
+export const bookCall = {
+  label: "Book a Call",
+  href: "/contact",
+  icon: CalendarBlank,
+};
+
+export const websiteLink = {
+  label: "Website",
+  href: "/",
+  icon: Globe,
+};
 
 export const profileMeta = [
   {
@@ -125,9 +112,5 @@ export const profileMeta = [
   {
     label: profileInfo.email,
     icon: EnvelopeSimple,
-  },
-  {
-    label: "All contact links in one place",
-    icon: LinkSimple,
   },
 ];
