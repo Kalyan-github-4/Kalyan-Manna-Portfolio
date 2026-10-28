@@ -3,7 +3,7 @@
 import { memo } from "react"
 import { motion } from "framer-motion"
 
-import { currentYear, diagonalStripeStyle } from "./footerData"
+import { currentYear } from "./footerData"
 import { fadeUp } from "./footerMotion"
 
 type FooterBottomProps = {
@@ -36,11 +36,6 @@ function FooterBottom({ isInView }: FooterBottomProps) {
                     </a>
                 </div>
             </div>
-
-            <div
-                className="col-span-3 h-8 border-t border-dashed border-white/10 md:h-10"
-                style={diagonalStripeStyle}
-            />
         </motion.div>
     )
 }
