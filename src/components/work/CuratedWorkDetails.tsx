@@ -1,7 +1,6 @@
 "use client"
 
-import { Sparkle } from "@phosphor-icons/react"
-
+import FourPointStar from "../shared/FourPointStar"
 import WorkTechPill from "./WorkTechPill"
 import type { CuratedProject } from "@/data/curatedWorkData"
 
@@ -32,12 +31,12 @@ export default function CuratedWorkDetails({ project }: CuratedWorkDetailsProps)
                 <ul className="mt-4 space-y-3 sm:mt-7 sm:space-y-3.5">
                     {project.highlights.map((highlight) => (
                         <li key={highlight} className="flex gap-3.5">
-                            <Sparkle
-                                size={17}
-                                weight="fill"
-                                aria-hidden="true"
+                            {/* 16px star centred on the first line:
+                                (24 − 16) / 2 = 4px, and (28 − 16) / 2 = 6px at sm. */}
+                            <FourPointStar
+                                size={16}
                                 style={{ color: project.mark }}
-                                className="mt-1 shrink-0"
+                                className="mt-1 shrink-0 sm:mt-1.5"
                             />
 
                             <span className="text-sm leading-6 text-zinc-300 sm:text-base sm:leading-7">

@@ -7,6 +7,7 @@ import GradientText from "../shared/GradientText"
 import CuratedWorkCard from "./CuratedWorkCard"
 import CuratedWorkDetails from "./CuratedWorkDetails"
 import { curatedProjects } from "@/data/curatedWorkData"
+import { playSwitch } from "@/lib/tap-sound"
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -24,6 +25,9 @@ const fadeUp = {
  */
 export default function CuratedWorkShowcase() {
     const [activeIndex, setActiveIndex] = useState(0)
+    // Mirrors activeIndex for the observer callback, which only sees the
+    // first render's state, so it can tell a real switch from a re-report.
+    const activeIndexRef = useRef(0)
     const bannerRefs = useRef<(HTMLDivElement | null)[]>([])
 
     useEffect(() => {
@@ -40,7 +44,16 @@ export default function CuratedWorkShowcase() {
                         entry.target as HTMLDivElement,
                     )
 
-                    if (index !== -1) setActiveIndex(index)
+                    if (index === -1 || index === activeIndexRef.current) continue
+
+                    activeIndexRef.current = index
+                    setActiveIndex(index)
+
+                    // Only the desktop split actually swaps the write-up;
+                    // phones stack each project, so there is no switch to hear.
+                    if (window.matchMedia("(min-width: 1024px)").matches) {
+                        playSwitch()
+                    }
                 }
             },
             { rootMargin: "-51% 0px -48% 0px", threshold: 0 },
