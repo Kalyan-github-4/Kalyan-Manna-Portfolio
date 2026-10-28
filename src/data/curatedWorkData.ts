@@ -9,6 +9,8 @@ type CuratedMeta = {
     highlights: string[]
     /** Single colour lifted out of the card gradient, for the bullet marks. */
     mark: string
+    /** Optional demo clip, played inside the card behind a play button. */
+    video?: string
 }
 
 export type CuratedProject = WorkProject & CuratedMeta
@@ -28,9 +30,10 @@ const curatedMeta: Record<string, CuratedMeta> = {
             "Ships an MCP server for AI agents and a GitHub Action that guards every pull request.",
         ],
         mark: "#EF4444",
+        video: "/videos/deadweight-video.mp4",
     },
     Keythm: {
-        rank: 2,
+        rank: 3,
         tagline:
             "A typing trainer you can hear — every keystroke thocks, and the numbers land the moment the timer runs out",
         highlights: [
@@ -66,7 +69,7 @@ const curatedMeta: Record<string, CuratedMeta> = {
         mark: "#38BDF8",
     },
     EasyPG: {
-        rank: 3,
+        rank: 2,
         tagline:
             "PG hunting for students and listing management for owners, in one mobile app",
         highlights: [
@@ -76,6 +79,7 @@ const curatedMeta: Record<string, CuratedMeta> = {
             "Node and Express API backed by PostgreSQL on Neon.",
         ],
         mark: "#D946EF",
+        video: "/videos/easypg-video.mp4",
     },
     "Gym Management System": {
         rank: 5,
@@ -114,7 +118,7 @@ const fallback = (project: WorkProject): CuratedMeta => ({
 })
 
 /** How many projects the home showcase shows. */
-const HOME_LIMIT = 4
+const HOME_LIMIT = 2
 
 export const curatedProjects: CuratedProject[] = workProjects
     .map((project) => ({
