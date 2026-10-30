@@ -131,7 +131,19 @@ function CardVideo({ src, title }: { src: string; title: string }) {
                 onPause={() => setPlaying(false)}
                 onEnded={() => {
                     setStarted(false)
-                    if (videoRef.current) videoRef.current.currentTime = 0
+                    const video = videoRef.current as
+                        | (HTMLVideoElement & { webkitExitFullscreen?: () => void })
+                        | null
+                    if (!video) return
+
+                    video.currentTime = 0
+
+                    // Leaves fullscreen too, on iOS Safari via its own video player.
+                    if (document.fullscreenElement === video) {
+                        void document.exitFullscreen()
+                    } else {
+                        video.webkitExitFullscreen?.()
+                    }
                 }}
                 onClick={fullscreen ? undefined : toggle}
                 // Cropped to fill the card, but shown whole in fullscreen.
