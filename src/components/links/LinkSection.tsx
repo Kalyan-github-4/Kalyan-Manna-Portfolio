@@ -1,44 +1,47 @@
 "use client"
 
-import ContactLinkCard from "./ContactLinkCard";
-import type { ContactSection } from "./linksData";
+import LinkCard from "./LinkCard";
+import type { LinkCardItem } from "./linksData";
+
+const markerClass = "absolute size-1.75 border border-white/40 bg-black";
+
+/**
+ * Small squares where a full-bleed rule crosses the inner edge of EdgeStripes.
+ * Offsets mirror the stripes' own widths at each breakpoint.
+ */
+export function RuleMarkers({ className = "" }: { className?: string }) {
+  return (
+    <div aria-hidden="true" className={`absolute inset-x-0 h-1.75 ${className}`}>
+      <span className={`${markerClass} left-8 -translate-x-1/2 sm:left-10 lg:left-11`} />
+      <span className={`${markerClass} right-5 translate-x-1/2 sm:right-7 lg:right-9`} />
+    </div>
+  );
+}
 
 type LinkSectionProps = {
-  section: ContactSection;
-  sectionIndex: number;
-  compact?: boolean;
+  title: string;
+  links: LinkCardItem[];
 };
 
-export default function LinkSection({ section, sectionIndex, compact = false }: LinkSectionProps) {
-  const cards = section.links.map((item, index) => (
-    <ContactLinkCard
-      key={item.title}
-      item={item}
-      index={index + sectionIndex * 2}
-      compact={compact}
-    />
-  ));
-
-  if (compact) {
-    return (
-      <div>
-        <h3 className="mb-3 text-center font-mono text-xs font-bold uppercase tracking-wider text-zinc-500">
-          {section.title}
-        </h3>
-        <div className="flex flex-col gap-3">{cards}</div>
-      </div>
-    );
-  }
-
+export default function LinkSection({ title, links }: LinkSectionProps) {
   return (
-    <div>
-      <div className="mb-6 flex items-center gap-4">
-        <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-500">
-          {section.title}
-        </h3>
-        <div className="h-px flex-1 border-t border-dashed border-white/10" />
+    <section aria-labelledby={`links-${title}`}>
+      <div className="relative -mx-9 border-y border-white/10 py-6 text-center sm:-mx-11 lg:-mx-12">
+        <RuleMarkers className="-top-1" />
+        <RuleMarkers className="-bottom-1" />
+        <h2
+          id={`links-${title}`}
+          className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-400"
+        >
+          {title}
+        </h2>
       </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">{cards}</div>
-    </div>
+
+      <div className="grid grid-cols-1 gap-3 py-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {links.map((item, index) => (
+          <LinkCard key={item.title} item={item} index={index} />
+        ))}
+      </div>
+    </section>
   );
 }
