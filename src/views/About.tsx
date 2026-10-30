@@ -19,7 +19,7 @@ import GradientText from "../components/shared/GradientText";
 // this import and the <IconCloud /> below to bring it back.
 // import { IconCloud } from "../components/about/IconCloud";
 import LazyRobotScene from "@/components/robot/LazyRobotScene";
-import GithubSkyline from "../components/about/GithubSkyline";
+// import GithubSkyline from "../components/about/GithubSkyline";
 import BackgroundRipple from "../components/shared/BackgroundRipple";
 import EdgeStripes from "../components/shared/EdgeStripes";
 import { socialLinks } from "@/config";
@@ -226,7 +226,7 @@ export default function About() {
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.08)_60%,rgba(0,0,0,0.85)_100%)]" />
       </section>
 
-      <GithubSkyline />
+      {/* <GithubSkyline /> */}
     </>
   );
 }

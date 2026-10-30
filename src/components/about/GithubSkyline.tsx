@@ -1,7 +1,9 @@
 "use client"
 
+import { ArrowUpRight } from "@phosphor-icons/react"
 import { useEffect, useState } from "react"
 
+import EdgeStripes from "@/components/shared/EdgeStripes"
 import ContributionSkyline, { type ContributionDay } from "@/components/ui/contribution-skyline"
 import { socialLinks } from "@/config"
 
@@ -36,8 +38,10 @@ export default function GithubSkyline() {
   if (failed) return null
 
   return (
-    <section className="relative px-6 pb-24 sm:px-8 md:px-10 lg:px-20">
-      <div className="mx-auto w-full max-w-6xl">
+    <section className="relative pb-24 pl-11 pr-8 sm:pl-14 sm:pr-11 md:pl-16 md:pr-14 lg:px-20">
+      <EdgeStripes />
+
+      <div className="relative z-10 mx-auto w-full max-w-7xl">
         <p className="mb-5 text-center text-[11px] font-medium uppercase tracking-[0.3em] text-zinc-400 sm:text-xs sm:tracking-[0.35em] lg:text-left">
           A Year In Code
         </p>
@@ -48,7 +52,34 @@ export default function GithubSkyline() {
         </h2>
 
         {days ? (
-          <ContributionSkyline data={days} />
+          <ContributionSkyline
+            data={days}
+            showStats={false}
+            footer={null}
+            eyebrow={
+              <a
+                href={socialLinks.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mb-6 flex w-fit items-center gap-3"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`https://github.com/${USERNAME}.png?size=112`}
+                  alt=""
+                  width={56}
+                  height={56}
+                  className="size-12 rounded-xl sm:size-14"
+                />
+                <span>
+                  <span className="block font-semibold text-white">@{USERNAME}</span>
+                  <span className="flex items-center gap-1 text-[11px] uppercase tracking-widest text-zinc-400">
+                    GitHub <ArrowUpRight size={12} aria-hidden="true" />
+                  </span>
+                </span>
+              </a>
+            }
+          />
         ) : (
           // Holds the chart's place while the calendar loads.
           <div aria-hidden="true" className="h-90 w-full animate-pulse rounded-xl border border-white/10 bg-white/2" />

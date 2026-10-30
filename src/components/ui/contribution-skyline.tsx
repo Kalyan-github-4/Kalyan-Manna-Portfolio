@@ -206,7 +206,8 @@ export const riseAt = (t: number, week: number, weeks: number, day: number): num
   return easeOutCubic((t - d) / (1 - WAVE))
 }
 
-export const YAW_3D = Math.PI / 4
+// A shallow yaw keeps the year's long axis nearly level, so the whole skyline fits one screen.
+export const YAW_3D = (22 * Math.PI) / 180
 export const ELEV_3D = (34 * Math.PI) / 180
 export const YAW_RANGE: [number, number] = [(8 * Math.PI) / 180, (82 * Math.PI) / 180]
 export const ELEV_RANGE: [number, number] = [(18 * Math.PI) / 180, (62 * Math.PI) / 180]
@@ -272,6 +273,8 @@ export interface ContributionSkylineProps {
   palette?: PaletteInput
   /** Heading. Defaults to "{total} contributions in the last year". */
   title?: React.ReactNode
+  /** Shown above the heading, such as a profile link. */
+  eyebrow?: React.ReactNode
   /** Singular noun for a unit of activity. */
   unit?: string
   /** Plural noun. Defaults to `unit + "s"`. */
@@ -446,6 +449,7 @@ export default function ContributionSkyline({
   onViewChange,
   palette = "github",
   title,
+  eyebrow,
   unit = "contribution",
   unitPlural,
   heightScale = 1,
@@ -1181,21 +1185,45 @@ export default function ContributionSkyline({
   return (
     <section
       ref={rootRef}
-      className={"relative w-full rounded-xl border p-4 font-sans sm:p-5 " + className}
+      className={"relative w-full rounded-2xl border p-4 font-sans sm:p-8 " + className}
       style={{
         background: "var(--color-background, #ffffff)",
         color: "var(--color-foreground, #171717)",
         borderColor: "var(--color-border, #e5e5e5)",
       }}
     >
-      <header className="mb-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <h3 className="m-0 text-[15px] font-normal leading-snug">
-          {title ?? (
+      <header className="mb-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+        <div className="min-w-0">
+          {eyebrow}
+          <h3 className="m-0 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[15px] font-normal leading-snug sm:text-lg" style={{ color: title ? undefined : MUTED }}>
+            {title ?? (
+              <>
+                <span className="font-display text-5xl font-medium leading-none tabular-nums sm:text-6xl" style={{ color: "var(--color-foreground, #171717)" }}>
+                  {nf.format(stats.total)}
+                </span>
+                {noun(stats.total)} in the last year
+              </>
+            )}
+          </h3>
+          {!title && stats.busiest.date && (
             <>
-              <span className="font-semibold tabular-nums">{nf.format(stats.total)}</span> {noun(stats.total)} in the last year
+              <p className="m-0 mt-2 text-sm sm:text-base" style={{ color: MUTED }}>
+                Busiest on <strong className="font-semibold" style={{ color: "var(--color-foreground, #171717)" }}>{df.format(dayMs(stats.busiest.date))}</strong> with {nf.format(stats.busiest.count)} in a day
+              </p>
+              <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-[11px] uppercase tracking-widest" style={{ color: MUTED }}>
+                {[
+                  { value: stats.longest.days, label: "day best streak" },
+                  { value: stats.current.days, label: "day current streak" },
+                ].map((s) => (
+                  <span key={s.label}>
+                    <strong className="mr-1.5 text-base font-semibold tracking-normal" style={{ color: "var(--color-foreground, #171717)" }}>{nf.format(s.value)}</strong>
+                    {s.label}
+                  </span>
+                ))}
+              </div>
             </>
           )}
-        </h3>
+        </div>
         {showToggle && (
           <div
             role="group"
@@ -1233,8 +1261,8 @@ export default function ContributionSkyline({
         )}
       </header>
 
-      <div className="relative rounded-lg border" style={{ borderColor: "var(--color-border, #e5e5e5)" }}>
-        <div className="relative px-3 pt-3 sm:px-4 sm:pt-4">
+      <div className="relative">
+        <div className="relative pt-3 sm:pt-4">
           <div
             ref={stageRef}
             className="relative w-full overflow-hidden rounded-md outline-offset-4 has-[:focus-visible]:outline-2"
@@ -1290,7 +1318,7 @@ export default function ContributionSkyline({
             ref={tipRef}
             role="tooltip"
             aria-hidden={active < 0}
-            className="pointer-events-none absolute top-3 left-3 z-20 whitespace-nowrap rounded-md px-2.5 py-1.5 text-[12px] leading-none shadow-lg transition-opacity duration-150 sm:top-4 sm:left-4 motion-reduce:transition-none"
+            className="pointer-events-none absolute top-3 left-0 z-20 whitespace-nowrap rounded-md px-2.5 py-1.5 text-[12px] leading-none shadow-lg transition-opacity duration-150 sm:top-4 motion-reduce:transition-none"
             style={{
               opacity: active >= 0 ? 1 : 0,
               background: "var(--color-foreground, #171717)",
@@ -1342,7 +1370,7 @@ export default function ContributionSkyline({
           </div>
         )}
 
-        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-3 pt-3 pb-3 text-[12px] sm:px-4" style={{ color: MUTED }}>
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 pt-3 text-[12px]" style={{ color: MUTED }}>
           {footer === undefined ? (
             <span className="relative grid flex-1">
               {hints.map((h) => (
