@@ -58,7 +58,7 @@ export function HeroContent({ opacity, y, visibility }: HeroContentProps) {
 
 						<span className="relative inline-block overflow-hidden text-xs font-medium sm:text-sm">
 							<span className="animate-text-shimmer bg-[linear-gradient(110deg,#a1a1aa_35%,#ffffff_50%,#a1a1aa_65%)] bg-size-[200%_100%] bg-clip-text text-transparent">
-								Explore my latest projects
+								DeadWeight - Your codebase&apos;s cleanup crew
 							</span>
 						</span>
 
