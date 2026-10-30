@@ -6,7 +6,7 @@ import Link from "next/link";
 import CopyEmailButton from "./CopyEmailButton";
 import DeadweightPromo from "./DeadweightPromo";
 import { RuleMarkers } from "./LinkSection";
-import { bookCall, profileInfo, promo } from "./linksData";
+import { bookCall, profileInfo, promo, resume } from "./linksData";
 
 const panelRow =
   "group flex w-full items-center gap-4 rounded-[1.35rem] border border-transparent px-3 py-3 transition-all duration-300 hover:border-white/8 hover:bg-linear-to-b hover:from-zinc-800 hover:to-zinc-900 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_1px_3px_rgba(0,0,0,0.5)]";
@@ -69,16 +69,16 @@ export default function LinksHero() {
         >
           <CopyEmailButton className={panelRow} />
 
-          <Link href="/work" className={panelRow}>
+          <a href={resume.href} target="_blank" rel="noopener noreferrer" className={panelRow}>
             <span className={rowIcon}>
               <FileText size={18} />
             </span>
             <span className="min-w-0 flex-1">
-              <span className={rowLabel}>Resume</span>
-              <span className="block truncate text-sm font-medium text-white">View work</span>
+              <span className={rowLabel}>{resume.label}</span>
+              <span className="block truncate text-sm font-medium text-white">{resume.action}</span>
             </span>
             <ArrowUpRight size={18} className={rowArrow} />
-          </Link>
+          </a>
 
           <a href={promo.href} target="_blank" rel="noopener noreferrer" className={`${panelRow} md:hidden`}>
             <span className={rowIcon}>

@@ -146,6 +146,12 @@ export const connectLinks: LinkCardItem[] = [
   },
 ];
 
+export const resume = {
+  label: "Resume",
+  action: "View PDF",
+  href: "/Kalyan_Manna_Resume.pdf",
+};
+
 export const bookCall = {
   label: "Book a call",
   href: "/contact",
