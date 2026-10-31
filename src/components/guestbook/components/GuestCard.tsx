@@ -55,6 +55,7 @@ function messageAlignClass(message: string) {
 function AvatarBadge({ avatar, name }: { avatar: Avatar; name: string }) {
   if (avatar.kind === "photo") {
     return (
+      // eslint-disable-next-line @next/next/no-img-element -- avatar URLs come from the database, so their hosts can't be allowlisted
       <img
         src={avatar.value}
         alt={name}

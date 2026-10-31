@@ -70,6 +70,7 @@ export function MemoryImage({
             )}
 
             {status !== "error" && (
+                // eslint-disable-next-line @next/next/no-img-element -- serves the pre-generated WebP srcSet, which next/image can't take
                 <img
                     src={src}
                     srcSet={srcSet}

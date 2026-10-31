@@ -213,6 +213,7 @@ function SignedInCreateCard({
         <div className="relative z-10 flex items-center justify-between px-5 pb-4 pt-7">
           <div className="flex items-center gap-3">
             {user?.imageUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element -- avatar host is Clerk's to choose, so it can't be allowlisted
               <img
                 src={user.imageUrl}
                 alt={authorName}

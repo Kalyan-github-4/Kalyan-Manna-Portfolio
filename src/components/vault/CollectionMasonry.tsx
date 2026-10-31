@@ -92,6 +92,7 @@ export function CollectionMasonry({
 function PhotoTileCard({ tile, total }: { tile: PhotoTile; total: number }) {
     return (
         <div className="group relative h-full w-full overflow-hidden rounded-2xl bg-zinc-900">
+            {/* eslint-disable-next-line @next/next/no-img-element -- serves the pre-generated WebP srcSet, which next/image can't take */}
             <img
                 src={tile.photo.src}
                 srcSet={tile.photo.srcSet}

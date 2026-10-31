@@ -102,6 +102,7 @@ function FeedbackCard({ speaker }: { speaker: Speaker }) {
         <div>
           <div className="mb-4 flex items-start justify-between gap-3">
             <div className="flex min-w-0 items-center gap-3">
+              {/* eslint-disable-next-line @next/next/no-img-element -- avatar URLs come from the database, so their hosts can't be allowlisted */}
               <img
                 src={speaker.src}
                 alt={speaker.name}

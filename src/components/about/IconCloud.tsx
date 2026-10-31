@@ -50,6 +50,7 @@ const renderIcon = (icon: SimpleIcon) => {
             style={{ cursor: "pointer" }}
             onClick={(event) => event.preventDefault()}
         >
+            {/* eslint-disable-next-line @next/next/no-img-element -- inline SVG data URI, nothing to optimize */}
             <img
                 alt={icon.title}
                 height={ICON_SIZE}
