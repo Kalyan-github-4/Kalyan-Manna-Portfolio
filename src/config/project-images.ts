@@ -42,6 +42,10 @@ export const projectImages = {
     "/projects/portfolio.webp",
     "/projects/portfolio-1.webp",
   ],
+  placementSystemScreens: [
+    "/projects/Brainware-1.png",
+    "/projects/Brainware-2.png",
+  ],
   // EasyPG in-app screenshots shown inside the mobile device frame.
   easyPgScreens: [
     "/projects/easyPG-2.webp",

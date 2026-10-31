@@ -21,6 +21,33 @@ export type WorkProject = {
 export const workProjects: WorkProject[] = [
     {
         number: "01",
+        title: "Student Placement Management System",
+        category: "Web App",
+        date: "2026",
+        description:
+            "A centralized platform built as a Brainware University college project to manage student placements, company recruitment drives, eligibility criteria, applications, and placement records.",
+        image: projectImages.placementSystemScreens[0],
+        previewImages: [...projectImages.placementSystemScreens],
+        href: "https://student-placement-management-system-ivory.vercel.app",
+        githubUrl: "https://github.com/Kalyan-github-4/Student-Placement-Management-System",
+        liveUrl: "https://student-placement-management-system-ivory.vercel.app",
+        tags: [
+            "Next.js",
+            "React",
+            "TypeScript",
+            "Tailwind CSS",
+            "shadcn/ui",
+            "Auth.js",
+            "PostgreSQL",
+            "Neon",
+            "Drizzle ORM",
+            "Zod",
+            "Resend",
+        ],
+        accent: "from-blue-900 via-blue-700 to-red-600",
+    },
+    {
+        number: "02",
         title: "Deadweight",
         category: "VS Code Extension",
         date: "2026",
@@ -43,7 +70,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-red-700 via-red-500 to-zinc-500",
     },
     {
-        number: "02",
+        number: "03",
         title: "Keythm",
         category: "Web App",
         date: "2026",
@@ -64,7 +91,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-amber-700 via-amber-500 to-stone-400",
     },
     {
-        number: "03",
+        number: "04",
         title: "HopeBridge",
         category: "Website",
         date: "2026",
@@ -83,7 +110,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-emerald-700 via-emerald-500 to-orange-500",
     },
     {
-        number: "04",
+        number: "05",
         title: "GitHub Roast",
         category: "Web App",
         date: "2026",
@@ -104,7 +131,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-orange-500 via-pink-500 to-purple-600",
     },
     {
-        number: "05",
+        number: "06",
         title: "Portfolio",
         category: "Web App",
         date: "2026",
@@ -129,7 +156,7 @@ export const workProjects: WorkProject[] = [
         accent: "from-cyan-500 via-blue-600 to-violet-600",
     },
     {
-        number: "06",
+        number: "07",
         title: "EasyPG",
         category: "Mobile App",
         date: "2026",
@@ -156,7 +183,7 @@ export const workProjects: WorkProject[] = [
         mobileImages: [...projectImages.easyPgScreens],
     },
     {
-        number: "07",
+        number: "08",
         title: "Gym Management System",
         category: "Web App",
         date: "2026",
