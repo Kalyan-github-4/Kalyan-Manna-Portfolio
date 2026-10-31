@@ -6,6 +6,7 @@ import { motion } from "framer-motion"
 
 import { journeyItems } from "@/data/journeyData"
 import GradientText from "@/components/shared/GradientText"
+import { faintDiagonalStripeStyle } from "@/components/shared/stripeStyles"
 import { VaultCollectionCard } from "@/components/vault/VaultCollectionCard"
 
 const EASE = [0.22, 1, 0.36, 1] as const
@@ -81,7 +82,10 @@ export default function VaultShowcase() {
             >
                 {/* One frame for the row: hairlines above and below, the same
                     treatment the bento grid gets. */}
-                <div className="grid grid-cols-1 gap-3 border-y border-white/10 sm:grid-cols-2 lg:grid-cols-3">
+                <div
+                    className="grid grid-cols-1 gap-3 border-y border-white/10 p-3 sm:grid-cols-2 lg:grid-cols-3"
+                    style={faintDiagonalStripeStyle}
+                >
                     {featured.map((item) => (
                         <VaultCollectionCard key={item.id} item={item} />
                     ))}
