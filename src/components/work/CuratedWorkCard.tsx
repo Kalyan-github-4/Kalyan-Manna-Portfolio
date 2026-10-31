@@ -3,6 +3,7 @@
 import { ArrowsOut, ArrowUpRight, Pause, Play } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 import { useEffect, useRef, useState, type ReactNode } from "react"
+import Image from "next/image"
 import Link from "next/link"
 
 import MobileAppScreens from "./MobileAppScreens"
@@ -147,7 +148,7 @@ function CardVideo({ src, title }: { src: string; title: string }) {
                 }}
                 onClick={fullscreen ? undefined : toggle}
                 // Cropped to fill the card, but shown whole in fullscreen.
-                className={`absolute inset-0 h-full w-full rounded-xl bg-black object-cover transition-opacity duration-500 [&:fullscreen]:rounded-none [&:fullscreen]:object-contain ${started ? "pointer-events-auto opacity-100" : "opacity-0"}`}
+                className={`absolute inset-0 h-full w-full rounded-[18px] bg-black object-cover transition-opacity duration-500 [&:fullscreen]:rounded-none [&:fullscreen]:object-contain ${started ? "pointer-events-auto opacity-100" : "opacity-0"}`}
             />
 
             {/* Always shown until it plays; while playing it only appears on
@@ -196,7 +197,7 @@ export default function CuratedWorkCard({ project }: CuratedWorkCardProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.8, ease: EASE }}
-            className="rounded-[20px] border border-white/10 bg-white/4 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] lg:rounded-[22px] lg:p-2.5"
+            className="rounded-[27px] border border-white/10 bg-zinc-900/70 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] lg:rounded-[29px] lg:p-2.5"
         >
             <div className="group/video relative">
             <CardShell
@@ -205,7 +206,7 @@ export default function CuratedWorkCard({ project }: CuratedWorkCardProps) {
                 // Phones get a shorter card. The artwork is anchored to the
                 // bottom edge, so trimming the height closes the dead band
                 // between the blurb and the mockup rather than cropping either.
-                className={`group relative block h-[46vh] max-h-110 min-h-78 overflow-hidden rounded-xl bg-linear-to-br p-6 sm:h-[58vh] sm:max-h-155 sm:min-h-95 sm:p-8 lg:h-[74vh] lg:max-h-176 lg:p-10 ${project.accent}`}
+                className={`group relative block h-[46vh] max-h-110 min-h-78 overflow-hidden rounded-[18px] bg-linear-to-br p-6 sm:h-[58vh] sm:max-h-155 sm:min-h-95 sm:p-8 lg:h-[74vh] lg:max-h-176 lg:p-10 ${project.accent}`}
             >
                 {/* Lifts the copy off the brighter gradient stops. Also
                     carries the top-edge highlight — on the card itself it would
@@ -213,7 +214,7 @@ export default function CuratedWorkCard({ project }: CuratedWorkCardProps) {
                     to match the card's so the hairline follows the corners. */}
                 <div
                     aria-hidden="true"
-                    className="absolute inset-0 rounded-xl bg-[radial-gradient(circle_at_20%_0%,rgba(255,255,255,0.22),transparent_45%),linear-gradient(to_bottom,rgba(0,0,0,0.12),rgba(0,0,0,0.3))] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]"
+                    className="absolute inset-0 rounded-[18px] bg-[radial-gradient(circle_at_20%_0%,rgba(255,255,255,0.22),transparent_45%),linear-gradient(to_bottom,rgba(0,0,0,0.12),rgba(0,0,0,0.3))] shadow-[inset_0_1px_0_rgba(255,255,255,0.3)]"
                 />
 
                 <div className="relative z-10 flex items-start justify-between gap-6">
@@ -241,63 +242,27 @@ export default function CuratedWorkCard({ project }: CuratedWorkCardProps) {
                         className="absolute inset-x-6 bottom-[-38px] z-10 flex items-end justify-center sm:inset-x-10"
                     />
                 ) : (
-                <div className="absolute inset-x-6 bottom-0 top-[20%] flex items-end sm:inset-x-10 sm:top-[28%]">
+                // Sits 8px past the card's bottom edge so the hover lift never
+                // opens a gap beneath the screenshot.
+                <div className="absolute inset-x-6 -bottom-2 top-[20%] sm:inset-x-10 sm:top-[28%]">
                     <div
                         className="
-            relative w-full overflow-hidden
-            rounded-[18px]
-            border border-white/15
+            h-full w-full overflow-hidden
+            rounded-t-xl
+            border border-b-0 border-white/70
             bg-[#141217]
-            p-2.5
-            shadow-[0_35px_80px_rgba(0,0,0,.45),0_8px_24px_rgba(0,0,0,.3),inset_0_1px_0_rgba(255,255,255,.08)]
-            transition-all duration-700
+            shadow-[0_35px_80px_rgba(0,0,0,.45),0_8px_24px_rgba(0,0,0,.3)]
+            transition-transform duration-700
             group-hover:-translate-y-2
         "
                     >
-                        {/* Window chrome */}
-                        <div className="mb-3 flex h-9 items-center justify-between rounded-[10px] border border-white/6 bg-[#1a1820] px-4">
-                            <div className="flex gap-2">
-                                <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-                                <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-                                <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-                            </div>
-
-                            <div className="h-2 w-28 rounded-full bg-white/8" />
-
-                            <div className="h-7 w-20 rounded-full bg-white/6" />
-                        </div>
-
-                        {/* Screenshot */}
-                        <div className="overflow-hidden rounded-xl border border-white/10 bg-black">
-                            <img
-                                src={shots[0]}
-                                alt={`${project.title} preview`}
-                                loading="lazy"
-                                decoding="async"
-                                className="
-                    h-full w-full object-cover object-top
-                    transition-transform duration-700
-                    group-hover:scale-[1.03]
-                "
-                            />
-                        </div>
-
-                        {/* Glass reflection */}
-                        <div
-                            aria-hidden
-                            className="
-                pointer-events-none absolute inset-0
-                bg-[linear-gradient(120deg,rgba(255,255,255,.08),transparent_30%,transparent_70%,rgba(255,255,255,.03))]
-            "
-                        />
-
-                        {/* Glow */}
-                        <div
-                            aria-hidden
-                            className="
-                absolute inset-0 rounded-[18px]
-                shadow-[inset_0_1px_0_rgba(255,255,255,.12)]
-            "
+                        <Image
+                            src={shots[0]}
+                            alt={`${project.title} preview`}
+                            width={1440}
+                            height={678}
+                            sizes="(min-width: 1536px) 1536px, 100vw"
+                            className="h-full w-full object-cover object-top"
                         />
                     </div>
                 </div>
