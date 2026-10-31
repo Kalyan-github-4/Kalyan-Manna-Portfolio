@@ -33,7 +33,7 @@ const curatedMeta: Record<string, CuratedMeta> = {
         video: "/videos/deadweight-video.mp4",
     },
     Keythm: {
-        rank: 3,
+        rank: 5,
         tagline:
             "A typing trainer you can hear — every keystroke thocks, and the numbers land the moment the timer runs out",
         highlights: [
@@ -45,7 +45,7 @@ const curatedMeta: Record<string, CuratedMeta> = {
         mark: "#B45309",
     },
     "GitHub Roast": {
-        rank: 4,
+        rank: 3,
         tagline:
             "Hand it a GitHub username and it reads your commit history back to you — with jokes",
         highlights: [
@@ -82,7 +82,7 @@ const curatedMeta: Record<string, CuratedMeta> = {
         video: "/videos/easypg-video.mp4",
     },
     "Gym Management System": {
-        rank: 5,
+        rank: 6,
         tagline:
             "Members, memberships, payments, and workouts — one dashboard for the whole gym",
         highlights: [
@@ -94,7 +94,7 @@ const curatedMeta: Record<string, CuratedMeta> = {
         mark: "#818CF8",
     },
     HopeBridge: {
-        rank: 6,
+        rank: 4,
         tagline:
             "A non-profit’s whole story on one site — the causes, the impact, and a donate button that is never more than a scroll away",
         highlights: [
@@ -118,7 +118,7 @@ const fallback = (project: WorkProject): CuratedMeta => ({
 })
 
 /** How many projects the home showcase shows. */
-const HOME_LIMIT = 2
+const HOME_LIMIT = 4
 
 export const curatedProjects: CuratedProject[] = workProjects
     .map((project) => ({

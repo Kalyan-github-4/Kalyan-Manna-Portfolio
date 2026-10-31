@@ -10,7 +10,8 @@ import EdgeStripes from "../shared/EdgeStripes"
 
 export default function CaseStudyWorkSection() {
     return (
-        <section className="relative overflow-hidden bg-black px-4 py-28 text-white sm:px-8 lg:px-12">
+        // Side padding mirrors EdgeStripes' asymmetric gutters, plus 12-16px of air.
+        <section className="relative overflow-hidden bg-black py-28 pl-11 pr-8 text-white sm:pl-14 sm:pr-11 lg:pl-15 lg:pr-13">
 
             {/* Background Glow */}
             <BackgroundRipple
