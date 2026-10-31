@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight, FileText, Graph } from "@phosphor-icons/react";
+import Image from "next/image";
 import Link from "next/link";
 import CopyEmailButton from "./CopyEmailButton";
 import DeadweightPromo from "./DeadweightPromo";
@@ -12,6 +13,7 @@ const panelRow =
   "group flex w-full items-center gap-4 rounded-[1.35rem] border border-transparent px-3 py-3 transition-all duration-300 hover:border-white/8 hover:bg-linear-to-b hover:from-zinc-800 hover:to-zinc-900 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_1px_3px_rgba(0,0,0,0.5)]";
 const rowIcon =
   "flex size-11 shrink-0 items-center justify-center rounded-full border border-white/8 bg-linear-to-b from-zinc-700 to-zinc-800 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_1px_3px_rgba(0,0,0,0.5)] transition-colors duration-300 group-hover:text-blue-400";
+const rowDivider = "mx-3 h-px bg-white/8";
 const rowLabel = "block font-mono text-[11px] uppercase tracking-widest text-zinc-500";
 const rowArrow =
   "shrink-0 text-zinc-500 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-blue-400";
@@ -34,12 +36,12 @@ export default function LinksHero() {
         >
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:gap-8">
             <div className="w-fit shrink-0 rounded-[1.75rem] border border-white/10 bg-zinc-950 p-1.5 md:p-2">
-              <img
+              <Image
                 src={profileInfo.image}
                 alt={profileInfo.name}
                 width={176}
                 height={176}
-                decoding="async"
+                loading="eager"
                 className="size-28 rounded-[1.35rem] object-cover md:size-44"
               />
             </div>
@@ -69,6 +71,8 @@ export default function LinksHero() {
         >
           <CopyEmailButton className={panelRow} />
 
+          <div aria-hidden="true" className={rowDivider} />
+
           <a href={resume.href} target="_blank" rel="noopener noreferrer" className={panelRow}>
             <span className={rowIcon}>
               <FileText size={18} />
@@ -79,6 +83,8 @@ export default function LinksHero() {
             </span>
             <ArrowUpRight size={18} className={rowArrow} />
           </a>
+
+          <div aria-hidden="true" className={`${rowDivider} md:hidden`} />
 
           <a href={promo.href} target="_blank" rel="noopener noreferrer" className={`${panelRow} md:hidden`}>
             <span className={rowIcon}>
@@ -93,17 +99,28 @@ export default function LinksHero() {
 
           <Link
             href={bookCall.href}
-            className="mt-1 flex items-center justify-center gap-3 rounded-full border border-white/8 bg-linear-to-b from-zinc-700 to-zinc-800 py-2 pl-2 pr-5 text-sm font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_1px_3px_rgba(0,0,0,0.5)] transition-[filter] hover:brightness-110"
+            className="group/book mt-1 flex items-center justify-center rounded-full border border-white/8 bg-linear-to-b from-zinc-700 to-zinc-800 py-2 pl-2 pr-5 text-sm font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_1px_3px_rgba(0,0,0,0.5)] transition-[filter] hover:brightness-110"
           >
-            <img
+            <Image
               src={profileInfo.image}
               alt=""
               width={40}
               height={40}
-              decoding="async"
               className="size-10 rounded-full border-2 border-white object-cover"
             />
-            {bookCall.label}
+            {/* "+ You" opens up from zero width, pushing the label along with it. */}
+            <span
+              aria-hidden="true"
+              className="grid grid-cols-[0fr] opacity-0 transition-[grid-template-columns,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/book:grid-cols-[1fr] group-hover/book:opacity-100 group-focus-visible/book:grid-cols-[1fr] group-focus-visible/book:opacity-100 motion-reduce:transition-none"
+            >
+              <span className="flex min-w-0 items-center gap-2 overflow-hidden pl-2">
+                <span className="shrink-0 text-base">+</span>
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-white text-xs font-medium text-zinc-900">
+                  You
+                </span>
+              </span>
+            </span>
+            <span className="ml-3">{bookCall.label}</span>
           </Link>
         </motion.div>
       </div>

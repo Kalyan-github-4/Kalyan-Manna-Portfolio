@@ -2,7 +2,7 @@
 
 import LinkCard from "./LinkCard";
 import type { LinkCardItem } from "./linksData";
-
+import { faintDiagonalStripeStyle } from "../shared/stripeStyles";
 const markerClass = "absolute size-1.75 border border-white/40 bg-black";
 
 /**
@@ -37,7 +37,8 @@ export default function LinkSection({ title, links }: LinkSectionProps) {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 gap-3 py-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <div className="m-0.5 grid grid-cols-1 gap-3 py-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5"
+      style={faintDiagonalStripeStyle}>
         {links.map((item, index) => (
           <LinkCard key={item.title} item={item} index={index} />
         ))}

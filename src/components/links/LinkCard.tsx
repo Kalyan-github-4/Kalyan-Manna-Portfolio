@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "@phosphor-icons/react";
+import Image from "next/image";
 import Link from "next/link";
-import { diagonalStripeStyle } from "../shared/stripeStyles";
+import { denseDiagonalStripeStyle } from "../shared/stripeStyles";
 import type { LinkCardItem, LinkCardMedia } from "./linksData";
 
 function EnvelopeArt() {
@@ -45,21 +46,21 @@ function CardMedia({ media }: { media: LinkCardMedia }) {
   switch (media.kind) {
     case "image":
       return (
-        <img
+        <Image
           src={media.src}
           alt=""
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          fill
+          sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
         />
       );
     case "logo":
       return (
-        <img
+        <Image
           src="/logo-white.webp"
           alt=""
-          loading="lazy"
-          decoding="async"
+          width={128}
+          height={128}
           className="w-1/4 transition-transform duration-500 group-hover:scale-105"
         />
       );
@@ -81,8 +82,8 @@ export default function LinkCard({ item, index }: LinkCardProps) {
   const content = (
     <>
       <div
-        className="relative flex aspect-16/10 items-center justify-center overflow-hidden rounded-xl border border-white/5 bg-zinc-950"
-        style={diagonalStripeStyle}
+        className="relative flex aspect-16/10 items-center justify-center overflow-hidden rounded-xl border border-white/5 bg-zinc-950 bg-clip-content p-0.5"
+        style={denseDiagonalStripeStyle}
       >
         {item.media && <CardMedia media={item.media} />}
         {Icon && (
