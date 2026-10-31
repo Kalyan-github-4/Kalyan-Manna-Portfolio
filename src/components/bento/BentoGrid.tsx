@@ -3,6 +3,7 @@ import TechStackCard from "./TechStackCard"
 import WhatYouGetCard from "./WhatYouGetCard"
 import TimezoneCard from "./TimezoneCard"
 import UsesCard from "./UsesCard"
+import { faintDiagonalStripeStyle } from "../shared/stripeStyles";
 
 /**
  * The tile wall that sits directly under the hero.
@@ -23,10 +24,13 @@ export default function BentoGrid() {
           the card edges land on the hatched gutters' inner border lines.
           Left gutter sits at left-3 (12px) and is 20/28/32px wide -> 32/40/44px.
           Right gutter is pinned to the edge at 20/28/36px wide. */}
-      <div className="mx-auto w-full max-w-[120rem] py-20 pl-8 pr-5 sm:py-24 sm:pl-10 sm:pr-7 lg:pl-11 lg:pr-9">
+      <div className="mx-auto w-full max-w-[120rem] py-20 pl-8 pr-5 sm:py-24 sm:pl-10 sm:pr-7 lg:pl-11 lg:pr-9"
+      >
         {/* Rows size to their own content, so the top two tiles stay a touch
             shorter than the bottom three. */}
-        <div className="grid grid-cols-1 gap-3  md:grid-cols-2 lg:grid-cols-7 border-y border-white/10">
+        <div className="grid grid-cols-1 gap-3  md:grid-cols-2 lg:grid-cols-7 border-y border-white/10"
+          style={faintDiagonalStripeStyle}
+        >
 
           {/* First row */}
           <CollaborateCard className="md:col-span-2 lg:col-span-4" />

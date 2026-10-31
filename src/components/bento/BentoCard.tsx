@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import { ArrowRight } from "@phosphor-icons/react"
 import Link from "next/link"
 
+import { ghostDiagonalStripeStyle } from "../shared/stripeStyles"
 import { bentoFadeUp } from "./bentoMotion"
 
 type BentoCardProps = {
@@ -124,7 +125,8 @@ export default function BentoCard({
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.25 }}
-      className="group relative flex h-full flex-col gap-5 overflow-hidden rounded-3xl border border-white/10 bg-white/2 p-5 text-center sm:p-6"
+      className="group relative flex h-full flex-col gap-5 overflow-hidden rounded-3xl border border-white/10 bg-[#050505] p-5 text-center sm:p-6"
+      style={ghostDiagonalStripeStyle}
     >
       {/* A soft white wash blooming out of the bottom-right corner — the only
           thing hover changes on the shell, so the border stays put. */}
