@@ -238,11 +238,11 @@ export default function CollaborateCard({ className = "" }: { className?: string
               ["--o" as string]: client.opacity ?? 1,
             }}
           >
-            {/* Plain <img>: next/image has no remote hosts configured. */}
-            <img
+            <Image
               src={client.src}
               alt=""
-              loading="lazy"
+              width={60}
+              height={60}
               className="size-full rounded-full object-cover"
             />
           </span>

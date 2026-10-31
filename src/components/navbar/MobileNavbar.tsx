@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 import {
   Drawer,
@@ -42,13 +43,13 @@ export function MobileNavbar({ items, pathname }: MobileNavbarProps) {
               Kalyan
             </span>
 
-            <img
+            <Image
               src="/logo-white.webp"
               alt=""
               aria-hidden="true"
-              width={256}
-              height={256}
-              decoding="async"
+              width={27}
+              height={27}
+              loading="eager"
               className="h-6.75 w-auto object-contain"
             />
           </motion.button>

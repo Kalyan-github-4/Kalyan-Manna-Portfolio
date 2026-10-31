@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 type DesktopAppPreviewProps = {
     images: string[]
     title: string
@@ -36,13 +38,12 @@ export default function DesktopAppPreview({
                                 positionClass,
                             ].join(" ")}
                         >
-                            <img
+                            <Image
                                 src={image}
                                 alt={`${title} preview ${index + 1}`}
                                 width={1440}
                                 height={678}
-                                loading="lazy"
-                                decoding="async"
+                                sizes="(min-width: 768px) 660px, 86vw"
                                 className="h-44 w-full object-cover object-top sm:h-52 md:h-60"
                             />
                         </div>

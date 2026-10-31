@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 type MobileAppScreensProps = {
     images: string[]
     /** Project name, used for the screenshot alt text. */
@@ -44,13 +46,12 @@ export default function MobileAppScreens({
                             <div className="relative h-full w-full overflow-hidden rounded-[28px] bg-black p-[3px]">
                                 {/* Display */}
                                 <div className="relative h-full w-full overflow-hidden rounded-[25px] bg-zinc-950">
-                                    <img
+                                    <Image
                                         src={image}
                                         alt={`${label} app screen ${index + 1}`}
                                         width={720}
                                         height={1544}
-                                        loading="lazy"
-                                        decoding="async"
+                                        sizes="166px"
                                         className="h-full w-full object-cover object-top"
                                     />
 

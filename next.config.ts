@@ -70,6 +70,10 @@ const nextConfig: NextConfig = {
   // __dirname is not defined here: package.json sets "type": "module".
   turbopack: { root: path.dirname(fileURLToPath(import.meta.url)) },
 
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
+  },
+
   async headers() {
     // No Cache-Control rule here: vercel.json used to set one on /assets/*,
     // which was Vite's output directory. Next serves hashed assets from

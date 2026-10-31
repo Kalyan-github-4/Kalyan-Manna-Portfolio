@@ -12,6 +12,7 @@ import {
     XIcon,
 } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 import {
     Dialog,
@@ -133,13 +134,11 @@ export function ContactDialog({
                     <div className="rounded-3xl border border-white/10 bg-[#101014]/95 p-2.5 shadow-2xl shadow-black/50 backdrop-blur-2xl sm:rounded-4xl sm:p-3">
                         <div className="rounded-3xl border border-white/10 bg-white/[0.035] p-4 shadow-inner shadow-white/2 transition duration-500 hover:border-white/15 hover:bg-white/5">
                             <div className="flex items-center gap-3">
-                                <img
+                                <Image
                                     src={imageSrc}
                                     alt={imageAlt}
                                     width={36}
                                     height={36}
-                                    loading="lazy"
-                                    decoding="async"
                                     className="h-9 w-9 rounded-full object-cover ring-2 ring-white/10"
                                 />
 
@@ -202,13 +201,11 @@ export function ContactDialog({
                                 description="30 min · no strings"
                                 visual={
                                     <div className="flex items-center justify-center gap-3">
-                                        <img
+                                        <Image
                                             src="/kalyan-manna.webp"
                                             alt="Kalyan Manna"
                                             width={52}
                                             height={52}
-                                            loading="lazy"
-                                            decoding="async"
                                             className="h-13 w-13 rounded-full object-cover ring-2 ring-white/15"
                                         />
 

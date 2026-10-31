@@ -2,6 +2,7 @@
 
 import { LinkSimple, BookOpenText, IdentificationCard } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 
 const bigCards = [
@@ -56,12 +57,12 @@ export function MoreMenu() {
           transition={{ duration: 0.2 }}
           className="group relative h-55 overflow-hidden rounded-3xl"
         >
-          <img
+          <Image
             src={card.image}
             alt={card.title}
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-110"
+            fill
+            sizes="(min-width: 768px) 33vw, 100vw"
+            className="object-cover transition duration-500 group-hover:scale-110"
           />
 
           <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent" />

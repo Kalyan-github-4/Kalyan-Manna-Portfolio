@@ -2,6 +2,7 @@
 
 import { CaretRight } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 import Link from "next/link"
 
 import { HeroButtons } from "@/components/hero/HeroButtons"
@@ -90,12 +91,12 @@ export function HeroContent({ opacity, y, visibility }: HeroContentProps) {
 					</span>
 
 					<span className="group relative inline-flex cursor-pointer items-center justify-center rounded-full bg-linear-to-b from-zinc-200 via-zinc-400 to-zinc-600 p-0.5 text-sm font-medium text-white transition-all duration-300 hover:from-zinc-300 hover:via-zinc-500 hover:to-zinc-700 sm:text-base">
-						<img
+						<Image
 							src="/kalyan-manna.webp"
 							alt="Kalyan Manna"
 							width={58}
 							height={32}
-							decoding="async"
+							loading="eager"
 							className="h-[1.8em] w-[3.2em] rounded-full object-cover"
 						/>
 
