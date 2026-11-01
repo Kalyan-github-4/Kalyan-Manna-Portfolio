@@ -1,11 +1,12 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* The two families are loaded by next/font in app/layout.tsx, which exposes
+  /* The three families are loaded by next/font in app/layout.tsx, which exposes
      each as a CSS variable on <html>. Named fallbacks stay so the tokens still
      resolve if a face fails to load. */
   --font-sans: var(--font-poppins), "Poppins", ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
+  --font-hand: var(--font-caveat), "Caveat", cursive;
   --font-mono: ui-monospace, "Cascadia Code", "Fira Code", monospace;
 
   --color-background: var(--background);

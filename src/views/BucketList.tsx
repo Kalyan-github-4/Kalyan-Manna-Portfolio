@@ -1,30 +1,15 @@
 "use client"
 
-import {
-    Barbell,
-    Brain,
-    GlobeHemisphereEast,
-    RocketLaunch,
-    Sparkle,
-    type Icon,
-} from "@phosphor-icons/react"
+import { Check } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 
-import { bucketSections, type BucketSectionId } from "@/data/bucketListData"
-import { BucketCard } from "@/components/bucketList/BucketCard"
+import { bucketSections } from "@/data/bucketListData"
 import BackgroundRipple from "@/components/shared/BackgroundRipple"
 import EdgeStripes from "@/components/shared/EdgeStripes"
 import GradientText, { HEADING_GRADIENT } from "@/components/shared/GradientText"
+import SplitSection, { Strong } from "@/components/shared/SplitSection"
 
 const EASE = [0.22, 1, 0.36, 1] as const
-
-const SECTION_ICONS: Record<BucketSectionId, Icon> = {
-    career: RocketLaunch,
-    travel: GlobeHemisphereEast,
-    growth: Brain,
-    fitness: Barbell,
-    life: Sparkle,
-}
 
 export default function BucketList() {
     const allItems = bucketSections.flatMap((section) => section.items)
@@ -32,97 +17,101 @@ export default function BucketList() {
 
     return (
         <main className="min-h-screen bg-black">
-            {/* Same shell as /vault: rippling backdrop, edge stripes, same padding. */}
-            <section className="relative overflow-hidden bg-black px-4 py-28 text-white sm:px-8 lg:px-9">
+            {/* Same shell and frames as /more/attribution. */}
+            <section className="relative overflow-clip bg-black px-4 pb-28 pt-24 text-white sm:px-8 lg:px-9">
                 <BackgroundRipple rows={7} cols={30} />
 
                 <EdgeStripes />
 
                 <div className="relative z-10 mx-auto w-full">
-                    <div className="relative mb-16 flex min-h-50 items-center justify-center pl-12 pr-9 text-center sm:px-14">
-                        <div>
-                            <motion.p
-                                initial={{ opacity: 0, y: 18 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.7, ease: EASE }}
-                                className="mb-5 font-mono text-xs font-semibold uppercase tracking-[0.35em] text-white/50"
+                    <header className="mb-8 px-8 text-center">
+                        <motion.p
+                            initial={{ opacity: 0, y: 18 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, ease: EASE }}
+                            className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.35em] text-white/50"
+                        >
+                            The Bucket List
+                        </motion.p>
+
+                        <motion.h1
+                            initial={{ opacity: 0, y: 26 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.08, ease: EASE }}
+                            className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text font-display text-4xl text-transparent text-shadow-subtle sm:text-5xl md:text-6xl lg:text-7xl"
+                        >
+                            Things i&apos;ll do{" "}
+                            <GradientText
+                                className="inline-block overflow-visible pb-2 italic"
+                                colors={HEADING_GRADIENT}
+                                animationSpeed={6}
                             >
-                                The Bucket List
-                            </motion.p>
+                                before i&apos;m done
+                            </GradientText>
+                        </motion.h1>
 
-                            <motion.h1
-                                initial={{ opacity: 0, y: 26 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.08, ease: EASE }}
-                                className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text font-display text-4xl text-transparent text-shadow-subtle sm:text-5xl md:text-6xl lg:text-7xl"
-                            >
-                                Things i&apos;ll do{" "}
-                                <GradientText
-                                    className="inline-block overflow-visible pb-4 italic"
-                                    colors={HEADING_GRADIENT}
-                                    animationSpeed={6}
-                                >
-                                    before i&apos;m done
-                                </GradientText>
-                            </motion.h1>
+                        <motion.p
+                            initial={{ opacity: 0, y: 18 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8, delay: 0.16, ease: EASE }}
+                            className="mx-auto mt-2 max-w-2xl text-sm text-zinc-300 sm:text-base"
+                        >
+                            Things I want to do, places I want to see, and versions of myself I want to become.
+                        </motion.p>
 
-                            <motion.div
-                                initial={{ opacity: 0, y: 18 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.16, ease: EASE }}
-                                className="mx-auto mt-4 max-w-2xl space-y-3 text-sm leading-relaxed text-zinc-400 sm:text-base"
-                            >
-                                <p className="text-zinc-200">
-                                    Things I want to do, places I want to see, and versions of myself I want to become.
-                                </p>
-                                <p>
-                                    Real photos replace these as I cross things off.
-                                </p>
-                            </motion.div>
+                        <p className="mt-3 text-sm font-medium text-zinc-400">
+                            {doneCount} of {allItems.length} crossed off
+                        </p>
+                    </header>
 
-                            <p className="mt-6 font-mono text-[0.7rem] uppercase tracking-[0.2em] text-zinc-400">
-                                {doneCount} of {allItems.length} crossed off
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Gutters match the Vault's sections, clear of the EdgeStripes. */}
-                    <div className="mb-28 space-y-16 pl-12 pr-9 sm:mb-36 sm:space-y-20 sm:pl-14 sm:pr-11 lg:pl-15 lg:pr-13">
-                        {bucketSections.map((section, sectionIndex) => {
-                            const SectionIcon = SECTION_ICONS[section.id]
-                            const offset = bucketSections
-                                .slice(0, sectionIndex)
-                                .reduce((total, previous) => total + previous.items.length, 0)
-
-                            return (
-                                <section key={section.id} aria-labelledby={`bucket-${section.id}`}>
-                                    <div className="mb-6 flex items-center gap-3">
-                                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-zinc-200">
-                                            <SectionIcon size={18} weight="duotone" aria-hidden="true" />
+                    {bucketSections.map((section) => (
+                        <SplitSection
+                            key={section.title}
+                            title={<><Strong>{section.title}</Strong><br />{section.subtitle}</>}
+                        >
+                            <ul className="-my-3 divide-y divide-white/10">
+                                {section.items.map((item) => (
+                                    <li key={item.title} className="flex gap-3.5 py-3.5">
+                                        <span
+                                            aria-hidden="true"
+                                            className={
+                                                item.doneOn
+                                                    ? "mt-1 flex size-5 shrink-0 items-center justify-center rounded-md bg-white text-zinc-950"
+                                                    : "mt-1 size-5 shrink-0 rounded-md border border-white/25"
+                                            }
+                                        >
+                                            {item.doneOn && <Check size={13} weight="bold" />}
                                         </span>
 
-                                        <h2
-                                            id={`bucket-${section.id}`}
-                                            className="font-sans text-xl font-semibold text-white sm:text-2xl"
-                                        >
-                                            {section.title}
-                                        </h2>
-                                    </div>
+                                        <div className="min-w-0 flex-1">
+                                            <p
+                                                className={
+                                                    item.doneOn
+                                                        ? "font-hand text-2xl font-semibold leading-7 text-white"
+                                                        : "font-hand text-2xl leading-7 text-zinc-300"
+                                                }
+                                            >
+                                                <span className="sr-only">
+                                                    {item.doneOn ? "Done: " : "Not done yet: "}
+                                                </span>
+                                                {item.title}
+                                            </p>
 
-                                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                                        {section.items.map((item, index) => (
-                                            <BucketCard
-                                                key={item.title}
-                                                item={item}
-                                                number={offset + index + 1}
-                                                index={index}
-                                            />
-                                        ))}
-                                    </div>
-                                </section>
-                            )
-                        })}
-                    </div>
+                                            {item.note && (
+                                                <p className="mt-0.5 text-sm text-zinc-500">{item.note}</p>
+                                            )}
+                                        </div>
+
+                                        {item.doneOn && (
+                                            <span className="h-fit shrink-0 rounded-md bg-white/10 px-2 py-0.5 text-xs font-medium text-white">
+                                                {item.doneOn}
+                                            </span>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </SplitSection>
+                    ))}
                 </div>
             </section>
         </main>

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import type { ReactNode } from "react"
-import { Instrument_Serif, Poppins } from "next/font/google"
+import { Caveat, Instrument_Serif, Poppins } from "next/font/google"
 
 import "@/styles/index.css"
 import SmoothScroll from "@/components/shared/SmoothScroll"
@@ -20,6 +20,13 @@ const instrumentSerif = Instrument_Serif({
   weight: "400",
   style: ["normal", "italic"],
   variable: "--font-instrument-serif",
+  display: "swap",
+})
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  variable: "--font-caveat",
   display: "swap",
 })
 
@@ -204,7 +211,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`dark ${poppins.variable} ${instrumentSerif.variable}`}
+      className={`dark ${poppins.variable} ${instrumentSerif.variable} ${caveat.variable}`}
     >
       <body>
         <script
