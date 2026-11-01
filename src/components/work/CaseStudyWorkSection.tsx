@@ -90,6 +90,10 @@ export default function CaseStudyWorkSection() {
                         ))}
                     </div>
                 </div>
+
+                <p className="mt-24 text-center font-mono text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-white/60">
+                    Still building something great. I&apos;ll add it here once it&apos;s done.
+                </p>
             </div>
         </section>
     )
