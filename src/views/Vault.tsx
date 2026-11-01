@@ -8,12 +8,9 @@ import { JourneyHeader } from "@/components/journey/JourneyHeader"
 import BackgroundRipple from "@/components/shared/BackgroundRipple"
 import EdgeStripes from "@/components/shared/EdgeStripes"
 import { faintDiagonalStripeStyle } from "@/components/shared/stripeStyles"
-import { VAULT_FRAME_GUTTERS, VaultFilterBar } from "@/components/vault/VaultFilterBar"
+import { VAULT_CARD_FRAME, VaultFilterBar } from "@/components/vault/VaultFilterBar"
 import { VaultLatestCard } from "@/components/vault/VaultLatestCard"
 import { VaultCollectionCard } from "@/components/vault/VaultCollectionCard"
-
-// The striped frame the home page's bento and showcase grids sit in.
-const CARD_FRAME = `${VAULT_FRAME_GUTTERS} border-y border-white/10 p-3`
 
 function SectionLabel({ children }: { children: ReactNode }) {
     return (
@@ -82,7 +79,7 @@ export default function Vault() {
                     {isBrowsingAll && (
                         <section aria-label="Latest collection" className="mb-6">
                             <SectionLabel>Latest Collection</SectionLabel>
-                            <div className={CARD_FRAME} style={faintDiagonalStripeStyle}>
+                            <div className={VAULT_CARD_FRAME} style={faintDiagonalStripeStyle}>
                                 <VaultLatestCard item={latest} />
                             </div>
                         </section>
@@ -110,7 +107,7 @@ export default function Vault() {
                         ) : (
                             <motion.div
                                 layout
-                                className={`${CARD_FRAME} grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3`}
+                                className={`${VAULT_CARD_FRAME} grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3`}
                                 style={faintDiagonalStripeStyle}
                             >
                                 <AnimatePresence mode="popLayout">

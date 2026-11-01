@@ -14,6 +14,9 @@ import { JOURNEY_FILTERS, journeyItems, type JourneyFilter } from "@/data/journe
  */
 export const VAULT_FRAME_GUTTERS = "ml-4 mr-1 sm:ml-2 sm:-mr-1 lg:mr-0"
 
+/** The striped frame the home page's bento and showcase grids sit in. */
+export const VAULT_CARD_FRAME = `${VAULT_FRAME_GUTTERS} border-y border-white/10 p-3`
+
 const INDICATOR_TRANSITION = {
     type: "spring",
     stiffness: 500,

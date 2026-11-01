@@ -16,14 +16,14 @@ interface PhotoTile extends MasonryItem {
     index: number
 }
 
-// Column counts, widest breakpoint first. The 400px step keeps two columns on
+// Column counts, widest breakpoint first. The 360px step keeps two columns on
 // ordinary phones, which is what makes the grid read as Pinterest rather than
 // as a single stack of images.
 const BREAKPOINTS = [
     "(min-width:1536px)",
     "(min-width:1100px)",
     "(min-width:768px)",
-    "(min-width:400px)",
+    "(min-width:360px)",
 ]
 const COLUMNS = [5, 4, 3, 2]
 
@@ -66,13 +66,13 @@ export function CollectionMasonry({
                 breakpoints={BREAKPOINTS}
                 columns={COLUMNS}
                 minColumns={1}
-                gap={16}
+                gap={12}
                 onItemClick={(tile) => setOpenIndex(tile.index)}
                 itemLabel={(tile) =>
                     `Open photo ${tile.index + 1} of ${photos.length}`
                 }
                 animateFrom="bottom"
-                hoverScale={1.02}
+                hoverScale={1}
                 renderItem={(tile) => (
                     <PhotoTileCard tile={tile} total={photos.length} />
                 )}
@@ -102,18 +102,18 @@ function PhotoTileCard({ tile, total }: { tile: PhotoTile; total: number }) {
                 loading="lazy"
                 decoding="async"
                 sizes="(min-width:1536px) 20vw, (min-width:1100px) 25vw, (min-width:768px) 33vw, 50vw"
-                className="h-full w-full object-cover transition-transform duration-900ms ease-out group-hover:scale-105"
+                className="h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
             />
 
             {/* Hover affordance — the whole tile opens the lightbox. */}
             <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/30"
+                className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 transition-shadow duration-500 group-hover:ring-white/40"
             />
 
             <span
                 aria-hidden="true"
-                className="pointer-events-none absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-black/40 text-white opacity-0 backdrop-blur-md transition-opacity duration-500 group-hover:opacity-100"
+                className="pointer-events-none absolute right-3 top-3 flex h-8 w-8 -translate-x-1 items-center justify-center rounded-full bg-white text-zinc-950 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
             >
                 <MagnifyingGlassPlus size={14} weight="bold" />
             </span>

@@ -1,5 +1,6 @@
 "use client"
 
+import type { ReactNode } from "react"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import {
@@ -11,15 +12,91 @@ import {
     IdentificationBadge,
     Images,
     MapPin,
+    Trophy,
 } from "@phosphor-icons/react"
 import { motion, useReducedMotion } from "framer-motion"
 
-import { journeyItems } from "@/data/journeyData"
+import { cn } from "@/lib/utils"
+import { journeyItems, type JourneyItem } from "@/data/journeyData"
 import { CategoryBadge } from "@/components/journey/CategoryBadge"
+import { MemoryImage } from "@/components/journey/MemoryImage"
 import { CollectionMasonry } from "@/components/vault/CollectionMasonry"
+import {
+    VAULT_CARD_FRAME,
+    VAULT_FRAME_GUTTERS,
+} from "@/components/vault/VaultFilterBar"
+import Breadcrumbs from "@/components/shared/Breadcrumbs"
 import EdgeStripes from "@/components/shared/EdgeStripes"
+import GradientText, { HEADING_GRADIENT } from "@/components/shared/GradientText"
+import { faintDiagonalStripeStyle } from "@/components/shared/stripeStyles"
 
 const EASE = [0.22, 1, 0.36, 1] as const
+
+function DetailTag({ children }: { children: ReactNode }) {
+    return (
+        <span className="inline-flex items-center gap-1.5 rounded-md bg-zinc-800/90 px-2 py-1 text-xs font-medium text-zinc-200">
+            {children}
+        </span>
+    )
+}
+
+interface CollectionLinkProps {
+    item: JourneyItem
+    direction: "previous" | "next"
+}
+
+/** Walks to a neighbouring collection, led by that collection's cover. */
+function CollectionLink({ item, direction }: CollectionLinkProps) {
+    const isNext = direction === "next"
+
+    return (
+        <Link
+            href={`/vault/${item.slug}`}
+            aria-label={`${isNext ? "Next" : "Previous"} collection: ${item.title}`}
+            className={cn(
+                "group relative block h-36 overflow-hidden rounded-2xl border border-white/10 transition-colors duration-500 hover:border-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 sm:h-44",
+                isNext && "sm:col-start-2"
+            )}
+        >
+            <MemoryImage
+                src={item.image}
+                srcSet={item.imageSrcSet}
+                alt=""
+                category={item.category}
+                sizes="(min-width:640px) 50vw, 100vw"
+                className="absolute inset-0"
+                imgClassName="transition-transform duration-[900ms] ease-out group-hover:scale-105"
+            />
+
+            <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-black/20"
+            />
+
+            <div
+                className={cn(
+                    "absolute inset-x-0 bottom-0 p-4 sm:p-5",
+                    isNext && "text-right"
+                )}
+            >
+                <span
+                    className={cn(
+                        "flex items-center gap-1 text-xs font-medium text-zinc-200",
+                        isNext && "justify-end"
+                    )}
+                >
+                    {!isNext && <CaretLeft size={12} weight="bold" aria-hidden="true" />}
+                    {isNext ? "Next" : "Previous"}
+                    {isNext && <CaretRight size={12} weight="bold" aria-hidden="true" />}
+                </span>
+
+                <span className="mt-1 block font-sans text-xl font-semibold leading-tight text-white sm:text-2xl">
+                    {item.coverTitle ?? item.title}
+                </span>
+            </div>
+        </Link>
+    )
+}
 
 export default function VaultCollection() {
     const params = useParams<{ slug: string }>()
@@ -64,97 +141,122 @@ export default function VaultCollection() {
 
     return (
         <main className="min-h-screen bg-black">
-            {/* Same shell and full-bleed inner column as /work and /vault. */}
-            <section className="relative overflow-hidden bg-black px-10 py-28 text-white sm:px-12 lg:px-14">
+            {/* Same shell and frame gutters as /vault. */}
+            <section className="relative overflow-hidden bg-black px-4 pb-28 pt-24 text-white sm:px-8 lg:px-9">
                 <EdgeStripes />
 
                 <div className="relative z-10 mx-auto w-full">
-                    <Link
-                        href="/vault"
-                        className="inline-flex items-center gap-2 text-sm text-zinc-400 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                    >
-                        <ArrowLeft size={14} weight="bold" aria-hidden="true" />
-                        Back to the Vault
-                    </Link>
-
-                    {/* Collection header */}
+                    {/* Collection header — inset by the frame's padding, so its
+                        text lines up with the edge of the gallery below. */}
                     <motion.header
                         initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, ease: EASE }}
-                        className="mb-14 mt-8 sm:mb-20"
+                        className={cn(VAULT_FRAME_GUTTERS, "mb-8 px-3")}
                     >
-                        <CategoryBadge category={collection.category} />
+                        <Breadcrumbs currentLabel={collection.coverTitle ?? collection.title} />
 
-                        <h1 className="mt-5 bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text font-display text-4xl leading-tight text-transparent text-shadow-subtle sm:text-5xl md:text-6xl">
-                            {collection.title}
-                        </h1>
+                        <div className="mt-6 grid gap-6 lg:grid-cols-2 lg:items-end lg:gap-16">
+                            <div>
+                                <h1 className="-ml-2 font-display text-4xl leading-tight sm:text-5xl md:text-6xl">
+                                    <GradientText
+                                        colors={HEADING_GRADIENT}
+                                        animationSpeed={6}
+                                    >
+                                        {collection.coverTitle ?? collection.title}
+                                    </GradientText>
+                                </h1>
 
-                        <dl className="mt-6 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[0.7rem] uppercase tracking-[0.15em] text-zinc-400">
-                            <div className="flex items-center gap-2">
-                                <dt className="sr-only">Photos</dt>
-                                <Images
-                                    size={13}
-                                    className="text-white/60"
-                                    aria-hidden="true"
-                                />
-                                <dd>{collection.photos.length} photos</dd>
+                                <dl className="mt-4 flex flex-wrap items-center gap-2">
+                                    {collection.result && (
+                                        <div>
+                                            <dt className="sr-only">Result</dt>
+                                            <dd className="inline-flex items-center gap-1.5 rounded-md bg-amber-300 px-2 py-1 text-xs font-semibold text-zinc-950">
+                                                <Trophy size={12} weight="fill" aria-hidden="true" />
+                                                {collection.result}
+                                            </dd>
+                                        </div>
+                                    )}
+
+                                    <div>
+                                        <dt className="sr-only">Category</dt>
+                                        <dd>
+                                            <CategoryBadge category={collection.category} />
+                                        </dd>
+                                    </div>
+
+                                    <div>
+                                        <dt className="sr-only">Date</dt>
+                                        <dd>
+                                            <DetailTag>
+                                                <CalendarBlank size={12} aria-hidden="true" />
+                                                {collection.date}
+                                            </DetailTag>
+                                        </dd>
+                                    </div>
+
+                                    <div>
+                                        <dt className="sr-only">Photos</dt>
+                                        <dd>
+                                            <DetailTag>
+                                                <Images size={12} aria-hidden="true" />
+                                                {collection.photos.length} photos
+                                            </DetailTag>
+                                        </dd>
+                                    </div>
+
+                                    {collection.location && (
+                                        <div>
+                                            <dt className="sr-only">Location</dt>
+                                            <dd>
+                                                <DetailTag>
+                                                    <MapPin size={12} aria-hidden="true" />
+                                                    {collection.location}
+                                                </DetailTag>
+                                            </dd>
+                                        </div>
+                                    )}
+
+                                    {collection.role && (
+                                        <div>
+                                            <dt className="sr-only">Role</dt>
+                                            <dd>
+                                                <DetailTag>
+                                                    <IdentificationBadge size={12} aria-hidden="true" />
+                                                    {collection.role}
+                                                </DetailTag>
+                                            </dd>
+                                        </div>
+                                    )}
+                                </dl>
                             </div>
 
-                            <div className="flex items-center gap-2">
-                                <dt className="sr-only">Date</dt>
-                                <CalendarBlank
-                                    size={13}
-                                    className="text-white/60"
-                                    aria-hidden="true"
-                                />
-                                <dd>{collection.date}</dd>
+                            <div>
+                                <p className="text-sm leading-relaxed text-zinc-400 sm:text-base">
+                                    {collection.longDescription ?? collection.description}
+                                </p>
+
+                                {collection.externalUrl && (
+                                    <a
+                                        href={collection.externalUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="mt-4 inline-flex h-10 items-center gap-2 rounded-xl bg-white/6 px-4 text-sm font-medium text-zinc-200 transition-colors hover:bg-white/12 hover:text-white"
+                                    >
+                                        {collection.externalLabel ?? "Visit link"}
+                                        <ArrowSquareOut size={14} aria-hidden="true" />
+                                    </a>
+                                )}
                             </div>
-
-                            {collection.location && (
-                                <div className="flex items-center gap-2">
-                                    <dt className="sr-only">Location</dt>
-                                    <MapPin
-                                        size={13}
-                                        className="text-white/60"
-                                        aria-hidden="true"
-                                    />
-                                    <dd>{collection.location}</dd>
-                                </div>
-                            )}
-
-                            {collection.role && (
-                                <div className="flex items-center gap-2">
-                                    <dt className="sr-only">Role</dt>
-                                    <IdentificationBadge
-                                        size={13}
-                                        className="text-white/60"
-                                        aria-hidden="true"
-                                    />
-                                    <dd>{collection.role}</dd>
-                                </div>
-                            )}
-                        </dl>
-
-                        <p className="mt-6 max-w-3xl text-sm leading-7 text-zinc-400 sm:text-base sm:leading-8">
-                            {collection.longDescription ?? collection.description}
-                        </p>
-
-                        {collection.externalUrl && (
-                            <a
-                                href={collection.externalUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-zinc-200 transition-colors hover:border-white/30 hover:text-white"
-                            >
-                                {collection.externalLabel ?? "Visit link"}
-                                <ArrowSquareOut size={14} aria-hidden="true" />
-                            </a>
-                        )}
+                        </div>
                     </motion.header>
 
                     {/* The Pinterest masonry for this collection */}
-                    <section aria-label={`${collection.title} photo gallery`}>
+                    <section
+                        aria-label={`${collection.title} photo gallery`}
+                        className={VAULT_CARD_FRAME}
+                        style={faintDiagonalStripeStyle}
+                    >
                         <CollectionMasonry
                             photos={collection.photos}
                             collectionTitle={collection.title}
@@ -165,43 +267,14 @@ export default function VaultCollection() {
                     {hasNext && (
                         <nav
                             aria-label="Collection navigation"
-                            className="mt-20 grid gap-4 border-t border-white/10 pt-10 sm:mt-28 sm:grid-cols-2"
+                            className={cn(VAULT_CARD_FRAME, "mt-6 grid gap-3 sm:grid-cols-2")}
+                            style={faintDiagonalStripeStyle}
                         >
                             {hasPrevious && (
-                                <Link
-                                    href={`/vault/${previous.slug}`}
-                                    className="group flex flex-col gap-1 rounded-2xl border border-white/10 bg-zinc-950/60 p-5 transition-colors hover:border-white/25"
-                                >
-                                    <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-zinc-400">
-                                        <CaretLeft
-                                            size={11}
-                                            weight="bold"
-                                            aria-hidden="true"
-                                        />
-                                        Previous
-                                    </span>
-                                    <span className="text-sm font-medium text-zinc-300 transition-colors group-hover:text-white sm:text-base">
-                                        {previous.title}
-                                    </span>
-                                </Link>
+                                <CollectionLink item={previous} direction="previous" />
                             )}
 
-                            <Link
-                                href={`/vault/${next.slug}`}
-                                className="group flex flex-col items-end gap-1 rounded-2xl border border-white/10 bg-zinc-950/60 p-5 text-right transition-colors hover:border-white/25 sm:col-start-2"
-                            >
-                                <span className="flex items-center gap-1.5 font-mono text-[0.65rem] uppercase tracking-[0.2em] text-zinc-400">
-                                    Next
-                                    <CaretRight
-                                        size={11}
-                                        weight="bold"
-                                        aria-hidden="true"
-                                    />
-                                </span>
-                                <span className="text-sm font-medium text-zinc-300 transition-colors group-hover:text-white sm:text-base">
-                                    {next.title}
-                                </span>
-                            </Link>
+                            <CollectionLink item={next} direction="next" />
                         </nav>
                     )}
                 </div>
