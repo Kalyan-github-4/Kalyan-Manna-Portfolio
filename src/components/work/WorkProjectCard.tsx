@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowUpRight, GithubLogo } from "@phosphor-icons/react"
+import { ArrowRight, ArrowUpRight, GithubLogo } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 
@@ -109,8 +109,8 @@ export default function WorkProjectCard({
                                         {project.description}
                                     </p>
 
-                                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1">
-                                        <ArrowUpRight size={21} weight="bold" />
+                                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-md transition-transform duration-500 group-hover:translate-x-1">
+                                        <ArrowRight size={21} weight="bold" />
                                     </span>
                                 </div>
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { ArrowsOut, ArrowUpRight, Pause, Play } from "@phosphor-icons/react"
+import { ArrowRight, ArrowsOut, Pause, Play } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
@@ -191,11 +191,11 @@ export default function CuratedWorkCard({ project }: CuratedWorkCardProps) {
                         {project.description}
                     </p>
 
-                    <ArrowUpRight
+                    <ArrowRight
                         size={26}
                         weight="bold"
                         aria-hidden="true"
-                        className="mt-1 shrink-0 text-white/85 transition-transform duration-500 ease-[cubic-bezier(.19,1,.22,1)] group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-white"
+                        className="mt-1 shrink-0 text-white/85 transition-transform duration-500 ease-[cubic-bezier(.19,1,.22,1)] group-hover:translate-x-1 group-hover:text-white"
                     />
                 </div>
 

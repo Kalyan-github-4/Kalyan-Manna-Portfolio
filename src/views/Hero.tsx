@@ -5,7 +5,8 @@ import { HeroContent } from "@/components/hero/HeroContent"
 
 export default function Hero() {
   // The about section is commented out for now, and with it the pinned scroll
-  // timeline it needed. What is left is a plain, full-height hero: no 420vh of
+  // timeline it needed. What is left is a plain hero, a little short of full
+  // height so the bento peeks in below it and invites a scroll: no 420vh of
   // scroll runway, no veil, no scroll-driven fade — just the content.
   //
   // The motion values below are constants only so HeroContent keeps its
@@ -19,7 +20,7 @@ export default function Hero() {
     <section className="relative overflow-clip">
       {/* No background of its own: the page-wide GlowHorizon in Home renders
           fixed behind every section, and an opaque bg here would hide it. */}
-      <div className="relative min-h-screen">
+      <div className="relative">
         <HeroContent
           opacity={heroOpacity}
           y={heroY}

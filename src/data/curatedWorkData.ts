@@ -3,7 +3,7 @@ import { workProjects, type WorkProject } from "./workProjects"
 type CuratedMeta = {
     /** Showcase order, 1 first. Only the top `HOME_LIMIT` make the home page. */
     rank: number
-    /** The one-sentence pitch printed large inside the coloured card. */
+    /** The one-sentence pitch beside the card and on the project's page. */
     tagline: string
     /** Bulleted capability list beside the card. */
     highlights: string[]

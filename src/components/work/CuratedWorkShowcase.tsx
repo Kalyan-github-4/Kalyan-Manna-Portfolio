@@ -1,6 +1,8 @@
 "use client"
 
+import { ArrowRight } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
+import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 
 import GradientText, { HEADING_GRADIENT } from "../shared/GradientText"
@@ -134,7 +136,11 @@ export default function CuratedWorkShowcase() {
                                 }}
                                 className="mt-10 lg:hidden"
                             >
-                                <CuratedWorkDetails project={project} />
+                                <CuratedWorkDetails
+                                    project={project}
+                                    index={index}
+                                    total={curatedProjects.length}
+                                />
                             </motion.div>
                         </div>
                     ))}
@@ -147,9 +153,26 @@ export default function CuratedWorkShowcase() {
                         text itself, and `layout` eases that reflow instead of
                         letting the lines jump to their new positions. */}
                     <motion.div layout transition={{ duration: 0.35, ease: EASE }} className="w-full">
-                        <CuratedWorkDetails project={activeProject} />
+                        <CuratedWorkDetails
+                            project={activeProject}
+                            index={activeIndex}
+                            total={curatedProjects.length}
+                        />
                     </motion.div>
                 </div>
+            </div>
+
+            {/* Same bare mono CTA the vault showcase ends on. */}
+            <div className="flex justify-center pb-4 lg:pt-4">
+                <Link
+                    href="/work"
+                    className="group flex items-center gap-2.5 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-zinc-300 transition-colors duration-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-4 focus-visible:ring-offset-black"
+                >
+                    See all projects
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/15 bg-white/5 transition-transform duration-300 group-hover:translate-x-0.5">
+                        <ArrowRight size={11} weight="bold" aria-hidden="true" />
+                    </span>
+                </Link>
             </div>
         </section>
     )
