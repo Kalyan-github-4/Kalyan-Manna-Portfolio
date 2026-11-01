@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
 import type { JourneyCategory } from "@/data/journeyData"
@@ -51,6 +51,16 @@ export function MemoryImage({
     const [status, setStatus] = useState<"loading" | "loaded" | "error">(
         "loading"
     )
+    const imgRef = useRef<HTMLImageElement>(null)
+
+    // A server-rendered image can finish before hydration attaches onLoad and
+    // onError, so neither fires and it would stay at opacity-0. Read the state
+    // the element has already settled into.
+    useEffect(() => {
+        const img = imgRef.current
+        if (!img?.complete) return
+        setStatus(img.naturalWidth > 0 ? "loaded" : "error")
+    }, [])
 
     return (
         <div
@@ -72,6 +82,7 @@ export function MemoryImage({
             {status !== "error" && (
                 // eslint-disable-next-line @next/next/no-img-element -- serves the pre-generated WebP srcSet, which next/image can't take
                 <img
+                    ref={imgRef}
                     src={src}
                     srcSet={srcSet}
                     alt={alt}
