@@ -3,7 +3,7 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 
-import GradientText from "../shared/GradientText"
+import GradientText, { HEADING_GRADIENT } from "../shared/GradientText"
 import { fadeUp } from "./contactMotion"
 
 export default function ContactHeader() {
@@ -42,7 +42,7 @@ export default function ContactHeader() {
 
                 <GradientText
                     className="inline leading-[0.95]"
-                    colors={["#1E40AF", "#9333EA", "#DB2777"]}
+                    colors={HEADING_GRADIENT}
                     animationSpeed={6}
                 >
                     just a hey?

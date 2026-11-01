@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 
-import GradientText from "../components/shared/GradientText";
+import GradientText, { HEADING_GRADIENT } from "../components/shared/GradientText";
 import EdgeStripes from "../components/shared/EdgeStripes";
 import CreateGuestCard from "../components/guestbook/components/CreateGuestCard";
 import GuestCard, { type GuestEntry } from "../components/guestbook/components/GuestCard";
@@ -239,11 +239,7 @@ function GuestBook() {
               Words that echo{" "}
               <GradientText
                 className="inline-block italic"
-                colors={[
-                  "#1E40AF", // blue-800
-                  "#9333EA", // purple-600
-                  "#DB2777", // pink-600
-                ]}
+                colors={HEADING_GRADIENT}
                 animationSpeed={6}
               >
                 always

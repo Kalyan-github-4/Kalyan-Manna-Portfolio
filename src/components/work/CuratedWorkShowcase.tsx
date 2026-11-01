@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 
-import GradientText from "../shared/GradientText"
+import GradientText, { HEADING_GRADIENT } from "../shared/GradientText"
 import CuratedWorkCard from "./CuratedWorkCard"
 import CuratedWorkDetails from "./CuratedWorkDetails"
 import { curatedProjects } from "@/data/curatedWorkData"
@@ -96,7 +96,7 @@ export default function CuratedWorkShowcase() {
                     Curated {" "}
                     <GradientText
                         className="inline-block overflow-visible pb-2 italic"
-                        colors={["#1E40AF", "#9333EA", "#DB2777"]}
+                        colors={HEADING_GRADIENT}
                         animationSpeed={6}
                     >
                         Works

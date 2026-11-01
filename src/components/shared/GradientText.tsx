@@ -4,6 +4,10 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
 import { motion, useMotionValue, useAnimationFrame, useTransform } from 'framer-motion';
 
+// The display-heading palette. Every stop stays readable on the black pages, so
+// no word fades out as the gradient travels across it.
+export const HEADING_GRADIENT = ['#FDE68A', '#FB923C', '#FB7185'];
+
 interface GradientTextProps {
   children: ReactNode;
   className?: string;

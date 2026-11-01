@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 
 import WorkProjectCard from "./WorkProjectCard"
 import { workProjects } from "@/data/workProjects"
-import GradientText from "../shared/GradientText"
+import GradientText, { HEADING_GRADIENT } from "../shared/GradientText"
 import BackgroundRipple from "../shared/BackgroundRipple"
 import EdgeStripes from "../shared/EdgeStripes"
 
@@ -51,7 +51,7 @@ export default function CaseStudyWorkSection() {
                             Selected{" "}
                             <GradientText
                                 className="inline-block overflow-visible pb-4 italic"
-                                colors={["#1E40AF", "#9333EA", "#DB2777"]}
+                                colors={HEADING_GRADIENT}
                                 animationSpeed={6}
                             >
                                 Work

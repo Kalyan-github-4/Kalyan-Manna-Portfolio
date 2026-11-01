@@ -5,7 +5,7 @@ import { ArrowRight } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 
 import { journeyItems } from "@/data/journeyData"
-import GradientText from "@/components/shared/GradientText"
+import GradientText, { HEADING_GRADIENT } from "@/components/shared/GradientText"
 import { faintDiagonalStripeStyle } from "@/components/shared/stripeStyles"
 import { VaultCollectionCard } from "@/components/vault/VaultCollectionCard"
 
@@ -62,7 +62,7 @@ export default function VaultShowcase() {
                     Moments &{" "}
                     <GradientText
                         className="inline-block overflow-visible pb-2 italic"
-                        colors={["#1E40AF", "#9333EA", "#DB2777"]}
+                        colors={HEADING_GRADIENT}
                         animationSpeed={6}
                     >
                         memories
