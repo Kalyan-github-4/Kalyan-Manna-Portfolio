@@ -95,6 +95,8 @@ export type JourneyItem = {
     month: string
     location?: string
     role?: string
+    /** How it ended, e.g. "Winners" — shown as a pill on the latest card */
+    result?: string
     /** One or two line summary shown on cards */
     description: string
     /** Longer copy shown on the collection page */
@@ -262,7 +264,6 @@ const collections: CollectionSource[] = [
             "HackRIT was another chapter of building, experimenting and pushing ideas from concept to something that actually works. From working alongside teammates and debugging under pressure to presenting the final product, every part of the hackathon became a memory worth keeping. This gallery captures the people, the workspace, the build process and the moments that made HackRIT memorable.",
         size: "wide",
         dir: "Hackrit 2.0",
-        latest: true,
         files: [
             ["hackrit-img-1", 1040, 585],
             ["hackrit-img-2", 720, 1280],
@@ -295,12 +296,14 @@ const collections: CollectionSource[] = [
         month: "Oct",
         location: "JIS University, Kolkata",
         role: "Participant",
+        result: "Winners",
         description:
             "A collection of memories from the Kolkata HackDays hackathon at JIS University — building with the team, a packed hall and the people met along the way.",
         longDescription:
             "Hacktoberfest x JIS brought the Kolkata HackDays hackathon to JIS University on 8 October 2026 — a day of building against the clock alongside developers from across the city. From the hall filling up in the morning to the swag on stage at the end, this gallery captures the campus, the teammates, the food and the small moments that made the hackathon worth remembering.",
         size: "wide",
         dir: "hacktoberfest-x-jis",
+        latest: true,
         files: [
             ["hacktoberfest-img-1.jpg", 1280, 960],
             ["hacktoberfest-img-2.jpeg", 720, 1280],
