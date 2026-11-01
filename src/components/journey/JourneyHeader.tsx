@@ -2,25 +2,25 @@
 
 import { motion } from "framer-motion"
 
-import GradientText from "@/components/shared/GradientText"
+import GradientText, { HEADING_GRADIENT } from "@/components/shared/GradientText"
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
 /**
  * Mirrors the header in CaseStudyWorkSection so /vault and /work read as the
- * same page family — same eyebrow, same gradient display heading, same
- * spacing. Only the copy differs.
+ * same page family — same eyebrow, same gradient display heading. Only the
+ * copy and spacing differ: it stays tight so the Latest card fits on load.
  */
 export function JourneyHeader() {
     return (
-        <div className="relative mb-20 flex min-h-50 items-center justify-center text-center">
+        <div className="relative mb-4 flex items-center justify-center text-center">
             <div>
                 <motion.p
                     initial={{ opacity: 0, y: 18 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: false, amount: 0.6 }}
                     transition={{ duration: 0.7, ease: EASE }}
-                    className="mb-5 font-mono text-xs font-semibold uppercase tracking-[0.35em] text-white/50"
+                    className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.35em] text-white/50"
                 >
                     Beyond the Code
                 </motion.p>
@@ -35,7 +35,7 @@ export function JourneyHeader() {
                     Moments Worth{" "}
                     <GradientText
                         className="inline-block overflow-visible pb-4 italic"
-                        colors={["#1E40AF", "#9333EA", "#DB2777"]}
+                        colors={HEADING_GRADIENT}
                         animationSpeed={6}
                     >
                         Keeping

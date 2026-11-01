@@ -5,7 +5,14 @@ import { MagnifyingGlass, X } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 
 import { cn } from "@/lib/utils"
-import { JOURNEY_FILTERS, type JourneyFilter } from "@/data/journeyData"
+import { JOURNEY_FILTERS, journeyItems, type JourneyFilter } from "@/data/journeyData"
+
+/**
+ * Margins that carry the filter bar and card frames out to the inner border
+ * lines of the EdgeStripes. They're relative to the Vault shell's own padding,
+ * which is wider than the right-hand stripe at `sm`, hence the negative margin.
+ */
+export const VAULT_FRAME_GUTTERS = "ml-4 mr-1 sm:ml-2 sm:-mr-1 lg:mr-0"
 
 const INDICATOR_TRANSITION = {
     type: "spring",
@@ -53,17 +60,20 @@ export function VaultFilterBar({
     }, [onQueryChange])
 
     return (
-        <div className="mb-16 border-y border-dashed border-white/10 sm:mb-10">
-            <div className="flex flex-col gap-3 py-2 px-4 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
-                {/* Category pills — scroll horizontally rather than wrapping. */}
+        <div className={cn(VAULT_FRAME_GUTTERS, "mb-4 border-y border-white/10")}>
+            <div className="flex flex-col gap-2 p-3 md:flex-row md:items-center md:justify-between md:gap-6">
+                {/* Segmented control — scrolls horizontally rather than wrapping. */}
                 <div
                     role="group"
                     aria-label="Filter collections by category"
-                    className="flex max-w-full items-center gap-1 overflow-x-auto [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden"
+                    className="flex h-10 max-w-full items-center gap-1 overflow-x-auto rounded-xl bg-white/6 p-1 [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden md:w-fit"
                 >
                     {JOURNEY_FILTERS.map((filter) => {
                         const isActive = filter === active
-                        const label = filter === "All" ? "All Collections" : filter
+                        const count =
+                            filter === "All"
+                                ? journeyItems.length
+                                : journeyItems.filter((item) => item.category === filter).length
 
                         return (
                             <button
@@ -72,28 +82,38 @@ export function VaultFilterBar({
                                 aria-pressed={isActive}
                                 onClick={() => onChange(filter)}
                                 className={cn(
-                                    "relative shrink-0 cursor-pointer rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300",
-                                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black",
+                                    "relative h-8 flex-1 shrink-0 cursor-pointer rounded-lg px-3 text-sm font-medium transition-colors duration-300 md:flex-none",
+                                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/50",
                                     isActive
-                                        ? "text-white"
-                                        : "text-zinc-400 hover:text-zinc-200"
+                                        ? "text-zinc-950"
+                                        : "text-zinc-300 hover:text-white"
                                 )}
                             >
                                 {isActive && (
                                     <motion.span
                                         layoutId="vault-filter-pill"
                                         transition={INDICATOR_TRANSITION}
-                                        className="absolute inset-0 -z-10 rounded-full border border-white/10 bg-linear-to-b from-zinc-600/70 to-zinc-700/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]"
+                                        className="absolute inset-0 rounded-lg bg-white"
                                     />
                                 )}
-                                {label}
+                                <span className="relative flex items-center justify-center gap-1.5">
+                                    {filter}
+                                    <span
+                                        className={cn(
+                                            "text-xs tabular-nums",
+                                            isActive ? "text-zinc-600" : "text-zinc-400"
+                                        )}
+                                    >
+                                        {count}
+                                    </span>
+                                </span>
                             </button>
                         )
                     })}
                 </div>
 
                 {/* Search */}
-                <div className="relative shrink-0 lg:w-80">
+                <div className="relative shrink-0 md:w-72">
                     <MagnifyingGlass
                         size={16}
                         aria-hidden="true"
@@ -107,7 +127,7 @@ export function VaultFilterBar({
                         onChange={(event) => onQueryChange(event.target.value)}
                         placeholder="Search memories"
                         aria-label="Search memories"
-                        className="w-full rounded-full border border-white/10 bg-white/4 py-2.5 pl-10 pr-20 text-sm text-white placeholder:text-zinc-400 focus:border-white/25 focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+                        className="h-10 w-full rounded-xl bg-white/6 pl-10 pr-16 text-sm text-white transition-colors placeholder:text-zinc-400 hover:bg-white/8 focus:bg-white/8 focus:outline-none focus:ring-2 focus:ring-white/30 [&::-webkit-search-cancel-button]:hidden"
                     />
 
                     {query ? (
@@ -120,7 +140,7 @@ export function VaultFilterBar({
                             <X size={13} weight="bold" aria-hidden="true" />
                         </button>
                     ) : (
-                        <kbd className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[0.65rem] text-zinc-400">
+                        <kbd className="pointer-events-none absolute right-2.5 top-1/2 hidden -translate-y-1/2 rounded-md bg-white/8 px-1.5 py-0.5 font-sans text-[0.7rem] font-medium text-zinc-300 md:block">
                             {IS_MAC ? "⌘" : "Ctrl"} K
                         </kbd>
                     )}

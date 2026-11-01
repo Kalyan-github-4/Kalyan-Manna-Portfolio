@@ -7,13 +7,17 @@ import { journeyItems, type JourneyFilter } from "@/data/journeyData"
 import { JourneyHeader } from "@/components/journey/JourneyHeader"
 import BackgroundRipple from "@/components/shared/BackgroundRipple"
 import EdgeStripes from "@/components/shared/EdgeStripes"
-import { VaultFilterBar } from "@/components/vault/VaultFilterBar"
+import { faintDiagonalStripeStyle } from "@/components/shared/stripeStyles"
+import { VAULT_FRAME_GUTTERS, VaultFilterBar } from "@/components/vault/VaultFilterBar"
 import { VaultLatestCard } from "@/components/vault/VaultLatestCard"
 import { VaultCollectionCard } from "@/components/vault/VaultCollectionCard"
 
+// The striped frame the home page's bento and showcase grids sit in.
+const CARD_FRAME = `${VAULT_FRAME_GUTTERS} border-y border-white/10 p-3`
+
 function SectionLabel({ children }: { children: ReactNode }) {
     return (
-        <p className="mb-8 text-center font-mono text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-white/60">
+        <p className="mb-3 text-center font-mono text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-white/60">
             {children}
         </p>
     )
@@ -60,7 +64,7 @@ export default function Vault() {
         <main className="min-h-screen bg-black">
             {/* Shell mirrors CaseStudyWorkSection: full-bleed inner column, the
                 same horizontal padding, and the same rippling backdrop. */}
-            <section className="relative overflow-hidden bg-black px-4 py-28 text-white sm:px-8 lg:px-9">
+            <section className="relative overflow-hidden bg-black px-4 pb-28 pt-24 text-white sm:px-8 lg:px-9">
                 <BackgroundRipple rows={7} cols={30} />
 
                 <EdgeStripes />
@@ -76,15 +80,17 @@ export default function Vault() {
                     />
 
                     {isBrowsingAll && (
-                        <section aria-label="Latest collection" className="px-4">
+                        <section aria-label="Latest collection" className="mb-6">
                             <SectionLabel>Latest Collection</SectionLabel>
-                            <VaultLatestCard item={latest} />
+                            <div className={CARD_FRAME} style={faintDiagonalStripeStyle}>
+                                <VaultLatestCard item={latest} />
+                            </div>
                         </section>
                     )}
 
                     <section
                         aria-label="All collections"
-                        className="mb-28 sm:mb-36 px-4"
+                        className="mb-28 sm:mb-36"
                     >
                         <SectionLabel>
                             {isBrowsingAll
@@ -104,7 +110,8 @@ export default function Vault() {
                         ) : (
                             <motion.div
                                 layout
-                                className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+                                className={`${CARD_FRAME} grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3`}
+                                style={faintDiagonalStripeStyle}
                             >
                                 <AnimatePresence mode="popLayout">
                                     {gridItems.map((item) => (
