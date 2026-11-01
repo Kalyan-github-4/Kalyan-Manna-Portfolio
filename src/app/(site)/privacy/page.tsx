@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 
-export { default } from "@/components/privacy/privacy"
+export { default } from "@/views/Privacy"
 
 export const metadata: Metadata = {
   title: "Privacy Policy",

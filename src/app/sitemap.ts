@@ -9,8 +9,8 @@ const SITE_URL = "https://www.kalyanmanna.com"
  * Replaces the hand-written public/sitemap.xml, which had drifted: it was
  * missing /privacy, /robot, and every /vault/<slug> collection.
  *
- * Deliberately absent: the Clerk auth routes and /terms, which are all
- * noindex — a sitemap should not advertise pages we ask crawlers to skip.
+ * Deliberately absent: the Clerk auth routes, which are all noindex — a
+ * sitemap should not advertise pages we ask crawlers to skip.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
@@ -30,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: "/more/uses", changeFrequency: "monthly", priority: 0.5 },
     { url: "/more/attribution", changeFrequency: "yearly", priority: 0.3 },
     { url: "/privacy", changeFrequency: "yearly", priority: 0.3 },
+    { url: "/terms", changeFrequency: "yearly", priority: 0.3 },
   ] as const).map((route) => ({
     ...route,
     url: `${SITE_URL}${route.url}`,
