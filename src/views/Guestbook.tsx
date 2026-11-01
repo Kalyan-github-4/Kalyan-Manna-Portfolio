@@ -4,12 +4,13 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 
 import GradientText, { HEADING_GRADIENT } from "../components/shared/GradientText";
+import BackgroundRipple from "../components/shared/BackgroundRipple";
 import EdgeStripes from "../components/shared/EdgeStripes";
 import CreateGuestCard from "../components/guestbook/components/CreateGuestCard";
-import GuestCard, { type GuestEntry } from "../components/guestbook/components/GuestCard";
+import { NoteCard, type NoteEntry } from "../components/guestbook/NoteCard";
+import { PinNoteDialog } from "../components/guestbook/PinNoteDialog";
+import { SignedStrip } from "../components/guestbook/SignedStrip";
 import GuestCardSkeleton from "../components/guestbook/components/GuestCardSkeleton";
-import { resolveTemplate } from "../components/guestbook/components/cardTemplates";
-// import { sampleEntries } from "./data/sampleEntries";
 import {
   createGuestbookEntry,
   deleteMyGuestbookEntry,
@@ -17,55 +18,34 @@ import {
   type GuestbookEntryResponse,
 } from "@/lib/api";
 
-function getInitials(name: string) {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join("")
-    .toUpperCase();
-}
+// The notes that lead the page. Add entry ids here to choose them by hand;
+// until then the newest notes long enough to read well fill the row.
+const PINNED_IDS: string[] = [];
+const PINNED_COUNT = 4;
+const PINNED_MIN_LENGTH = 40;
 
-// Small, stable "random" tilt so the wall reads like pinned paper notes
-// instead of a rigid grid. Kept as full literal class strings so Tailwind's
-// JIT actually generates them. Seeded by the entry id (not the index) so each
-// card keeps its angle even when newer entries are prepended ahead of it.
-const TILT_CLASSES = ["-rotate-1", "-rotate-[0.5deg]", "rotate-[0.5deg]", "rotate-1"] as const;
-
-function getCardTilt(id: string): string {
-  let h = 0;
-  for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) % 99991;
-  return TILT_CLASSES[h % TILT_CLASSES.length];
-}
-
-function mapEntryToCard(entry: GuestbookEntryResponse): GuestEntry {
-  const author = entry.user?.name || "Guest";
-
-  // Every visual choice comes from the template the server assigned — the
-  // guest supplies words only.
-  const template = resolveTemplate(entry.template, entry.id);
-
+function mapEntryToCard(entry: GuestbookEntryResponse): NoteEntry {
   return {
     id: entry.id,
     message: entry.message,
-    template,
-    rotation: getCardTilt(entry.id),
-    author,
-    role: entry.role || "Visitor",
-    rating: entry.rating ?? 5,
-    // rating: entry.rating ?? 5,
-    avatar: entry.user?.imageUrl
-      ? { kind: "photo", value: entry.user.imageUrl }
-      : { kind: "initials", value: getInitials(author) || "G" },
+    author: entry.user?.name || "Guest",
+    imageUrl: entry.user?.imageUrl ?? null,
     date: new Date(entry.createdAt).toLocaleDateString("en-US", {
       month: "short",
-      day: "numeric",
+      day: "2-digit",
       year: "numeric",
     }),
     createdAtIso: entry.createdAt,
     ownerClerkUserId: entry.user?.clerkUserId ?? null,
-  }
+  };
+}
+
+function SectionLabel({ children }: { children: string }) {
+  return (
+    <h2 className="mb-8 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-zinc-400">
+      {children}
+    </h2>
+  );
 }
 
 function isWithinDeleteWindow(createdAtIso?: string) {
@@ -83,7 +63,7 @@ function GuestBook() {
   const { getToken } = useAuth();
   const { user } = useUser();
 
-  const [entries, setEntries] = useState<GuestEntry[]>([]);
+  const [entries, setEntries] = useState<NoteEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [submitState, setSubmitState] = useState<string | null>(null);
@@ -119,12 +99,35 @@ function GuestBook() {
     };
   }, []);
 
-  const displayEntries = useMemo(() => {
-    if (entries.length > 0) return entries;
-    // return sampleEntries;
-    return [];
+  const { pinned, wall } = useMemo(() => {
+    const chosen = entries.filter((entry) => PINNED_IDS.includes(entry.id));
+    const pinned = chosen.length
+      ? chosen
+      : entries
+          .filter((entry) => entry.message.length >= PINNED_MIN_LENGTH)
+          .slice(0, PINNED_COUNT);
+
+    return {
+      pinned,
+      wall: entries.filter((entry) => !pinned.includes(entry)),
+    };
   }, [entries]);
 
+  // One stamp per person, for the strip under the heading.
+  const faces = useMemo(() => {
+    const seen = new Set<string>();
+
+    return entries.flatMap(({ id, imageUrl }) => {
+      if (!imageUrl || seen.has(imageUrl)) return [];
+      seen.add(imageUrl);
+      return [{ id, imageUrl }];
+    }).slice(0, 8);
+  }, [entries]);
+
+  const canDeleteEntry = (entry: NoteEntry) =>
+    Boolean(viewerId) &&
+    entry.ownerClerkUserId === viewerId &&
+    isWithinDeleteWindow(entry.createdAtIso);
 
   const handleShare = useCallback(async (id: string) => {
     const entry = entries.find((item) => item.id === id);
@@ -189,7 +192,7 @@ function GuestBook() {
   }, [entries, getToken, viewerId]);
 
   const handleSubmit = useCallback(
-    async (message: string, role: string) => {
+    async (message: string) => {
       try {
         setSubmitState(null)
 
@@ -203,7 +206,7 @@ function GuestBook() {
         const response = await createGuestbookEntry(
           {
             message,
-            role: role || "Visitor",
+            role: "Visitor",
           },
           token
         )
@@ -226,11 +229,13 @@ function GuestBook() {
 
   return (
     <div>
-      <section className="relative overflow-hidden pt-28 min-h-screen flex flex-col justify-center">
+      <section className="relative min-h-screen overflow-hidden pb-28 pt-28">
+        <BackgroundRipple rows={7} cols={30} />
+
         <EdgeStripes />
 
         {/* Header Section */}
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto max-w-7xl px-12 sm:px-16 lg:px-8">
           <div className="flex flex-col items-center justify-center text-center">
             <p className="mb-5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.3em] sm:tracking-[0.35em] text-zinc-400">
               the wall remembers
@@ -245,46 +250,68 @@ function GuestBook() {
                 always
               </GradientText>
             </h1>
+
+            <SignedStrip faces={faces} noteCount={entries.length}>
+              <PinNoteDialog onSubmit={handleSubmit} />
+            </SignedStrip>
           </div>
         </div>
 
-        {/* Cards Section — Create card first, then every approved entry */}
-        <div className="relative z-10 w-full mt-20 px-4 sm:px-6 lg:px-12">
-          <div className="grid gap-8 md:grid-cols-3">
-            {/* LEAVE YOUR MESSAGE CARD */}
-            <div>
-              <CreateGuestCard
-                onSubmit={handleSubmit}
-              />
-            </div>
+        <div className="relative z-10 mt-14 w-full pl-12 pr-9 sm:pl-16 sm:pr-13 lg:pl-20 lg:pr-18">
+          {pinned.length > 0 && (
+            <section aria-label="Pinned notes" className="mb-16">
+              <SectionLabel>Pinned</SectionLabel>
 
-            {/* SKELETON PLACEHOLDERS — shown on first load before entries arrive */}
-            {loading &&
-              entries.length === 0 &&
-              Array.from({ length: 5 }).map((_, i) => (
-                <div key={`skeleton-${i}`}>
-                  <GuestCardSkeleton />
+              <div className="grid items-start gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-4">
+                {pinned.map((entry) => (
+                  <NoteCard
+                    key={entry.id}
+                    entry={entry}
+                    pinned
+                    onShare={handleShare}
+                    onDelete={handleDelete}
+                    canDelete={canDeleteEntry(entry)}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
+
+          <section aria-label="The wall">
+            <SectionLabel>The wall</SectionLabel>
+
+            {/* Newspaper columns give the uneven, pinned-up look; pt leaves room
+                for whatever a note is fastened with. */}
+            <div className="columns-1 gap-8 md:columns-2 lg:columns-3">
+              <div id="leave-your-mark" className="mb-10 scroll-mt-28 break-inside-avoid pt-4">
+                <CreateGuestCard onSubmit={handleSubmit} />
+              </div>
+
+              {loading &&
+                Array.from({ length: 5 }).map((_, i) => (
+                  <div key={`skeleton-${i}`} className="mb-10 break-inside-avoid pt-5">
+                    <GuestCardSkeleton />
+                  </div>
+                ))}
+
+              {wall.map((entry) => (
+                <div key={entry.id} className="mb-10 break-inside-avoid pt-5">
+                  <NoteCard
+                    entry={entry}
+                    onShare={handleShare}
+                    onDelete={handleDelete}
+                    canDelete={canDeleteEntry(entry)}
+                  />
                 </div>
               ))}
-
-            {/* ALL GUEST CARDS */}
-            {displayEntries.map((entry) => (
-              <div key={entry.id}>
-                <GuestCard
-                  entry={entry}
-                  onShare={handleShare}
-                  onDelete={handleDelete}
-                  canDelete={Boolean(viewerId) && entry.ownerClerkUserId === viewerId && isWithinDeleteWindow(entry.createdAtIso)}
-                />
-              </div>
-            ))}
-          </div>
+            </div>
+          </section>
 
           <div className="mt-8 text-center text-sm text-zinc-400">
             {!loading && error && <p>{error}</p>}
             {submitState && <p>{submitState}</p>}
             {!loading && !error && entries.length === 0 && (
-              <p>Showing featured wall cards while new messages are reviewed.</p>
+              <p>No notes yet. Be the first to pin one.</p>
             )}
             {user && !submitState && (
               <p className="mt-1">Signed in as {user.fullName || user.username || "Guest"}.</p>

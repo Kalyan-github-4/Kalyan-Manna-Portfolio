@@ -1,287 +1,185 @@
 "use client"
 
-import { useMemo, useState, useRef, useCallback } from "react"
+import { useCallback, useRef, useState, type ReactNode } from "react"
 import { SignedIn, SignedOut, useUser } from "@clerk/clerk-react"
-import DoodleSvg from "./DoodleSvg"
-import { previewTemplate, type CardTemplate } from "./cardTemplates"
-import { ArrowRightIcon, PencilSimpleIcon, SparkleIcon } from "@phosphor-icons/react"
-import GuestbookLoginDialog from "./GuestbookLoginDialog"
+import { ArrowRight, PencilSimple } from "@phosphor-icons/react"
 
-function tornEdgePath(seed: number, w = 400, h = 280, tearDepth = 14) {
-  let s = seed
+import { NoteStamp } from "../NoteCard"
+import GuestbookLoginButtons from "./GuestbookLoginButtons"
 
-  const rand = () => {
-    s = (s * 9301 + 49297) % 233280
-    return s / 233280
-  }
-
-  const teeth = 14
-  const points: string[] = [`0,0`, `${w},0`, `${w},${h}`]
-
-  for (let i = teeth; i >= 0; i--) {
-    const x = (w / teeth) * i
-    const jitter = (rand() - 0.5) * tearDepth
-    const y = h + (i % 2 === 0 ? jitter : -jitter * 0.6)
-    points.push(`${x.toFixed(1)},${y.toFixed(1)}`)
-  }
-
-  points.push(`0,${h}`)
-  return `polygon(${points.join(" ")})`
-}
+const POSTCARD = "#e3dfd2"
 
 interface CreateGuestCardProps {
-  maxLength?: number
-  onSubmit?: (message: string, role: string) => Promise<void> | void
+    maxLength?: number
+    onSubmit?: (message: string) => Promise<void> | void
 }
 
-function getInitials(name?: string | null) {
-  if (!name) return "G"
+/** The postcard both states share, so signing in only changes what's written on it. */
+function Postcard({ stamp, children }: { stamp: ReactNode; children: ReactNode }) {
+    return (
+        <div className="relative -rotate-1 drop-shadow-[0_14px_18px_rgba(0,0,0,0.55)]">
+            <div
+                aria-hidden="true"
+                className="absolute -top-3 left-8 z-20 h-7 w-28 -rotate-3 opacity-90"
+                style={{
+                    backgroundImage:
+                        "repeating-linear-gradient(90deg, #92aede 0 4px, #b4c8e8 4px 8px)",
+                }}
+            />
 
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0])
-    .join("")
-    .toUpperCase()
+            <div className="relative p-6 pt-7" style={{ backgroundColor: POSTCARD }}>
+                <p className="mb-2 text-center font-mono text-[0.6rem] uppercase tracking-[0.4em] text-zinc-500">
+                    Post card
+                </p>
+
+                <div className="float-right mb-2 ml-3">{stamp}</div>
+
+                <h2 className="font-hand text-5xl leading-none text-blue-700">
+                    Leave your mark
+                </h2>
+
+                {children}
+            </div>
+
+            <PencilSimple
+                aria-hidden="true"
+                size={56}
+                weight="fill"
+                className="absolute -bottom-5 -right-2 z-20 -rotate-12 text-amber-400"
+            />
+        </div>
+    )
 }
 
-// Decorative layer shared by both states of the composer, so the empty card a
-// signed-out visitor sees and the one they type into are the same object.
-function TemplateDoodles({ template }: { template: CardTemplate }) {
-  return (
-    <div className="pointer-events-none absolute inset-0">
-      {template.doodles.map((d, i) => (
-        <div
-          key={`${d.type}-${i}`}
-          className="absolute"
-          style={{
-            left: `${d.x}%`,
-            top: `${d.y}%`,
-            transform: `translate(-50%, -50%) rotate(${d.rotate}deg)`,
-            opacity: d.opacity ?? 0.3,
-          }}
+function SignedOutCreateCard() {
+    return (
+        <Postcard
+            stamp={
+                <div className="grid h-22 w-20 rotate-3 place-items-center border border-dashed border-zinc-500/50 text-center font-hand text-xl leading-5 text-zinc-500">
+                    your face here
+                </div>
+            }
         >
-          <DoodleSvg type={d.type} size={d.size} />
-        </div>
-      ))}
-    </div>
-  )
-}
+            <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+                A note on the wall, pinned for everyone who visits.
+            </p>
 
-function SignedOutCreateCard({ template }: { template: CardTemplate }) {
-  const clip = useMemo(() => tornEdgePath(439), [])
+            <div className="clear-both pt-4">
+                <GuestbookLoginButtons />
+            </div>
 
-  return (
-    <div
-      className="group relative overflow-hidden rounded-[20px] transition"
-      style={{ background: template.gradient }}
-    >
-      <div className="relative z-10 flex min-h-[150px] flex-col items-center justify-center px-6 pb-3 pt-7 text-center">
-        <p className="font-serif text-3xl italic text-white">
-          “Join the wall...”
-        </p>
+            <p className="mt-2 text-xs text-zinc-500">
+                Your name and photo appear with your note.
+            </p>
 
-        <p className="mt-2 text-sm font-semibold text-white/55">
-          Sign in to leave your mark
-        </p>
-
-        <div className="mt-5">
-          <GuestbookLoginDialog />
-        </div>
-
-        <PencilSimpleIcon
-          size={48}
-          className="absolute bottom-5 left-5 rotate-[-42deg] text-white/15"
-        />
-
-        <div className="absolute right-8 top-6 h-8 w-8 rounded-full border-4 border-dashed border-white/15" />
-      </div>
-
-      <div className="relative">
-        <div
-          className="absolute inset-x-0 bottom-0 h-[60px] bg-[#0b0b0d]"
-          style={{ clipPath: clip }}
-        />
-
-        <div className="relative z-10 flex items-center justify-center gap-8 px-5 pb-4 pt-7 text-white/70">
-          <span className="text-lg">⌁</span>
-          <span className="text-lg">G</span>
-          <span className="text-lg">@</span>
-        </div>
-      </div>
-    </div>
-  )
+            <p className="mt-4 border-b border-dashed border-zinc-500/50 pb-1 font-hand text-2xl text-zinc-700">
+                <span className="mr-2 font-mono text-[0.6rem] uppercase tracking-[0.15em] text-zinc-500">
+                    To
+                </span>
+                The Wall, kalyanmanna.com
+            </p>
+        </Postcard>
+    )
 }
 
 function SignedInCreateCard({
-  maxLength,
-  onSubmit,
+    maxLength,
+    onSubmit,
 }: Required<CreateGuestCardProps>) {
-  const { user } = useUser()
-  const submittingRef = useRef(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const authorName =
-    user?.fullName ||
-    user?.username ||
-    user?.primaryEmailAddress?.emailAddress ||
-    "Guest"
+    const { user } = useUser()
+    const submittingRef = useRef(false)
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [message, setMessage] = useState("")
 
-  const authorInitials = getInitials(authorName)
+    const authorName =
+        user?.fullName ||
+        user?.username ||
+        user?.primaryEmailAddress?.emailAddress ||
+        "Guest"
 
-  const [message, setMessage] = useState("")
-  const [role, setRole] = useState("")
+    const isEmpty = message.trim().length === 0
 
-  const isEmpty = message.trim().length === 0
-  const isLong = message.length > 70
+    const handleSubmit = useCallback(async () => {
+        if (isEmpty || submittingRef.current) return
 
-  // The card the composer wears while you type. The card you actually get is
-  // assigned server-side on submit — this is a taste of the set, not a promise.
-  const template = useMemo(
-    () => previewTemplate(user?.id || authorName),
-    [user?.id, authorName]
-  )
+        submittingRef.current = true
+        setIsSubmitting(true)
 
-  const seed = useMemo(() => {
-    let h = 0
+        try {
+            await onSubmit(message.trim())
+            setMessage("")
+        } catch (error) {
+            console.error("CreateGuestCard submit failed:", error)
+        } finally {
+            submittingRef.current = false
+            setIsSubmitting(false)
+        }
+    }, [isEmpty, message, onSubmit])
 
-    for (const ch of authorName) {
-      h = (h * 31 + ch.charCodeAt(0)) % 99991
-    }
-
-    return h || 1
-  }, [authorName])
-
-  const clip = useMemo(() => tornEdgePath(seed), [seed])
-
-  const handleSubmit = useCallback(async () => {
-    if (isEmpty || submittingRef.current) return
-
-    submittingRef.current = true
-    setIsSubmitting(true)
-
-    try {
-      await onSubmit(message.trim(), role.trim())
-
-      setMessage("")
-      setRole("")
-    } catch (error) {
-      console.error("CreateGuestCard submit failed:", error)
-    } finally {
-      submittingRef.current = false
-      setIsSubmitting(false)
-    }
-  }, [isEmpty, message, role, onSubmit])
-
-  return (
-    <div
-      className="group relative overflow-hidden rounded-[20px] transition"
-      style={{ background: template.gradient }}
-    >
-      {template.texture && (
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.07] mix-blend-screen"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(135deg, white 0px, white 1px, transparent 1px, transparent 9px)",
-          }}
-        />
-      )}
-
-      <TemplateDoodles template={template} />
-
-      <div className="relative z-10 min-h-[150px] px-6 pb-3 pt-7">
-        <textarea
-          value={message}
-          maxLength={maxLength}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type something nice…"
-          rows={3}
-          className={`relative z-10 w-full flex-1 resize-none bg-transparent text-white outline-none placeholder:text-white/60 ${isLong
-            ? "text-base font-normal leading-relaxed"
-            : "text-2xl font-semibold leading-snug"
-            }`}
-        />
-      </div>
-
-      <div className="relative">
-        <div
-          className="absolute inset-x-0 bottom-0 h-[60px] bg-[#0b0b0d]"
-          style={{ clipPath: clip }}
-        />
-
-        <div className="relative z-10 flex items-center justify-between px-5 pb-4 pt-7">
-          <div className="flex items-center gap-3">
-            {user?.imageUrl ? (
-              // eslint-disable-next-line @next/next/no-img-element -- avatar host is Clerk's to choose, so it can't be allowlisted
-              <img
-                src={user.imageUrl}
-                alt={authorName}
-                width={36}
-                height={36}
-                loading="lazy"
-                decoding="async"
-                className="h-9 w-9 rounded-full object-cover"
-              />
-            ) : (
-              <div className="grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white">
-                {authorInitials}
-              </div>
-            )}
-
-            <div className="min-w-0">
-              <p className="truncate text-sm text-white/90">{authorName}</p>
-              <input
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
+    return (
+        <Postcard
+            stamp={
+                <NoteStamp
+                    imageUrl={user?.imageUrl ?? null}
+                    name={authorName}
+                    color={POSTCARD}
+                />
+            }
+        >
+            <textarea
+                value={message}
+                maxLength={maxLength}
                 disabled={isSubmitting}
-                placeholder={isSubmitting ? "Sending…" : "Add your role · e.g. Designer"}
-                maxLength={60}
-                aria-label="Your role or title"
-                className="w-full bg-transparent text-xs text-white/60 outline-none placeholder:text-white/60 disabled:opacity-70"
-              />
+                onChange={(event) => setMessage(event.target.value)}
+                placeholder="Write something nice…"
+                aria-label="Your note"
+                rows={3}
+                className="mt-3 block w-full resize-none bg-transparent font-display text-2xl leading-9 text-zinc-800 outline-none placeholder:text-zinc-500 disabled:opacity-60"
+                style={{
+                    backgroundImage:
+                        "linear-gradient(to bottom, transparent 35px, rgba(82,110,160,0.28) 35px, rgba(82,110,160,0.28) 36px)",
+                    backgroundSize: "100% 36px",
+                }}
+            />
+
+            <div className="clear-both mt-3 flex items-center justify-between gap-3">
+                <p className="min-w-0 truncate font-hand text-2xl text-zinc-800">
+                    — {authorName}
+                </p>
+
+                <div className="flex shrink-0 items-center gap-3 pr-8">
+                    <span className="font-mono text-xs text-zinc-500">
+                        {message.length}/{maxLength}
+                    </span>
+
+                    <button
+                        type="button"
+                        disabled={isEmpty || isSubmitting}
+                        onClick={handleSubmit}
+                        className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-lg bg-zinc-900 px-3 text-sm font-semibold text-white transition-colors hover:bg-zinc-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-700 disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                        {isSubmitting ? "Pinning…" : "Pin it"}
+                        <ArrowRight size={14} weight="bold" aria-hidden="true" />
+                    </button>
+                </div>
             </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-white/60">
-              {message.length}/{maxLength}
-            </span>
-
-            <button
-              type="button"
-              disabled={isEmpty || isSubmitting}
-              onClick={handleSubmit}
-              className="grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white/70 transition hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10"
-            >
-              <ArrowRightIcon size={16} weight="bold" />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Replaces the old colour + doodle pickers: guests write, we design. */}
-      <div className="absolute right-4 top-4 z-20 flex items-center gap-1.5 rounded-full bg-black/20 px-2.5 py-1 text-[10px] uppercase tracking-[0.14em] text-white/55 backdrop-blur-sm">
-        <SparkleIcon size={12} weight="fill" />
-        Card style picked for you
-      </div>
-    </div>
-  )
+        </Postcard>
+    )
 }
 
 export default function CreateGuestCard({
-  maxLength = 100,
-  onSubmit = () => { },
+    maxLength = 100,
+    onSubmit = () => {},
 }: CreateGuestCardProps) {
-  return (
-    <>
-      <SignedOut>
-        <SignedOutCreateCard template={previewTemplate("guestbook-signed-out")} />
-      </SignedOut>
+    return (
+        <>
+            <SignedOut>
+                <SignedOutCreateCard />
+            </SignedOut>
 
-      <SignedIn>
-        <SignedInCreateCard maxLength={maxLength} onSubmit={onSubmit} />
-      </SignedIn>
-    </>
-  )
+            <SignedIn>
+                <SignedInCreateCard maxLength={maxLength} onSubmit={onSubmit} />
+            </SignedIn>
+        </>
+    )
 }
