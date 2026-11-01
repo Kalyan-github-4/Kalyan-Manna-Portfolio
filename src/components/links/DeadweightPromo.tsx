@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "@phosphor-icons/react";
 import { promo } from "./linksData";
+import { faintDiagonalStripeStyle } from "../shared/stripeStyles";
 
 const NODE_SIZE = 18;
 
@@ -40,30 +41,25 @@ export default function DeadweightPromo({ className = "" }: { className?: string
       href={promo.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group block w-82.5 ${className}`}
+      style={faintDiagonalStripeStyle}
+      className={`group items-center justify-between gap-6 rounded-3xl border border-white/10 px-6 py-4 transition-colors duration-300 hover:border-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 ${className}`}
     >
-      <span className="ml-17.5 block pl-3">
+      <span className="min-w-0">
         <span className="block font-mono text-[11px] uppercase tracking-widest text-zinc-400">
           {promo.label}
         </span>
         <span className="mt-1 flex items-center gap-3 font-display text-3xl leading-tight text-white">
           {promo.title}
-          <span className="flex size-7 items-center justify-center rounded-md border border-white/15 text-zinc-300 transition-colors group-hover:border-white/40 group-hover:text-white">
+          <span className="flex size-7 shrink-0 items-center justify-center rounded-md border border-white/15 text-zinc-300 transition-colors group-hover:border-white/40 group-hover:text-white">
             <ArrowUpRight size={13} />
           </span>
         </span>
+        <span className="mt-1 block text-sm text-zinc-400">
+          Finds unused code and removes it safely
+        </span>
       </span>
 
-      <svg aria-hidden="true" viewBox="0 0 330 170" className="mt-2 h-auto w-full overflow-visible">
-        <line
-          x1={LIVE_NODES.entry.x}
-          y1={LIVE_NODES.entry.y}
-          x2={LIVE_NODES.entry.x}
-          y2={-62}
-          stroke="rgba(255,255,255,0.3)"
-          strokeWidth={0.8}
-        />
-
+      <svg aria-hidden="true" viewBox="0 0 330 170" className="h-auto w-48 shrink-0 overflow-visible">
         {LIVE_EDGES.map(([from, to], index) => (
           <line
             key={index}
@@ -124,17 +120,6 @@ export default function DeadweightPromo({ className = "" }: { className?: string
         ))}
 
         <circle cx={LIVE_NODES.entry.x} cy={LIVE_NODES.entry.y} r={3.2} fill="#3b82f6" />
-
-        <text
-          x={262}
-          y={158}
-          fill="#f87171"
-          fontSize={10}
-          letterSpacing={1.5}
-          className="font-mono uppercase"
-        >
-          Unused
-        </text>
       </svg>
     </a>
   );

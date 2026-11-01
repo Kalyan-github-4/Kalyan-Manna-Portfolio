@@ -90,7 +90,7 @@ export default function LinkCard({ item, index }: LinkCardProps) {
           <Icon
             aria-hidden="true"
             weight="regular"
-            className="absolute -bottom-3 -right-3 size-32 text-white/10 transition-all duration-500 group-hover:-translate-y-1 group-hover:text-white/20"
+            className="absolute -bottom-3 -right-3 size-32 text-white/10 transition-all duration-500 group-hover:-translate-y-1 group-hover:text-blue-500/40"
           />
         )}
       </div>
@@ -102,7 +102,7 @@ export default function LinkCard({ item, index }: LinkCardProps) {
           </span>
           <ArrowUpRight
             size={15}
-            className="shrink-0 text-zinc-500 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white"
+            className={`shrink-0 text-zinc-500 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 ${Icon ? "group-hover:text-blue-500" : "group-hover:text-white"}`}
           />
         </div>
         <h3 className="mt-3 font-display text-3xl leading-tight text-white">{item.title}</h3>

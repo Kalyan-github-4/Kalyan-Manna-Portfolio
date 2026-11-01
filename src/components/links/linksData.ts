@@ -40,7 +40,7 @@ export type LinkCardItem = {
 export const profileInfo = {
   name: siteConfig.name,
   role: "Full-stack developer",
-  tagline: "Full-Stack Developer crafting fast, thoughtful web experiences.",
+  tagline: "Crafting fast, thoughtful web experiences.",
   location: "Kharagpur, India",
   email: siteConfig.email,
   image: siteConfig.profileImage,

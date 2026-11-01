@@ -30,14 +30,14 @@ export default function CopyEmailButton({ className }: CopyEmailButtonProps) {
 
   return (
     <button type="button" onClick={handleClick} className={className}>
-      <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-white/8 bg-linear-to-b from-zinc-700 to-zinc-800 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_1px_3px_rgba(0,0,0,0.5)] transition-colors duration-300 group-hover:text-blue-400">
+      <span className="flex size-9 shrink-0 md:size-11 items-center justify-center rounded-full border border-white/8 bg-linear-to-b from-zinc-700 to-zinc-800 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_1px_3px_rgba(0,0,0,0.5)] transition-colors duration-300 group-hover:text-blue-400">
         <EnvelopeSimple size={18} />
       </span>
       <span className="min-w-0 flex-1 text-left">
         <span className="block font-mono text-[11px] uppercase tracking-widest text-zinc-500">
           Email
         </span>
-        <span aria-live="polite" className="block truncate text-sm font-medium text-white">
+        <span aria-live="polite" className="block truncate text-[13px] font-medium text-white md:text-sm">
           {copied ? "Copied to clipboard" : profileInfo.email}
         </span>
       </span>
