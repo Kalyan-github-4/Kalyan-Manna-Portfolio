@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next"
 
 import { journeyItems } from "@/data/journeyData"
+import { workProjects } from "@/data/workProjects"
 
 const SITE_URL = "https://www.kalyanmanna.com"
 
@@ -42,5 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  return [...staticRoutes, ...vaultRoutes]
+  const workRoutes: MetadataRoute.Sitemap = workProjects.map((project) => ({
+    url: `${SITE_URL}/work/${project.slug}`,
+    lastModified: now,
+    changeFrequency: "yearly",
+    priority: 0.7,
+  }))
+
+  return [...staticRoutes, ...vaultRoutes, ...workRoutes]
 }

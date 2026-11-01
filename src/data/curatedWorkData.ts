@@ -19,6 +19,18 @@ export type CuratedProject = WorkProject & CuratedMeta
 // workProjects without widening the shape every other card has to carry —
 // the same arrangement Project.tsx uses for its marquee text.
 const curatedMeta: Record<string, CuratedMeta> = {
+    "Student Placement Management System": {
+        rank: 8,
+        tagline:
+            "Placements, recruitment drives, and applications — one platform for a whole college",
+        highlights: [
+            "Student placements managed from one centralized platform.",
+            "Company recruitment drives with their own eligibility criteria.",
+            "Applications and placement records kept together.",
+            "Next.js and TypeScript over PostgreSQL on Neon, with Drizzle ORM.",
+        ],
+        mark: "#3B82F6",
+    },
     Deadweight: {
         rank: 1,
         tagline:
@@ -120,10 +132,12 @@ const fallback = (project: WorkProject): CuratedMeta => ({
 /** How many projects the home showcase shows. */
 const HOME_LIMIT = 4
 
-export const curatedProjects: CuratedProject[] = workProjects
-    .map((project) => ({
-        ...project,
-        ...(curatedMeta[project.title] ?? fallback(project)),
-    }))
+/** Every project with its write-up, in /work order — what the project pages read. */
+export const caseStudies: CuratedProject[] = workProjects.map((project) => ({
+    ...project,
+    ...(curatedMeta[project.title] ?? fallback(project)),
+}))
+
+export const curatedProjects: CuratedProject[] = [...caseStudies]
     .sort((a, b) => a.rank - b.rank)
     .slice(0, HOME_LIMIT)

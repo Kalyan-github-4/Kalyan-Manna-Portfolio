@@ -47,7 +47,7 @@ export default function CuratedWorkDetails({ project }: CuratedWorkDetailsProps)
                 </ul>
             )}
 
-            <div className="mt-7 flex flex-wrap gap-2.5 sm:mt-8">
+            <div className="mt-6 flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                     <WorkTechPill key={tag} label={tag} />
                 ))}

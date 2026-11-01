@@ -65,13 +65,28 @@ export default function CaseStudyWorkSection() {
                     {/* Center Line */}
                     <div className="pointer-events-none absolute left-1/2 top-0 hidden h-full -translate-x-1/2 border-l border-white/15 border-dashed md:block" />
 
-                    <div className="grid grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-0 md:gap-y-0">
-                        {workProjects.map((project, index) => (
-                            <WorkProjectCard
-                                key={project.title}
-                                project={project}
-                                index={index}
-                            />
+                    {/* Each side is its own stack, so 1→3 and 2→4 get the same
+                        gap however tall a card is. Below md the stacks dissolve
+                        (`contents`) and each card's `order` restores 1, 2, 3… */}
+                    <div className="flex flex-col gap-y-20 md:grid md:grid-cols-2">
+                        {[0, 1].map((side) => (
+                            <div
+                                key={side}
+                                className={[
+                                    "contents md:flex md:flex-col md:gap-y-24",
+                                    side === 1 ? "md:pt-65" : "",
+                                ].join(" ")}
+                            >
+                                {workProjects.map((project, index) =>
+                                    index % 2 === side ? (
+                                        <WorkProjectCard
+                                            key={project.title}
+                                            project={project}
+                                            index={index}
+                                        />
+                                    ) : null
+                                )}
+                            </div>
                         ))}
                     </div>
                 </div>

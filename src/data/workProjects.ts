@@ -1,13 +1,14 @@
-import { projectImages, socialLinks } from "@/config"
+import { projectImages } from "@/config"
 
 export type WorkProject = {
     number: string
+    /** The project's page: /work/<slug> */
+    slug: string
     title: string
     category: string
     date: string
     description: string
     image: string
-    href: string
     githubUrl?: string
     liveUrl?: string
     tags: string[]
@@ -21,6 +22,7 @@ export type WorkProject = {
 export const workProjects: WorkProject[] = [
     {
         number: "01",
+        slug: "student-placement-management-system",
         title: "Student Placement Management System",
         category: "Web App",
         date: "2026",
@@ -28,7 +30,6 @@ export const workProjects: WorkProject[] = [
             "A centralized platform built as a Brainware University college project to manage student placements, company recruitment drives, eligibility criteria, applications, and placement records.",
         image: projectImages.placementSystemScreens[0],
         previewImages: [...projectImages.placementSystemScreens],
-        href: "https://student-placement-management-system-ivory.vercel.app",
         githubUrl: "https://github.com/Kalyan-github-4/Student-Placement-Management-System",
         liveUrl: "https://student-placement-management-system-ivory.vercel.app",
         tags: [
@@ -48,6 +49,7 @@ export const workProjects: WorkProject[] = [
     },
     {
         number: "02",
+        slug: "deadweight",
         title: "Deadweight",
         category: "VS Code Extension",
         date: "2026",
@@ -55,7 +57,6 @@ export const workProjects: WorkProject[] = [
             "A VS Code extension that finds unused dependencies, dead files, and exports — and removes them safely, with a preview and one-click undo.",
         image: projectImages.deadweight,
         previewImages: [...projectImages.deadweightScreens],
-        href: "https://marketplace.visualstudio.com/items?itemName=kalyanmanna.deadweight",
         githubUrl: "https://github.com/Kalyan-github-4/DeadWeight",
         liveUrl: "https://marketplace.visualstudio.com/items?itemName=kalyanmanna.deadweight",
         tags: [
@@ -71,6 +72,7 @@ export const workProjects: WorkProject[] = [
     },
     {
         number: "03",
+        slug: "keythm",
         title: "Keythm",
         category: "Web App",
         date: "2026",
@@ -78,7 +80,6 @@ export const workProjects: WorkProject[] = [
             "A typing trainer built for the feel of it — customisable tests, live wpm and accuracy, and a mechanical keyboard that thocks under every keystroke.",
         image: projectImages.keythm,
         previewImages: [...projectImages.keythmScreens],
-        href: "https://keythm-two.vercel.app",
         githubUrl: "https://github.com/Kalyan-github-4/Keythm",
         liveUrl: "https://keythm-two.vercel.app",
         tags: [
@@ -92,6 +93,7 @@ export const workProjects: WorkProject[] = [
     },
     {
         number: "04",
+        slug: "hopebridge",
         title: "HopeBridge",
         category: "Website",
         date: "2026",
@@ -99,7 +101,6 @@ export const workProjects: WorkProject[] = [
             "A multi-page site for an NGO working with vulnerable children across India — causes, impact reporting, and a donation flow front and centre.",
         image: projectImages.hopeBridge,
         previewImages: [...projectImages.hopeBridgeScreens],
-        href: "https://ngo-portfolio-2.vercel.app",
         githubUrl: "https://github.com/Kalyan-github-4/NGO-portfolio-2",
         liveUrl: "https://ngo-portfolio-2.vercel.app",
         tags: [
@@ -111,6 +112,7 @@ export const workProjects: WorkProject[] = [
     },
     {
         number: "05",
+        slug: "github-roast",
         title: "GitHub Roast",
         category: "Web App",
         date: "2026",
@@ -118,7 +120,6 @@ export const workProjects: WorkProject[] = [
             "A fun and interactive web app that analyzes GitHub profiles and generates witty roasts, humorous insights, and developer scores.",
         image: projectImages.githubRoast,
         previewImages: [...projectImages.githubRoastScreens],
-        href: "https://git-hub-roast-mauve.vercel.app/",
         githubUrl: "https://github.com/Kalyan-github-4/GitHub-Roast",
         liveUrl: "https://git-hub-roast-mauve.vercel.app",
         tags: [
@@ -132,6 +133,7 @@ export const workProjects: WorkProject[] = [
     },
     {
         number: "06",
+        slug: "portfolio",
         title: "Portfolio",
         category: "Web App",
         date: "2026",
@@ -139,7 +141,6 @@ export const workProjects: WorkProject[] = [
             "A handcrafted personal portfolio featuring motion-driven storytelling, interactive sections, project case studies, and a guestbook experience.",
         image: projectImages.portfolioScreens[0],
         previewImages: [...projectImages.portfolioScreens],
-        href: "https://www.kalyanmanna.com",
         githubUrl: "https://github.com/Kalyan-github-4/Kalyan-Manna-Portfolio",
         liveUrl: "https://www.kalyanmanna.com",
         tags: [
@@ -157,6 +158,7 @@ export const workProjects: WorkProject[] = [
     },
     {
         number: "07",
+        slug: "easypg",
         title: "EasyPG",
         category: "Mobile App",
         date: "2026",
@@ -164,8 +166,7 @@ export const workProjects: WorkProject[] = [
             "A PG discovery and management platform designed for students and property owners, covering real-world rental and booking workflows.",
         image: projectImages.easyPg,
         previewImages: [...projectImages.easyPgScreens],
-        href: "https://github.com/Kalyan-github-4/EasyPG-App",
-        githubUrl: socialLinks.github,
+        githubUrl: "https://github.com/Kalyan-github-4/EasyPG-App",
         liveUrl: "",
         tags: [
             "React Native",
@@ -184,6 +185,7 @@ export const workProjects: WorkProject[] = [
     },
     {
         number: "08",
+        slug: "gym-management-system",
         title: "Gym Management System",
         category: "Web App",
         date: "2026",
@@ -191,7 +193,6 @@ export const workProjects: WorkProject[] = [
             "A full-stack gym management platform for managing members, memberships, payments, workouts, and administrative operations.",
         image: projectImages.managementSystem,
         previewImages: [...projectImages.managementSystemScreens],
-        href: "/more/management-system",
         githubUrl: "https://github.com/Kalyan-github-4/Peak-Performance/tree/feature/neon-replace",
         liveUrl: "",
         tags: [

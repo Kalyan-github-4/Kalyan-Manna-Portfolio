@@ -144,10 +144,10 @@ export default function WorkTechPill({
             // Exposed as a custom property so the border and background tints
             // stay in step with the icon without repeating the hex three times.
             style={{ "--tech": color } as CSSProperties}
-            className="group/pill inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-white/4 px-3 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-wide text-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-colors duration-300 hover:border-[color-mix(in_srgb,var(--tech)_38%,transparent)] hover:bg-[color-mix(in_srgb,var(--tech)_10%,transparent)] hover:text-white"
+            className="group/pill inline-flex items-center gap-1.5 rounded-md bg-zinc-800/90 px-2 py-1 text-xs font-medium text-zinc-200 transition-colors duration-300 hover:bg-[color-mix(in_srgb,var(--tech)_18%,#27272a)] hover:text-white"
         >
             <Icon
-                size={14}
+                size={13}
                 aria-hidden="true"
                 className="shrink-0 text-(--tech) opacity-85 transition-opacity duration-300 group-hover/pill:opacity-100"
             />

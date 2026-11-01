@@ -2,7 +2,7 @@
 
 import { ArrowsOut, ArrowUpRight, Pause, Play } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
-import { useEffect, useRef, useState, type ReactNode } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -14,39 +14,6 @@ type CuratedWorkCardProps = {
 }
 
 const EASE = [0.22, 1, 0.36, 1] as const
-
-/** External projects open in a new tab; in-app case studies stay client-side. */
-function CardShell({
-    href,
-    label,
-    className,
-    children,
-}: {
-    href: string
-    label: string
-    className: string
-    children: ReactNode
-}) {
-    if (href.startsWith("http")) {
-        return (
-            <a
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={label}
-                className={className}
-            >
-                {children}
-            </a>
-        )
-    }
-
-    return (
-        <Link href={href} aria-label={label} className={className}>
-            {children}
-        </Link>
-    )
-}
 
 /**
  * Plays the project's demo clip filling the card. Sits beside the link rather
@@ -200,9 +167,9 @@ export default function CuratedWorkCard({ project }: CuratedWorkCardProps) {
             className="rounded-[27px] border border-white/10 bg-zinc-900/70 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] lg:rounded-[29px] lg:p-2.5"
         >
             <div className="group/video relative">
-            <CardShell
-                href={project.href}
-                label={`View ${project.title}`}
+            <Link
+                href={`/work/${project.slug}`}
+                aria-label={`View the ${project.title} project`}
                 // Phones get a shorter card. The artwork is anchored to the
                 // bottom edge, so trimming the height closes the dead band
                 // between the blurb and the mockup rather than cropping either.
@@ -267,7 +234,7 @@ export default function CuratedWorkCard({ project }: CuratedWorkCardProps) {
                     </div>
                 </div>
                 )}
-            </CardShell>
+            </Link>
 
             {project.video && <CardVideo src={project.video} title={project.title} />}
             </div>

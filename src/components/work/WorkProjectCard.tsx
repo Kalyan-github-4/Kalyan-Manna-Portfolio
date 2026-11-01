@@ -2,7 +2,6 @@
 
 import { ArrowUpRight, GithubLogo } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
-import type { ReactNode } from "react"
 import Link from "next/link"
 
 import type { WorkProject } from "@/data/workProjects"
@@ -13,37 +12,6 @@ import DesktopAppPreview from "./DesktopAppPreview"
 type WorkProjectCardProps = {
     project: WorkProject
     index: number
-}
-
-/** External projects open in a new tab; in-app case studies stay client-side. */
-function PreviewLink({
-    href,
-    label,
-    children,
-}: {
-    href: string
-    label: string
-    children: ReactNode
-}) {
-    if (href.startsWith("http")) {
-        return (
-            <a
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                className="group block"
-                aria-label={label}
-            >
-                {children}
-            </a>
-        )
-    }
-
-    return (
-        <Link href={href} className="group block" aria-label={label}>
-            {children}
-        </Link>
-    )
 }
 
 export default function WorkProjectCard({
@@ -61,12 +29,8 @@ export default function WorkProjectCard({
                 duration: 0.85,
                 ease: [0.22, 1, 0.36, 1],
             }}
-            className={[
-                "relative min-h-190 pb-20",
-                isRight
-                    ? "md:col-start-2 md:mt-65 md:pl-10"
-                    : "md:col-start-1 md:pr-10",
-            ].join(" ")}
+            style={{ order: index }}
+            className={["relative", isRight ? "md:pl-10" : "md:pr-10"].join(" ")}
         >
             {/* Horizontal connector line */}
             <div
@@ -86,33 +50,34 @@ export default function WorkProjectCard({
             />
 
             {/* Meta Row */}
-            <div className="mb-5 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                    <span className="font-mono text-xs font-bold text-white/80">
+            <div className="mb-3 flex items-center justify-between gap-4">
+                <div className="flex min-w-0 items-center gap-3">
+                    <span className="font-mono text-xs font-bold text-white/70">
                         {project.number}
                     </span>
 
-                    <span className="h-px w-12 bg-white/15" />
+                    <span className="h-px w-8 bg-white/15" />
 
-                    <span className="font-mono text-xs font-bold uppercase tracking-widest text-white/55">
+                    <span className="truncate text-sm font-medium text-zinc-400">
                         {project.category}
                     </span>
                 </div>
 
-                <span className="rounded-full border border-white/10 bg-white/4 px-3 py-1 font-mono text-xs font-semibold text-white/55">
+                <span className="shrink-0 rounded-md bg-zinc-800/90 px-2 py-1 text-xs font-medium text-zinc-200">
                     {project.date}
                 </span>
             </div>
 
             {/* Title */}
-            <h3 className="mb-7 font-serif text-4xl font-semibold tracking-tight text-white md:text-5xl">
+            <h3 className="mb-5 font-serif text-4xl font-semibold tracking-tight text-white md:text-5xl">
                 {project.title}
             </h3>
 
             {/* Preview Card */}
-            <PreviewLink
-                href={project.href}
-                label={`View ${project.title} project`}
+            <Link
+                href={`/work/${project.slug}`}
+                aria-label={`View the ${project.title} project`}
+                className="group block"
             >
                 <motion.div
                     whileHover={{ y: -8 }}
@@ -161,38 +126,38 @@ export default function WorkProjectCard({
                         )}
                     </div>
                 </motion.div>
-            </PreviewLink>
+            </Link>
 
             {/* Tags */}
-            <div className="mt-8 flex flex-wrap gap-2.5">
+            <div className="mt-5 flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                     <WorkTechPill key={tag} label={tag} />
                 ))}
             </div>
 
             {/* Project Links */}
-            <div className="mt-6 flex flex-wrap gap-3">
-                {project.githubUrl && (
-                    <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2 text-sm font-medium text-white/70 transition-colors hover:border-white/25 hover:bg-white/8 hover:text-white"
-                    >
-                        <GithubLogo size={18} weight="bold" />
-                        GitHub
-                    </a>
-                )}
-
+            <div className="mt-5 flex flex-wrap gap-2">
                 {project.liveUrl && (
                     <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2 text-sm font-medium text-white/70 transition-colors hover:border-white/25 hover:bg-white/8 hover:text-white"
+                        className="inline-flex h-10 items-center gap-2 rounded-xl bg-white px-4 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                     >
-                        <ArrowUpRight size={18} weight="bold" />
+                        <ArrowUpRight size={16} weight="bold" aria-hidden="true" />
                         Live Preview
+                    </a>
+                )}
+
+                {project.githubUrl && (
+                    <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex h-10 items-center gap-2 rounded-xl bg-white/6 px-4 text-sm font-medium text-zinc-200 transition-colors hover:bg-white/12 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+                    >
+                        <GithubLogo size={16} weight="bold" aria-hidden="true" />
+                        GitHub
                     </a>
                 )}
             </div>
