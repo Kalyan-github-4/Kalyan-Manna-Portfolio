@@ -1,7 +1,7 @@
 import EdgeStripes from "@/components/shared/EdgeStripes"
 import InteractiveCharacter from "@/components/shared/interactive-3d-character"
 
-/** Placeholder for pages that aren't built yet: /terms, /more/uses, /more/bucket-list, /more/attribution. */
+/** Placeholder for pages that aren't built yet: /terms. */
 export default function UnderConstruction() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-white">
