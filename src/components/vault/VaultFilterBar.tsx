@@ -6,6 +6,7 @@ import { motion } from "framer-motion"
 
 import { cn } from "@/lib/utils"
 import { JOURNEY_FILTERS, journeyItems, type JourneyFilter } from "@/data/journeyData"
+import { faintDiagonalStripeStyle } from "@/components/shared/stripeStyles"
 
 /**
  * Margins that carry the filter bar and card frames out to the inner border
@@ -63,7 +64,10 @@ export function VaultFilterBar({
     }, [onQueryChange])
 
     return (
-        <div className={cn(VAULT_FRAME_GUTTERS, "mb-4 border-y border-white/10")}>
+        <div
+            className={cn(VAULT_FRAME_GUTTERS, "mb-4 border-y border-white/10")}
+            style={faintDiagonalStripeStyle}
+        >
             <div className="flex flex-col gap-2 p-3 md:flex-row md:items-center md:justify-between md:gap-6">
                 {/* Segmented control — scrolls horizontally rather than wrapping. */}
                 <div
