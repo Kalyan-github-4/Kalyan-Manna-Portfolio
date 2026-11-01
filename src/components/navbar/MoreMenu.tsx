@@ -1,6 +1,6 @@
 "use client";
 
-import { LinkSimple, BookOpenText, IdentificationCard } from "@phosphor-icons/react";
+import { ArrowRight, LinkSimple, BookOpenText, IdentificationCard } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -89,31 +89,41 @@ export function MoreMenu() {
               key={card.title}
               href={card.href}
               className="
-                group flex flex-1 items-center gap-4
+                group relative flex flex-1 items-center gap-3
                 rounded-2xl
                 border border-white/10
-                bg-white/5
-                px-4
-                transition-colors
-                group-hover:bg-white/5
-                group-hover:backdrop-blur-sm
-                group-hover:shadow-[0_0_30px_rgba(255,255,255,0.08)]
-                group-hover:border-white/20
+                bg-linear-to-br from-white/8 to-white/2
+                px-3
+                shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]
+                transition-[border-color,background-color,box-shadow] duration-300
+                hover:border-white/25
+                hover:bg-white/5
+                hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_0_24px_rgba(255,255,255,0.08)]
+                focus-visible:outline-none
+                focus-visible:ring-2
+                focus-visible:ring-white/50
               "
             >
-              <div className="rounded-xl border border-white/10 bg-white/5 p-2 group-hover:bg-white/10 transition-colors">
-                <Icon size={18} className="text-zinc-300" />
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-zinc-300 transition-all duration-300 group-hover:scale-105 group-hover:border-white/20 group-hover:bg-white/10 group-hover:text-white">
+                <Icon size={18} weight="duotone" aria-hidden="true" />
               </div>
 
-              <div>
-                <p className="text-sm font-medium text-white">
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-medium leading-tight text-white">
                   {card.title}
                 </p>
 
-                <p className="text-[10px] text-zinc-400">
+                <p className="mt-0.5 text-[11px] leading-snug text-zinc-400 transition-colors duration-300 group-hover:text-zinc-300">
                   {card.subtitle}
                 </p>
               </div>
+
+              <ArrowRight
+                size={13}
+                weight="bold"
+                aria-hidden="true"
+                className="absolute right-3 top-1/2 -translate-x-1 -translate-y-1/2 text-zinc-300 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+              />
             </MotionLink>
           );
         })}
