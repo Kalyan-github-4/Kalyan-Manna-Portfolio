@@ -59,12 +59,7 @@ function playTone({ type, from, to, volume, length }: Tone) {
   osc.stop(now + length + 0.01)
 }
 
-// A quick downward pitch sweep reads as a soft click rather than a beep.
-export function playTap() {
-  playTone({ type: "triangle", from: 1800, to: 600, volume: 0.08, length: 0.05 })
-}
-
-// Softer and rising, so a project swap sounds distinct from a button press.
+// Soft and rising: shared by navbar taps and project swaps on the home page.
 export function playSwitch() {
   playTone({ type: "sine", from: 520, to: 880, volume: 0.06, length: 0.09 })
 }

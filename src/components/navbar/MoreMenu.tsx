@@ -1,7 +1,6 @@
 "use client";
 
-import { ArrowRight, LinkSimple, BookOpenText, IdentificationCard } from "@phosphor-icons/react";
-import { motion } from "framer-motion";
+import { LinkSimple, BookOpenText, IdentificationCard } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -42,7 +41,6 @@ const smallCards = [
     href: "/more/attribution",
   },
 ];
-const MotionLink = motion.create(Link);
 
 export function MoreMenu() {
 
@@ -50,33 +48,31 @@ export function MoreMenu() {
     <div className="grid grid-cols-[1fr_1fr_1fr] gap-3 p-3">
       {/* Left Cards */}
       {bigCards.map((card) => (
-        <MotionLink
+        <Link
           key={card.title}
           href={card.href}
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.2 }}
-          className="group relative h-55 overflow-hidden rounded-3xl"
+          className="group relative h-55 overflow-hidden rounded-3xl border border-white/10 transition-colors duration-300 hover:border-white/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
         >
           <Image
             src={card.image}
-            alt={card.title}
+            alt=""
             fill
             sizes="(min-width: 768px) 33vw, 100vw"
-            className="object-cover transition duration-500 group-hover:scale-110"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
 
-          <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/25 to-black/10" />
 
-          <div className="absolute bottom-5 left-5 z-10">
-            <p className="text-base font-medium text-white">
+          <div className="absolute inset-x-0 bottom-0 z-10 p-4">
+            <p className="text-lg font-semibold leading-tight text-white">
               {card.title}
             </p>
 
-            <p className=" text-zinc-300 text-xs">
+            <p className="mt-0.5 text-xs text-zinc-200">
               {card.subtitle}
             </p>
           </div>
-        </MotionLink>
+        </Link>
       ))}
 
       {/* Right Column */}
@@ -85,11 +81,11 @@ export function MoreMenu() {
           const Icon = card.icon;
 
           return (
-            <MotionLink
+            <Link
               key={card.title}
               href={card.href}
               className="
-                group relative flex flex-1 items-center gap-3
+                group flex flex-1 items-center gap-3
                 rounded-2xl
                 border border-white/10
                 bg-linear-to-br from-white/8 to-white/2
@@ -117,14 +113,7 @@ export function MoreMenu() {
                   {card.subtitle}
                 </p>
               </div>
-
-              <ArrowRight
-                size={13}
-                weight="bold"
-                aria-hidden="true"
-                className="absolute right-3 top-1/2 -translate-x-1 -translate-y-1/2 text-zinc-300 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
-              />
-            </MotionLink>
+            </Link>
           );
         })}
       </div>

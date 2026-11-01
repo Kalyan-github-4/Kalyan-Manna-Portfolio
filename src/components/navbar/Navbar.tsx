@@ -4,7 +4,7 @@ import { useEffect, useState, useSyncExternalStore } from "react"
 import { motion } from "framer-motion"
 import { usePathname } from "next/navigation"
 
-import { playTap } from "@/lib/tap-sound"
+import { playSwitch } from "@/lib/tap-sound"
 import { cn } from "@/lib/utils"
 
 import { DesktopNavbar } from "./DesktopNavbar"
@@ -87,7 +87,7 @@ export function NavBar({
       onPointerDown={(event) => {
         const target = event.target as HTMLElement
         if (target.closest("a, button, [role='option']")) {
-          playTap()
+          playSwitch()
         }
       }}
     >
