@@ -4,7 +4,7 @@ import type { ReactNode } from "react"
 import type { Icon } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 
-import BackgroundRipple from "@/components/shared/BackgroundRipple"
+import SilkBackground from "@/components/shared/SilkBackground"
 import EdgeStripes from "@/components/shared/EdgeStripes"
 import { faintDiagonalStripeStyle } from "@/components/shared/stripeStyles"
 import { VAULT_CARD_FRAME } from "@/components/vault/VaultFilterBar"
@@ -35,7 +35,7 @@ export default function LegalPage({
         <main className="min-h-screen bg-black">
             {/* Same shell and frames as /more/attribution. */}
             <section className="relative overflow-clip bg-black px-4 pb-28 pt-24 text-white sm:px-8 lg:px-9">
-                <BackgroundRipple rows={7} cols={30} />
+                <SilkBackground />
 
                 <EdgeStripes />
 

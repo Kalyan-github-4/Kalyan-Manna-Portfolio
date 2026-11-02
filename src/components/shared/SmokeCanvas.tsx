@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react"
 
 type SmokeCanvasProps = {
   className?: string
+  /** Swaps the look; defaults to the hero's violet-to-teal smoke. */
+  fragmentShader?: string
 }
 
 // Smoke is soft, so a small buffer upscaled by the browser looks the same and
@@ -113,7 +115,7 @@ function compile(gl: WebGLRenderingContext, type: number, source: string) {
  * Whatever background and mask the className sets stay in charge: the mask
  * clips the smoke, and the background is the fallback where WebGL is missing.
  */
-export default function SmokeCanvas({ className }: SmokeCanvasProps) {
+export default function SmokeCanvas({ className, fragmentShader: fragmentSource = FRAGMENT_SHADER }: SmokeCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -124,7 +126,7 @@ export default function SmokeCanvas({ className }: SmokeCanvasProps) {
     if (!gl) return
 
     const vertexShader = compile(gl, gl.VERTEX_SHADER, VERTEX_SHADER)
-    const fragmentShader = compile(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER)
+    const fragmentShader = compile(gl, gl.FRAGMENT_SHADER, fragmentSource)
     const program = gl.createProgram()
     if (!vertexShader || !fragmentShader || !program) return
 
@@ -216,7 +218,7 @@ export default function SmokeCanvas({ className }: SmokeCanvasProps) {
       gl.deleteShader(vertexShader)
       gl.deleteShader(fragmentShader)
     }
-  }, [])
+  }, [fragmentSource])
 
   return <canvas ref={canvasRef} aria-hidden="true" className={className} />
 }

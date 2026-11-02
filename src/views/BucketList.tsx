@@ -4,7 +4,7 @@ import { Check } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 
 import { bucketSections } from "@/data/bucketListData"
-import BackgroundRipple from "@/components/shared/BackgroundRipple"
+import SilkBackground from "@/components/shared/SilkBackground"
 import EdgeStripes from "@/components/shared/EdgeStripes"
 import GradientText, { HEADING_GRADIENT } from "@/components/shared/GradientText"
 import SplitSection, { Strong } from "@/components/shared/SplitSection"
@@ -19,7 +19,7 @@ export default function BucketList() {
         <main className="min-h-screen bg-black">
             {/* Same shell and frames as /more/attribution. */}
             <section className="relative overflow-clip bg-black px-4 pb-28 pt-24 text-white sm:px-8 lg:px-9">
-                <BackgroundRipple rows={7} cols={30} />
+                <SilkBackground />
 
                 <EdgeStripes />
 

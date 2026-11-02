@@ -5,60 +5,59 @@ import { motion } from "framer-motion"
 import WorkProjectCard from "./WorkProjectCard"
 import { workProjects } from "@/data/workProjects"
 import GradientText, { HEADING_GRADIENT } from "../shared/GradientText"
-import BackgroundRipple from "../shared/BackgroundRipple"
+import SilkBackground from "../shared/SilkBackground"
 import EdgeStripes from "../shared/EdgeStripes"
+
+const EASE = [0.22, 1, 0.36, 1] as const
 
 export default function CaseStudyWorkSection() {
     return (
         // Side padding mirrors EdgeStripes' asymmetric gutters, plus 12-16px of air.
-        <section className="relative overflow-hidden bg-black py-28 pl-11 pr-8 text-white sm:pl-14 sm:pr-11 lg:pl-15 lg:pr-13">
+        <section className="relative overflow-hidden bg-black pb-28 pt-24 pl-11 pr-8 text-white sm:pl-14 sm:pr-11 lg:pl-15 lg:pr-13">
 
             {/* Background Glow */}
-            <BackgroundRipple
-                rows={7}
-                cols={30} />
+            <SilkBackground />
 
             <EdgeStripes />
 
             <div className="relative z-10 mx-auto w-full">
-                {/* Header */}
-                <div className="relative mb-20 flex min-h-50 items-center justify-center text-center">
-                    <div>
-                        <motion.p
-                            initial={{ opacity: 0, y: 18 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: false, amount: 0.6 }}
-                            transition={{
-                                duration: 0.7,
-                                ease: [0.22, 1, 0.36, 1],
-                            }}
-                            className="mb-5 font-mono text-xs font-semibold uppercase tracking-[0.35em] text-white/50"
-                        >
-                            Case Studies
-                        </motion.p>
+                {/* Same header block, position and entrance as /vault, /uses and the
+                    rest, so the title never jumps between pages. */}
+                <header className="mb-16 text-center">
+                    <motion.p
+                        initial={{ opacity: 0, y: 18 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, ease: EASE }}
+                        className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.35em] text-white/50"
+                    >
+                        Case Studies
+                    </motion.p>
 
-                        <motion.h1
-                            initial={{ opacity: 0, y: 26 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: false, amount: 0.6 }}
-                            transition={{
-                                duration: 0.8,
-                                delay: 0.08,
-                                ease: [0.22, 1, 0.36, 1],
-                            }}
-                            className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-transparent text-shadow-subtle font-display"
+                    <motion.h1
+                        initial={{ opacity: 0, y: 26 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.08, ease: EASE }}
+                        className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text font-display text-4xl text-transparent text-shadow-subtle sm:text-5xl md:text-6xl lg:text-7xl"
+                    >
+                        Selected{" "}
+                        <GradientText
+                            className="inline-block overflow-visible pb-2 italic"
+                            colors={HEADING_GRADIENT}
+                            animationSpeed={6}
                         >
-                            Selected{" "}
-                            <GradientText
-                                className="inline-block overflow-visible pb-4 italic"
-                                colors={HEADING_GRADIENT}
-                                animationSpeed={6}
-                            >
-                                Work
-                            </GradientText>
-                        </motion.h1>
-                    </div>
-                </div>
+                            Work
+                        </GradientText>
+                    </motion.h1>
+
+                    <motion.p
+                        initial={{ opacity: 0, y: 18 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.16, ease: EASE }}
+                        className="mx-auto mt-2 max-w-xl text-sm text-zinc-400 sm:text-base"
+                    >
+                        Dev tools, design studies, fun builds and freelance work.
+                    </motion.p>
+                </header>
 
                 {/* Projects Timeline */}
                 <div className="relative">

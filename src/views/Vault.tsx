@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion"
 
 import { journeyItems, type JourneyFilter } from "@/data/journeyData"
 import { JourneyHeader } from "@/components/journey/JourneyHeader"
-import BackgroundRipple from "@/components/shared/BackgroundRipple"
+import SilkBackground from "@/components/shared/SilkBackground"
 import EdgeStripes from "@/components/shared/EdgeStripes"
 import { faintDiagonalStripeStyle } from "@/components/shared/stripeStyles"
 import { VAULT_CARD_FRAME, VaultFilterBar } from "@/components/vault/VaultFilterBar"
@@ -62,7 +62,7 @@ export default function Vault() {
             {/* Shell mirrors CaseStudyWorkSection: full-bleed inner column, the
                 same horizontal padding, and the same rippling backdrop. */}
             <section className="relative overflow-hidden bg-black px-4 pb-28 pt-24 text-white sm:px-8 lg:px-9">
-                <BackgroundRipple rows={7} cols={30} />
+                <SilkBackground />
 
                 <EdgeStripes />
 

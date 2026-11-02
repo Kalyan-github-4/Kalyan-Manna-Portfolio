@@ -6,6 +6,8 @@ export type WorkProject = {
     slug: string
     title: string
     category: string
+    /** Why it exists, shown as the card's pill: a dev tool, a design study, a fun build or client work. */
+    purpose: "Dev tool" | "Design" | "Fun" | "Freelance"
     date: string
     description: string
     image: string
@@ -22,9 +24,34 @@ export type WorkProject = {
 export const workProjects: WorkProject[] = [
     {
         number: "01",
+        slug: "deadweight",
+        title: "Deadweight",
+        category: "VS Code Extension",
+        purpose: "Dev tool",
+        date: "2026",
+        description:
+            "A VS Code extension that finds unused dependencies, dead files, and exports — and removes them safely, with a preview and one-click undo.",
+        image: projectImages.deadweight,
+        previewImages: [...projectImages.deadweightScreens],
+        githubUrl: "https://github.com/Kalyan-github-4/DeadWeight",
+        liveUrl: "https://marketplace.visualstudio.com/items?itemName=kalyanmanna.deadweight",
+        tags: [
+            "TypeScript",
+            "VS Code Extension API",
+            "Node.js",
+            "knip",
+            "depcheck",
+            "Cytoscape.js",
+            "MCP",
+        ],
+        accent: "from-red-700 via-red-500 to-zinc-500",
+    },
+    {
+        number: "02",
         slug: "student-placement-management-system",
         title: "Student Placement Management System",
         category: "Web App",
+        purpose: "Design",
         date: "2026",
         description:
             "A centralized platform built as a Brainware University college project to manage student placements, company recruitment drives, eligibility criteria, applications, and placement records.",
@@ -48,33 +75,11 @@ export const workProjects: WorkProject[] = [
         accent: "from-blue-900 via-blue-700 to-red-600",
     },
     {
-        number: "02",
-        slug: "deadweight",
-        title: "Deadweight",
-        category: "VS Code Extension",
-        date: "2026",
-        description:
-            "A VS Code extension that finds unused dependencies, dead files, and exports — and removes them safely, with a preview and one-click undo.",
-        image: projectImages.deadweight,
-        previewImages: [...projectImages.deadweightScreens],
-        githubUrl: "https://github.com/Kalyan-github-4/DeadWeight",
-        liveUrl: "https://marketplace.visualstudio.com/items?itemName=kalyanmanna.deadweight",
-        tags: [
-            "TypeScript",
-            "VS Code Extension API",
-            "Node.js",
-            "knip",
-            "depcheck",
-            "Cytoscape.js",
-            "MCP",
-        ],
-        accent: "from-red-700 via-red-500 to-zinc-500",
-    },
-    {
         number: "03",
         slug: "keythm",
         title: "Keythm",
         category: "Web App",
+        purpose: "Fun",
         date: "2026",
         description:
             "A typing trainer built for the feel of it — customisable tests, live wpm and accuracy, and a mechanical keyboard that thocks under every keystroke.",
@@ -96,6 +101,7 @@ export const workProjects: WorkProject[] = [
         slug: "hopebridge",
         title: "HopeBridge",
         category: "Website",
+        purpose: "Design",
         date: "2026",
         description:
             "A multi-page site for an NGO working with vulnerable children across India — causes, impact reporting, and a donation flow front and centre.",
@@ -115,6 +121,7 @@ export const workProjects: WorkProject[] = [
         slug: "github-roast",
         title: "GitHub Roast",
         category: "Web App",
+        purpose: "Fun",
         date: "2026",
         description:
             "A fun and interactive web app that analyzes GitHub profiles and generates witty roasts, humorous insights, and developer scores.",
@@ -136,6 +143,7 @@ export const workProjects: WorkProject[] = [
         slug: "portfolio",
         title: "Portfolio",
         category: "Web App",
+        purpose: "Design",
         date: "2026",
         description:
             "A handcrafted personal portfolio featuring motion-driven storytelling, interactive sections, project case studies, and a guestbook experience.",
@@ -161,6 +169,7 @@ export const workProjects: WorkProject[] = [
         slug: "easypg",
         title: "EasyPG",
         category: "Mobile App",
+        purpose: "Design",
         date: "2026",
         description:
             "A PG discovery and management platform designed for students and property owners, covering real-world rental and booking workflows.",
@@ -188,6 +197,7 @@ export const workProjects: WorkProject[] = [
         slug: "gym-management-system",
         title: "Gym Management System",
         category: "Web App",
+        purpose: "Freelance",
         date: "2026",
         description:
             "A full-stack gym management platform for managing members, memberships, payments, workouts, and administrative operations.",

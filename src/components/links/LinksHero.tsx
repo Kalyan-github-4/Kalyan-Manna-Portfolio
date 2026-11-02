@@ -24,7 +24,7 @@ const rowArrow =
 export default function LinksHero() {
   return (
     <header>
-      <div className="relative grid grid-cols-1 gap-8 pb-10 pt-24 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-center lg:gap-12 lg:px-6 lg:pt-28 xl:px-10">
+      <div className="relative grid grid-cols-1 gap-8 pb-10 pt-24 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-start lg:gap-12 lg:px-6 xl:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

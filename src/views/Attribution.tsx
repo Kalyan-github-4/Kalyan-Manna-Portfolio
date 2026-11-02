@@ -11,7 +11,7 @@ import {
     thanks,
     typefaces,
 } from "@/data/attributionData"
-import BackgroundRipple from "@/components/shared/BackgroundRipple"
+import SilkBackground from "@/components/shared/SilkBackground"
 import EdgeStripes from "@/components/shared/EdgeStripes"
 import GradientText, { HEADING_GRADIENT } from "@/components/shared/GradientText"
 import Section, { Strong } from "@/components/shared/SplitSection"
@@ -56,7 +56,7 @@ export default function Attribution() {
         <main className="min-h-screen bg-black">
             {/* Same shell and frames as /vault. */}
             <section className="relative overflow-clip bg-black px-4 pb-28 pt-24 text-white sm:px-8 lg:px-9">
-                <BackgroundRipple rows={7} cols={30} />
+                <SilkBackground />
 
                 <EdgeStripes />
 

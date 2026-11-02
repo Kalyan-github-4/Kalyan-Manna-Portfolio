@@ -3,13 +3,13 @@
 import LinksHero from "@/components/links/LinksHero";
 import LinkSection from "@/components/links/LinkSection";
 import { connectLinks, siteLinks } from "@/components/links/linksData";
-import BackgroundRipple from "@/components/shared/BackgroundRipple";
+import SilkBackground from "@/components/shared/SilkBackground";
 import EdgeStripes from "@/components/shared/EdgeStripes";
 
 const Links = () => {
   return (
     <main className="relative min-h-screen overflow-hidden bg-black pb-16 text-white">
-      <BackgroundRipple rows={7} cols={30} />
+      <SilkBackground />
 
       <EdgeStripes />
 

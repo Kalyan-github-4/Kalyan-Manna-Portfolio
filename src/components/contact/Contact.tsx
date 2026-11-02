@@ -50,7 +50,7 @@ function ContactTabsPanel() {
 
 export default function Contact() {
     return (
-        <main className="relative min-h-screen overflow-hidden bg-[#08080a] px-4 py-28 text-white">
+        <main className="relative min-h-screen overflow-hidden bg-[#08080a] px-4 pb-28 pt-24 text-white">
             <EdgeStripes />
 
             <section className="relative z-10 mx-auto max-w-6xl">

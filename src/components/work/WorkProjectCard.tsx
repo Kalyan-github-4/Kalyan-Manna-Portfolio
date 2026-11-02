@@ -64,7 +64,7 @@ export default function WorkProjectCard({
                 </div>
 
                 <span className="shrink-0 rounded-md bg-zinc-800/90 px-2 py-1 text-xs font-medium text-zinc-200">
-                    {project.date}
+                    {project.purpose}
                 </span>
             </div>
 

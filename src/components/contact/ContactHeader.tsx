@@ -24,7 +24,7 @@ export default function ContactHeader() {
                 variants={fadeUp}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
-                className="mb-5 text-[11px] font-medium uppercase tracking-[0.3em] text-zinc-400 sm:text-xs sm:tracking-[0.35em]"
+                className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.35em] text-white/50"
             >
                 Contact
             </motion.p>

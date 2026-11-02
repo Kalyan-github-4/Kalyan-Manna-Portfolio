@@ -22,7 +22,7 @@ import GradientText, { HEADING_GRADIENT } from "../components/shared/GradientTex
 // import { IconCloud } from "../components/about/IconCloud";
 import PolaroidCarousel from "../components/about/PolaroidCarousel";
 // import GithubSkyline from "../components/about/GithubSkyline";
-import BackgroundRipple from "../components/shared/BackgroundRipple";
+import SilkBackground from "../components/shared/SilkBackground";
 import EdgeStripes from "../components/shared/EdgeStripes";
 import { faintDiagonalStripeStyle } from "../components/shared/stripeStyles";
 import { journeyItems } from "@/data/journeyData";
@@ -112,15 +112,13 @@ export default function About() {
     <>
       <section
         ref={contentRef}
-        className="relative flex min-h-screen flex-col pb-10 pt-28"
+        className="relative flex min-h-screen flex-col pb-10 pt-24"
       >
-        <BackgroundRipple
-          rows={7}
-          cols={30} />
+        <SilkBackground />
 
         <EdgeStripes />
 
-        <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-6 px-10 sm:px-16 lg:flex-row lg:justify-between lg:gap-16 lg:px-20 xl:px-28">
+        <div className="relative z-10 flex flex-1 flex-col items-center gap-6 px-10 sm:px-16 lg:flex-row lg:items-start lg:justify-between lg:gap-16 lg:px-20 xl:px-28">
           {/* Left */}
           <div className="w-full max-w-2xl text-center lg:max-w-xl lg:text-left">
             <motion.p
@@ -128,7 +126,7 @@ export default function About() {
               variants={fadeUp}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
-              className="mb-5 font-mono text-xs font-semibold uppercase tracking-[0.35em] text-white/50"
+              className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.35em] text-white/50"
             >
               About me
             </motion.p>
@@ -138,7 +136,7 @@ export default function About() {
               variants={fadeUp}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
-              className="font-display text-5xl font-medium leading-[0.95] sm:text-6xl lg:text-7xl"
+              className="font-display text-4xl font-medium leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl"
             >
               <span className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text text-transparent text-shadow-subtle">
                 I&apos;m Kalyan, a <br />
@@ -161,18 +159,25 @@ export default function About() {
               animate={isInView ? "visible" : "hidden"}
               className="mt-6 text-base leading-relaxed text-zinc-200 sm:text-lg"
             >
-              A full-stack developer from Kharagpur, building web and mobile apps that are fast, scalable and easy to use.
+              It started with curiosity: how do things work, and could I build them myself?
             </motion.p>
 
-            <motion.p
+            <motion.div
               custom={3}
               variants={fadeUp}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
-              className="mt-3 text-base leading-relaxed text-zinc-400 sm:text-lg"
+              className="mt-3 space-y-3 text-base leading-relaxed text-zinc-400 sm:text-lg"
             >
-              Away from the keyboard, you&apos;ll find me at hackathons and developer meetups.
-            </motion.p>
+              <p>
+                Today I&apos;m a Full-Stack Developer working across web, AI and product engineering, taking ideas
+                from a blank screen to something people actually use.
+              </p>
+              <p>
+                Hackathons, freelance work and side experiments got me here. Next: meaningful products, and giving
+                back to the developer community.
+              </p>
+            </motion.div>
 
             <motion.div
               custom={4}
