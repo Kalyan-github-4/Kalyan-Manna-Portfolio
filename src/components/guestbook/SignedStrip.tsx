@@ -8,6 +8,8 @@ const HOLE_SPACING = 7
 interface SignedStripProps {
     faces: { id: string; imageUrl: string }[]
     noteCount: number
+    /** While notes load, holds the strip's shape with placeholder stamps and seal. */
+    loading?: boolean
     /** The call to action at the end of the strip. */
     children: ReactNode
 }
@@ -65,11 +67,37 @@ function Seal({ noteCount }: { noteCount: number }) {
     )
 }
 
+/** A blank stamp and seal the same size as the real ones, shown while loading. */
+function StampSkeleton({ index }: { index: number }) {
+    return (
+        <div
+            aria-hidden="true"
+            className={`relative -ml-2.5 shrink-0 animate-pulse bg-white/10 first:ml-0 ${index >= 3 ? "hidden sm:block" : ""}`}
+            style={{ width: HOLE_SPACING * 7, height: HOLE_SPACING * 8, rotate: `${[-4, 3, -2, 4, -3, 2][index % 6]}deg` }}
+        />
+    )
+}
+
 /** The proof-of-life strip under the guestbook heading. */
-export function SignedStrip({ faces, noteCount, children }: SignedStripProps) {
+export function SignedStrip({ faces, noteCount, loading = false, children }: SignedStripProps) {
     return (
         <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-5">
-            {noteCount > 0 && (
+            {loading && (
+                <>
+                    <div className="flex items-center">
+                        {Array.from({ length: 7 }, (_, index) => (
+                            <StampSkeleton key={index} index={index} />
+                        ))}
+                        <div aria-hidden="true" className="relative z-10 -ml-5 size-26 shrink-0 animate-pulse rounded-full border border-white/20 bg-black/80" />
+                    </div>
+
+                    <p className="max-w-52 text-left font-hand text-[1.7rem] leading-7 text-zinc-300">
+                        from visitors who stopped by and signed
+                    </p>
+                </>
+            )}
+
+            {!loading && noteCount > 0 && (
                 <>
                     <div className="flex items-center">
                         {/* Fewer stamps on phones, so the row and seal fit on one line. */}

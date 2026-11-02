@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAuth, useUser } from "@clerk/clerk-react";
 
 import GradientText, { HEADING_GRADIENT } from "../components/shared/GradientText";
-import BackgroundRipple from "../components/shared/BackgroundRipple";
+import SilkBackground from "../components/shared/SilkBackground";
 import EdgeStripes from "../components/shared/EdgeStripes";
 import CreateGuestCard from "../components/guestbook/components/CreateGuestCard";
 import { NoteCard, type NoteEntry } from "../components/guestbook/NoteCard";
@@ -229,18 +229,18 @@ function GuestBook() {
 
   return (
     <div>
-      <section className="relative min-h-screen overflow-hidden pb-28 pt-28">
-        <BackgroundRipple rows={7} cols={30} />
+      <section className="relative min-h-screen overflow-hidden pb-28 pt-24">
+        <SilkBackground />
 
         <EdgeStripes />
 
         {/* Header Section */}
         <div className="relative z-10 mx-auto max-w-7xl px-12 sm:px-16 lg:px-8">
           <div className="flex flex-col items-center justify-center text-center">
-            <p className="mb-5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.3em] sm:tracking-[0.35em] text-zinc-400">
+            <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.35em] text-white/50">
               the wall remembers
             </p>
-            <h1 className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text text-4xl sm:text-5xl md:text-6xl text-transparent text-shadow-subtle">
+            <h1 className="bg-linear-to-b from-zinc-400 via-zinc-200 to-white bg-clip-text font-display text-4xl text-transparent text-shadow-subtle sm:text-5xl md:text-6xl lg:text-7xl">
               Words that echo{" "}
               <GradientText
                 className="inline-block italic"
@@ -251,18 +251,25 @@ function GuestBook() {
               </GradientText>
             </h1>
 
-            <SignedStrip faces={faces} noteCount={entries.length}>
+            <SignedStrip faces={faces} noteCount={entries.length} loading={loading}>
               <PinNoteDialog onSubmit={handleSubmit} />
             </SignedStrip>
           </div>
         </div>
 
         <div className="relative z-10 mt-14 w-full pl-12 pr-9 sm:pl-16 sm:pr-13 lg:pl-20 lg:pr-18">
-          {pinned.length > 0 && (
-            <section aria-label="Pinned notes" className="mb-16">
+          {/* Shown while loading too, so the pinned row is already in place
+              and doesn't push the wall down when the notes arrive. */}
+          {(loading || pinned.length > 0) && (
+            <section aria-label="Pinned notes" aria-busy={loading} className="mb-16">
               <SectionLabel>Pinned</SectionLabel>
 
               <div className="grid items-start gap-x-8 gap-y-12 md:grid-cols-2 xl:grid-cols-4">
+                {loading &&
+                  Array.from({ length: PINNED_COUNT }, (_, i) => (
+                    <GuestCardSkeleton key={`pinned-skeleton-${i}`} lines={5} />
+                  ))}
+
                 {pinned.map((entry) => (
                   <NoteCard
                     key={entry.id}
@@ -277,7 +284,7 @@ function GuestBook() {
             </section>
           )}
 
-          <section aria-label="The wall">
+          <section aria-label="The wall" aria-busy={loading}>
             <SectionLabel>The wall</SectionLabel>
 
             {/* Newspaper columns give the uneven, pinned-up look; pt leaves room
