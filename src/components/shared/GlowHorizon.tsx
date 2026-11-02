@@ -1,3 +1,4 @@
+import SmokeCanvas from "@/components/shared/SmokeCanvas"
 import { cn } from "@/lib/utils"
 
 type GlowHorizonProps = {
@@ -8,71 +9,65 @@ export default function GlowHorizon({ className = '' }: GlowHorizonProps) {
   return (
     <div
       aria-hidden="true"
-      className={cn("pointer-events-none fixed -z-10 inset-0 overflow-hidden bg-black", className)}
+      className={cn("glow-horizon pointer-events-none absolute inset-0 overflow-hidden", className)}
     >
-      <div className="glow-horizon-haze absolute left-1/2 h-[170vh] w-[340vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(23,37,84,0.62)_0%,rgba(15,25,56,0.36)_20%,rgba(0,0,0,0)_72%)] opacity-90 blur-[110px]" />
-
-      <div
-        className="glow-horizon-core absolute left-1/2 bottom-[-170vh] h-[2250px] w-[2250px] -translate-x-1/2 rounded-full border-t border-white/90 opacity-95"
-        style={{
-          boxShadow:
-            '0 0 28px 8px rgba(255,255,255,0.18), 0 0 72px 22px rgba(147,197,253,0.36), 0 0 180px 70px rgba(37,99,235,0.24)',
-          filter: 'drop-shadow(0 0 18px rgba(255,255,255,0.32))'
-        }}
-      />
-
-      <div
-        className="glow-horizon-core absolute left-1/2 bottom-[-172vh] h-[2300px] w-[2300px] -translate-x-1/2 rounded-full border-t border-white/50 opacity-60 blur-lg"
-        style={{
-          boxShadow:
-            '0 0 64px 26px rgba(147,197,253,0.28), 0 0 150px 72px rgba(37,99,235,0.22)'
-        }}
-      />
-
-      <div className="absolute left-1/2 bottom-[18%] h-[34vh] w-[88vw] -translate-x-1/2 bg-[radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.16)_0%,rgba(255,255,255,0.08)_10%,rgba(255,255,255,0)_60%)] opacity-70 blur-[18px]" />
-
-      <div className="glow-horizon-haze absolute left-1/2 bottom-[31vh] h-[28vh] w-[76vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_center,rgba(23,37,84,0.7)_0%,rgba(23,37,84,0.42)_18%,rgba(0,0,0,0)_72%)] blur-[120px]" />
-
-      <div className="absolute bottom-[18%] left-[18%] h-[34vh] w-0.5 bg-[linear-gradient(to_top,rgba(255,255,255,0.12),rgba(255,255,255,0))] opacity-35 blur-[1px]" />
-      <div className="absolute bottom-[16%] left-[34%] h-[42vh] w-px bg-[linear-gradient(to_top,rgba(255,255,255,0.1),rgba(255,255,255,0))] opacity-25 blur-[1px]" />
-      <div className="absolute bottom-[15%] left-1/2 h-[44vh] w-px -translate-x-1/2 bg-[linear-gradient(to_top,rgba(255,255,255,0.14),rgba(255,255,255,0))] opacity-35 blur-[1px]" />
-      <div className="absolute bottom-[17%] right-[34%] h-[40vh] w-px bg-[linear-gradient(to_top,rgba(255,255,255,0.1),rgba(255,255,255,0))] opacity-25 blur-[1px]" />
-      <div className="absolute bottom-[18%] right-[18%] h-[31vh] w-0.5 bg-[linear-gradient(to_top,rgba(255,255,255,0.11),rgba(255,255,255,0))] opacity-35 blur-[1px]" />
-
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.1)_58%,rgba(0,0,0,0.82)_100%)]" />
+      <div className="glow-horizon-haze absolute inset-0" />
+      <SmokeCanvas className="glow-horizon-deep absolute inset-0 h-full w-full" />
+      <div className="glow-horizon-pale absolute inset-0" />
+      <div className="glow-horizon-rim absolute inset-0" />
 
       <style>{`
-        @keyframes glow-horizon-pulse {
-          0%, 100% {
-            opacity: 0.88;
-            transform: translateX(-50%) scale(1);
-          }
-          50% {
-            opacity: 1;
-            transform: translateX(-50%) scale(1.012);
+        /* Every layer is a parent-sized gradient drawn from the same circle,
+           so the colour hugs the arc and the arc stays centred at any size. */
+        .glow-horizon {
+          --glow-radius: max(150vw, 900px);
+          --glow-apex: 78%;
+          --glow-center: 50% calc(var(--glow-apex) + var(--glow-radius));
+          /* Reach is capped by width too, or phones get a tall column of colour. */
+          --glow-reach: min(1vh, 1.1vw);
+        }
+
+        @media (max-width: 640px) {
+          .glow-horizon {
+            --glow-apex: 84%;
           }
         }
 
-        @keyframes glow-horizon-haze {
+        .glow-horizon-haze {
+          background: radial-gradient(ellipse 48vw 46vh at 50% 48%, rgba(30, 10, 78, 0.42) 0%, rgba(30, 10, 78, 0.2) 52%, rgba(30, 10, 78, 0) 100%);
+        }
+
+        /* Violet to teal, saturated, reaching up behind the hero copy. SmokeCanvas
+           paints the moving smoke; this gradient only shows if WebGL is missing. */
+        .glow-horizon-deep {
+          background: linear-gradient(90deg, rgba(46, 26, 130, 0) 16%, rgb(46, 26, 130) 32%, rgb(32, 54, 128) 50%, rgb(14, 86, 118) 66%, rgba(14, 86, 118, 0) 82%);
+          mask-image: radial-gradient(circle at var(--glow-center), transparent calc(var(--glow-radius) - 2px), #000 var(--glow-radius), rgba(0, 0, 0, 0.62) calc(var(--glow-radius) + 9 * var(--glow-reach)), rgba(0, 0, 0, 0.24) calc(var(--glow-radius) + 19 * var(--glow-reach)), transparent calc(var(--glow-radius) + 34 * var(--glow-reach)));
+        }
+
+        /* The same sweep, paler, packed tight against the rim. */
+        .glow-horizon-pale {
+          background: linear-gradient(90deg, rgba(92, 78, 156, 0) 20%, rgb(92, 78, 156) 33%, rgb(118, 146, 190) 50%, rgb(96, 158, 184) 64%, rgba(96, 158, 184, 0) 78%);
+          mask-image: radial-gradient(circle at var(--glow-center), transparent calc(var(--glow-radius) - 2px), rgba(0, 0, 0, 0.78) var(--glow-radius), rgba(0, 0, 0, 0.3) calc(var(--glow-radius) + 4 * var(--glow-reach)), transparent calc(var(--glow-radius) + 14 * var(--glow-reach)));
+        }
+
+        /* A hairline of white that bleeds inward, tapering off at both ends. */
+        .glow-horizon-rim {
+          background: radial-gradient(circle at var(--glow-center), transparent calc(var(--glow-radius) - 44px), rgba(255, 255, 255, 0.1) calc(var(--glow-radius) - 26px), rgba(255, 255, 255, 0.42) calc(var(--glow-radius) - 8px), rgb(240, 243, 248) calc(var(--glow-radius) - 1.5px), rgba(240, 243, 248, 0.5) calc(var(--glow-radius) + 1px), transparent calc(var(--glow-radius) + 7px));
+          mask-image: linear-gradient(90deg, transparent 8%, rgba(0, 0, 0, 0.55) 22%, #000 38%, #000 62%, rgba(0, 0, 0, 0.55) 78%, transparent 92%);
+        }
+
+        @keyframes glow-horizon-breathe {
           0%, 100% {
-            opacity: 0.78;
-            transform: translateX(-50%) scale(1);
+            opacity: 0.82;
           }
           50% {
-            opacity: 0.95;
-            transform: translateX(-50%) scale(1.03);
+            opacity: 1;
           }
         }
 
         @media (prefers-reduced-motion: no-preference) {
-          .glow-horizon-core {
-            animation: glow-horizon-pulse 10s ease-in-out infinite;
-            transform-origin: center;
-          }
-
-          .glow-horizon-haze {
-            animation: glow-horizon-haze 12s ease-in-out infinite;
-            transform-origin: center;
+          .glow-horizon-pale {
+            animation: glow-horizon-breathe 10s ease-in-out infinite;
           }
         }
       `}</style>

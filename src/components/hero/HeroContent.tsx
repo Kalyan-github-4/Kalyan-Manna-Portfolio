@@ -40,7 +40,7 @@ export function HeroContent({ opacity, y, visibility }: HeroContentProps) {
 		<motion.section
 			id="home"
 			style={{ opacity, y, visibility }}
-			className="relative z-10 flex min-h-[95svh] flex-col items-center justify-center px-5 text-center sm:px-6 md:px-8 lg:px-10"
+			className="relative z-10 flex min-h-svh flex-col items-center justify-center px-5 text-center sm:px-6 md:px-8 lg:px-10"
 		>
 			<motion.div
 				variants={containerVariants}

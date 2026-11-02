@@ -2,12 +2,13 @@
 
 import { useMotionValue } from "framer-motion"
 import { HeroContent } from "@/components/hero/HeroContent"
+import GlowHorizon from "@/components/shared/GlowHorizon"
 
 export default function Hero() {
   // The about section is commented out for now, and with it the pinned scroll
-  // timeline it needed. What is left is a plain hero, a little short of full
-  // height so the bento peeks in below it and invites a scroll: no 420vh of
-  // scroll runway, no veil, no scroll-driven fade — just the content.
+  // timeline it needed. What is left is a plain hero that fills exactly one
+  // screen, with the bento starting below the fold: no 420vh of scroll
+  // runway, no veil, no scroll-driven fade — just the content.
   //
   // The motion values below are constants only so HeroContent keeps its
   // existing MotionValue props; restore the useScroll timeline (see git
@@ -18,8 +19,8 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-clip">
-      {/* No background of its own: the page-wide GlowHorizon in Home renders
-          fixed behind every section, and an opaque bg here would hide it. */}
+      <GlowHorizon />
+
       <div className="relative">
         <HeroContent
           opacity={heroOpacity}

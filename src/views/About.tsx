@@ -17,10 +17,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import GradientText, { HEADING_GRADIENT } from "../components/shared/GradientText";
-// The tech cloud is parked while the robot fills the right column. Restore
+// The tech cloud is parked while the polaroids fill the right column. Restore
 // this import and the <IconCloud /> below to bring it back.
 // import { IconCloud } from "../components/about/IconCloud";
-import LazyRobotScene from "@/components/robot/LazyRobotScene";
+import PolaroidCarousel from "../components/about/PolaroidCarousel";
 // import GithubSkyline from "../components/about/GithubSkyline";
 import BackgroundRipple from "../components/shared/BackgroundRipple";
 import EdgeStripes from "../components/shared/EdgeStripes";
@@ -229,7 +229,7 @@ export default function About() {
             className="relative flex w-full max-w-xs flex-col items-center justify-center sm:max-w-sm lg:max-w-md xl:max-w-lg"
           >
             {/* <IconCloud iconSlugs={techSlugs} /> */}
-            <LazyRobotScene wrapperClassName="aspect-square w-full" scale={1.7} yOffset={-0.15} />
+            <PolaroidCarousel />
           </motion.div>
         </div>
 

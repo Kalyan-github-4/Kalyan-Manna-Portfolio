@@ -3,22 +3,19 @@ import CuratedWorkShowcase from "../components/work/CuratedWorkShowcase";
 // import GuestShowUp from "@/components/guestbook/GuestShowUp";
 import BentoGrid from "../components/bento/BentoGrid";
 import VaultShowcase from "@/components/vault/VaultShowcase";
-import GlowHorizon from "@/components/shared/GlowHorizon";
 import EdgeStripes from "@/components/shared/EdgeStripes";
 
 function Home() {
   return (
     <>
-      {/* One fixed glow for the whole page — it stays put behind the hero, the
-          work showcase and the guestbook instead of ending with the hero. */}
-      <GlowHorizon />
+      <Hero />
 
-      {/* Positioned so the hatched gutters pin to the page rather than to a
-          single section — they run the full height, hero through guestbook. */}
+      {/* Positioned so the hatched gutters pin to this wrapper rather than to a
+          single section — they run from the top of the bento to the guestbook,
+          leaving the hero clear. */}
       <div className="relative">
         <EdgeStripes />
 
-        <Hero />
         <BentoGrid />
         <CuratedWorkShowcase />
         <VaultShowcase />

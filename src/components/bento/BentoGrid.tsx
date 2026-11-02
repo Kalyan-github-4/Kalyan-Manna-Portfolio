@@ -17,7 +17,7 @@ export default function BentoGrid() {
   return (
     <section
       id="bento"
-      className="relative text-white"
+      className="relative mt-24 text-white sm:mt-32 lg:mt-40"
       aria-label="How I work"
     >
       {/* Padding is asymmetric on purpose: it matches EdgeStripes exactly so
