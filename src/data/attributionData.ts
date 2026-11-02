@@ -54,7 +54,7 @@ export const stack: { group: string; items: string[] }[] = [
     },
     {
         group: "3D & graphics",
-        items: ["Three.js", "React Three Fiber", "Drei", "Cobe", "Zdog"],
+        items: ["Three.js", "React Three Fiber", "Drei", "Cobe"],
     },
     {
         group: "Data & auth",
