@@ -51,7 +51,7 @@ export function PinNoteDialog({ onSubmit }: PinNoteDialogProps) {
                 <DialogPrimitive.Content
                     data-lenis-prevent
                     aria-describedby={undefined}
-                    className="fixed left-1/2 top-1/2 z-50 w-full max-w-[calc(100%-2.5rem)] -translate-x-1/2 -translate-y-1/2 outline-none duration-200 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 sm:max-w-lg"
+                    className="fixed left-1/2 top-1/2 z-50 w-full max-w-[calc(100%-2.5rem)] -translate-x-1/2 -translate-y-1/2 outline-none duration-200 max-sm:top-16 max-sm:translate-y-0 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 sm:max-w-lg"
                 >
                     <DialogTitle className="sr-only">Pin your note</DialogTitle>
 

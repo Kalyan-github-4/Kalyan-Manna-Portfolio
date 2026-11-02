@@ -90,7 +90,7 @@ export function ContactDialog({
 
             <DialogContent
                 data-lenis-prevent
-                className="max-h-[90vh] max-w-[calc(100%-1.5rem)] overflow-y-auto border-0 bg-transparent p-0 text-white shadow-none ring-0 sm:max-w-xl"
+                className="max-h-[calc(100dvh-2rem)] max-w-[calc(100%-1.5rem)] overflow-y-auto border-0 bg-transparent p-0 text-white shadow-none ring-0 max-sm:top-4 max-sm:translate-y-0 sm:max-w-xl"
             >
                 <motion.div
                     initial={{ opacity: 0, y: 18, scale: 0.97, filter: "blur(8px)" }}
