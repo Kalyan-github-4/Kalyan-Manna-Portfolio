@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 
+import { siteConfig } from "@/config/site"
+
 export { default } from "@/views/About"
 
 export const metadata: Metadata = {
@@ -10,5 +12,6 @@ export const metadata: Metadata = {
     title: "About | Kalyan Manna",
     description: "The story behind the code — how Kalyan Manna went from curious tinkerer to full stack developer, and the tools and ideas that shaped the way he builds.",
     url: "/about",
+    images: [siteConfig.shareImage],
   },
 }

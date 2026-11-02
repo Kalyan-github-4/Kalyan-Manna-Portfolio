@@ -4,6 +4,7 @@ import { Caveat, Instrument_Serif, Poppins } from "next/font/google"
 
 import "@/styles/index.css"
 import SmoothScroll from "@/components/shared/SmoothScroll"
+import { siteConfig } from "@/config/site"
 
 // Replaces the Google Fonts <link> the old index.html carried: next/font
 // self-hosts the files, so there is no render-blocking round trip to
@@ -76,29 +77,25 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: "Kalyan Manna",
     locale: "en_US",
-    // 1200x630 and under 300KB: WhatsApp and friends skip heavier images, and
-    // the explicit dimensions let crawlers lay the card out on first scrape
+    // The explicit dimensions let crawlers lay the card out on first scrape
     // instead of waiting until they have fetched the file.
     images: [
       {
-        url: "/og-image.jpg",
-        secureUrl: `${SITE_URL}/og-image.jpg`,
-        type: "image/jpeg",
-        width: 1200,
-        height: 630,
-        alt: "Kalyan Manna Full Stack Developer Portfolio",
+        ...siteConfig.shareImage,
+        secureUrl: `${SITE_URL}${siteConfig.shareImage.url}`,
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    // The square logo would be cropped by the wide summary_large_image card.
+    card: "summary",
     title: TITLE,
     description:
       "Full stack developer building modern websites, web apps, mobile apps, and digital products.",
     images: [
       {
-        url: "/og-image.jpg",
-        alt: "Kalyan Manna Full Stack Developer Portfolio",
+        url: siteConfig.shareImage.url,
+        alt: siteConfig.shareImage.alt,
       },
     ],
   },

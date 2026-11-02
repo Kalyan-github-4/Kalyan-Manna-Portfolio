@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 
+import { siteConfig } from "@/config/site"
+
 export { default } from "@/views/Attribution"
 
 export const metadata: Metadata = {
@@ -10,5 +12,6 @@ export const metadata: Metadata = {
     title: "Attribution | Kalyan Manna",
     description: "Credits for the libraries, typefaces, and open source work this portfolio is built on.",
     url: "/more/attribution",
+    images: [siteConfig.shareImage],
   },
 }
