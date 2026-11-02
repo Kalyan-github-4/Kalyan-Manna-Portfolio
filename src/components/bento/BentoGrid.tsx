@@ -3,6 +3,7 @@ import TechStackCard from "./TechStackCard"
 import WhatYouGetCard from "./WhatYouGetCard"
 import TimezoneCard from "./TimezoneCard"
 import UsesCard from "./UsesCard"
+import FrameMarker from "../shared/FrameMarker"
 import { faintDiagonalStripeStyle } from "../shared/stripeStyles";
 
 /**
@@ -28,9 +29,14 @@ export default function BentoGrid() {
       >
         {/* Rows size to their own content, so the top two tiles stay a touch
             shorter than the bottom three. */}
-        <div className="grid grid-cols-1 gap-3  md:grid-cols-2 lg:grid-cols-7 border-y border-white/10"
+        <div className="relative grid grid-cols-1 gap-3  md:grid-cols-2 lg:grid-cols-7 border-y border-white/10"
           style={faintDiagonalStripeStyle}
         >
+          {/* Same corner squares as the curated work and vault frames. */}
+          <FrameMarker className="-left-1 -top-1" />
+          <FrameMarker className="-right-1 -top-1" />
+          <FrameMarker className="-bottom-1 -left-1" />
+          <FrameMarker className="-bottom-1 -right-1" />
 
           {/* First row */}
           <CollaborateCard className="md:col-span-2 lg:col-span-4" />
