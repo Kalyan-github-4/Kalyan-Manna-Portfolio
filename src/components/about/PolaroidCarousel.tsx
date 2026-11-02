@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 const photos = [
   { src: "/kalyan-manna.webp", alt: "Portrait of Kalyan Manna", caption: "That's me", position: "50% 20%" },
+  { src: "/hacktoberfest-x-jis/hacktoberfest-img-1.webp", alt: "The winning team on stage holding up prize T-shirts at Hacktoberfest x JIS", caption: "Hacktoberfest win", position: "45% 50%" },
   { src: "/acehack-5-0/ah-05.webp", alt: "Posing in a pixel-art photo frame at AceHack 5.0", caption: "AceHack 5.0", position: "50% 40%" },
   { src: "/acehack-5-0/ah-14.webp", alt: "Looking out over Jantar Mantar in Jaipur", caption: "Jaipur", position: "50% 60%" },
   { src: "/hexafall-2-0/cover.webp", alt: "Group photo in front of a mural at Hexafall 2.0", caption: "Hexafall 2.0", position: "50% 50%" },
