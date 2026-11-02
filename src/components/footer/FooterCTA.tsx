@@ -25,7 +25,7 @@ function FooterCTA({ isInView }: FooterCTAProps) {
                 <div className="relative min-h-115 overflow-hidden rounded-[22px] border border-white/10 bg-black sm:min-h-125 sm:rounded-[26px] md:min-h-140 md:rounded-[28px]">
                     <NeuralBackground
                         className="absolute inset-0"
-                        color="#b4a0ff"
+                        color="#93c5fd"
                         trailOpacity={0.12}
                         particleCount={700}
                         speed={0.8}
@@ -42,14 +42,14 @@ function FooterCTA({ isInView }: FooterCTAProps) {
                             duration: 1.4,
                             ease: [0.22, 1, 0.36, 1],
                         }}
-                        className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(42,26,77,0.72)_0%,rgba(28,18,52,0.44)_28%,rgba(0,0,0,0)_72%)] blur-[50px] md:blur-[70px]"
+                        className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(23,37,84,0.72)_0%,rgba(15,25,56,0.44)_28%,rgba(0,0,0,0)_72%)] blur-[50px] md:blur-[70px]"
                     />
 
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                         transition={{ duration: 1.1, delay: 0.2 }}
-                        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_48%,rgba(180,160,255,0.24)_0%,rgba(120,90,200,0.16)_22%,rgba(0,0,0,0)_58%)]"
+                        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_48%,rgba(147,197,253,0.24)_0%,rgba(37,99,235,0.16)_22%,rgba(0,0,0,0)_58%)]"
                     />
 
                     <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.9),rgba(0,0,0,0.28),rgba(0,0,0,0.9))]" />
