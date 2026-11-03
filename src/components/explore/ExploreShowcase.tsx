@@ -30,7 +30,7 @@ interface ExploreCardProps {
 /** A bento tile — same shell, corner wash and arrow on hover — with a mono footer line. */
 function ExploreCard({ href, eyebrow, title, footer, children }: ExploreCardProps) {
     return (
-        <BentoCard href={href} eyebrow={eyebrow} title={title} className="block h-96" copyClassName="text-left" visualClassName="flex flex-col text-left">
+        <BentoCard href={href} eyebrow={eyebrow} title={title} className="block h-77" copyClassName="text-left" visualClassName="flex flex-col text-left">
             <div className="relative min-h-0 flex-1">{children}</div>
 
             {/* Clears the arrow that rises into the bottom-right corner on hover. */}
