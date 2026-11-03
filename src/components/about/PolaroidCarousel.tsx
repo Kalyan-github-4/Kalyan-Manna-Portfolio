@@ -44,23 +44,37 @@ export default function PolaroidCarousel() {
     return () => clearInterval(timer);
   }, [inView, paused, reducedMotion]);
 
+  const step = (delta: number) => setActive((current) => (current + delta + photos.length) % photos.length);
+
   return (
     <div
       ref={rootRef}
       role="group"
-      aria-label="Photos of Kalyan Manna, events and trips"
+      aria-label="Photos of Kalyan Manna, events and trips. Use the arrow keys to browse."
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === "ArrowRight") step(1);
+        else if (event.key === "ArrowLeft") step(-1);
+      }}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      className="grid aspect-square w-full place-items-center"
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      className="grid aspect-square w-full place-items-center rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-white/40"
     >
-      {photos.map(({ src, alt, caption, position }, index) => (
+      {photos.map(({ src, alt, caption, position }, index) => {
+        const offset = (index - active + photos.length) % photos.length;
+        const isSide = offset === 1 || offset === photos.length - 1;
+
+        return (
         <motion.figure
           key={src}
           initial={false}
           animate={poseFor(index, active)}
           transition={reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 90, damping: 18 }}
           aria-hidden={index !== active}
-          className="w-[66%] rounded-[3px] bg-[#e9e6df] p-[5%] pb-0 shadow-[0_24px_50px_rgba(0,0,0,0.6)] [grid-area:1/1]"
+          onClick={isSide ? () => setActive(index) : undefined}
+          className={`w-[66%] rounded-[3px] bg-[#e9e6df] p-[5%] pb-0 shadow-[0_24px_50px_rgba(0,0,0,0.6)] [grid-area:1/1] ${isSide ? "cursor-pointer" : ""}`}
         >
           <div className="relative aspect-4/5 w-full overflow-hidden bg-zinc-900">
             <Image
@@ -79,7 +93,8 @@ export default function PolaroidCarousel() {
             {caption}
           </figcaption>
         </motion.figure>
-      ))}
+        );
+      })}
     </div>
   );
 }
