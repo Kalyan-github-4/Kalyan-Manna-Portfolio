@@ -87,6 +87,8 @@ export type JourneyItem = {
     coverTitle?: string
     title: string
     category: JourneyCategory
+    /** Further categories it also files under in the Vault's filters and search */
+    alsoIn?: JourneyCategory[]
     /** Human-readable date, e.g. "July 2026" */
     date: string
     /** Numeric year used for the timeline grouping */
@@ -141,7 +143,7 @@ type CollectionSource = Omit<
 
 const collections: CollectionSource[] = [
     {
-        id: 1,
+        id: 3,
         slug: "hexafall-2-0",
         coverTitle: "HexaFall 2.0",
         title: "Memories from HexaFall 2.0",
@@ -151,10 +153,11 @@ const collections: CollectionSource[] = [
         month: "Jul",
         location: "Kolkata, India",
         role: "Selected Participant",
+        hideOnHome: true,
         description:
-            "A collection of memories from HexaFall 2.0—filled with teamwork, coding, new connections and unforgettable hackathon moments.",
+            "A hackathon of innovation and collaborative problem-solving — taking an idea from its early stages to a working solution against the clock.",
         longDescription:
-            "HexaFall 2.0 was more than just a hackathon; it became a collection of memories I will always value. From brainstorming ideas and building alongside my teammates to late-night debugging, meeting passionate developers and presenting our work, every moment contributed to an unforgettable experience. This gallery captures the energy, friendships, challenges and small moments that made HexaFall 2.0 a meaningful chapter in my journey as a developer.",
+            "Took part in HexaFalls 2.0, a hackathon that brought together innovation, technology and collaborative problem-solving. It was a chance to take an idea from its early stages, work through technical challenges and build a solution against the clock. The experience pushed me past familiar approaches and towards building something meaningful — an important step in my journey as a developer and aspiring entrepreneur.",
         size: "wide",
         externalUrl: "https://hexafall.example.com",
         externalLabel: "Event Page",
@@ -191,11 +194,12 @@ const collections: CollectionSource[] = [
         date: "July 2026",
         year: 2026,
         month: "Jul",
+        location: "UEM Jaipur",
         role: "Participant",
         description:
-            "A collection of memories from AceHack 5.0 — long build hours, a team that kept going, and the people met along the way.",
+            "Taking my developer journey beyond my hometown — AceHack 5.0 at UEM Jaipur and the energy of Jaipur's tech community.",
         longDescription:
-            "AceHack 5.0 was another round of building against the clock: scoping an idea down to what could actually ship, splitting the work, and holding it together through the hours where nothing compiles. This gallery is what stayed with me — the workspace, the whiteboards, the teammates and the moments between the deadlines.",
+            "Taking my developer journey beyond my hometown and into Jaipur's tech community made AceHack 5.0 particularly special. The event and its Hacktoberfest community brought together developers, innovators and open-source enthusiasts, opening up new perspectives beyond familiar circles. More than just another event, it was a reminder that learning and building have no geographical boundaries, and that some of the best takeaways come from the people you meet along the way.",
         dir: "acehack-5-0",
         files: [
             ["cover.jpeg", 2560, 1440],
@@ -220,7 +224,7 @@ const collections: CollectionSource[] = [
         ],
     },
     {
-        id: 3,
+        id: 4,
         slug: "react-kolkata",
         coverTitle: "React Kolkata",
         title: "Memories from React Kolkata",
@@ -248,7 +252,7 @@ const collections: CollectionSource[] = [
         ],
     },
     {
-        id: 4,
+        id: 5,
         slug: "hackrit",
         coverTitle: "HackRIT",
         title: "Memories from HackRIT",
@@ -256,12 +260,13 @@ const collections: CollectionSource[] = [
         date: "September 2026",
         year: 2026,
         month: "Sep",
-        location: "Kolkata, India",
+        location: "Techno India University, Kolkata",
         role: "Participant",
+        hideOnHome: true,
         description:
-            "A collection of memories from HackRIT — building under pressure, teamwork, late-night debugging and the moments between the code.",
+            "A hackathon at Techno India University — thinking on my feet, working under pressure and turning an idea into something real.",
         longDescription:
-            "HackRIT was another chapter of building, experimenting and pushing ideas from concept to something that actually works. From working alongside teammates and debugging under pressure to presenting the final product, every part of the hackathon became a memory worth keeping. This gallery captures the people, the workspace, the build process and the moments that made HackRIT memorable.",
+            "Participated in HackRIT at Techno India University, a hackathon that challenged me to think creatively, work under pressure and approach real-world problems with a solution-first mindset. It meant collaborating, experimenting and turning an idea into something tangible within a tight timeframe, making technical decisions along the way. More than a competition, it was a lesson in the pace of hackathon development and a push to keep building.",
         size: "wide",
         dir: "Hackrit 2.0",
         files: [
@@ -286,11 +291,12 @@ const collections: CollectionSource[] = [
         ],
     },
     {
-        id: 5,
+        id: 6,
         slug: "hacktoberfest-x-jis",
         coverTitle: "Hacktoberfest x JIS",
         title: "Memories from Hacktoberfest x JIS",
         category: "Hackathons",
+        alsoIn: ["Achievements"],
         date: "October 2026",
         year: 2026,
         month: "Oct",
@@ -298,9 +304,9 @@ const collections: CollectionSource[] = [
         role: "Participant",
         result: "Winners",
         description:
-            "A collection of memories from the Kolkata HackDays hackathon at JIS University — building with the team, a packed hall and the people met along the way.",
+            "A Hacktoberfest win at JIS University — a day of building against the clock alongside developers from across the city.",
         longDescription:
-            "Hacktoberfest x JIS brought the Kolkata HackDays hackathon to JIS University on 8 October 2026 — a day of building against the clock alongside developers from across the city. From the hall filling up in the morning to the swag on stage at the end, this gallery captures the campus, the teammates, the food and the small moments that made the hackathon worth remembering.",
+            "Secured a Hacktoberfest win at JIS University, a memorable milestone in my journey with technology. The event brought developers and problem-solvers together to exchange ideas, collaborate and push creative boundaries. It was a chance to step outside my comfort zone and put my skills to work under real pressure. Beyond the recognition, it deepened my appreciation for collaboration, experimentation and the open-source spirit of the developer community.",
         size: "wide",
         dir: "hacktoberfest-x-jis",
         latest: true,
@@ -316,6 +322,39 @@ const collections: CollectionSource[] = [
             ["hacktoberfest-img-9.jpeg", 1152, 648],
             ["hacktoberfest-img-10.jpg", 1280, 960],
             ["hacktoberfest-img-11.jpeg", 1280, 720],
+        ],
+    },
+    {
+        id: 1,
+        slug: "vision-x",
+        coverTitle: "VISION X",
+        title: "Winning VISION X",
+        category: "Achievements",
+        date: "September 2025",
+        year: 2025,
+        month: "Sep",
+        location: "Iswar Chandra Vidyasagar Polytechnic, Jhargram",
+        result: "1st Place",
+        description:
+            "Secured 1st place at VISION X, a startup competition organized by ICV Polytechnic — an important milestone in my early entrepreneurial journey.",
+        longDescription:
+            "Secured 1st place at VISION X, a startup competition organized by ICV Polytechnic and an important milestone in my early entrepreneurial journey. It pushed me beyond conventional thinking — identifying real challenges, exploring innovative approaches and presenting ideas with confidence in a competitive room. More than a recognition of the effort, it was a learning experience that strengthened my interest in innovation, entrepreneurship and building things that make a difference.",
+        size: "wide",
+        dir: "vision-x",
+        files: [
+            ["cover.jpeg", 1280, 960],
+            ["vx-01.jpg", 960, 1280],
+            ["vx-11.jpeg", 1280, 960],
+            ["vx-12.jpeg", 1280, 960],
+            ["vx-04.jpeg", 1280, 960],
+            ["vx-05.jpg", 864, 1152],
+            ["vx-02.jpeg", 1280, 960],
+            ["vx-13.jpeg", 1280, 960],
+            ["vx-03.jpg", 1280, 960],
+            ["vx-07.jpg", 1152, 864],
+            ["vx-14.jpg", 1280, 960],
+            ["vx-08.jpeg", 1280, 960],
+            ["vx-10.jpg", 1280, 853],
         ],
     },
 
@@ -379,7 +418,15 @@ function buildCollection({ dir, files, ...meta }: CollectionSource): JourneyItem
     }
 }
 
-export const journeyItems: JourneyItem[] = collections.map(buildCollection)
+// `id` runs oldest to newest, so sorting on it lists the Vault newest first
+// whatever order the blocks above are written in.
+export const journeyItems: JourneyItem[] = collections
+    .map(buildCollection)
+    .sort((a, b) => b.id - a.id)
+
+/** Whether a collection files under `category`, as its main one or an extra. */
+export const inCategory = (item: JourneyItem, category: JourneyCategory) =>
+    item.category === category || Boolean(item.alsoIn?.includes(category))
 
 // Canonical pill order; the bar only renders the ones actually in use.
 const CATEGORY_ORDER: JourneyCategory[] = [
@@ -396,7 +443,7 @@ const CATEGORY_ORDER: JourneyCategory[] = [
 export const JOURNEY_FILTERS: JourneyFilter[] = [
     "All",
     ...CATEGORY_ORDER.filter((category) =>
-        journeyItems.some((item) => item.category === category)
+        journeyItems.some((item) => inCategory(item, category))
     ),
 ]
 

@@ -5,7 +5,7 @@ import { MagnifyingGlass, X } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 
 import { cn } from "@/lib/utils"
-import { JOURNEY_FILTERS, journeyItems, type JourneyFilter } from "@/data/journeyData"
+import { JOURNEY_FILTERS, inCategory, journeyItems, type JourneyFilter } from "@/data/journeyData"
 import { faintDiagonalStripeStyle } from "@/components/shared/stripeStyles"
 
 /**
@@ -80,7 +80,7 @@ export function VaultFilterBar({
                         const count =
                             filter === "All"
                                 ? journeyItems.length
-                                : journeyItems.filter((item) => item.category === filter).length
+                                : journeyItems.filter((item) => inCategory(item, filter)).length
 
                         return (
                             <button

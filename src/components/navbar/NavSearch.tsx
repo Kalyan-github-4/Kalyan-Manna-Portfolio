@@ -64,7 +64,7 @@ const COLLECTION_ENTRIES: SearchEntry[] = journeyItems.map((item) => ({
   href: `/vault/${item.slug}`,
   group: "Collections",
   kind: "Collection",
-  keywords: `${item.title} ${item.category} ${item.date}`,
+  keywords: `${item.title} ${[item.category, ...(item.alsoIn ?? [])].join(" ")} ${item.date}`,
   thumb: item.image,
 }))
 

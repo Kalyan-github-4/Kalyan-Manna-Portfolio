@@ -181,7 +181,11 @@ export default function VaultCollection() {
                                     <div>
                                         <dt className="sr-only">Category</dt>
                                         <dd>
-                                            <CategoryBadge category={collection.category} />
+                                            <div className="flex flex-wrap gap-2">
+                                                {[collection.category, ...(collection.alsoIn ?? [])].map((category) => (
+                                                    <CategoryBadge key={category} category={category} />
+                                                ))}
+                                            </div>
                                         </dd>
                                     </div>
 

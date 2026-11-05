@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight } from "@phosphor-icons/react"
+import { ArrowRight, Trophy } from "@phosphor-icons/react"
 import { motion, useReducedMotion } from "framer-motion"
 
 import type { JourneyItem } from "@/data/journeyData"
@@ -51,7 +51,17 @@ export function VaultCollectionCard({ item }: VaultCollectionCardProps) {
                     />
 
                     <div className="absolute inset-x-3 top-3 flex items-center justify-between">
-                        <CategoryBadge category={item.category} />
+                        <div className="flex flex-wrap items-center gap-2">
+                            <CategoryBadge category={item.category} />
+
+                            {/* The same win badge the latest card wears. */}
+                            {item.result && (
+                                <span className="inline-flex items-center gap-1.5 rounded-md bg-amber-300 px-2 py-1 text-xs font-semibold text-zinc-950">
+                                    <Trophy size={12} weight="fill" aria-hidden="true" />
+                                    {item.result}
+                                </span>
+                            )}
+                        </div>
 
                         <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-zinc-950 opacity-0 transition-all duration-300 -translate-x-1 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100">
                             <ArrowRight size={13} weight="bold" aria-hidden="true" />

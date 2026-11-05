@@ -70,7 +70,9 @@ export function VaultLatestCard({ item }: VaultLatestCardProps) {
                     </p>
 
                     <div className="mt-4 flex flex-wrap items-center gap-2">
-                        <CategoryBadge category={item.category} />
+                        {[item.category, ...(item.alsoIn ?? [])].map((category) => (
+                            <CategoryBadge key={category} category={category} />
+                        ))}
 
                         {item.location && (
                             <span className="inline-flex items-center gap-1.5 rounded-md bg-zinc-800/90 px-2 py-1 text-xs font-medium text-zinc-200">

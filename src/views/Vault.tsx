@@ -3,7 +3,7 @@
 import { useMemo, useState, type ReactNode } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 
-import { journeyItems, type JourneyFilter } from "@/data/journeyData"
+import { inCategory, journeyItems, type JourneyFilter } from "@/data/journeyData"
 import { JourneyHeader } from "@/components/journey/JourneyHeader"
 import SilkBackground from "@/components/shared/SilkBackground"
 import EdgeStripes from "@/components/shared/EdgeStripes"
@@ -38,7 +38,7 @@ export default function Vault() {
         const needle = trimmedQuery.toLowerCase()
 
         return journeyItems.filter((item) => {
-            if (filter !== "All" && item.category !== filter) return false
+            if (filter !== "All" && !inCategory(item, filter)) return false
             if (!needle) return true
 
             return [
@@ -47,6 +47,7 @@ export default function Vault() {
                 item.location,
                 item.role,
                 item.category,
+                ...(item.alsoIn ?? []),
             ]
                 .filter(Boolean)
                 .some((field) => field!.toLowerCase().includes(needle))
