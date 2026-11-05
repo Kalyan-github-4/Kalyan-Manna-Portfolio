@@ -210,11 +210,13 @@ export default function CuratedWorkCard({ project }: CuratedWorkCardProps) {
                     />
                 ) : (
                 // Sits 8px past the card's bottom edge so the hover lift never
-                // opens a gap beneath the screenshot.
-                <div className="absolute inset-x-6 -bottom-2 top-[20%] sm:inset-x-10 sm:top-[28%]">
+                // opens a gap beneath the screenshot. Sized by the screenshot's
+                // own proportions rather than a fixed box, so the full width
+                // always shows instead of being cropped off the sides.
+                <div className="absolute inset-x-6 -bottom-2 sm:inset-x-10">
                     <div
                         className="
-            h-full w-full overflow-hidden
+            w-full overflow-hidden
             rounded-t-xl
             border border-b-0 border-white/70
             bg-[#141217]
@@ -229,7 +231,7 @@ export default function CuratedWorkCard({ project }: CuratedWorkCardProps) {
                             width={1440}
                             height={678}
                             sizes="(min-width: 1536px) 1536px, 100vw"
-                            className="h-full w-full object-cover object-top"
+                            className="h-auto w-full"
                         />
                     </div>
                 </div>
