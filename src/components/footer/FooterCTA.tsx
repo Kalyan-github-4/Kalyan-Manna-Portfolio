@@ -75,12 +75,12 @@ function FooterCTA({ isInView }: FooterCTAProps) {
                             variants={fadeUp}
                             className="max-w-5xl text-balance font-sans text-[2rem] leading-[1.05] uppercase text-white sm:text-4xl md:text-5xl lg:text-6xl"
                         >
-                            From concept to{" "}
-                            <span className="font-semibold">creation</span>
+                            Have an idea worth{" "}
+                            <span className="font-semibold">building?</span>
                             <br className="hidden sm:block" />
                             <span className="sm:hidden"> </span>
                             let&apos;s make it{" "}
-                            <span className="font-semibold">happen!</span>
+                            <span className="font-semibold">through!</span>
                         </motion.h2>
 
                         {/* The entry animation stays out here: fadeUp moves on
@@ -113,12 +113,11 @@ function FooterCTA({ isInView }: FooterCTAProps) {
                             className="mt-6 max-w-2xl sm:mt-8 md:mt-12"
                         >
                             <p className="bg-linear-to-b from-zinc-400 via-zinc-100 to-white bg-clip-text font-serif text-xl font-semibold leading-snug text-transparent sm:text-2xl md:text-3xl">
-                                I&apos;m available for full-time roles & freelance projects.
+                                I&apos;m taking on freelance projects and open to full-time roles.
                             </p>
 
                             <p className="mt-4 text-sm leading-6 text-white/55 sm:text-[15px] sm:leading-7 md:text-base">
-                                I craft modern web applications, polished interfaces, and
-                                seamless digital experiences.
+                               Tell me what you&apos;re working on.
                             </p>
                         </motion.div>
                     </motion.div>
