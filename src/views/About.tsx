@@ -88,7 +88,9 @@ const facts = [
     label: "Hackathons entered",
   },
   {
-    value: String(journeyItems.filter((item) => item.result === "Winners").length),
+    value: String(
+      journeyItems.filter((item) => item.category === "Hackathons" && item.result === "Winner").length,
+    ),
     label: "Hackathon wins",
   },
 ];

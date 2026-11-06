@@ -97,7 +97,7 @@ export type JourneyItem = {
     month: string
     location?: string
     role?: string
-    /** How it ended, e.g. "Winners" — shown as a pill on the latest card */
+    /** How it ended, e.g. "Winner" — shown as a pill on the latest card */
     result?: string
     /** One or two line summary shown on cards */
     description: string
