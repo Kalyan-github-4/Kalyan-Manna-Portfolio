@@ -302,11 +302,11 @@ const collections: CollectionSource[] = [
         month: "Oct",
         location: "JIS University, Kolkata",
         role: "Participant",
-        result: "Winners",
+        result: "Winner",
         description:
-            "A Hacktoberfest win at JIS University — a day of building against the clock alongside developers from across the city.",
+            "Won first place in the Cyber Security track at Hacktoberfest x JIS — a day of building against the clock alongside developers from across the city.",
         longDescription:
-            "Secured a Hacktoberfest win at JIS University, a memorable milestone in my journey with technology. The event brought developers and problem-solvers together to exchange ideas, collaborate and push creative boundaries. It was a chance to step outside my comfort zone and put my skills to work under real pressure. Beyond the recognition, it deepened my appreciation for collaboration, experimentation and the open-source spirit of the developer community.",
+            "Our team won first place in the Cyber Security track at Hacktoberfest x JIS, held at JIS University — a memorable milestone in my journey with technology. The event brought developers and problem-solvers together to exchange ideas, collaborate and push creative boundaries. It was a chance to step outside my comfort zone and put my skills to work under real pressure. Beyond the recognition, it deepened my appreciation for collaboration, experimentation and the open-source spirit of the developer community.",
         size: "wide",
         dir: "hacktoberfest-x-jis",
         latest: true,
@@ -334,11 +334,11 @@ const collections: CollectionSource[] = [
         year: 2025,
         month: "Sep",
         location: "Iswar Chandra Vidyasagar Polytechnic, Jhargram",
-        result: "1st Place",
+        result: "Winner",
         description:
-            "Secured 1st place at VISION X, a startup competition organized by ICV Polytechnic — an important milestone in my early entrepreneurial journey.",
+            "Won VISION X, a startup competition organized by ICV Polytechnic — an important milestone in my early entrepreneurial journey.",
         longDescription:
-            "Secured 1st place at VISION X, a startup competition organized by ICV Polytechnic and an important milestone in my early entrepreneurial journey. It pushed me beyond conventional thinking — identifying real challenges, exploring innovative approaches and presenting ideas with confidence in a competitive room. More than a recognition of the effort, it was a learning experience that strengthened my interest in innovation, entrepreneurship and building things that make a difference.",
+            "Won VISION X, a startup competition organized by ICV Polytechnic and an important milestone in my early entrepreneurial journey. It pushed me beyond conventional thinking — identifying real challenges, exploring innovative approaches and presenting ideas with confidence in a competitive room. More than a recognition of the effort, it was a learning experience that strengthened my interest in innovation, entrepreneurship and building things that make a difference.",
         size: "wide",
         dir: "vision-x",
         files: [

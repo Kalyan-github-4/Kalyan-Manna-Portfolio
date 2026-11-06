@@ -25,7 +25,7 @@ export default function BentoGrid() {
           the card edges land on the hatched gutters' inner border lines.
           Left gutter sits at left-3 (12px) and is 20/28/32px wide -> 32/40/44px.
           Right gutter is pinned to the edge at 20/28/36px wide. */}
-      <div className="mx-auto w-full max-w-[120rem] pb-20 pl-8 pr-5 sm:pb-24 sm:pl-10 sm:pr-7 lg:pl-11 lg:pr-9"
+      <div className="mx-auto w-full max-w-[120rem] pl-8 pr-5 sm:pl-10 sm:pr-7 lg:pl-11 lg:pr-9"
       >
         {/* Rows size to their own content, so the top two tiles stay a touch
             shorter than the bottom three. */}

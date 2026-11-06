@@ -7,16 +7,14 @@ import Link from "next/link";
 const bigCards = [
   {
     title: "Guestbook",
-    subtitle: "Let me know you were here",
-    image:
-      "https://images.unsplash.com/photo-1517842645767-c639042777db?w=800",
+    subtitle: "Sign the wall, say hello",
+    image: "/more/guestbook-card.webp",
     href: "/more/guestbook",
   },
   {
     title: "Bucket List",
-    subtitle: "Dreams with a deadline",
-    image:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800",
+    subtitle: "Things I want to do, one by one",
+    image: "/more/bucket-list-card.webp",
     href: "/more/bucket-list",
   },
 ];
