@@ -91,7 +91,6 @@ const curatedMeta: Record<string, CuratedMeta> = {
             "Node and Express API backed by PostgreSQL on Neon.",
         ],
         mark: "#D946EF",
-        video: "/videos/easypg-video.mp4",
     },
     "Gym Management System": {
         rank: 6,
