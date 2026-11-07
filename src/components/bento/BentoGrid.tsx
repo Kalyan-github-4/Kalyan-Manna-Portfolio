@@ -19,8 +19,10 @@ export default function BentoGrid() {
     <section
       id="bento"
       className="relative mt-24 text-white sm:mt-32 lg:mt-40"
-      aria-label="How I work"
+      aria-labelledby="bento-heading"
     >
+      {/* The tiles' titles are h3s; this keeps the outline h1 → h2 → h3. */}
+      <h2 id="bento-heading" className="sr-only">How I work</h2>
       {/* Padding is asymmetric on purpose: it matches EdgeStripes exactly so
           the card edges land on the hatched gutters' inner border lines.
           Left gutter sits at left-3 (12px) and is 20/28/32px wide -> 32/40/44px.

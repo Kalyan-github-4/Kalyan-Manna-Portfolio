@@ -29,6 +29,9 @@ const caveat = Caveat({
   weight: ["400", "600"],
   variable: "--font-caveat",
   display: "swap",
+  // 73 KB and only used for handwritten notes well below the fold, so it must
+  // not compete with the hero's fonts for bandwidth on first load.
+  preload: false,
 })
 
 const SITE_URL = "https://www.kalyanmanna.com"

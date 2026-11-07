@@ -43,8 +43,44 @@ export default function Hero() {
           }
         }
 
+        /* Starts faint and blurred, not invisible: text painted at opacity 0
+           is not an LCP candidate, so a fade from 0 left the h1 out of LCP and
+           pushed it onto whatever repainted after hydration. Visible from the
+           first frame, the h1 is the LCP at first paint. */
+        @keyframes hero-rise {
+          from {
+            opacity: 0.25;
+            transform: translateY(28px);
+            filter: blur(10px);
+          }
+          to {
+            opacity: 1;
+            transform: none;
+            filter: blur(0);
+          }
+        }
+
+        .hero-rise {
+          animation: hero-rise 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .hero-rise {
+            animation: none;
+          }
+        }
+
+        /* Its own layer, so each shimmer frame repaints this badge only and
+           not the whole document behind it. */
         .animate-text-shimmer {
           animation: text-shimmer 3s linear infinite;
+          will-change: transform;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .animate-text-shimmer {
+            animation: none;
+          }
         }
       `}</style>
     </section>

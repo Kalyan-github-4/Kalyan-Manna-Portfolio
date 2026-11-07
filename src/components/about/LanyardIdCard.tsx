@@ -104,9 +104,13 @@ export default function LanyardIdCard() {
                     onPointerMove={sweep}
                     onPointerLeave={endSweep}
                     aria-pressed={flipped}
-                    aria-label={flipped ? "Turn the ID card back over" : "Flip the ID card to see Kalyan's photo"}
                     className="group rounded-2xl perspective-[1400px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-4 focus-visible:ring-offset-black"
                 >
+                    {/* Named by its content (the face in view, plus this hint) rather
+                        than an aria-label, so the name always matches what is on screen. */}
+                    <span className="sr-only">
+                        {flipped ? "Turn the ID card back over" : "Flip the ID card to see the photo"}
+                    </span>
                     <motion.div
                         initial={false}
                         animate={{ rotateY: flipped ? 180 : 0 }}
@@ -115,6 +119,7 @@ export default function LanyardIdCard() {
                     >
                         {/* Back: what shows first. */}
                         <div
+                            aria-hidden={flipped}
                             className="absolute inset-0 flex flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 shadow-[0_30px_60px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.06)] backface-hidden"
                             style={faintDiagonalStripeStyle}
                         >
@@ -126,7 +131,7 @@ export default function LanyardIdCard() {
                         </div>
 
                         {/* Front: the photo side. */}
-                        <div className="absolute inset-0 flex rotate-y-180 flex-col overflow-hidden rounded-2xl border border-white/60 bg-[#f3f3f1] p-3.5 shadow-[0_30px_60px_rgba(0,0,0,0.7)] backface-hidden">
+                        <div aria-hidden={!flipped} className="absolute inset-0 flex rotate-y-180 flex-col overflow-hidden rounded-2xl border border-white/60 bg-[#f3f3f1] p-3.5 shadow-[0_30px_60px_rgba(0,0,0,0.7)] backface-hidden">
                             <CardSlot light />
                             <Image src="/logo-white.webp" alt="" width={256} height={256} className="mb-2 ml-0.5 w-7 invert" />
                             <div className="relative min-h-0 flex-1 overflow-hidden rounded-xl bg-zinc-300">
@@ -139,7 +144,7 @@ export default function LanyardIdCard() {
                                 />
                             </div>
                             <p className="mt-3 text-center font-display text-3xl leading-none text-zinc-900">Kalyan Manna</p>
-                            <p className="mt-1.5 text-center font-mono text-[9px] font-semibold uppercase tracking-[0.25em] text-zinc-500">
+                            <p className="mt-1.5 text-center font-mono text-[9px] font-semibold uppercase tracking-[0.25em] text-zinc-600">
                                 Full-stack developer
                             </p>
                         </div>

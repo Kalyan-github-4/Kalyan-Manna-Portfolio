@@ -63,6 +63,7 @@ function FooterBrand({ isInView }: FooterBrandProps) {
                                     <TooltipTrigger asChild>
                                         <motion.a
                                             href={href}
+                                            aria-label={label}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             initial={{ opacity: 0, y: 12, scale: 0.9 }}

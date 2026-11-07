@@ -1,7 +1,7 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useId } from "react"
+import { motion, useInView } from "framer-motion"
+import { useId, useRef } from "react"
 import { VscVscode } from "react-icons/vsc"
 import { GithubLogo as PhosphorGithubLogo } from "@phosphor-icons/react"
 import Image from "next/image"
@@ -104,17 +104,18 @@ function Connector({
   return (
     <>
       <path d={d} stroke="rgba(255,255,255,0.1)" strokeWidth={1} vectorEffect="non-scaling-stroke" />
-      <motion.path
+      {/* A CSS animation rather than a framer loop: no per-frame JS, and the
+          hub pauses it (via data-paused) while the tile is off screen. */}
+      <path
         d={d}
         stroke={`url(#${gradientId})`}
         strokeWidth={2}
         vectorEffect="non-scaling-stroke"
         strokeDasharray="40 160"
-        initial={{ strokeDashoffset: 200 }}
-        animate={{ strokeDashoffset: -200 }}
+        className="integration-hub-dash"
         // A fixed stagger rather than Math.random(), so server and client
         // render the same thing.
-        transition={{ duration: 4, repeat: Infinity, ease: "linear", delay: delay * 3 }}
+        style={{ animationDelay: `${delay * 3}s` }}
       />
       <defs>
         <linearGradient id={gradientId} gradientUnits="userSpaceOnUse">
@@ -135,9 +136,15 @@ function Connector({
 export default function IntegrationHub() {
   // useId returns colons, which break url(#…) references.
   const baseId = useId().replace(/:/g, "")
+  const rootRef = useRef<HTMLDivElement>(null)
+  const inView = useInView(rootRef)
 
   return (
-    <div className="absolute inset-0 -mx-5 sm:-mx-6">
+    <div
+      ref={rootRef}
+      data-paused={inView ? undefined : ""}
+      className="integration-hub absolute inset-0 -mx-5 sm:-mx-6"
+    >
       {/* Dot grid, faded out towards the edges so it never meets the border. */}
       <div
         aria-hidden="true"
@@ -179,11 +186,9 @@ export default function IntegrationHub() {
             className="block size-8 object-contain"
           />
         </div>
-        <motion.div
+        <div
           aria-hidden="true"
-          className="absolute inset-0 rounded-2xl border-2 border-white/15"
-          animate={{ scale: [1, 1.18, 1], opacity: [0.5, 0, 0.5] }}
-          transition={{ duration: 3, repeat: Infinity }}
+          className="integration-hub-pulse absolute inset-0 rounded-2xl border-2 border-white/15"
         />
       </div>
 
@@ -218,6 +223,31 @@ export default function IntegrationHub() {
           )
         })}
       </ul>
+
+      <style>{`
+        @keyframes integration-hub-dash {
+          from { stroke-dashoffset: 200; }
+          to { stroke-dashoffset: -200; }
+        }
+        @keyframes integration-hub-pulse {
+          0%, 100% { transform: scale(1); opacity: 0.5; }
+          50% { transform: scale(1.18); opacity: 0; }
+        }
+        .integration-hub-dash {
+          stroke-dashoffset: 200;
+          animation: integration-hub-dash 4s linear infinite;
+        }
+        .integration-hub-pulse {
+          animation: integration-hub-pulse 3s ease-in-out infinite;
+        }
+        .integration-hub[data-paused] .integration-hub-dash,
+        .integration-hub[data-paused] .integration-hub-pulse {
+          animation-play-state: paused;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .integration-hub-dash, .integration-hub-pulse { animation: none; }
+        }
+      `}</style>
     </div>
   )
 }

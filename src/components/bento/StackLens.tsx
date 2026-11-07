@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion"
+import { motion, useInView, useMotionTemplate, useMotionValue } from "framer-motion"
 import { useRef } from "react"
 import type { IconType } from "react-icons"
 import {
@@ -72,6 +72,8 @@ const ROWS_BAND = "absolute inset-x-0 bottom-0 h-[168px]"
  */
 export default function StackLens() {
   const containerRef = useRef<HTMLDivElement>(null)
+  // The marquee is a CSS animation (compositor-only) that pauses off screen.
+  const inView = useInView(containerRef)
   const lensX = useMotionValue(0)
   const lensY = useMotionValue(0)
 
@@ -82,17 +84,15 @@ export default function StackLens() {
 
   const rows = (reveal = false) =>
     TAG_ROWS.map((row, rowIndex) => (
-      <motion.div
+      <div
         key={`${reveal ? "reveal-" : ""}row-${rowIndex}`}
-        className="flex w-max gap-3"
-        animate={{
-          x: rowIndex % 2 === 0 ? ["0%", "-33.333%"] : ["-33.333%", "0%"],
+        className="flex w-max gap-3 will-change-transform"
+        style={{
+          animation: `stack-lens-marquee 25s linear infinite ${rowIndex % 2 === 0 ? "normal" : "reverse"}`,
+          animationPlayState: inView ? "running" : "paused",
         }}
-        transition={{ duration: 25, ease: "linear", repeat: Infinity }}
       >
         {[...row, ...row, ...row].map((tag, index) => {
-          const TagIcon = tag.icon
-
           return (
             <div
               key={`${tag.id}-${index}-${reveal ? "reveal" : "base"}`}
@@ -103,16 +103,31 @@ export default function StackLens() {
                   : "border-white/10 bg-zinc-950/90 text-white/70",
               )}
             >
-              <TagIcon size={16} style={{ color: tag.color }} />
+              {/* Each brand icon is drawn once in the defs below and referenced
+                  here: the rows repeat every icon six times (three copies, two
+                  layers), and inlining each path that often added ~100 KB to
+                  the HTML. */}
+              <svg width={16} height={16} viewBox="0 0 24 24" aria-hidden="true" style={{ color: tag.color }}>
+                <use href={`#stack-lens-${tag.id}`} width={24} height={24} />
+              </svg>
               <span>{tag.label}</span>
             </div>
           )
         })}
-      </motion.div>
+      </div>
     ))
 
   return (
     <div ref={containerRef} className="absolute inset-0 overflow-hidden">
+      <svg aria-hidden="true" width={0} height={0} className="absolute">
+        <defs>
+          {TAG_ROWS.flat().map((tag) => {
+            const TagIcon = tag.icon
+            return <TagIcon key={tag.id} id={`stack-lens-${tag.id}`} />
+          })}
+        </defs>
+      </svg>
+
       {/* The rail. `calc(50% + x)` in the clip and the mask now resolves
           against this band, and the lens rests at its centre — so the glass
           starts over the pills rather than in the middle of the card. Drag
@@ -154,6 +169,16 @@ export default function StackLens() {
           </div>
         </motion.div>
       </div>
+
+      <style>{`
+        @keyframes stack-lens-marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-33.333%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [style*="stack-lens-marquee"] { animation-play-state: paused !important; }
+        }
+      `}</style>
     </div>
   )
 }

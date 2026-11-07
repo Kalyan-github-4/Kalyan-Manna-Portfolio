@@ -151,8 +151,13 @@ export function Globe({
     if (!canvasRef.current) return
     const canvas = canvasRef.current
     let globe: ReturnType<typeof createGlobe> | null = null
-    let animationId: number
+    let animationId = 0
     let phi = 0
+    // The loop only runs while the globe is on screen in a visible tab. cobe
+    // rewrites its anchor CSS variables on every update, so an idle loop would
+    // keep the whole page recalculating styles long after it scrolled away.
+    let running = false
+    let inView = false
 
     const toMarkers = () =>
       markers.map((m) => ({ location: m.location, size: markerSize, id: m.id }))
@@ -195,8 +200,23 @@ export function Globe({
         arcs: toArcs(),
       })
 
-      animationId = requestAnimationFrame(animate)
+      if (running) animationId = requestAnimationFrame(animate)
     }
+
+    const sync = () => {
+      const shouldRun = !!globe && inView && !document.hidden
+      if (shouldRun === running) return
+      running = shouldRun
+      cancelAnimationFrame(animationId)
+      if (running) animationId = requestAnimationFrame(animate)
+    }
+
+    const io = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting
+      sync()
+    })
+    io.observe(canvas)
+    document.addEventListener("visibilitychange", sync)
 
     function init() {
       const width = canvas.offsetWidth
@@ -224,7 +244,9 @@ export function Globe({
         opacity: 0.7,
       })
 
+      // One frame so the sphere is drawn, then the loop only if it is in view.
       animate()
+      sync()
       setTimeout(() => canvas && (canvas.style.opacity = "1"))
     }
 
@@ -245,7 +267,10 @@ export function Globe({
 
     return () => {
       ro?.disconnect()
-      if (animationId) cancelAnimationFrame(animationId)
+      io.disconnect()
+      document.removeEventListener("visibilitychange", sync)
+      running = false
+      cancelAnimationFrame(animationId)
       if (globe) globe.destroy()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

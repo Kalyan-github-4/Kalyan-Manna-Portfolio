@@ -46,7 +46,7 @@ export function MobileNavbar({ items, pathname }: MobileNavbarProps) {
           <motion.button
             type="button"
             whileTap={{ scale: 0.96 }}
-            aria-label="Open navigation menu"
+            aria-label="Kalyan, open navigation menu"
             className="
               flex items-center gap-5.5
               rounded-full border border-white/[0.09]

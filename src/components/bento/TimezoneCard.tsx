@@ -1,4 +1,4 @@
-import { Globe } from "@/components/ui/cobe-globe"
+import LazyGlobe from "@/components/ui/LazyGlobe"
 
 import BentoCard from "./BentoCard"
 import { bentoCopy } from "./bentoData"
@@ -49,7 +49,7 @@ export default function TimezoneCard({ className = "" }: { className?: string })
       {/* Wider than the slot and pushed below it — the card's overflow-hidden
           does the cropping, so only the top arc of the globe reads. */}
       <div className="absolute inset-x-0 -top-7 flex justify-center">
-        <Globe
+        <LazyGlobe
           className="w-[130%] max-w-none"
           markers={TILE_MARKERS}
           arcs={TILE_ARCS}

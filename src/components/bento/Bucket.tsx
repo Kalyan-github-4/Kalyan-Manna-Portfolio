@@ -1,8 +1,8 @@
 "use client"
 
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion, useInView } from "framer-motion"
 import { cn } from "@/lib/utils"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import {
   Lightning,
   PersonArmsSpread,
@@ -68,8 +68,12 @@ const BOX_DROP = 32
 
 export default function Bucket({ className }: BucketProps) {
   const [items, setItems] = useState(INITIAL_CHIPS)
+  const rootRef = useRef<HTMLDivElement>(null)
+  // Cycles only while on screen: each tick re-renders and runs a drop animation.
+  const inView = useInView(rootRef)
 
   useEffect(() => {
+    if (!inView) return
     const interval = window.setInterval(() => {
       setItems((previous) => {
         const [first, ...rest] = previous
@@ -79,13 +83,13 @@ export default function Bucket({ className }: BucketProps) {
     }, 2000)
 
     return () => window.clearInterval(interval)
-  }, [])
+  }, [inView])
 
   const chip = items[0]
   const ChipIcon = chip.icon
 
   return (
-    <div className={cn(
+    <div ref={rootRef} className={cn(
       // Deliberately not clipped: the chip enters from above the frame.
       "relative isolate aspect-655/352",
       className
