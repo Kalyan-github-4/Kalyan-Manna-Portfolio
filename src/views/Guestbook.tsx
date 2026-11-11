@@ -25,8 +25,6 @@ const PINNED_IDS: string[] = [
   "111802a4-5a8e-49bc-a9ad-6e2a9c654819", // Debojit Saha
   "7a6ccd8b-fb6c-4d96-9867-ed1211aefb62", // Neha Arora
   "f7896f68-9678-4d13-8ed9-927ecc49ee31", // Aditya Kumar
-    "fc67e41c-f4e1-4bd2-8338-d73903bceb1a", // Ankit Mishra
-
 ];
 const PINNED_COUNT = 4;
 
@@ -119,7 +117,9 @@ function GuestBook() {
   }, []);
 
   const { pinned, wall } = useMemo(() => {
-    const chosen = entries.filter((entry) => PINNED_IDS.includes(entry.id));
+    // In list order, and never more than one row's worth.
+    const chosen = PINNED_IDS.flatMap((pinId) => entries.filter((entry) => entry.id === pinId))
+      .slice(0, PINNED_COUNT);
     const pinned = chosen.length
       ? chosen
       : entries

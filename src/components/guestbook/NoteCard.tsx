@@ -110,7 +110,16 @@ const PAPERS: PaperStyle[] = [
     },
 ]
 
-const TAPES = ["#c9b77a", "#d29a9f", "#9dbb97", "#92aede"]
+/** Shorter notes are set larger, so every card fills about the same space. */
+function messageSize(length: number) {
+    if (length <= 30) return "font-display text-[2rem] leading-10"
+    if (length <= 70) return "font-display text-[1.6rem] leading-9"
+    if (length <= 140) return "font-display text-[1.15rem] leading-7"
+    if (length <= 200) return "font-sans text-[0.875rem] leading-[1.3rem]"
+    return "font-sans text-[0.8rem] leading-[1.2rem]"
+}
+
+const TAPES =["#c9b77a", "#d29a9f", "#9dbb97", "#92aede"]
 const CLIPS = ["#e0a92e", "#3fb6a0", "#df7fb0"]
 
 function Fastener({ kind, tint }: { kind: number; tint: number }): ReactNode {
@@ -211,7 +220,6 @@ export function NoteCard({
     const paper = PAPERS[hash % PAPERS.length]
     const fastener = pinned ? 0 : 1 + (hash % 3)
     const tilt = ((hash % 7) - 3) * 0.5
-    const isShort = entry.message.length <= 60
 
     return (
         // The shadow lives here as a filter so it follows torn and cut edges,
@@ -224,7 +232,9 @@ export function NoteCard({
             <Fastener kind={fastener} tint={hash} />
 
             <div
-                className={`relative overflow-hidden pb-5 pr-5 pt-9 ${paper.margin ? "pl-14" : "pl-6"}`}
+                // One height for every card from md up, so the wall reads as an even
+                // grid; on phones a single column can grow to fit the note.
+                className={`relative flex min-h-56 flex-col overflow-hidden pb-5 pr-5 pt-9 md:h-60 ${paper.margin ? "pl-14" : "pl-6"}`}
                 style={{ backgroundColor: paper.color, ...paper.style }}
             >
                 {paper.margin && (
@@ -253,21 +263,25 @@ export function NoteCard({
                     />
                 )}
 
-                <div className="float-right mb-1 ml-3">
-                    <NoteStamp
-                        imageUrl={entry.imageUrl}
-                        name={entry.author}
-                        color={paper.color}
-                    />
+                {/* A plain block, not a flex item, so the message still wraps around the stamp. */}
+                <div className="relative min-h-0 flex-1 overflow-hidden">
+                    <div className="float-right mb-1 ml-3">
+                        <NoteStamp
+                            imageUrl={entry.imageUrl}
+                            name={entry.author}
+                            color={paper.color}
+                        />
+                    </div>
+
+                    <blockquote
+                        title={entry.message}
+                        className={`wrap-break-word text-zinc-800 ${messageSize(entry.message.length)}`}
+                    >
+                        {entry.message}
+                    </blockquote>
                 </div>
 
-                <blockquote
-                    className={`wrap-break-word font-display leading-9 text-zinc-800 ${isShort ? "text-[1.8rem]" : "text-[1.45rem]"}`}
-                >
-                    {entry.message}
-                </blockquote>
-
-                <figcaption className="relative clear-both flex items-end justify-between gap-3 pt-3">
+                <figcaption className="relative flex items-end justify-between gap-3 pt-3">
                     <div className="min-w-0">
                         <p className="truncate pr-2 font-hand text-[1.7rem] leading-9 text-zinc-800">
                             — {entry.author}
