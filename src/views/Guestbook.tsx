@@ -20,8 +20,27 @@ import {
 
 // The notes that lead the page. Add entry ids here to choose them by hand;
 // until then the newest notes long enough to read well fill the row.
-const PINNED_IDS: string[] = [];
+const PINNED_IDS: string[] = [
+  "ce4106a3-45e3-4e8e-924c-d975c57e988d", // Karthik Subramanian
+  "111802a4-5a8e-49bc-a9ad-6e2a9c654819", // Debojit Saha
+  "7a6ccd8b-fb6c-4d96-9867-ed1211aefb62", // Neha Arora
+  "f7896f68-9678-4d13-8ed9-927ecc49ee31", // Aditya Kumar
+    "fc67e41c-f4e1-4bd2-8338-d73903bceb1a", // Ankit Mishra
+
+];
 const PINNED_COUNT = 4;
+
+// The faces on the signed strip, in order (phones show the first three).
+// Empty falls back to the newest notes that have a profile image.
+const STRIP_FACE_IDS: string[] = [
+  "111802a4-5a8e-49bc-a9ad-6e2a9c654819", // Debojit Saha
+  "6c9c2fa0-ad34-462a-b758-ab4d6ad3fda0", // Meera Pillai
+  "ce4106a3-45e3-4e8e-924c-d975c57e988d", // Karthik Subramanian
+  "7a6ccd8b-fb6c-4d96-9867-ed1211aefb62", // Neha Arora
+  "4874df88-a0b9-424c-b91d-5b8b8a325843", // Riya Kapoor
+  "c5ef1a38-d4d4-4a62-9444-6584928d28a5", // Saurav Ghosh
+  "3c22f00e-d5ca-41b5-b9b8-0044d37a0e05", // Aarav Sharma
+];
 const PINNED_MIN_LENGTH = 40;
 
 function mapEntryToCard(entry: GuestbookEntryResponse): NoteEntry {
@@ -115,6 +134,12 @@ function GuestBook() {
 
   // One stamp per person, for the strip under the heading.
   const faces = useMemo(() => {
+    const chosen = STRIP_FACE_IDS.flatMap((faceId) => {
+      const entry = entries.find((e) => e.id === faceId);
+      return entry?.imageUrl ? [{ id: entry.id, imageUrl: entry.imageUrl }] : [];
+    });
+    if (chosen.length) return chosen;
+
     const seen = new Set<string>();
 
     return entries.flatMap(({ id, imageUrl }) => {
