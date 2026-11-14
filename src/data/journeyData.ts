@@ -197,9 +197,9 @@ const collections: CollectionSource[] = [
         location: "UEM Jaipur",
         role: "Participant",
         description:
-            "Taking my developer journey beyond my hometown — AceHack 5.0 at UEM Jaipur and the energy of Jaipur's tech community.",
+            "My first-ever hackathon: AceHack 5.0 at UEM Jaipur, where I took my developer journey beyond my hometown and into Jaipur's tech community.",
         longDescription:
-            "Taking my developer journey beyond my hometown and into Jaipur's tech community made AceHack 5.0 particularly special. The event and its Hacktoberfest community brought together developers, innovators and open-source enthusiasts, opening up new perspectives beyond familiar circles. More than just another event, it was a reminder that learning and building have no geographical boundaries, and that some of the best takeaways come from the people you meet along the way.",
+            "AceHack 5.0 at UEM Jaipur was my first-ever hackathon, and taking my developer journey beyond my hometown made it especially memorable. The event and its Hacktoberfest community brought together developers, innovators and open-source enthusiasts, and it showed me perspectives I'd never have found in familiar circles. Walking in as a first-timer, I learned what it really means to build under pressure, work with a team and turn an idea into something real. It also taught me that learning and building have no geographical boundaries, and that some of the best takeaways come from the people you meet along the way.",
         dir: "acehack-5-0",
         files: [
             ["cover.jpeg", 2560, 1440],
@@ -232,12 +232,12 @@ const collections: CollectionSource[] = [
         date: "August 2026",
         year: 2026,
         month: "Aug",
-        location: "Kolkata, India",
+        location: "Techno India University, Kolkata",
         role: "Attendee",
         description:
-            "A collection of memories from the React Kolkata community meetup — talks, a full auditorium, and developers worth meeting.",
+            "Memories from the React Kolkata community meetup, hosted at Techno India University: talks, a full auditorium, and developers worth meeting.",
         longDescription:
-            "React Kolkata's August 2026 edition was a room full of people who build for the web, gathered for an evening of talks and conversation. Between the sessions came the part I remember most — meeting developers from across the city, swapping notes on what everyone was working on, and realising how much of this community had been within reach the whole time. This gallery captures the hall, the stage, the people and the ordinary moments in between.",
+            "React Kolkata's August 2026 edition, hosted at Techno India University, filled a room with people who build for the web for an evening of talks and conversation. What I remember most came between the sessions: meeting developers from across the city, swapping notes on what everyone was working on, and realising how much of this community had been within reach the whole time. This gallery captures the hall, the stage, the people and the ordinary moments in between.",
         // latest: true,
         hideOnHome: true,
         size: "wide",
@@ -264,7 +264,7 @@ const collections: CollectionSource[] = [
         role: "Participant",
         hideOnHome: true,
         description:
-            "A hackathon at Techno India University — thinking on my feet, working under pressure and turning an idea into something real.",
+            "A 24hr hackathon at Techno India University — thinking on my feet, working under pressure and turning an idea into something real.",
         longDescription:
             "Participated in HackRIT at Techno India University, a hackathon that challenged me to think creatively, work under pressure and approach real-world problems with a solution-first mindset. It meant collaborating, experimenting and turning an idea into something tangible within a tight timeframe, making technical decisions along the way. More than a competition, it was a lesson in the pace of hackathon development and a push to keep building.",
         size: "wide",
