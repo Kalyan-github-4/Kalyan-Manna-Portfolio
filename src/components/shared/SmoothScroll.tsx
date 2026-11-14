@@ -49,10 +49,8 @@ export default function SmoothScroll({
         duration: 1.2,
         smoothWheel: true,
 
-        // Touch scrolling
-        syncTouch: true,
-        syncTouchLerp: 0.08,
-        touchMultiplier: 1.5,
+        // Touch is left to the browser's native scrolling: syncTouch ran every
+        // touch scroll through JS on the main thread and made phones janky.
 
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       }}

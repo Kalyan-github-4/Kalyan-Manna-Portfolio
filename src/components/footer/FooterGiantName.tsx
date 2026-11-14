@@ -52,11 +52,12 @@ function Letter({ char, index, count, progress }: LetterProps) {
     const y = useTransform(progress, [start, end], ["70%", "0%"])
     const rotate = useTransform(progress, [start, end], [8, 0])
     const opacity = useTransform(progress, [start, start + LETTER_SPAN * 0.6], [0, 1])
-    const filter = useTransform(progress, [start, end], ["blur(10px)", "blur(0px)"])
+    // No blur here: a scroll-driven filter re-rasterised every giant letter on
+    // each scroll frame, which lagged phones and low-end laptops.
 
     return (
         <motion.span
-            style={{ y, rotate, opacity, filter, ...hatchStyle }}
+            style={{ y, rotate, opacity, ...hatchStyle }}
             className="inline-block origin-bottom-left will-change-transform"
         >
             {char === " " ? " " : char}

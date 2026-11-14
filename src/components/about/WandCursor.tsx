@@ -80,12 +80,16 @@ export default function WandCursor({ areaRef }: { areaRef: RefObject<HTMLElement
             y.set(pointer.clientY - rect.top + OFFSET.y)
         }
 
+        // Scrolling slides the area under a still pointer, so re-aim from its
+        // last spot — listened to only while the pointer is inside the area.
         const move = (event: PointerEvent) => {
             if (event.pointerType !== "mouse") return
+            if (!pointer) window.addEventListener("scroll", follow, { passive: true })
             pointer = { clientX: event.clientX, clientY: event.clientY }
             follow()
         }
         const leave = () => {
+            window.removeEventListener("scroll", follow)
             pointer = null
             rest()
         }
@@ -98,13 +102,11 @@ export default function WandCursor({ areaRef }: { areaRef: RefObject<HTMLElement
 
         area.addEventListener("pointermove", move)
         area.addEventListener("pointerleave", leave)
-        // Scrolling slides the area under a still pointer, so re-aim from its last spot.
-        window.addEventListener("scroll", follow, { passive: true })
         return () => {
             resizeObserver.disconnect()
             area.removeEventListener("pointermove", move)
             area.removeEventListener("pointerleave", leave)
-            window.removeEventListener("scroll", follow)
+            window.removeEventListener("scroll", follow) // in case it unmounts mid-hover
         }
     }, [areaRef, x, y, springX, springY])
 

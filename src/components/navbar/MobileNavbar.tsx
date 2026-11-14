@@ -50,9 +50,8 @@ export function MobileNavbar({ items, pathname }: MobileNavbarProps) {
             className="
               flex items-center gap-5.5
               rounded-full border border-white/[0.09]
-              bg-zinc-900/85 px-5 py-1.5
+              bg-zinc-900/95 px-5 py-1.5
               shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_0_0_1px_rgba(0,0,0,0.6),0_8px_24px_rgba(0,0,0,0.45)]
-              backdrop-blur-xl backdrop-saturate-150
             "
           >
             <span className="text-sm font-semibold uppercase tracking-wide text-white">

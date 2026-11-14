@@ -76,9 +76,9 @@ export function DesktopNavMenu({
       className="
         overflow-hidden rounded-[30px]
         border border-white/[0.09]
-        bg-zinc-900/85
+        bg-zinc-900/90
         shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_0_0_1px_rgba(0,0,0,0.6),0_8px_24px_rgba(0,0,0,0.45)]
-        backdrop-blur-xl backdrop-saturate-150
+        backdrop-blur-sm
       "
     >
       <div className="relative flex h-13 items-center justify-center overflow-hidden">
