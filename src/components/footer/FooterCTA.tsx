@@ -32,12 +32,10 @@ function FooterCTA({ isInView }: FooterCTAProps) {
                     />
 
                     <motion.div
-                        initial={{ opacity: 0, scale: 1.08 }}
-                        animate={
-                            isInView
-                                ? { opacity: 0.9, scale: 1 }
-                                : { opacity: 0, scale: 1.08 }
-                        }
+                        // Opacity only: scaling a 50–70px blur layer made the
+                        // browser re-rasterise the blur on every frame.
+                        initial={{ opacity: 0 }}
+                        animate={isInView ? { opacity: 0.9 } : { opacity: 0 }}
                         transition={{
                             duration: 1.4,
                             ease: [0.22, 1, 0.36, 1],

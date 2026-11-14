@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from "react"
 
+import { isLowPowerDevice } from "@/lib/low-power"
+
 type SmokeCanvasProps = {
   className?: string
   /** Swaps the look; defaults to the hero's violet-to-teal smoke. */
@@ -149,6 +151,10 @@ export default function SmokeCanvas({ className, fragmentShader: fragmentSource 
     canvas.style.background = "none"
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
+    // Phones and weak laptops get one still frame: the per-pixel noise is the
+    // costliest thing on the page, and a frozen frame looks nearly the same.
+    const lowPower = isLowPowerDevice()
+    const still = () => reducedMotion.matches || lowPower
     let frame = 0
     let lastDraw = 0
     let inView = true
@@ -165,11 +171,12 @@ export default function SmokeCanvas({ className, fragmentShader: fragmentSource 
       draw(now)
     }
 
-    // Runs only while someone can see it. With reduced motion it holds one frame.
+    // Runs only while someone can see it. With reduced motion or on a
+    // low-power device it holds one frame.
     const sync = () => {
       cancelAnimationFrame(frame)
       frame = 0
-      if (reducedMotion.matches) {
+      if (still()) {
         draw(0)
       } else if (inView && !document.hidden) {
         frame = requestAnimationFrame(tick)
@@ -184,7 +191,7 @@ export default function SmokeCanvas({ className, fragmentShader: fragmentSource 
       canvas.height = Math.round(height * scale)
       gl.viewport(0, 0, canvas.width, canvas.height)
       gl.uniform2f(resolution, canvas.width, canvas.height)
-      draw(performance.now())
+      draw(still() ? 0 : performance.now())
     })
     resizeObserver.observe(canvas)
 

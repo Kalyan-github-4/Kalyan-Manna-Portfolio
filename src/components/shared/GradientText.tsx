@@ -3,6 +3,8 @@
 import { useEffect, useRef } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 
+import { isLowPowerDevice } from '@/lib/low-power';
+
 // The display-heading palette. Every stop stays readable on the black pages, so
 // no word fades out as the gradient travels across it.
 export const HEADING_GRADIENT = ['#FDE68A', '#FB923C', '#FB7185'];
@@ -27,6 +29,9 @@ interface GradientTextProps {
  * whole page around it), and an IntersectionObserver pauses it off screen.
  * The old framer `useAnimationFrame` version ran for every heading on the page,
  * all the time, and repainted the entire document on each frame.
+ *
+ * On low-power devices the gradient holds still and gets no layer of its own:
+ * per-frame repaints and the extra layer memory are what cost there.
  */
 export default function GradientText({
   children,
@@ -43,6 +48,10 @@ export default function GradientText({
   useEffect(() => {
     const el = rootRef.current;
     if (!el) return;
+    if (isLowPowerDevice()) {
+      el.setAttribute('data-static', '');
+      return;
+    }
     const observer = new IntersectionObserver(([entry]) => {
       el.toggleAttribute('data-offscreen', !entry.isIntersecting);
     });
@@ -112,6 +121,10 @@ export default function GradientText({
         .gradient-text-root[data-offscreen] .gradient-text-anim,
         .gradient-text-hover-pause:hover .gradient-text-anim {
           animation-play-state: paused !important;
+        }
+        .gradient-text-root[data-static] .gradient-text-anim {
+          animation: none !important;
+          will-change: auto;
         }
         @media (prefers-reduced-motion: reduce) {
           .gradient-text-anim { animation: none !important; }

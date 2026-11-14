@@ -1,7 +1,12 @@
 "use client"
 
 import { useEffect, useRef } from "react";
+import { isLowPowerDevice } from "@/lib/low-power";
 import { cn } from "@/lib/utils";
+
+// Frames simulated up front for the still image on low-power devices — enough
+// for the trails to build up so it reads as flowing lines, not loose dots.
+const STILL_FRAMES = 45;
 
 // 30fps reads the same for soft trails and halves the per-frame work.
 const FRAME_INTERVAL = 1000 / 30;
@@ -59,6 +64,7 @@ export default function NeuralBackground({
     let inView = false;
     const mouse = { x: -1000, y: -1000 }; // Start off-screen
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const lowPower = isLowPowerDevice();
 
     // --- PARTICLE CLASS ---
     class Particle {
@@ -155,13 +161,7 @@ export default function NeuralBackground({
     };
 
     // --- ANIMATION LOOP ---
-    const animate = (now: number) => {
-      animationFrameId = requestAnimationFrame(animate);
-      if (now - lastDraw < FRAME_INTERVAL) return;
-      // Capped so a long pause doesn't fling every particle at once.
-      const step = lastDraw ? Math.min((now - lastDraw) / BASE_FRAME, 4) : 1;
-      lastDraw = now;
-
+    const drawFrame = (step: number) => {
       // "Fade" effect: Instead of clearing the canvas, we draw a semi-transparent rect
       // This creates the "Trails" look. Compounded by step so the trails keep
       // the same length at any frame rate.
@@ -174,6 +174,21 @@ export default function NeuralBackground({
       });
     };
 
+    const animate = (now: number) => {
+      animationFrameId = requestAnimationFrame(animate);
+      if (now - lastDraw < FRAME_INTERVAL) return;
+      // Capped so a long pause doesn't fling every particle at once.
+      const step = lastDraw ? Math.min((now - lastDraw) / BASE_FRAME, 4) : 1;
+      lastDraw = now;
+      drawFrame(step);
+    };
+
+    // Low-power devices get one still image, built once and then left alone.
+    const drawStill = () => {
+      ctx.globalAlpha = 1;
+      for (let i = 0; i < STILL_FRAMES; i++) drawFrame(1);
+    };
+
     // Runs only while the footer is on screen in a visible tab, and never
     // with reduced motion. Nothing is set up until the footer is first seen.
     const sync = () => {
@@ -181,6 +196,14 @@ export default function NeuralBackground({
       animationFrameId = 0;
       lastDraw = 0;
       if (!inView || document.hidden || reducedMotion.matches) return;
+      if (lowPower) {
+        if (!started) {
+          started = true;
+          init();
+          drawStill();
+        }
+        return;
+      }
       if (!started) {
         started = true;
         init();
@@ -193,7 +216,10 @@ export default function NeuralBackground({
       if (container.clientWidth === width && container.clientHeight === height) return;
       width = container.clientWidth;
       height = container.clientHeight;
-      if (started) init();
+      if (!started) return;
+      init();
+      // Resizing clears the canvas, and a still image has no loop to repaint it.
+      if (lowPower) drawStill();
     });
 
     const intersectionObserver = new IntersectionObserver(

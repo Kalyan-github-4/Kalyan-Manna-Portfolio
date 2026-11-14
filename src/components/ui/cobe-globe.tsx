@@ -69,12 +69,6 @@ export function Globe({
   const thetaOffsetRef = useRef(0)
   const isPausedRef = useRef(false)
 
-  const handlePointerDown = useCallback((e: React.PointerEvent) => {
-    pointerInteracting.current = { x: e.clientX, y: e.clientY }
-    if (canvasRef.current) canvasRef.current.style.cursor = "grabbing"
-    isPausedRef.current = true
-  }, [])
-
   const handlePointerMove = useCallback((e: PointerEvent) => {
     if (pointerInteracting.current === null) return
 
@@ -103,7 +97,9 @@ export function Globe({
     lastPointer.current = { x: e.clientX, y: e.clientY, t: now }
   }, [])
 
-  const handlePointerUp = useCallback(() => {
+  const handlePointerUp = useCallback(function handlePointerUp() {
+    window.removeEventListener("pointermove", handlePointerMove)
+    window.removeEventListener("pointerup", handlePointerUp)
     if (pointerInteracting.current !== null) {
       phiOffsetRef.current += dragOffset.current.phi
       thetaOffsetRef.current += dragOffset.current.theta
@@ -113,11 +109,23 @@ export function Globe({
     pointerInteracting.current = null
     if (canvasRef.current) canvasRef.current.style.cursor = "grab"
     isPausedRef.current = false
-  }, [])
+  }, [handlePointerMove])
 
+  // The page-wide listeners exist only during a drag, so ordinary mouse
+  // movement and scrolling elsewhere on the page never reach this component.
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      pointerInteracting.current = { x: e.clientX, y: e.clientY }
+      if (canvasRef.current) canvasRef.current.style.cursor = "grabbing"
+      isPausedRef.current = true
+      window.addEventListener("pointermove", handlePointerMove, { passive: true })
+      window.addEventListener("pointerup", handlePointerUp, { passive: true })
+    },
+    [handlePointerMove, handlePointerUp]
+  )
+
+  // Drops a drag's listeners if the globe unmounts mid-drag.
   useEffect(() => {
-    window.addEventListener("pointermove", handlePointerMove, { passive: true })
-    window.addEventListener("pointerup", handlePointerUp, { passive: true })
     return () => {
       window.removeEventListener("pointermove", handlePointerMove)
       window.removeEventListener("pointerup", handlePointerUp)
