@@ -1,7 +1,7 @@
 "use client"
 
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform, useVelocity } from "framer-motion"
-import { useEffect, type RefObject } from "react"
+import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useSpring } from "framer-motion"
+import { useEffect, useSyncExternalStore, type RefObject } from "react"
 
 // Half-widths down the wand, tip first: a thin shaft with knuckles, a banded
 // grip and a bulbous handle. Mirrored to build the outline.
@@ -41,7 +41,22 @@ const REST = { x: 0.6, y: 0.12 }
  * follows the pointer while it's over the area, and drifts back to its spot
  * when the pointer leaves. Desktop only — it sits in a layer hidden below lg.
  */
+// The wand is only drawn at lg and up with a mouse. Anywhere else it is not
+// mounted at all, so phones pay nothing for its springs.
+const DESKTOP_QUERY = "(min-width: 1024px) and (pointer: fine)"
+const subscribeDesktop = (onChange: () => void) => {
+    const mql = window.matchMedia(DESKTOP_QUERY)
+    mql.addEventListener("change", onChange)
+    return () => mql.removeEventListener("change", onChange)
+}
+const isDesktop = () => window.matchMedia(DESKTOP_QUERY).matches
+
 export default function WandCursor({ areaRef }: { areaRef: RefObject<HTMLElement | null> }) {
+    const desktop = useSyncExternalStore(subscribeDesktop, isDesktop, () => false)
+    return desktop ? <Wand areaRef={areaRef} /> : null
+}
+
+function Wand({ areaRef }: { areaRef: RefObject<HTMLElement | null> }) {
     const reducedMotion = useReducedMotion()
 
     const x = useMotionValue(0)
@@ -49,7 +64,16 @@ export default function WandCursor({ areaRef }: { areaRef: RefObject<HTMLElement
     const spring = reducedMotion ? { stiffness: 2000, damping: 100 } : { stiffness: 140, damping: 22, mass: 0.9 }
     const springX = useSpring(x, spring)
     const springY = useSpring(y, spring)
-    const swing = useTransform(useVelocity(springX), [-3000, 3000], [LEAN + 24, LEAN - 24], { clamp: true })
+    // Lean follows horizontal speed. Not framer's useVelocity: it schedules its
+    // updater with keepAlive, so after the first move it ran on every frame for
+    // as long as the page was open. Reading the velocity on each spring change
+    // stops by itself once the spring settles.
+    const swing = useMotionValue(LEAN)
+    useMotionValueEvent(springX, "change", () => {
+        const v = Math.max(-3000, Math.min(3000, springX.getVelocity()))
+        swing.set(LEAN - (v / 3000) * 24)
+    })
+    useMotionValueEvent(springX, "animationComplete", () => swing.set(LEAN))
     const rotate = useSpring(swing, { stiffness: 70, damping: 16, mass: 1.2 })
 
     useEffect(() => {
