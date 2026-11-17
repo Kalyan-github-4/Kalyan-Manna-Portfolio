@@ -9,6 +9,7 @@ import FrameMarker from "@/components/shared/FrameMarker"
 import GradientText, { HEADING_GRADIENT } from "@/components/shared/GradientText"
 import { faintDiagonalStripeStyle } from "@/components/shared/stripeStyles"
 import { VaultCollectionCard } from "@/components/vault/VaultCollectionCard"
+import { playSwitch } from "@/lib/tap-sound"
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -91,6 +92,7 @@ export default function VaultShowcase() {
                     >
                         <Link
                             href="/vault"
+                            onClick={playSwitch}
                             className="group inline-flex items-center gap-2.5 text-sm font-semibold text-zinc-300 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:ring-offset-4 focus-visible:ring-offset-black"
                         >
                             See more collections
@@ -109,6 +111,11 @@ export default function VaultShowcase() {
                     transition={{ duration: 0.8, delay: 0.15, ease: EASE }}
                     className="relative grid grid-cols-1 gap-3 border-b border-white/10 p-3 sm:grid-cols-2 lg:grid-cols-3"
                     style={faintDiagonalStripeStyle}
+                    // The cards are shared with the /vault page, so the tap is
+                    // added here to keep it to the home page.
+                    onClick={(event) => {
+                        if ((event.target as HTMLElement).closest("a")) playSwitch()
+                    }}
                 >
                     <FrameMarker className="-bottom-1 -left-1" />
                     <FrameMarker className="-bottom-1 -right-1" />

@@ -4,6 +4,8 @@ import { motion } from "framer-motion"
 import { ArrowRight } from "@phosphor-icons/react"
 import Link from "next/link"
 
+import { playSwitch } from "@/lib/tap-sound"
+
 import { ghostDiagonalStripeStyle } from "../shared/stripeStyles"
 import { bentoFadeUp } from "./bentoMotion"
 
@@ -153,11 +155,12 @@ export default function BentoCard({
       target="_blank"
       rel="noopener noreferrer"
       className={className}
+      onClick={playSwitch}
     >
       {card}
     </a>
   ) : (
-    <Link href={href} className={className}>
+    <Link href={href} className={className} onClick={playSwitch}>
       {card}
     </Link>
   )
