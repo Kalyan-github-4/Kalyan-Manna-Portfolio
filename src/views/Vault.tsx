@@ -114,6 +114,7 @@ export default function Vault() {
                                 <AnimatePresence mode="popLayout">
                                     {gridItems.map((item) => (
                                         <VaultCollectionCard
+                                            layout
                                             key={item.id}
                                             item={item}
                                         />

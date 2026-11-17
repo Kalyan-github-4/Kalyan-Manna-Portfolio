@@ -12,14 +12,17 @@ const EASE = [0.22, 1, 0.36, 1] as const
 
 interface VaultCollectionCardProps {
     item: JourneyItem
+    /** Animate position changes. Only the Vault page's filter reflows cards;
+        elsewhere it just adds layout measurement on load. */
+    layout?: boolean
 }
 
-export function VaultCollectionCard({ item }: VaultCollectionCardProps) {
+export function VaultCollectionCard({ item, layout = false }: VaultCollectionCardProps) {
     const reduceMotion = useReducedMotion()
 
     return (
         <motion.article
-            layout
+            layout={layout}
             initial={{ opacity: 0, y: reduceMotion ? 0 : 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97 }}
