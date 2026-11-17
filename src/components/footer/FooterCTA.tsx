@@ -4,10 +4,14 @@ import { memo } from "react"
 import { ArrowRight } from "@phosphor-icons/react"
 import { motion } from "framer-motion"
 
-import { ContactDialog } from "@/components/contact/ContactDialog"
+// Popup replaced by the /contact page:
+// import { LazyContactDialog } from "@/components/contact/LazyContactDialog"
+import Link from "next/link"
 import { MagneticButton } from "../shared/MagneticButton"
 import NeuralBackground from "./NeuralBackground"
 import { fadeScale, fadeUp, staggerContainer } from "./footerMotion"
+
+const MotionLink = motion.create(Link)
 
 type FooterCTAProps = {
     isInView: boolean
@@ -85,9 +89,9 @@ function FooterCTA({ isInView }: FooterCTAProps) {
                             y, which is the axis MagneticButton drives. */}
                         <motion.div custom={2} variants={fadeUp}>
                             <MagneticButton>
-                                <ContactDialog>
-                                    <motion.button
-                                        type="button"
+                                {/* <LazyContactDialog> */}
+                                    <MotionLink
+                                        href="/contact"
                                         whileTap={{ scale: 0.97 }}
                                         className="group relative inline-flex cursor-pointer items-center justify-between overflow-hidden rounded-full border border-white/20 bg-white/10 py-1 pl-4 pr-1 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-500 sm:pl-5"
                                     >
@@ -100,8 +104,8 @@ function FooterCTA({ isInView }: FooterCTAProps) {
                                         <span className="relative z-10 ml-2 flex h-9 w-9 items-center justify-center rounded-full bg-white text-slate-900 transition-transform duration-500 group-hover:translate-x-1 sm:h-10 sm:w-10">
                                             <ArrowRight size={14} />
                                         </span>
-                                    </motion.button>
-                                </ContactDialog>
+                                    </MotionLink>
+                                {/* </LazyContactDialog> */}
                             </MagneticButton>
                         </motion.div>
 

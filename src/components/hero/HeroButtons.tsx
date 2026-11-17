@@ -3,7 +3,9 @@
 import { useState } from "react"
 import { ArrowRight, Check, Copy } from "@phosphor-icons/react"
 
-import { ContactDialog } from "@/components/contact/ContactDialog"
+// Popup replaced by the /contact page:
+// import { LazyContactDialog } from "@/components/contact/LazyContactDialog"
+import Link from "next/link"
 import { MagneticButton } from "@/components/shared/MagneticButton"
 import { siteConfig } from "@/config"
 
@@ -27,9 +29,9 @@ export function HeroButtons() {
 	return (
 		<div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
 			<MagneticButton>
-				<ContactDialog>
-					<button
-						type="button"
+				{/* <LazyContactDialog> */}
+					<Link
+						href="/contact"
 						className="
 			group relative inline-flex cursor-pointer items-center justify-between
 			overflow-hidden rounded-full border border-white/20
@@ -86,8 +88,8 @@ export function HeroButtons() {
 				"
 							/>
 						</span>
-					</button>
-				</ContactDialog>
+					</Link>
+				{/* </LazyContactDialog> */}
 			</MagneticButton>
 
 			<button
