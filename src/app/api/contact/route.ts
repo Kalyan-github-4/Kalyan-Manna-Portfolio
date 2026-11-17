@@ -7,6 +7,13 @@ const contactSchema = z.object({
   name: z.string().trim().min(2).max(80),
   email: z.string().trim().email().max(120),
   message: z.string().trim().min(10).max(3000),
+  topic: z.string().trim().max(40).optional(),
+  call: z
+    .object({
+      start: z.iso.datetime(),
+      timeZone: z.string().trim().max(64),
+    })
+    .optional(),
 })
 
 export async function POST(request: Request) {
@@ -19,7 +26,7 @@ export async function POST(request: Request) {
     )
   }
 
-  const { name, email, message } = parsed.data
+  const { name, email, message, topic, call } = parsed.data
 
   const {
     SMTP_HOST: host,
@@ -47,8 +54,25 @@ export async function POST(request: Request) {
     from: process.env.CONTACT_FROM_EMAIL || user,
     to,
     replyTo: email,
-    subject: `Portfolio contact from ${name}`,
-    text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+    subject: call
+      ? `Call request from ${name}`
+      : `Portfolio contact from ${name}${topic ? ` (${topic})` : ""}`,
+    text: [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      topic ? `Topic: ${topic}` : null,
+      call
+        ? `Call requested (30 min, Google Meet): ${new Date(call.start).toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+            dateStyle: "full",
+            timeStyle: "short",
+          })} IST (their time zone: ${call.timeZone})`
+        : null,
+      "",
+      message,
+    ]
+      .filter((line) => line !== null)
+      .join("\n"),
   })
 
   return Response.json(

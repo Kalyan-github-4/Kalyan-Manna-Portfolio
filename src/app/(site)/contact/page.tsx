@@ -2,7 +2,9 @@ import type { Metadata } from "next"
 
 import { siteConfig } from "@/config/site"
 
-export { default } from "@/components/contact/Contact"
+// Old tabbed contact page, replaced by the letter:
+// export { default } from "@/components/contact/Contact"
+export { default } from "@/components/contact/ContactPage"
 
 export const metadata: Metadata = {
   title: "Contact",
