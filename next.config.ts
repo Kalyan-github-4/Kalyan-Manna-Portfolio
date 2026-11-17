@@ -71,7 +71,10 @@ const nextConfig: NextConfig = {
   turbopack: { root: path.dirname(fileURLToPath(import.meta.url)) },
 
   images: {
-    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "images.pexels.com" },
+    ],
   },
 
   async headers() {

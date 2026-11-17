@@ -76,17 +76,17 @@ const CHAIN_FADE =
   "linear-gradient(to right, transparent 4%, rgba(0,0,0,0.22) 6%, rgba(0,0,0,0.27) 8%, rgba(0,0,0,0.38) 13%, rgba(0,0,0,0.47) 19%, rgba(0,0,0,0.59) 24%, rgba(0,0,0,0.66) 27%, rgba(0,0,0,0.78) 34%, rgba(0,0,0,0.9) 42%, #000 50%, rgba(0,0,0,0.9) 58%, rgba(0,0,0,0.78) 66%, rgba(0,0,0,0.66) 73%, rgba(0,0,0,0.59) 76%, rgba(0,0,0,0.47) 81%, rgba(0,0,0,0.38) 87%, rgba(0,0,0,0.27) 92%, rgba(0,0,0,0.22) 94%, transparent 96%)"
 
 /**
- * Client faces that surface on hover, each parked on a ring's stroke. `x`/`y`
- * are the avatar's centre in diameters from the tile's midpoint and `size` its
- * width in diameters; `opacity` dims a face on hover. Kept inside ±2.2 so
+ * Guestbook faces that surface on hover, each parked on a ring's stroke.
+ * `x`/`y` are the avatar's centre in diameters from the tile's midpoint and
+ * `size` its width in diameters; `opacity` dims a face on hover. Kept inside ±2.2 so
  * none drift past the chain's fade.
  */
 const CLIENTS = [
-  { src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&h=160&fit=crop&crop=faces&q=80", x: -2.18, y: -0.25, size: 0.24, opacity: 0.6 },
-  { src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=160&h=160&fit=crop&crop=faces&q=80", x: -0.8, y: -0.45, size: 0.35 },
-  { src: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=160&h=160&fit=crop&crop=faces&q=80", x: -1.1, y: 0.35, size: 0.29 },
-  { src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160&h=160&fit=crop&crop=faces&q=80", x: 1.0, y: 0.38, size: 0.34 },
-  { src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=160&h=160&fit=crop&crop=faces&q=80", x: 2.0, y: -0.43, size: 0.26, opacity: 0.6 },
+  { src: "https://images.pexels.com/photos/29811345/pexels-photo-29811345.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop", x: -2.18, y: -0.25, size: 0.24, opacity: 0.6 }, // Pooja Mehta
+  { src: "https://images.pexels.com/photos/9127300/pexels-photo-9127300.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop", x: -0.8, y: -0.45, size: 0.35 }, // Rohit Patil
+  { src: "https://images.pexels.com/photos/17329048/pexels-photo-17329048.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop", x: -1.1, y: 0.35, size: 0.29 }, // Kavya Krishnan
+  { src: "https://images.pexels.com/photos/10987899/pexels-photo-10987899.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop", x: 1.0, y: 0.38, size: 0.34 }, // Akhil Pillai
+  { src: "https://images.pexels.com/photos/15321852/pexels-photo-15321852.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop", x: 2.0, y: -0.43, size: 0.26, opacity: 0.6 }, // Karthik Subramanian
 ]
 
 export default function CollaborateCard({ className = "" }: { className?: string }) {
