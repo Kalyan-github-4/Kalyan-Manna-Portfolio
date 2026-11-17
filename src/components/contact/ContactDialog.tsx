@@ -36,6 +36,8 @@ interface ContactDialogProps {
     linkedinUrl?: string
     instagramUrl?: string
     githubUrl?: string
+    /** Opens on mount — used when the click came in while the dialog was still loading. */
+    defaultOpen?: boolean
 }
 
 export function ContactDialog({
@@ -47,6 +49,7 @@ export function ContactDialog({
     linkedinUrl = contactConfig.linkedinUrl,
     instagramUrl = contactConfig.instagramUrl,
     githubUrl = contactConfig.githubUrl,
+    defaultOpen = false,
 }: ContactDialogProps) {
     const [message, setMessage] = useState("")
     const [copied, setCopied] = useState(false)
@@ -85,7 +88,7 @@ export function ContactDialog({
     }
 
     return (
-        <Dialog>
+        <Dialog defaultOpen={defaultOpen}>
             <DialogTrigger asChild>{children}</DialogTrigger>
 
             <DialogContent
